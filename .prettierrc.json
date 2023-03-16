@@ -1,0 +1,9 @@
+{
+  "singleAttributePerLine": true,
+  "arrowParens": "avoid",
+  "semi": true,
+  "bracketSpacing": true,
+  "useTabs": true,
+  "bracketSameLine": false,
+  "tabWidth": 1
+}
