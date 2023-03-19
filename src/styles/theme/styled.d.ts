@@ -1,10 +1,20 @@
 // import original module declarations
 import 'styled-components';
+type ColorType = {
+    200?: string,
+    400?: string,
+    600?: string,
+    800?: string,
+    1000?: string,
+}
 
 // and extend them!
 declare module 'styled-components' {
     export interface DefaultTheme {
         name: 'light'|"dark",
+        isLight: ()=>boolean,
+        isDark: ()=>boolean,
+    	pxToRem: (px)=>string, 
         border: {
             radius: {
                 sm: string,
@@ -15,16 +25,17 @@ declare module 'styled-components' {
         colors: {
             background?: string,
             text?: string,
-            primary: string[],
-            secondary: string[],
+            primary: ColorType,
+            secondary: ColorType,
             black: string,
             white: string,
-            dark_gray: string[],
-            light_gray: string[],
-            success: string[],
-            warning: string[],
-            danger: string[],
-            shadow: string[],
+            dark_gray: ColorType,
+            light_gray: ColorType,
+            success: ColorType,
+            warning: ColorType,
+            danger: ColorType,
+            error: ColorType,
+            shadow: ColorType,
         },
         font: {
             size: {
@@ -46,7 +57,7 @@ declare module 'styled-components' {
                 xxxlg: string,
             },
             family: {
-                sans: string,
+                text: string,
                 title: string,
             },
             spacing: {
