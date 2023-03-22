@@ -10,6 +10,7 @@ export type ButtonProps = {
 } & React.HTMLAttributes<HTMLButtonElement>
   & React.PropsWithChildren;
 export const Button: React.FC<ButtonProps> = ({buttonStyle='filled', disabled = false, children, loading = false, ...props}) => {
+
 	if(loading){
 		return (
 			<>

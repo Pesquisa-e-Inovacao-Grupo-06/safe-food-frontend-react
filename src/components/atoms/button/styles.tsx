@@ -27,6 +27,7 @@ export const StyledButton = styled.button<{
 			`
 		}
 	}}
+	
 	min-width: 240px;
 	height: ${p=>p.theme.pxToRem(60)};
 	font-size: ${p => p.theme.font.size.xlg};
@@ -34,6 +35,8 @@ export const StyledButton = styled.button<{
 	font-family: ${p => p.theme.font.family.text};
 	border-radius: ${({theme})=>theme.border.radius.md};
 	cursor: pointer;
+	
+	
 	font-weight: 600;
 	opacity: .85;
 	&:hover, &:focus,&:focus-within{
