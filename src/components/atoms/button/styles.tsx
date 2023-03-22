@@ -10,7 +10,7 @@ export const StyledButton = styled.button<{
 		if(p.buttonStyle === "filled"){
 			// quando retornamos css`` ele vai fazer o estilo, entao comecamos a programar css/styled-components
 			return css`
-				box-shadow: ${({theme})=>theme.colors.shadow[400]};
+				box-shadow: ${({theme})=>theme.colors.shadow[200]};
 				background-color: ${p=> p.theme.isLight() ? p.theme.colors.primary[600] : p.theme.colors.primary[800]};
 				border: 2px solid ${p=> {
 					if(p.theme.isLight()){
@@ -23,14 +23,13 @@ export const StyledButton = styled.button<{
 		else if(p.buttonStyle === `outline`){
 			return css`
 				background-color: transparent;
-				border: 4px solid ${p=>p.theme.colors.primary[400]};
+				border: .5px solid ${p=>p.theme.colors.primary[400]};
 			`
 		}
 	}}
-	
-	min-width: 240px;
-	height: ${p=>p.theme.pxToRem(60)};
-	font-size: ${p => p.theme.font.size.xlg};
+	min-width: 160px;
+	height: ${p=>p.theme.pxToRem(37)};
+	font-size: ${p => p.theme.font.size.md};
 	color: ${p=>p.buttonStyle == `filled` ? p.theme.colors.light_gray[200] : p.theme.colors.text};
 	font-family: ${p => p.theme.font.family.text};
 	border-radius: ${({theme})=>theme.border.radius.md};
@@ -43,7 +42,7 @@ export const StyledButton = styled.button<{
 		opacity: 1;
 	}
 	&:hover{
-		box-shadow: ${({theme})=>theme.colors.shadow[600]};
+		box-shadow: ${({theme})=>theme.colors.shadow[200]};
 	}
 	&:disabled{
 		opacity: .8;

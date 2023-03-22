@@ -8,8 +8,8 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <ThemeProvider theme={lightTheme}>
       <GlobalStyles />
-      <Button>
-        Bom dia
+      <Button buttonStyle='outline'>
+        cadastre-se
       </Button>
     </ThemeProvider>
   </React.StrictMode>,

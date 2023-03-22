@@ -7,6 +7,7 @@ export type ButtonProps = {
 	buttonStyle?: ButtonStyle;
 	disabled?: boolean;
 	loading?: boolean;
+	onClick?: () => void;
 } & React.HTMLAttributes<HTMLButtonElement>
   & React.PropsWithChildren;
 export const Button: React.FC<ButtonProps> = ({buttonStyle='filled', disabled = false, children, loading = false, ...props}) => {
@@ -15,7 +16,7 @@ export const Button: React.FC<ButtonProps> = ({buttonStyle='filled', disabled = 
 		return (
 			<>
 				<S.StyledButton disabled={disabled || false} buttonStyle={buttonStyle}>
-					<AiOutlineLoading className="spin" size={40}/>
+					<AiOutlineLoading className="spin" size={30}/>
 				</S.StyledButton>
 			</>	
 		)
