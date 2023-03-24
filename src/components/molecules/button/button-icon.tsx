@@ -1,4 +1,4 @@
-import { Button } from "../../atoms/button/button-atom";
+import { Button, ButtonProps } from "../../atoms/button/button-atom";
 import React, { ReactNode } from "react";
 
 export type AlignType = "left" | "right";
@@ -8,14 +8,16 @@ export type ButtonIconProps = {
 } & React.HtmlHTMLAttributes<HTMLButtonElement> &
 	React.PropsWithChildren;
 
-export const ButtonIcon: React.FC<ButtonIconProps> = ({
+type Props = ButtonProps & ButtonIconProps;
+export const ButtonIcon: React.FC<Props> = ({
 	icon,
 	alignIcon = "right",
 	children,
+	...props
 }) => {
 	if (alignIcon == "left") {
 		return (
-			<Button>
+			<Button {...props}>
 				<>
 					{icon}
 					{children}
@@ -25,7 +27,7 @@ export const ButtonIcon: React.FC<ButtonIconProps> = ({
 	}
 
 	return (
-		<Button>
+		<Button {...props}>
 			<>
 				{children}
 				{icon}

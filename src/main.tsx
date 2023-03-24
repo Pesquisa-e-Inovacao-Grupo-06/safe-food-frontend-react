@@ -11,13 +11,6 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 	<React.StrictMode>
 		<ThemeProvider theme={lightTheme}>
 			<GlobalStyles />
-			<Button>Bom dia</Button>
-			<ButtonIcon
-				icon={<FaArrowRight />}
-				alignIcon="right"
-			>
-				teste{" "}
-			</ButtonIcon>
 		</ThemeProvider>
 	</React.StrictMode>
 );
