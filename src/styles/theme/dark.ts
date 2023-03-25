@@ -3,9 +3,8 @@ const pixelToRem = (px: number) => px / 16 + "em";
 
 export const darkTheme: DefaultTheme = {
 	name: "dark",
-	isLight: () => false,
-	isDark: () => true,
-	pxToRem: (px: number) => px / 16 + "rem", 
+	isLight: false,
+	isDark: true,
 	border: {
 		radius: {
 			sm: pixelToRem(2),
