@@ -15,7 +15,7 @@ export type FooterOrganismProps = {};
 
 export const FooterOrganism = ({}) => {
 	var iconSize = 20;
-
+	//	TODO: responsividade para celular
 	return (
 		<div>
 			<StyledFooterContainer>
@@ -53,6 +53,7 @@ export const FooterOrganism = ({}) => {
 							icon={<FaFacebook size={iconSize} />}
 							iconAlign="left"
 							text="Facebook"
+							iconColor="orange"
 						/>
 					</StyledLIFooterColumn>
 					<StyledLIFooterColumn>
@@ -60,6 +61,7 @@ export const FooterOrganism = ({}) => {
 							icon={<FaGoogle size={iconSize} />}
 							iconAlign="left"
 							text="Gmail"
+							iconColor="orange"
 						/>
 					</StyledLIFooterColumn>
 
@@ -68,6 +70,7 @@ export const FooterOrganism = ({}) => {
 							icon={<FaInstagram size={iconSize} />}
 							iconAlign="left"
 							text="Instagram"
+							iconColor="orange"
 						/>
 					</StyledLIFooterColumn>
 
@@ -76,6 +79,7 @@ export const FooterOrganism = ({}) => {
 							icon={<FaTwitter size={iconSize} />}
 							iconAlign="left"
 							text="Twitter"
+							iconColor="orange"
 						/>
 					</StyledLIFooterColumn>
 				</FooterColumnMolecule>

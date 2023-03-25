@@ -11,14 +11,14 @@ export type TypeText =
 	| "text-xsm-i";
 export type TextProps = {
 	typeText?: TypeText;
-	color?: ColorType;
+	color?: string;
 	text?: string;
 } & React.HTMLAttributes<HTMLButtonElement>;
 
 export const TextAtom: React.FC<TextProps> = ({
 	typeText = "text-md",
 	text = "",
-	color = "blue",
+	color = "black",
 	...props
 }) => {
 	return (
