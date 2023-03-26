@@ -1,6 +1,7 @@
 import { Container } from "react-dom";
 import { TextProps, TextAtom } from "../../atoms/text/text-atom";
 import {
+	StyledDivFooterColumn,
 	StyledFooterColumnContainer,
 	StyledTitleFooterColumn,
 } from "./footer-column-style";
@@ -12,13 +13,9 @@ export type FooterColumnMoleculeProps = {
 
 type Props = FooterColumnMoleculeProps & TextProps;
 
-export const FooterColumnMolecule: React.FC<Props> = ({
-	title,
-	typeText,
-	children,
-}) => {
+export const FooterColumnMolecule: React.FC<Props> = ({ title, children }) => {
 	return (
-		<div>
+		<StyledDivFooterColumn>
 			<StyledFooterColumnContainer>
 				<StyledTitleFooterColumn>
 					<TextAtom
@@ -28,6 +25,6 @@ export const FooterColumnMolecule: React.FC<Props> = ({
 				</StyledTitleFooterColumn>
 			</StyledFooterColumnContainer>
 			{children}
-		</div>
+		</StyledDivFooterColumn>
 	);
 };

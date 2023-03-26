@@ -1,17 +1,10 @@
 import { ColorType } from "@/styles/theme/styled";
 import { StyledText } from "./styles";
 
-export type TypeText =
-	| "title"
-	| "subtitle"
-	| "text-xlg"
-	| "text-md"
-	| "text-mdb"
-	| "text-sm"
-	| "text-xsm-i";
+export type TypeText = "text-md" | "text-mdb" | "text-sm" | "text-xsm-i";
 export type TextProps = {
 	typeText?: TypeText;
-	color?: string;
+	color?: ColorType & string;
 	text?: string;
 } & React.HTMLAttributes<HTMLButtonElement>;
 

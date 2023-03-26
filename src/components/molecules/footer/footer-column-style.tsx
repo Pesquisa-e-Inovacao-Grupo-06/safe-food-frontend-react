@@ -12,8 +12,8 @@ export const StyledFooterColumnContainer = styled.div`
 	& ::after {
 		content: "";
 		position: absolute;
-		width: 12.5em;
-		max-width: 100%;
+		width: 94%;
+		/* max-width: 100%; */
 		height: 3px;
 		background-color: ${p => p.theme.colors.primary[600]};
 		border-radius: 4px;
@@ -24,4 +24,8 @@ export const StyledFooterColumnContainer = styled.div`
 
 export const StyledLIFooterColumn = styled.li`
 	padding-top: 12px;
+`;
+
+export const StyledDivFooterColumn = styled.div`
+	padding-bottom: 45px;
 `;

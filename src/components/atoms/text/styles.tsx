@@ -7,32 +7,6 @@ export const StyledText = styled.span<{
 }>`
 	${p => {
 		switch (p.typeText) {
-			case "title":
-				return css`
-					font-size: ${p => p.theme.font.size.xxxlg};
-					height: ${p => p.theme.pxToRem(56)};
-					font-family: ${p => p.theme.font.family.text};
-					font-weight: 700;
-				`;
-				break;
-			case "subtitle":
-				return css`
-					font-size: ${p => p.theme.font.size.xxlg};
-					font-family: ${p => p.theme.font.family.text};
-					height: ${p => p.theme.pxToRem(36)};
-					font-weight: 500;
-				`;
-				break;
-
-			case "text-xlg":
-				return css`
-					font-size: ${p => p.theme.font.size.xlg};
-					font-family: ${p => p.theme.font.family.text};
-					height: ${p => p.theme.pxToRem(28)};
-					font-weight: 400;
-				`;
-				break;
-
 			case "text-md":
 				return css`
 					font-size: ${p => p.theme.font.size.md};
@@ -40,7 +14,6 @@ export const StyledText = styled.span<{
 					height: ${p => p.theme.pxToRem(24)};
 					font-weight: 400;
 				`;
-				break;
 
 			case "text-mdb":
 				return css`
@@ -50,7 +23,6 @@ export const StyledText = styled.span<{
 					font-family: ${p => p.theme.font.family.text};
 					text-align: center;
 				`;
-				break;
 
 			case "text-sm":
 				return css`
@@ -59,7 +31,6 @@ export const StyledText = styled.span<{
 					font-family: ${p => p.theme.font.family.text};
 					font-weight: 400;
 				`;
-				break;
 
 			case "text-xsm-i":
 				return css`
@@ -68,7 +39,6 @@ export const StyledText = styled.span<{
 					font-weight: 400;
 					font-family: ${p => p.theme.font.family.text};
 				`;
-				break;
 
 			default:
 				return css`

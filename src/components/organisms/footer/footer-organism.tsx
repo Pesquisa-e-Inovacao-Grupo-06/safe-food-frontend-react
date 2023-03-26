@@ -17,7 +17,7 @@ export const FooterOrganism = ({}) => {
 	var iconSize = 20;
 	//	TODO: responsividade para celular
 	return (
-		<div>
+		<>
 			<StyledFooterContainer>
 				<FooterColumnMolecule title="Informações">
 					<ul>
@@ -89,7 +89,6 @@ export const FooterOrganism = ({}) => {
 						alt=""
 						width={200}
 					/>
-					{/* TODO: container com icone da play store */}
 				</FooterColumnMolecule>
 			</StyledFooterContainer>
 
@@ -102,10 +101,9 @@ export const FooterOrganism = ({}) => {
 				<img
 					src={Logo}
 					alt=""
-					// width={}
 					height={90}
 				/>
 			</StyledCopyRightContainer>
-		</div>
+		</>
 	);
 };
