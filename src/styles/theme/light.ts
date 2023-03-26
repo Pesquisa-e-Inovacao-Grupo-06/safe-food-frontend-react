@@ -1,6 +1,6 @@
 import { DefaultTheme } from "styled-components";
 
-export const pixelToRem = (px: number) => px / 16 + "em";
+export const pixelToRem = (px: number) => px / 16 + "rem";
 
 export const lightTheme: DefaultTheme = {
 	name: "light",
@@ -81,19 +81,19 @@ export const lightTheme: DefaultTheme = {
 			xsm: pixelToRem(10),
 			sm: pixelToRem(12),
 			md: pixelToRem(16),
-			lg: pixelToRem(20),
-			xlg: pixelToRem(24),
-			xxlg: pixelToRem(36),
-			xxxlg: pixelToRem(54),
+			lg: pixelToRem(24),
+			xlg: pixelToRem(36),
+			xxlg: pixelToRem(56),
+			xxxlg: pixelToRem(64),
 		},
 		height: {
-			xsm: pixelToRem(14),
-			sm: pixelToRem(16),
-			md: pixelToRem(24),
-			lg: pixelToRem(28),
-			xlg: pixelToRem(32),
-			xxlg: pixelToRem(42),
-			xxxlg: pixelToRem(60),
+			xsm: pixelToRem(10*1.4),
+			sm: pixelToRem(12*1.4),
+			md: pixelToRem(16*1.4),
+			lg: pixelToRem(24*1.4),
+			xlg: pixelToRem(36*1.4),
+			xxlg: pixelToRem(56*1.4),
+			xxxlg: pixelToRem(64*1.4),
 		},
 		family: {
 			text: "Source Sans Pro, sans-serif",
