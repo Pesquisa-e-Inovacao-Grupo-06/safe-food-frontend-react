@@ -1,15 +1,21 @@
 import Select from "react-select";
 import { useTheme } from "styled-components";
 import { StyledSelect } from "./select-styles";
+import { ColorType } from "@/styles/theme/styled";
 
 export type SelectProps = {
 	options: Array<string>;
 	width?: number;
+	nameSelect?: string;
+	noOptionsMessage?: string;
+	colorArrowIcon?: ColorType & string;
 } & React.PropsWithChildren;
-// TODO: deixar as cores personalizadas
 export const SelectAtom: React.FC<SelectProps> = ({
 	options,
 	width,
+	nameSelect,
+	noOptionsMessage = "Sem resultados",
+	colorArrowIcon,
 	...props
 }) => {
 	const theme = useTheme();
@@ -17,7 +23,7 @@ export const SelectAtom: React.FC<SelectProps> = ({
 		dropdownIndicator: (provided: any) => ({
 			...provided,
 			svg: {
-				fill: theme.colors.primary[600],
+				fill: colorArrowIcon ? colorArrowIcon : theme.colors.primary[600],
 			},
 		}),
 	};
@@ -25,8 +31,9 @@ export const SelectAtom: React.FC<SelectProps> = ({
 	return (
 		<StyledSelect width={width}>
 			<Select
-				placeholder="Ordenar"
+				placeholder={nameSelect}
 				styles={style}
+				noOptionsMessage={() => noOptionsMessage}
 			/>
 		</StyledSelect>
 	);
