@@ -5,14 +5,15 @@ export const StyledTitleFooterColumn = styled.p`
 `;
 
 export const StyledFooterColumnContainer = styled.div`
-	width: 250px;
+	min-width: 300px;
+	width: 100%;
 
 	position: relative;
 
 	& ::after {
 		content: "";
 		position: absolute;
-		width: 94%;
+		width: 15em;
 		/* max-width: 100%; */
 		height: 3px;
 		background-color: ${p => p.theme.colors.primary[600]};
@@ -28,4 +29,8 @@ export const StyledLIFooterColumn = styled.li`
 
 export const StyledDivFooterColumn = styled.div`
 	padding-bottom: 45px;
+	#play-store {
+		max-width: 300px;
+		width: auto;
+	}
 `;

@@ -26,4 +26,12 @@ export const StyledCopyRightContainer = styled.div`
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
+
+	@media (max-width: 750px) {
+		img {
+			width: 119px;
+			height: 60px;
+		}
+		flex-direction: column-reverse;
+	}
 `;

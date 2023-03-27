@@ -5,7 +5,7 @@ import {
 	StyledLIFooterColumn,
 } from "./footer-organism-styles";
 
-import Logo from "../../../assets/Logo-Principal.png";
+import Logo from "../../../assets/svg-logo.svg";
 import GoogleLogo from "../../../assets/google/selo-google.png";
 import { TextAtom } from "../../atoms/text/text-atom";
 import { FaFacebook, FaGoogle, FaInstagram, FaTwitter } from "react-icons/fa";
@@ -85,9 +85,9 @@ export const FooterOrganism = ({}) => {
 				</FooterColumnMolecule>
 				<FooterColumnMolecule title="Baixe o Aplicativo">
 					<img
+						id="play-store"
 						src={GoogleLogo}
 						alt=""
-						width={200}
 					/>
 				</FooterColumnMolecule>
 			</StyledFooterContainer>
@@ -95,14 +95,10 @@ export const FooterOrganism = ({}) => {
 			<StyledCopyRightContainer>
 				<TextAtom
 					typeText="text-sm"
-					text="© Safe Food 2023 - Todos os Direitos Reservados"
+					text="© Safe Food 2023 - Todos os Direitos Reservados."
 				></TextAtom>
 				{/* TODO: icone da safefood em svg para aumentar resolução */}
-				<img
-					src={Logo}
-					alt=""
-					height={90}
-				/>
+				<img src={Logo} />
 			</StyledCopyRightContainer>
 		</>
 	);
