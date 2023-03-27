@@ -5,13 +5,15 @@ export const StyledTitleFooterColumn = styled.p`
 `;
 
 export const StyledFooterColumnContainer = styled.div`
-	width: 200px;
+	width: 250px;
+
 	position: relative;
 
 	& ::after {
 		content: "";
 		position: absolute;
-		width: 12em;
+		width: 12.5em;
+		max-width: 100%;
 		height: 3px;
 		background-color: ${p => p.theme.colors.primary[600]};
 		border-radius: 4px;

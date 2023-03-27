@@ -12,7 +12,7 @@ export type TypeText =
 export type TextProps = {
 	typeText?: TypeText;
 	color?: ColorType;
-	text: string;
+	text?: string;
 } & React.HTMLAttributes<HTMLButtonElement>;
 
 export const TextAtom: React.FC<TextProps> = ({
