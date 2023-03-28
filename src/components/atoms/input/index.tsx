@@ -1,24 +1,33 @@
 import React from "react";
-import { StyledInput, StyledInputProps } from "./styles";
+import { StyledInput } from "./styles";
 
 export type InputPropsComponent = {
 	type?: "string" | "password" | "date" | "tel" | "email";
 	min?: number;
+	required?: boolean;
 	max?: number;
-	value?: string;
+	value: string;
+	error?: string;
 };
-export type InputProps = StyledInputProps &
-	React.HTMLAttributes<HTMLInputElement> &
+export type InputProps = React.HTMLAttributes<HTMLInputElement> &
 	InputPropsComponent;
-export const Input: React.FC<InputProps> = ({ error = false, ...props }) => {
+export const Input: React.FC<InputProps> = ({
+	error = "",
+	value,
+	max = 100,
+	min = 0,
+	type = "string",
+	...props
+}) => {
 	return (
 		<>
 			<StyledInput
-				error={error}
-				minLength={props.min}
-				maxLength={props.max}
-				type={props.type}
-				value={props.value}
+				error={error.length > 0}
+				type={type}
+				value={value}
+				pattern={"abc"}
+				maxLength={max}
+				minLength={min}
 				{...props}
 			/>
 		</>

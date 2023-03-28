@@ -64,8 +64,7 @@ export const StyledButton = styled.button<{
 	}
 
 	@media (max-width: ${p => p.theme.breakpoint.sm}) {
-		width: 90%;
-		margin: 20px;
+		width: 100%;
 		font-size: ${p => p.theme.font.size.lg};
 	}
 `;

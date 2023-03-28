@@ -69,7 +69,7 @@ export const lightTheme: DefaultTheme = {
 			"800": "#ED2345",
 		},
 		shadow: {
-			"200": "0px 2px 2px 2px #00000011",
+			"200": "0px 1px 1px 1px #00000022",
 			"400": "0px 2px 1px 1px #21212111",
 			"600": "0px 4px 12px 2px #21212111",
 			"800": "0px 6px 32px 4px #21212111",

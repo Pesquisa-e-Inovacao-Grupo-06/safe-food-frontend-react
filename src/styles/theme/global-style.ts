@@ -10,6 +10,7 @@ const GlobalStyles = createGlobalStyle`
     list-style: none;
     box-sizing: border-box;
     color: inherit;
+    fill: inherit;
     transition: all ${({theme})=>theme.transition.duration.fast} ${({theme})=>theme.transition.type.normal};
   }
   body {
@@ -17,6 +18,7 @@ const GlobalStyles = createGlobalStyle`
     font-size: 100%;
     background-color: ${p=>p.theme.colors.background};
     color: ${p=>p.theme.colors.text};
+    fill: ${p=>p.theme.colors.text};
   }
   .spin{
     animation: ${rotate} infinite ${p=>p.theme.transition.type.elastic} ${p=>p.theme.transition.duration.slow};
