@@ -4,9 +4,8 @@ export const pixelToRem = (px: number) => px / 16 + "em";
 
 export const lightTheme: DefaultTheme = {
 	name: "light",
-	isLight: () => true,
-	isDark: () => false,
-	pxToRem: (px: number) => px / 16 + "rem", 
+	isLight: true,
+	isDark: false,
 	border: {
 		radius: {
 			sm: pixelToRem(2),
@@ -71,7 +70,7 @@ export const lightTheme: DefaultTheme = {
 		},
 		shadow: {
 			"200": "0px 1px 1px 1px #00000022",
-			"400": "0px 2px 4px 1px #00000022",
+			"400": "0px 2px 6px 1px #00000022",
 			"600": "0px 4px 12px 2px #00000022",
 			"800": "0px 6px 32px 4px #00000022",
 			"1000": "0px 8px 64px 8px #00000022",

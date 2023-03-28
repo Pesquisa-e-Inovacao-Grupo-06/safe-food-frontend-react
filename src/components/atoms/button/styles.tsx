@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { ButtonStyle } from "./button-atom";
+import { pixelToRem } from '../../../styles/theme/light';
 //https://styled-components.com/docs/basics
 
 export const StyledButton = styled.button<{
@@ -10,12 +11,12 @@ export const StyledButton = styled.button<{
 			return css`
 				box-shadow: ${({ theme }) => theme.colors.shadow[400]};
 				background-color: ${p =>
-					p.theme.isLight()
+					p.theme.isLight
 						? p.theme.colors.primary[600]
 						: p.theme.colors.primary[800]};
 				border: 2px solid
 					${p => {
-						if (p.theme.isLight()) {
+						if (p.theme.isLight) {
 							return p.theme.colors.primary[600];
 						}
 						return p.theme.colors.primary[1000];
@@ -29,7 +30,7 @@ export const StyledButton = styled.button<{
 		}
 	}}
 	min-width: 157px;
-	height: ${p => p.theme.pxToRem(37)};
+	height: ${p => pixelToRem(37)};
 	font-size: ${p => p.theme.font.size.lg};
 	color: ${p =>
 		p.buttonStyle == `filled`
@@ -38,6 +39,8 @@ export const StyledButton = styled.button<{
 	font-family: ${p => p.theme.font.family.text};
 	border-radius: ${({ theme }) => theme.border.radius.md};
 	cursor: pointer;
+	
+	
 	font-weight: 600;
 	display: flex;
 	justify-content: center;
@@ -50,8 +53,8 @@ export const StyledButton = styled.button<{
 	&:focus-within {
 		opacity: 1;
 	}
-	&:hover {
-		box-shadow: ${({ theme }) => theme.colors.shadow[600]};
+	&:hover{
+		box-shadow: ${({theme})=>theme.colors.shadow[200]};
 	}
 	&:disabled {
 		opacity: 0.8;

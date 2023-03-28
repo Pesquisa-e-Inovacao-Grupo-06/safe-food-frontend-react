@@ -1,16 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { ThemeProvider } from "styled-components";
-import { Button } from "./components/atoms/button/button-atom";
-import { GlobalStyles } from "./styles/theme/global-style";
-import { lightTheme } from "./styles/theme/light";
-import { ButtonIcon } from "./components/molecules/button/button-icon";
-import { FaArrowRight } from "react-icons/fa";
+import App from "./app";
+import { SafeFoodThemeProvider } from "./app/contexts/SafeFoodThemeProvider";
+import { makeCache } from "./app/factories/makeLocalStorageCache";
 
+const cache = makeCache();
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 	<React.StrictMode>
-		<ThemeProvider theme={lightTheme}>
-			<GlobalStyles />
-		</ThemeProvider>
+		<SafeFoodThemeProvider cache={cache}>
+			<App />
+		</SafeFoodThemeProvider>
 	</React.StrictMode>
 );
