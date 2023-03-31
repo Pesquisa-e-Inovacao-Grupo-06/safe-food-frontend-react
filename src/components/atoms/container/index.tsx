@@ -5,6 +5,7 @@ export const Container = styled.section<{
 	height: string | number;
 	display?: "flex" | "block" | "inline";
 	justify?: "center" | "space-between" | "left" | "space-around";
+	overflow?: "auto" | "hidden" | "visible";
 }>`
 	width: ${p => {
 		return p.theme.container[`${p.size}`];
@@ -14,13 +15,14 @@ export const Container = styled.section<{
 	justify-content: ${p => p.justify || "center"};
 	align-items: center;
 	margin: 0 auto;
-	overflow: hidden;
+	overflow: ${p => p.overflow || "hidden"};
 `;
 
 export const ContainerFluid = styled.section<{
 	height: string | number;
 	display?: "flex" | "block" | "inline";
 	justify?: "center" | "space-between" | "left" | "space-around";
+	overflow?: "auto" | "hidden" | "visible";
 }>`
 	width: 95%;
 	height: ${p => (typeof p.height === "number" ? p.height + "px" : p.height)};
@@ -28,30 +30,23 @@ export const ContainerFluid = styled.section<{
 	justify-content: ${p => p.justify || "center"};
 	align-items: center;
 	margin: 0 auto;
-	overflow: hidden;
-	background-color: #cb7ae8;
+	overflow: ${p => p.overflow || "hidden"};
 	@media (min-width: ${p => p.theme.breakpoint.xsm}) {
-		background-color: #e8be7a;
 		width: 90%;
 	}
 	@media (min-width: ${p => p.theme.breakpoint.sm}) {
-		background-color: #e87a7a;
 		width: ${p => p.theme.container.sm};
 	}
 	@media (min-width: ${p => p.theme.breakpoint.md}) {
-		background-color: #c0e87a;
 		width: ${p => p.theme.container.md};
 	}
 	@media (min-width: ${p => p.theme.breakpoint.lg}) {
-		background-color: #7ae88c;
 		width: ${p => p.theme.container.lg};
 	}
 	@media (min-width: ${p => p.theme.breakpoint.xlg}) {
-		background-color: #7ae8e3;
 		width: ${p => p.theme.container.xlg};
 	}
 	@media (min-width: ${p => p.theme.breakpoint.xxlg}) {
-		background-color: #7e7ae8;
 		width: ${p => p.theme.container.xxlg};
 	}
 `;
