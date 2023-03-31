@@ -12,9 +12,8 @@ type ColorType = {
 declare module 'styled-components' {
     export interface DefaultTheme {
         name: 'light' | "dark",
-        isLight: () => boolean,
-        isDark: () => boolean,
-        pxToRem: (px) => string,
+        isLight: boolean,
+        isDark: boolean,
         border: {
             radius: {
                 sm: string,
@@ -42,7 +41,6 @@ declare module 'styled-components' {
                 xsm: string,
                 sm: string,
                 md: string,
-                mdB: string,
                 lg: string,
                 xlg: string,
                 xxlg: string,
