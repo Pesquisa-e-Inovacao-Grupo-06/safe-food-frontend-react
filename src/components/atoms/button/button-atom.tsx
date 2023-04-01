@@ -1,8 +1,9 @@
 import React from "react";
-
 import * as S from "./styles";
 import { ButtonLoading } from "../../molecules/button/button-loading";
+
 export type ButtonStyle = "outline" | "filled";
+
 export type ButtonProps = {
 	buttonStyle?: ButtonStyle;
 	disabled?: boolean;
@@ -10,6 +11,7 @@ export type ButtonProps = {
 	sizeLoading?: number;
 } & React.HTMLAttributes<HTMLButtonElement> &
 	React.PropsWithChildren;
+	
 export const Button: React.FC<ButtonProps> = ({
 	buttonStyle = "filled",
 	disabled = false,

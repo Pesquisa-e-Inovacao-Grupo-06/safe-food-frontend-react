@@ -19,7 +19,7 @@ export const Container = styled.section<{
 `;
 
 export const ContainerFluid = styled.section<{
-	height: string | number;
+	height?: string | number;
 	display?: "flex" | "block" | "inline";
 	justify?: "center" | "space-between" | "left" | "space-around";
 	overflow?: "auto" | "hidden" | "visible";
@@ -30,7 +30,11 @@ export const ContainerFluid = styled.section<{
 	justify-content: ${p => p.justify || "center"};
 	align-items: center;
 	margin: 0 auto;
+<<<<<<< HEAD
 	overflow: ${p => p.overflow || "hidden"};
+=======
+	overflow: hidden;
+>>>>>>> develop
 	@media (min-width: ${p => p.theme.breakpoint.xsm}) {
 		width: 90%;
 	}
