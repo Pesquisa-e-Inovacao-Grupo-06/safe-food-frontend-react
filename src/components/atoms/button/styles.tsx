@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { ButtonStyle } from "./button-atom";
-import { pixelToRem } from '../../../styles/theme/light';
+import { pixelToRem } from "../../../styles/theme/light";
 //https://styled-components.com/docs/basics
 
 export const StyledButton = styled.button<{
@@ -39,8 +39,7 @@ export const StyledButton = styled.button<{
 	font-family: ${p => p.theme.font.family.text};
 	border-radius: ${({ theme }) => theme.border.radius.md};
 	cursor: pointer;
-	
-	
+
 	font-weight: 600;
 	display: flex;
 	justify-content: center;
@@ -53,8 +52,8 @@ export const StyledButton = styled.button<{
 	&:focus-within {
 		opacity: 1;
 	}
-	&:hover{
-		box-shadow: ${({theme})=>theme.colors.shadow[200]};
+	&:hover {
+		box-shadow: ${({ theme }) => theme.colors.shadow[200]};
 	}
 	&:disabled {
 		opacity: 0.8;
