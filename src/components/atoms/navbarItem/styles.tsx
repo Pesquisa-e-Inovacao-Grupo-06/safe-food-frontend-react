@@ -5,10 +5,10 @@ export const ContainerItem = styled(ContainerFluid)`
 	height: 75px;
 	width: fit-content;
 	border-bottom: 3px solid
-		${props => (props.theme.name === "dark" ? "#333" : "#eaeaea")};
+		${props => (props.theme.name === "dark" ? "#252525" : "#fcfcfc")};
 	border-top: 3px solid
-		${props => (props.theme.name === "dark" ? "#333" : "#eaeaea")};
-	background: ${props => (props.theme.name === "dark" ? "#333" : "#eaeaea")};
+		${props => (props.theme.name === "dark" ? "#252525" : "#fcfcfc")};
+	background: ${props => (props.theme.name === "dark" ? "#252525" : "#fcfcfc")};
 	display: flex;
 	justify-content: center;
 

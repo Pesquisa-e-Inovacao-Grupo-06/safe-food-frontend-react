@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Container, ContainerLogo, ContainerBtn } from "./styles";
-import { FaBars, FaAlignLeft, FaAlignJustify } from "react-icons/fa";
+import { FaBars } from "react-icons/fa";
 import { useSafeFoodTheme } from "../../../app/contexts/SafeFoodThemeProvider";
 import { LogoAtom } from "@/components/atoms/logo";
 import NavbarItem from "@/components/atoms/navbarItem";

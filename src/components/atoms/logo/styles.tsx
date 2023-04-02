@@ -26,7 +26,7 @@ export const ContainerLogo = styled.div<{
 					return css`
 						font-size: 15px;
 					`;
-				case "logo-l":
+				case "logo-lg":
 					return css`
 						font-size: 28px;
 					`;
@@ -52,7 +52,7 @@ export const CustomLogo = styled.img<{
 				return css`
 					width: 57px;
 				`;
-			case "logo-l":
+			case "logo-lg":
 				return css`
 					width: 90px;
 				`;

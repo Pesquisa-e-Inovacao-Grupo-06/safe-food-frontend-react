@@ -1,10 +1,9 @@
 import React from "react";
-import logo from "../../../assets/svg-logo.svg";
 import logopng from "../../../assets/Ping-Logo.png";
 import { Link } from "react-router-dom";
 import { ContainerLogo, CustomLogo } from "./styles";
 
-export type SizeLogo = "logo-sm" | "logo-md" | "logo-l";
+export type SizeLogo = "logo-sm" | "logo-md" | "logo-lg";
 
 export type Props = {
 	sizeLogo?: SizeLogo;	
