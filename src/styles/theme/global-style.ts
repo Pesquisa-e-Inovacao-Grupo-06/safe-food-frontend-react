@@ -11,7 +11,7 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
     color: inherit;
     fill: inherit;
-    transition: all ${({theme})=>theme.transition.duration.fast} ${({theme})=>theme.transition.type.normal};
+
   }
   body {
     font-family: ${p=>p.theme.font.family.text}, "Nunito Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -22,6 +22,9 @@ const GlobalStyles = createGlobalStyle`
   }
   .spin{
     animation: ${rotate} infinite ${p=>p.theme.transition.type.elastic} ${p=>p.theme.transition.duration.slow};
+  }
+  .transition{
+    transition: all ${({theme})=>theme.transition.duration.fast} ${({theme})=>theme.transition.type.normal};
   }
 `;
 

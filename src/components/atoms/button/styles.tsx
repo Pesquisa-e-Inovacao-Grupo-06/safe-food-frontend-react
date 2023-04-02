@@ -1,17 +1,14 @@
-import { pixelToRem } from "@/styles/theme/light";
 import styled, { css } from "styled-components";
-import { ButtonStyle } from ".";
-//https://styled-components.com/docs/basics
+import { ButtonStyle } from "./button-atom";
+import { pixelToRem } from "../../../styles/theme/light";
 
 export const StyledButton = styled.button<{
 	buttonStyle: ButtonStyle;
 }>`
 	${p => {
-		// Podemos programar diretamente JS/TS dentro desse bloco quando chamamos template string ``
 		if (p.buttonStyle === "filled") {
-			// quando retornamos css`` ele vai fazer o estilo, entao comecamos a programar css/styled-components
 			return css`
-				box-shadow: ${({ theme }) => theme.colors.shadow[200]};
+				box-shadow: ${({ theme }) => theme.colors.shadow[400]};
 				background-color: ${p =>
 					p.theme.isLight
 						? p.theme.colors.primary[600]
@@ -27,13 +24,13 @@ export const StyledButton = styled.button<{
 		} else if (p.buttonStyle === `outline`) {
 			return css`
 				background-color: transparent;
-				border: 0.5px solid ${p => p.theme.colors.primary[400]};
+				border: 4px solid ${p => p.theme.colors.primary[400]};
 			`;
 		}
 	}}
-	min-width: 160px;
+	min-width: 157px;
 	height: ${p => pixelToRem(37)};
-	font-size: ${p => p.theme.font.size.md};
+	font-size: ${p => p.theme.font.size.lg};
 	color: ${p =>
 		p.buttonStyle == `filled`
 			? p.theme.colors.light_gray[200]
@@ -43,6 +40,11 @@ export const StyledButton = styled.button<{
 	cursor: pointer;
 
 	font-weight: 600;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 10px;
+	gap: 10px;
 	opacity: 0.85;
 	&:hover,
 	&:focus,

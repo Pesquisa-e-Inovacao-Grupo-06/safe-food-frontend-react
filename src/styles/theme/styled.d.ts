@@ -11,7 +11,7 @@ type ColorType = {
 // and extend them!
 declare module 'styled-components' {
     export interface DefaultTheme {
-        name: 'light'|"dark",
+        name: 'light' | "dark",
         isLight: boolean,
         isDark: boolean,
         border: {
