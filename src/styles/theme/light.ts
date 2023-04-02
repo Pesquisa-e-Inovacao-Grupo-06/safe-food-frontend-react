@@ -48,7 +48,7 @@ export const lightTheme: DefaultTheme = {
 		error:{
 			"200": "#FFDEE2",
 			"400": "#E65769",
-			"600": "#83282E",
+			"600": "#a03d44",
 		},
 		success: {
 			"200": "#A1FFBC",
@@ -70,10 +70,10 @@ export const lightTheme: DefaultTheme = {
 		},
 		shadow: {
 			"200": "0px 1px 1px 1px #00000022",
-			"400": "0px 2px 6px 1px #00000022",
-			"600": "0px 4px 12px 2px #00000022",
-			"800": "0px 6px 32px 4px #00000022",
-			"1000": "0px 8px 64px 8px #00000022",
+			"400": "0px 2px 1px 1px #21212111",
+			"600": "0px 4px 12px 2px #21212111",
+			"800": "0px 6px 32px 4px #21212111",
+			"1000": "0px 8px 64px 8px #21212111",
 		},
 	},
 	font: {

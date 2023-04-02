@@ -10,7 +10,13 @@ import SignUp from "./pages/signUp";
 import Header from "./components/molecules/header";
 export default function App() {
 	const { toggleTheme, getTheme } = useSafeFoodTheme();
+	const [showPassword, setShowPassword] = useState(false);
+	const [value, setValue] = useState<string>("");
+	const togglePassword = () => setShowPassword(!showPassword);
+	const [error, setError] = useState<string>("");
 
+	const regexNotNumber = /\.?-?\D/g;
+	const regexFormatCpf = /(\d{3})(\d{3})(\d{3})(\d{2})/g;
 	return (
 		<>
 			<Router>

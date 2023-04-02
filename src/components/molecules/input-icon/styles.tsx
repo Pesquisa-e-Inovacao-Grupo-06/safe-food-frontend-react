@@ -3,7 +3,10 @@ import styled from "styled-components";
 export type StyledInputProps = {
 	error?: boolean;
 };
-export const StyledInput = styled.input<StyledInputProps>`
+export const StyledDivInput = styled.div<StyledInputProps>`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 	height: 32px;
 	width: 100%;
 	padding: 0 8px;
@@ -47,7 +50,8 @@ export const StyledInput = styled.input<StyledInputProps>`
 		filter: saturate(0.7);
 	}
 	&:hover,
-	&:focus {
+	&:focus,
+	&.focus {
 		border: 1px solid
 			${p => {
 				if (p.error) return p.theme.colors.error[400];
@@ -61,4 +65,12 @@ export const StyledInput = styled.input<StyledInputProps>`
 		transform: translateX(2px);
 		opacity: 1;
 	}
+`;
+
+export const StyledInputSingle = styled.input<StyledInputProps>`
+	height: 100%;
+	width: 100%;
+	font-family: inherit;
+	color: inherit;
+	background: inherit;
 `;

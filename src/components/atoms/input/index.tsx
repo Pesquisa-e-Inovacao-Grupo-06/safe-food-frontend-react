@@ -1,57 +1,35 @@
 import React from "react";
-import "./style.css";
+import { StyledInput } from "./styles";
 
-export function InputDisabled() {
+export type InputPropsComponent = {
+	type?: "string" | "password" | "date" | "tel" | "email";
+	min?: number;
+	required?: boolean;
+	max?: number;
+	value: string;
+	error?: string;
+};
+export type InputProps = React.HTMLAttributes<HTMLInputElement> &
+	InputPropsComponent;
+export const Input: React.FC<InputProps> = ({
+	error = "",
+	value,
+	max = 100,
+	min = 0,
+	type = "string",
+	...props
+}) => {
 	return (
-		<div>
-			<input
-				placeholder="Disabled"
-				className="input_disabled"
+		<>
+			<StyledInput
+				error={error.length > 0}
+				type={type}
+				value={value}
+				pattern={"abc"}
+				maxLength={max}
+				minLength={min}
+				{...props}
 			/>
-		</div>
+		</>
 	);
-}
-
-export function InputWithIcon() {
-	return (
-		<div>
-			<input
-				placeholder="With Icon"
-				className="input_with_icon"
-			/>
-		</div>
-	);
-}
-
-export function InputFocusLight() {
-	return (
-		<div>
-			<input
-				placeholder="Focus Light"
-				className="input_focus_light"
-			/>
-		</div>
-	);
-}
-
-export function InputErrorLight() {
-	return (
-		<div>
-			<input
-				placeholder="Error Light"
-				className="input_error_light"
-			/>
-		</div>
-	);
-}
-
-export function InputNoFocusLight() {
-	return (
-		<div>
-			<input
-				placeholder="No Focus Light"
-				className="input_no_focus_light"
-			/>
-		</div>
-	);
-}
+};
