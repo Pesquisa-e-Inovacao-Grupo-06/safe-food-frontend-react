@@ -13,7 +13,7 @@ export const StyledFooterColumnContainer = styled.div`
 	& ::after {
 		content: "";
 		position: absolute;
-		width: 15em;
+		width: 10em;
 		/* max-width: 100%; */
 		height: 3px;
 		background-color: ${p => p.theme.colors.primary[600]};

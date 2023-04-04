@@ -1,11 +1,16 @@
-import { MoreFavoriteOrganism } from "@/components/organisms/more-favorite/more-favorite-organism";
-
+import Header from "../components/molecules/header/index";
+import { FooterOrganism } from "../components/organisms/footer/footer-organism";
+import { ContainerFluid } from "../components/atoms/container/index";
 function Home() {
 	return (
-		<div style={{ paddingTop: "75px" }}>
-			<h1>Home</h1>
-			<MoreFavoriteOrganism></MoreFavoriteOrganism>
-		</div>
+		<>
+			<Header />
+			<div
+				style={{ paddingTop: "75px", marginLeft: "248px", marginRight: "248px" }}
+			>
+				<FooterOrganism />
+			</div>
+		</>
 	);
 }
 
