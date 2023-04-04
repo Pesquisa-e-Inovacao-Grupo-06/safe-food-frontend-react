@@ -29,12 +29,10 @@ export const ContainerFluid = styled.section<{
 	display: ${p => p.display || "block"};
 	justify-content: ${p => p.justify || "center"};
 	align-items: center;
+	padding: 4px;
 	margin: 0 auto;
-<<<<<<< HEAD
+
 	overflow: ${p => p.overflow || "hidden"};
-=======
-	overflow: hidden;
->>>>>>> develop
 	@media (min-width: ${p => p.theme.breakpoint.xsm}) {
 		width: 90%;
 	}

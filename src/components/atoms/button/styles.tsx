@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
 import { ButtonStyle } from "./button-atom";
 import { pixelToRem } from "../../../styles/theme/light";
-//https://styled-components.com/docs/basics
 
 export const StyledButton = styled.button<{
 	buttonStyle: ButtonStyle;
@@ -66,10 +65,8 @@ export const StyledButton = styled.button<{
 		}
 	}
 
-	//mediaQuery
 	@media (max-width: ${p => p.theme.breakpoint.sm}) {
-		width: 90%;
-		margin: 20px;
+		width: 100%;
 		font-size: ${p => p.theme.font.size.lg};
 	}
 `;
