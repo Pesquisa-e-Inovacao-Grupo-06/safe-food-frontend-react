@@ -9,5 +9,6 @@ export const Column = styled.div<{
 	flex-grow: ${p => p.size || 1};
 	min-width: ${p => p.minWidth || "100px"};
 	max-width: ${p => p.maxWidth || "auto"};
+	max-height: 100%;
 	order: ${p => p.order || "initial"};
 `;

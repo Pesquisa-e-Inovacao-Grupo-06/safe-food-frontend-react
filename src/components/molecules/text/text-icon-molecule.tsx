@@ -29,10 +29,7 @@ export const TextIcon: React.FC<Props> = ({
 		>
 			<>
 				{icon}
-				<TextAtom
-					typeText={typeText}
-					text={text}
-				/>
+				<TextAtom typeText={typeText}>{text}</TextAtom>
 			</>
 		</StyledTextIcon>
 	);
