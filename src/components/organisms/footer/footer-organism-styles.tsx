@@ -5,9 +5,9 @@ export const StyledFooterContainer = styled.div<{}>`
 	flex-direction: row;
 	justify-content: space-between;
 
-	/* @media (max-width: 700px) { */
-	/* flex-direction: column; */
-	/* } */
+	@media (max-width: 700px) {
+		flex-direction: column;
+	}
 
 	@media (max-width: 390px) {
 		flex-direction: column;

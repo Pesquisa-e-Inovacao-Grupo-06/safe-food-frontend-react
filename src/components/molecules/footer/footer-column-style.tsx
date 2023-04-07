@@ -29,8 +29,4 @@ export const StyledLIFooterColumn = styled.li`
 
 export const StyledDivFooterColumn = styled.div`
 	padding-bottom: 45px;
-	#play-store {
-		max-width: 300px;
-		width: auto;
-	}
 `;
