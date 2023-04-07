@@ -1,5 +1,6 @@
 import { useSafeFoodTheme } from "@/app/contexts/SafeFoodThemeProvider";
 import React, { ChangeEvent } from "react";
+import { Box } from "../box";
 import { Input, InputPropsComponent } from "../input";
 import { Label } from "../label";
 
@@ -23,7 +24,7 @@ export const TextField: React.FC<TextFieldProps> = ({
 }) => {
 	const { colors } = useSafeFoodTheme().getTheme();
 	return (
-		<>
+		<Box width="100%">
 			<Label
 				htmlFor={id}
 				required={required}
@@ -32,8 +33,7 @@ export const TextField: React.FC<TextFieldProps> = ({
 			</Label>
 			<Input
 				id={id}
-				error={error.length > 0}
-				placeholder="place"
+				error={error}
 				onChange={onChange}
 				{...props}
 			/>
@@ -49,6 +49,6 @@ export const TextField: React.FC<TextFieldProps> = ({
 					{error}
 				</Label>
 			)}
-		</>
+		</Box>
 	);
 };

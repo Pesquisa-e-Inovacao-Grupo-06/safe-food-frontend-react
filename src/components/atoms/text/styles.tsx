@@ -1,11 +1,13 @@
 import styled, { css } from "styled-components";
-import { TypeText } from "./text-atom";
+import { AlignText, TypeText } from "./text-atom";
 import { pixelToRem } from "../../../styles/theme/light";
 
 export const StyledText = styled.span<{
 	typeText: TypeText;
 	color: string;
+	align?: AlignText;
 }>`
+	text-align: ${p => p.align ?? "start"};
 	${p => {
 		switch (p.typeText) {
 			case "text-md":

@@ -11,7 +11,6 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
     color: inherit;
     fill: inherit;
-
   }
   img{
     height: 100%;
@@ -29,6 +28,9 @@ const GlobalStyles = createGlobalStyle`
   }
   .transition{
     transition: all ${({ theme }) => theme.transition.duration.fast} ${({ theme }) => theme.transition.type.normal};
+  }
+  input, button {
+    transition: ${({ theme }) => theme.transition.duration.fast} ${({ theme }) => theme.transition.type.normal};
   }
 `;
 
