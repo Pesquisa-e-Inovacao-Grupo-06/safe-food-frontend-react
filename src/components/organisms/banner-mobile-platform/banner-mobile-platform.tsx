@@ -16,20 +16,18 @@ export const BannerMobilePlatform: React.FC<
 				<StyledBannerMobilePlatformContainer>
 					<StyledBannerMobilePlatformBody>
 						<div>
-							<Subtitle large>Gosta da Nossa Plataforma?</Subtitle>
-							<TextAtom
-								text="
-							Baixe o nosso APP na PlayStore e desfrute da melhor usabilidade em
-							qualquer lugar!"
-								typeText="text-md"
-							/>
+							<Subtitle>Gosta da Nossa Plataforma?</Subtitle>
+							<TextAtom typeText="text-md">
+								Baixe o nosso APP na PlayStore e desfrute da melhor usabilidade em
+								qualquer lugar!
+							</TextAtom>
+							<Button
+								style={{ marginTop: "39px", width: "80%" }}
+								className="button-desktop-platform"
+							>
+								Baixar agora
+							</Button>
 						</div>
-						<Button
-							style={{ marginTop: "39px" }}
-							className="button-desktop-platform"
-						>
-							Baixar agora
-						</Button>
 					</StyledBannerMobilePlatformBody>
 					<StyledBannerMobilePlatformBody>
 						<StyledBannerMobilePlatformImage>
@@ -103,7 +101,7 @@ export const StyledBannerMobilePlatformBody = styled.div`
 	flex-direction: column;
 	text-align: justify;
 	justify-content: center;
-	align-items: center;
+	/* align-items: center; */
 
 	& .button-mobile-platform {
 		display: none;

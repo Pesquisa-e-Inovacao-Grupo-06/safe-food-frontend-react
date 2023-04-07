@@ -16,10 +16,8 @@ export const TextIcon: React.FC<Props> = ({
 	icon,
 	typeText,
 	children,
-	text,
 	iconAlign = "left",
 	iconColor = "black",
-
 	...props
 }) => {
 	return (
@@ -29,7 +27,13 @@ export const TextIcon: React.FC<Props> = ({
 		>
 			<>
 				{icon}
-				<TextAtom typeText={typeText}>{text}</TextAtom>
+				<TextAtom
+					color={iconColor}
+					typeText={typeText}
+					{...props}
+				>
+					{children}
+				</TextAtom>
 			</>
 		</StyledTextIcon>
 	);

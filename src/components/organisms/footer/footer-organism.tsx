@@ -15,35 +15,28 @@ export type FooterOrganismProps = {};
 
 export const FooterOrganism = ({}) => {
 	var iconSize = 20;
-	//	TODO: responsividade para celular
 	return (
-		<>
+		<div
+			style={{
+				marginBottom: "100px",
+				borderTop: "100%",
+				borderTopColor: "5px solid orange",
+			}}
+		>
 			<StyledFooterContainer>
 				<FooterColumnMolecule title="Informações">
 					<ul>
 						<StyledLIFooterColumn>
-							<TextAtom
-								text="Sobre a Safe Food"
-								typeText="text-md"
-							/>
+							<TextAtom> Sobre a Safe Food</TextAtom>
 						</StyledLIFooterColumn>
 						<StyledLIFooterColumn>
-							<TextAtom
-								text="Termos de uso"
-								typeText="text-md"
-							/>
+							<TextAtom> Termos de uso</TextAtom>
 						</StyledLIFooterColumn>
 						<StyledLIFooterColumn>
-							<TextAtom
-								text="Blog de Receitas"
-								typeText="text-md"
-							/>
+							<TextAtom>Blog de Receitas </TextAtom>
 						</StyledLIFooterColumn>
 						<StyledLIFooterColumn>
-							<TextAtom
-								text="FAQ"
-								typeText="text-md"
-							/>
+							<TextAtom>FAQ </TextAtom>
 						</StyledLIFooterColumn>
 					</ul>
 				</FooterColumnMolecule>
@@ -52,54 +45,57 @@ export const FooterOrganism = ({}) => {
 						<TextIcon
 							icon={<FaFacebook size={iconSize} />}
 							iconAlign="left"
-							text="Facebook"
 							iconColor="orange"
-						/>
+						>
+							Facebook
+						</TextIcon>
 					</StyledLIFooterColumn>
 					<StyledLIFooterColumn>
 						<TextIcon
 							icon={<FaGoogle size={iconSize} />}
 							iconAlign="left"
-							text="Gmail"
 							iconColor="orange"
-						/>
+						>
+							Gmail
+						</TextIcon>
 					</StyledLIFooterColumn>
 
 					<StyledLIFooterColumn>
 						<TextIcon
 							icon={<FaInstagram size={iconSize} />}
 							iconAlign="left"
-							text="Instagram"
 							iconColor="orange"
-						/>
+						>
+							Instagram
+						</TextIcon>
 					</StyledLIFooterColumn>
 
 					<StyledLIFooterColumn>
 						<TextIcon
 							icon={<FaTwitter size={iconSize} />}
 							iconAlign="left"
-							text="Twitter"
 							iconColor="orange"
-						/>
+						>
+							Twitter
+						</TextIcon>
 					</StyledLIFooterColumn>
 				</FooterColumnMolecule>
 				<FooterColumnMolecule title="Baixe o Aplicativo">
 					<img
 						id="play-store"
 						src={GoogleLogo}
-						alt=""
+						style={{ maxWidth: "186px", height: "auto" }}
 					/>
 				</FooterColumnMolecule>
 			</StyledFooterContainer>
 
 			<StyledCopyRightContainer>
-				<TextAtom
-					typeText="text-sm"
-					text="© Safe Food 2023 - Todos os Direitos Reservados."
-				></TextAtom>
+				<TextAtom typeText="text-sm">
+					© Safe Food 2023 - Todos os Direitos Reservados.
+				</TextAtom>
 				{/* TODO: icone da safefood em svg para aumentar resolução */}
 				<img src={Logo} />
 			</StyledCopyRightContainer>
-		</>
+		</div>
 	);
 };
