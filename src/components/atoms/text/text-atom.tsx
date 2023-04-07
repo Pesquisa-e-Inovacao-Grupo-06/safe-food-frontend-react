@@ -1,4 +1,3 @@
-import { ColorType } from "@/styles/theme/styled";
 import { PropsWithChildren } from "react";
 import { StyledText } from "./styles";
 

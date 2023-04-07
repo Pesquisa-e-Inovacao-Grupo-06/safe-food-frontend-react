@@ -23,7 +23,10 @@ export const MoreFavoritesTemplate = ({}) => {
 				workingPlaceEstablishment={false}
 				locationEstablishment={""}
 			/>
-
+			<Divider
+				marginAll="10px"
+				color="transparent"
+			/>
 			<MoreFavoriteOrganism
 				nameFoodTitle={""}
 				descriptionFood={""}
