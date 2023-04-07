@@ -101,7 +101,7 @@ export const StyledBannerMobilePlatformBody = styled.div`
 	flex-direction: column;
 	text-align: justify;
 	justify-content: center;
-	/* align-items: center; */
+	align-items: center;
 
 	& .button-mobile-platform {
 		display: none;
@@ -114,6 +114,7 @@ export const StyledBannerMobilePlatformBody = styled.div`
 	@media (max-width: 900px) {
 		& .button-mobile-platform {
 			display: block;
+			align-self: normal;
 		}
 
 		& .button-desktop-platform {
