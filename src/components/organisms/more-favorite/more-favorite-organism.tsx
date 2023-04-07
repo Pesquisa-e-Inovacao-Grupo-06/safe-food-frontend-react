@@ -4,7 +4,6 @@ import { Subtitle } from "@/styles/components/text/Subtitle";
 import { Button } from "@/components/atoms/button";
 import { TextIcon } from "@/components/molecules/text/text-icon-molecule";
 import { TiMediaEjectOutline } from "react-icons/ti";
-import ReactDOM from "react-dom/client";
 import {
 	StyledContainer,
 	StyledContainerColumn,

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useSafeFoodTheme } from "./app/contexts/SafeFoodThemeProvider";
 import Home from "./pages/home";
@@ -6,7 +6,6 @@ import About from "./pages/about";
 import FAQ from "./pages/faq";
 import SignIn from "./pages/signIn";
 import SignUp from "./pages/signUp";
-import Header from "./components/molecules/header";
 import { makeHttpClient } from "./app/factories/makeAxiosHttpClient";
 type ResponseLoginExample = {
 	name: string;
@@ -21,28 +20,41 @@ export default function App() {
 
 	useEffect(() => {
 		(async () => {
-			const httpNoBase = makeHttpClient();
-			let resHttpNoBase = await httpNoBase.execute({
-				url: "https://6423779577e7062b3e327648.mockapi.io/music-box",
-			});
+			// const httpNoBase = makeHttpClient();
+			// let resHttpNoBase = await httpNoBase.execute({
+			// 	url: "https://6423779577e7062b3e327648.mockapi.io/music-box",
+			// });
 
-			console.log(resHttpNoBase);
-			const baseURL = "https://6423779577e7062b3e327648.mockapi.io/";
+			// console.log(resHttpNoBase);
+			// const baseURL = "https://6423779577e7062b3e327648.mockapi.io/";
+			// const http = makeHttpClient(baseURL);
+			// let res1 = await http.execute<ResponseLoginExample, RequestLoginExample>({
+			// 	url: "music-box",
+			// 	method: "POST",
+			// 	contentType: "application/json",
+			// 	body: {
+			// 		email: "login@example.com",
+			// 		password: "1233",
+			// 	},
+			// 	paramsURL: {
+			// 		content: 1,
+			// 	},
+			// });
+			// console.log(res1);
+			// // Veja o console e tbm o network do devtools do navegador (filtre por requisições)
+
+			const baseURL = "http://localhost:8081/usuarios";
 			const http = makeHttpClient(baseURL);
-			let res1 = await http.execute<ResponseLoginExample, RequestLoginExample>({
-				url: "music-box",
+			let response = await http.execute<UserType, UserType>({
+				url: "",
 				method: "POST",
 				contentType: "application/json",
 				body: {
-					email: "login@example.com",
-					password: "1233",
-				},
-				paramsURL: {
-					content: 1,
+					email: "lincoln@gmail.com",
+					password: "123123",
 				},
 			});
-			console.log(res1);
-			// Veja o console e tbm o network do devtools do navegador (filtre por requisições)
+			console.log(response);
 		})();
 	}, []);
 	return (
@@ -74,3 +86,8 @@ export default function App() {
 		</>
 	);
 }
+
+export type UserType = {
+	email: string;
+	password: string;
+};

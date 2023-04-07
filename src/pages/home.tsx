@@ -1,11 +1,9 @@
-import Header from "../components/molecules/header/index";
-import { FooterOrganism } from "../components/organisms/footer/footer-organism";
-import { BannerMobilePlatform } from "../components/organisms/banner-mobile-platform/banner-mobile-platform";
 import styled, { css } from "styled-components";
 import { HomeTemplate } from "../components/templates/home-template";
 function Home() {
 	return (
 		<>
+			{/* <CardEstablishmentFoodOrganism></CardEstablishmentFoodOrganism> */}
 			<HomeTemplate></HomeTemplate>
 		</>
 	);
