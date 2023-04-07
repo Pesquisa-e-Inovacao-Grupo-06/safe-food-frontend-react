@@ -10,7 +10,7 @@ export const HomeTemplate = ({}) => {
 	return (
 		<>
 			<Header />
-			<div style={{ padding: "20px" }}>
+			<div style={{ paddingLeft: "150px", paddingRight: "150px" }}>
 				<Divider marginBottom="75px"></Divider>
 				<Box>
 					{/* <Container

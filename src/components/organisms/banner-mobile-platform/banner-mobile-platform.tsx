@@ -5,48 +5,49 @@ import { Button } from "../../atoms/button/index";
 import { Subtitle } from "@/styles/components/text/Subtitle";
 import { TextAtom } from "../../atoms/text/text-atom";
 
-export type BannerMobilePlatformProps = {};
+export type BannerMobilePlatformProps = {
+	onClick?: () => void;
+};
 
-export const BannerMobilePlatform: React.FC<
-	BannerMobilePlatformProps
-> = ({}) => {
+export const BannerMobilePlatform: React.FC<BannerMobilePlatformProps> = ({
+	onClick,
+}) => {
 	return (
-		<ContainerFluid>
-			<StyledBannerDiv id="content">
-				<StyledBannerMobilePlatformContainer>
-					<StyledBannerMobilePlatformBody>
-						<div>
-							<Subtitle>Gosta da Nossa Plataforma?</Subtitle>
-							<TextAtom typeText="text-md">
-								Baixe o nosso APP na PlayStore e desfrute da melhor usabilidade em
-								qualquer lugar!
-							</TextAtom>
-							<Button
-								style={{ marginTop: "39px", width: "80%" }}
-								className="button-desktop-platform"
-							>
-								Baixar agora
-							</Button>
-						</div>
-					</StyledBannerMobilePlatformBody>
-					<StyledBannerMobilePlatformBody>
-						<StyledBannerMobilePlatformImage>
-							<img
-								id="img"
-								src={mobilePlatform}
-								style={{ maxHeight: "100%" }}
-							/>
-						</StyledBannerMobilePlatformImage>
+		<StyledBannerDiv id="content">
+			<StyledBannerMobilePlatformContainer>
+				<StyledBannerMobilePlatformBody>
+					<div>
+						<Subtitle>Gosta da Nossa Plataforma?</Subtitle>
+						<TextAtom typeText="text-md">
+							Baixe o nosso APP na PlayStore e desfrute da melhor usabilidade em
+							qualquer lugar!
+						</TextAtom>
 						<Button
-							style={{ marginTop: "39px" }}
-							className="button-mobile-platform"
+							style={{ marginTop: "39px", width: "80%" }}
+							className="button-desktop-platform"
+							onClick={onClick}
 						>
 							Baixar agora
 						</Button>
-					</StyledBannerMobilePlatformBody>
-				</StyledBannerMobilePlatformContainer>
-			</StyledBannerDiv>
-		</ContainerFluid>
+					</div>
+				</StyledBannerMobilePlatformBody>
+				<StyledBannerMobilePlatformBody>
+					<StyledBannerMobilePlatformImage>
+						<img
+							id="img"
+							src={mobilePlatform}
+							style={{ maxHeight: "100%" }}
+						/>
+					</StyledBannerMobilePlatformImage>
+					<Button
+						style={{ marginTop: "39px" }}
+						className="button-mobile-platform"
+					>
+						Baixar agora
+					</Button>
+				</StyledBannerMobilePlatformBody>
+			</StyledBannerMobilePlatformContainer>
+		</StyledBannerDiv>
 	);
 };
 
