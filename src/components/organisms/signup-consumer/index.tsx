@@ -7,6 +7,7 @@ import { AdditionalSignUpConsumer } from "./AdditionalSignUpConsumer";
 import { Box } from "@/components/atoms/box";
 import { Button } from "@/components/atoms/button";
 import { FinishedSignUpConsumer } from "./FinishedSignupConsumer";
+import { UnderlineLink } from "@/components/atoms/underline-link";
 
 export type Steps = "general-info" | "restrictions" | "additional" | "finished";
 export const SignUpConsumer: React.FC = () => {
@@ -68,7 +69,9 @@ export const SignUpConsumer: React.FC = () => {
 					)}
 
 					<Box width="100%">
-						<a href="/signup-establishment">Sou um estabelecimento</a>
+						<UnderlineLink href="/signup-establishment">
+							Sou um estabelecimento
+						</UnderlineLink>
 					</Box>
 				</Box>
 			</Modal>

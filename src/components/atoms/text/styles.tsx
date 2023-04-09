@@ -3,7 +3,7 @@ import { AlignText, TypeText } from "./text-atom";
 
 export const StyledText = styled.span<{
 	typeText: TypeText;
-	color: string;
+	color?: string;
 	align?: AlignText;
 }>`
 	text-align: ${p => p.align ?? "start"};
@@ -51,5 +51,5 @@ export const StyledText = styled.span<{
 				`;
 		}
 	}};
-	color: ${p => p.color};
+	color: ${p => p.color || p.theme.colors.text};
 `;

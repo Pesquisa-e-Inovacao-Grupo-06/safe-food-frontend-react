@@ -10,6 +10,7 @@ import React, { FC } from "react";
 import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 import { FaSearch } from "react-icons/fa";
 import { HeadingSignUpConsumer } from "./HeadingSignUpConsumer";
+import { ProfilePhotoUploadWithPreview } from "@/components/molecules/upload-profile-photo";
 
 export const AdditionalSignUpConsumer: FC<{
 	onClickGoBack: () => void;
@@ -27,6 +28,12 @@ export const AdditionalSignUpConsumer: FC<{
 				display="flex"
 				flexDiretion="column"
 			>
+				<TextAtom typeText="text-md">Foto de perfil</TextAtom>
+				<ProfilePhotoUploadWithPreview
+					width="120px"
+					name="additional-profile-photo-consumer"
+					id="additional-profile-photo-consumer"
+				/>
 				<Row gap="20px">
 					<Column>
 						<TextField

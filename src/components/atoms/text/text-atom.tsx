@@ -12,14 +12,12 @@ export type TextProps = {
 
 export const TextAtom: React.FC<TextProps> = ({
 	typeText = "text-md",
-	color = "black",
 	children,
 	...props
 }) => {
 	return (
 		<StyledText
 			typeText={typeText}
-			color={color}
 			{...props}
 		>
 			{children}
