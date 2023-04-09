@@ -5,6 +5,8 @@ import { GeneralInfoSignUpConsumer } from "./GeneralInfoSignUpConsumer";
 import { RestrictionSignUpConsumer } from "./RestrictionSignUpConsumer";
 import { AdditionalSignUpConsumer } from "./AdditionalSignUpConsumer";
 import { Box } from "@/components/atoms/box";
+import { Button } from "@/components/atoms/button";
+import { FinishedSignUpConsumer } from "./FinishedSignupConsumer";
 
 export type Steps = "general-info" | "restrictions" | "additional" | "finished";
 export const SignUpConsumer: React.FC = () => {
@@ -13,6 +15,7 @@ export const SignUpConsumer: React.FC = () => {
 	const [isModalVisible, setModalVisible] = useState(true);
 	return (
 		<>
+			<Button onClick={() => setModalVisible(!isModalVisible)}>Abrir modal</Button>
 			<Modal
 				size="sm"
 				height="md"
@@ -55,6 +58,12 @@ export const SignUpConsumer: React.FC = () => {
 						<AdditionalSignUpConsumer
 							onClickAhead={() => setStep("finished")}
 							onClickGoBack={() => setStep("restrictions")}
+						/>
+					)}
+					{step === "finished" && (
+						<FinishedSignUpConsumer
+							onClickAhead={() => console.log("levar para login")}
+							onClickGoBack={() => setStep("additional")}
 						/>
 					)}
 

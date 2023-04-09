@@ -25,6 +25,7 @@ export const Chips: React.FC<PropsChips> = ({
 			sizeChips={sizeChips}
 			favorite={state}
 			onClick={toggleState}
+			className="transition"
 		>
 			<p>{children}</p>
 		</ContainerChips>

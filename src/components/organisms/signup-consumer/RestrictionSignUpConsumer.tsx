@@ -30,7 +30,12 @@ export const RestrictionSignUpConsumer: FC<{
 				}}
 			>
 				{restrictions.map((r, i) => (
-					<Chips key={r + i}>{r}</Chips>
+					<Chips
+						key={r + i}
+						sizeChips="chips-lg"
+					>
+						{r}
+					</Chips>
 				))}
 			</Box>
 

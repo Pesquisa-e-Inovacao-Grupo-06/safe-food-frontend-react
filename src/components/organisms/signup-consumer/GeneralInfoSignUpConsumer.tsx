@@ -1,9 +1,6 @@
 import { Box } from "@/components/atoms/box";
-import { Button } from "@/components/atoms/button";
-import { TextAtom } from "@/components/atoms/text/text-atom";
 import { TextField } from "@/components/atoms/textfield";
 import { ButtonIcon } from "@/components/molecules/button/button-icon";
-import { Subtitle } from "@/styles/components/text/Subtitle";
 import React from "react";
 import { BiRightArrowAlt } from "react-icons/bi";
 import { HeadingSignUpConsumer } from "./HeadingSignUpConsumer";
