@@ -8,6 +8,7 @@ export type InputPropsComponent = {
 	max?: number;
 	value: string;
 	error?: string;
+	disabled?: boolean;
 };
 export type InputProps = React.HTMLAttributes<HTMLInputElement> &
 	InputPropsComponent;

@@ -1,17 +1,17 @@
-import React, { useState } from "react";
+import React, { PropsWithChildren, useState } from "react";
 import { ContainerChips } from "./styles";
 import { IconType } from "react-icons/lib";
 
 export type SizeChips = "chips-sm" | "chips-md" | "chips-lg";
 
 type PropsChips = {
-	Icon: IconType;
-	text: string;
+	Icon?: IconType | any;
 	sizeChips?: SizeChips;
-};
+} & PropsWithChildren;
 
 export const Chips: React.FC<PropsChips> = ({
 	sizeChips = "chips-md",
+	children,
 	...props
 }) => {
 	const [state, setState] = useState<boolean>(false);
@@ -26,9 +26,7 @@ export const Chips: React.FC<PropsChips> = ({
 			favorite={state}
 			onClick={toggleState}
 		>
-			<p>
-				<props.Icon /> {props.text}
-			</p>
+			<p>{children}</p>
 		</ContainerChips>
 	);
 };

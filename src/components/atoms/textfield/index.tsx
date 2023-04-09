@@ -1,8 +1,9 @@
 import { useSafeFoodTheme } from "@/app/contexts/SafeFoodThemeProvider";
-import React, { ChangeEvent } from "react";
+import React from "react";
 import { Box } from "../box";
-import { Input, InputPropsComponent } from "../input";
 import { Label } from "../label";
+import { InputIcon } from "@/components/molecules/input-icon";
+import { InputIconProps } from "@/components/molecules/input-icon";
 
 export type TextFieldProps = {
 	label: string;
@@ -12,7 +13,7 @@ export type TextFieldProps = {
 	error?: string;
 	onChange: (e: React.FormEvent) => void;
 } & React.HTMLAttributes<HTMLInputElement> &
-	InputPropsComponent;
+	InputIconProps;
 export const TextField: React.FC<TextFieldProps> = ({
 	id,
 	label,
@@ -31,7 +32,7 @@ export const TextField: React.FC<TextFieldProps> = ({
 			>
 				{label}
 			</Label>
-			<Input
+			<InputIcon
 				id={id}
 				error={error}
 				onChange={onChange}

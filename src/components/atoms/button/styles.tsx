@@ -15,7 +15,7 @@ export const StyledButton = styled.button<{
 	fill: ${p =>
 		p.buttonStyle == `filled`
 			? p.theme.colors.light_gray[200]
-			: p.theme.colors.text};
+			: p.theme.colors.dark_gray[200]};
 	font-family: ${p => p.theme.font.family.text};
 	border-radius: ${({ theme }) => theme.border.radius.md};
 	cursor: pointer;
@@ -25,6 +25,7 @@ export const StyledButton = styled.button<{
 	justify-content: center;
 	align-items: center;
 	gap: 4px;
+	padding: 12px 24px;
 	opacity: 0.85;
 	&:hover,
 	&:focus,
