@@ -9,7 +9,7 @@ import Logo from "../../../assets/svg-logo.svg";
 import GoogleLogo from "../../../assets/google/selo-google.png";
 import { TextAtom } from "../../atoms/text/text-atom";
 import { FaFacebook, FaGoogle, FaInstagram, FaTwitter } from "react-icons/fa";
-import { TextIcon } from "../../molecules/text/text-icon-molecule";
+import { TextIcon } from "../../atoms/text/text-icon-molecule";
 
 export type FooterOrganismProps = {};
 

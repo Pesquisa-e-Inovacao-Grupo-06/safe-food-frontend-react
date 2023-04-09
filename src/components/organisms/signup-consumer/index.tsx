@@ -1,19 +1,30 @@
-import { useSafeFoodTheme } from "@/app/contexts/SafeFoodThemeProvider";
 import { Modal } from "@/components/molecules/modal";
 import React, { useState } from "react";
-import { GeneralInfoSignUpConsumer } from "./GeneralInfoSignUpConsumer";
-import { RestrictionSignUpConsumer } from "./RestrictionSignUpConsumer";
-import { AdditionalSignUpConsumer } from "./AdditionalSignUpConsumer";
 import { Box } from "@/components/atoms/box";
 import { Button } from "@/components/atoms/button";
-import { FinishedSignUpConsumer } from "./FinishedSignupConsumer";
 import { UnderlineLink } from "@/components/atoms/underline-link";
+import {
+	AdditionalSignUpConsumer,
+	FinishedSignUpConsumer,
+	GeneralInfoSignUpConsumer,
+	RestrictionSignUpConsumer,
+} from "./steps";
+import { FooterSignUpConsumer } from "./complements/FooterSignUpConsumer";
 
 export type Steps = "general-info" | "restrictions" | "additional" | "finished";
 export const SignUpConsumer: React.FC = () => {
 	const [step, setStep] = useState<Steps>("general-info");
-	const colors = useSafeFoodTheme().getTheme().colors;
 	const [isModalVisible, setModalVisible] = useState(true);
+
+	const StepScreen = () => {
+		if (step === "additional") return <AdditionalSignUpConsumer />;
+		if (step === "finished") return <FinishedSignUpConsumer />;
+		if (step === "restrictions")
+			return (
+				<RestrictionSignUpConsumer restrictions={["Gluten", "Gluten", "Gluten"]} />
+			);
+		return <GeneralInfoSignUpConsumer />;
+	};
 	return (
 		<>
 			<Button onClick={() => setModalVisible(!isModalVisible)}>Abrir modal</Button>
@@ -36,40 +47,14 @@ export const SignUpConsumer: React.FC = () => {
 					maxWidth={"600px"}
 					alignSelf="center"
 				>
-					{step === "general-info" && (
-						<GeneralInfoSignUpConsumer onClickAhead={() => setStep("restrictions")} />
-					)}
-					{step === "restrictions" && (
-						<RestrictionSignUpConsumer
-							restrictions={[
-								"Gluten",
-								"Lactose",
-								"Gluten",
-								"Lactose",
-								"Gluten",
-								"Lactose",
-								"Gluten",
-								"Lactose",
-							]}
-							onClickAhead={() => setStep("additional")}
-							onClickGoBack={() => setStep("general-info")}
-						/>
-					)}
-					{step === "additional" && (
-						<AdditionalSignUpConsumer
-							onClickAhead={() => setStep("finished")}
-							onClickGoBack={() => setStep("restrictions")}
-						/>
-					)}
-					{step === "finished" && (
-						<FinishedSignUpConsumer
-							onClickAhead={() => console.log("levar para login")}
-							onClickGoBack={() => setStep("additional")}
-						/>
-					)}
+					<StepScreen />
 
+					<FooterSignUpConsumer
+						step={step}
+						changeStep={setStep}
+					/>
 					<Box width="100%">
-						<UnderlineLink href="/signup-establishment">
+						<UnderlineLink href="http://localhost:5173/signup-establishment">
 							Sou um estabelecimento
 						</UnderlineLink>
 					</Box>

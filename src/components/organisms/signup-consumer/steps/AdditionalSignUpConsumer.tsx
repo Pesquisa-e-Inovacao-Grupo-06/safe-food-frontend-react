@@ -1,21 +1,14 @@
 import { Box } from "@/components/atoms/box";
 import { Column } from "@/components/atoms/column";
-import { SelectAtom } from "@/components/atoms/select/select-atom";
-import { TextAtom } from "@/components/atoms/text/text-atom";
-import { TextField } from "@/components/atoms/textfield";
-import { ButtonIcon } from "@/components/molecules/button/button-icon";
 import { Row } from "@/components/molecules/row/styles";
-import { Subtitle } from "@/styles/components/text/Subtitle";
 import React, { FC } from "react";
-import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 import { FaSearch } from "react-icons/fa";
-import { HeadingSignUpConsumer } from "./HeadingSignUpConsumer";
+import { HeadingSignUpConsumer } from "../complements/HeadingSignUpConsumer";
 import { ProfilePhotoUploadWithPreview } from "@/components/molecules/upload-profile-photo";
+import { TextAtom } from "@/components/atoms/text/text-atom";
+import { TextField } from "@/components/molecules/textfield";
 
-export const AdditionalSignUpConsumer: FC<{
-	onClickGoBack: () => void;
-	onClickAhead: () => void;
-}> = ({ onClickAhead, onClickGoBack }) => {
+export const AdditionalSignUpConsumer: FC = () => {
 	return (
 		<>
 			<HeadingSignUpConsumer
@@ -28,7 +21,7 @@ export const AdditionalSignUpConsumer: FC<{
 				display="flex"
 				flexDiretion="column"
 			>
-				<TextAtom typeText="text-md">Foto de perfil</TextAtom>
+				<TextAtom typeText="text-md">Foto de perfil: </TextAtom>
 				<ProfilePhotoUploadWithPreview
 					width="120px"
 					name="additional-profile-photo-consumer"
@@ -123,33 +116,6 @@ export const AdditionalSignUpConsumer: FC<{
 						/>
 					</Column>
 				</Row>
-			</Box>
-			<Box
-				width="100%"
-				display="flex"
-				margin="20px 0 0 0"
-				justify="space-between"
-			>
-				<ButtonIcon
-					icon={<BiLeftArrowAlt />}
-					onClick={onClickGoBack}
-					alignIcon="left"
-					buttonStyle="outline"
-					style={{
-						height: 45,
-					}}
-				>
-					Voltar
-				</ButtonIcon>
-				<ButtonIcon
-					icon={<BiRightArrowAlt />}
-					onClick={onClickAhead}
-					style={{
-						height: 45,
-					}}
-				>
-					Finalizar
-				</ButtonIcon>
 			</Box>
 		</>
 	);

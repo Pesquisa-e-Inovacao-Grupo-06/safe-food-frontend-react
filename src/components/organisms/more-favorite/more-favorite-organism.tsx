@@ -1,15 +1,15 @@
 import { Box } from "@/components/atoms/box";
 import { Button } from "@/components/atoms/button";
 import { Column } from "@/components/atoms/column";
-import { TextAtom } from "@/components/atoms/text/text-atom";
 import { AvaliationStars } from "@/components/molecules/avaliation-stars";
 import { Row } from "@/components/molecules/row/styles";
-import { TextIcon } from "@/components/molecules/text/text-icon-molecule";
+import { TextIcon } from "@/components/molecules/text-icon/text-icon-molecule";
 import { Subtitle } from "@/styles/components/text/Subtitle";
 import { TiMediaEjectOutline } from "react-icons/ti";
 import foodFavorito from "../../../assets/food-favorite.png";
 import { Container } from "../../atoms/sidebarItem/styles";
 import styled from "styled-components";
+import { TextAtom } from "@/components/atoms/text/text-atom";
 
 export const MoreFavoriteOrganism = ({}) => {
 	return (
