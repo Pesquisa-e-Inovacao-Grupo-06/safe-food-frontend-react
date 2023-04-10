@@ -1,0 +1,82 @@
+.input_disabled{
+    height: 40px;
+    width: 400px;
+    left: 16px;
+    top: 16px;
+    border-radius: 4px;
+    box-shadow: 0px 1px 8px 1px #0505051A;
+    font-size: 16px;
+    font-family: "Source Sans Pro";
+    font-style: color #474747;
+    padding-left: 10px;
+    margin-left: 5px; /*somente temporario para visualização no processo de criação*/
+    margin-top: 5px; /*somente temporario para visualização no processo de criação*/
+    background: #CCCCCC;
+}
+
+.input_with_icon{
+    height: 40px;
+    width: 400px;
+    left: 16px;
+    top: 70px;
+    border-radius: 4px;
+    box-shadow: 0px 1px 8px 1px #0505051A;
+    font-size: 16px;
+    font-family: "Source Sans Pro";
+    font-style: color #474747;
+    padding-left: 10px;
+    margin-left: 5px; /*somente temporario para visualização no processo de criação*/
+    margin-top: 5px; /*somente temporario para visualização no processo de criação*/
+    background: linear-gradient(0deg, #F2F2F2, #F2F2F2),
+    linear-gradient(0deg, #F0F0F0, #F0F0F0);
+}
+
+.input_focus_light{
+    height: 40px;
+    width: 400px;
+    left: 16px;
+    top: 70px;
+    border-radius: 4px;
+    box-shadow: 0px 1px 8px 1px #0505051A;
+    font-size: 16px;
+    font-family: "Source Sans Pro";
+    font-style: color #474747;
+    padding-left: 10px;
+    margin-left: 5px; /*somente temporario para visualização no processo de criação*/
+    margin-top: 5px; /*somente temporario para visualização no processo de criação*/
+    background: linear-gradient(0deg, #F2F2F2, #F2F2F2),
+    linear-gradient(0deg, #F0F0F0, #F0F0F0);
+}
+
+.input_error_light{
+    height: 40px;
+    width: 400px;
+    left: 16px;
+    top: 70px;
+    border-radius: 4px;
+    box-shadow: 0px 1px 8px 1px #0505051A;
+    font-size: 16px;
+    font-family: "Source Sans Pro";
+    font-style: color #E65769;
+    padding-left: 10px;
+    margin-left: 5px; /*somente temporario para visualização no processo de criação*/
+    margin-top: 5px; /*somente temporario para visualização no processo de criação*/
+    background: #FFDEE2;
+    border: 1px solid #E65769;
+}
+
+.input_no_focus_light{
+    height: 40px;
+    width: 400px;
+    left: 16px;
+    top: 70px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-family: "Source Sans Pro";
+    font-style: color #474747;
+    padding-left: 10px;
+    margin-left: 5px; /*somente temporario para visualização no processo de criação*/
+    margin-top: 5px; /*somente temporario para visualização no processo de criação*/
+    background: linear-gradient(0deg, #F2F2F2, #F2F2F2),
+    linear-gradient(0deg, #F0F0F0, #F0F0F0);
+}
