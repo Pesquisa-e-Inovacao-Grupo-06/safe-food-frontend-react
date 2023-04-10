@@ -1,12 +1,9 @@
 import { Divider } from "@/pages/home";
-import { Container } from "../atoms/container";
 import { BannerMobilePlatform } from "../organisms/banner-mobile-platform/banner-mobile-platform";
 import { FooterOrganism } from "../organisms/footer/footer-organism";
 import { MoreFavoritesTemplate } from "./more-favorites-template";
 import Header from "../molecules/header";
 import { Box } from "../atoms/box";
-import { CardEstablishmentFoodOrganism } from "../organisms/card-establishment-food/card-establishment-food-organism";
-import { Carousel } from "../molecules/carousel";
 import { CardEstablishmentFoodOTemplate } from "./card-establishment-food-organism";
 
 export const HomeTemplate = ({}) => {

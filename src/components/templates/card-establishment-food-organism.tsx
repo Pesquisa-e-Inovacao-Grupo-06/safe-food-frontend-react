@@ -1,5 +1,5 @@
 import { Subtitle } from "@/styles/components/text/Subtitle";
-import { CardEstablishmentFoodOrganism } from "../organisms/card-establishment-food/card-establishment-food-organism";
+import { CardCarrouselFoodOrganism } from "../organisms/card-establishment-food/card-establishment-food-organism";
 import { Carousel } from "../molecules/carousel";
 
 export const CardEstablishmentFoodOTemplate = ({}) => {
@@ -17,13 +17,13 @@ export const CardEstablishmentFoodOTemplate = ({}) => {
 			</Subtitle>
 			<Carousel
 				items={[
-					<CardEstablishmentFoodOrganism></CardEstablishmentFoodOrganism>,
-					<CardEstablishmentFoodOrganism></CardEstablishmentFoodOrganism>,
-					<CardEstablishmentFoodOrganism></CardEstablishmentFoodOrganism>,
-					<CardEstablishmentFoodOrganism></CardEstablishmentFoodOrganism>,
-					<CardEstablishmentFoodOrganism></CardEstablishmentFoodOrganism>,
-					<CardEstablishmentFoodOrganism></CardEstablishmentFoodOrganism>,
-					<CardEstablishmentFoodOrganism></CardEstablishmentFoodOrganism>,
+					<CardCarrouselFoodOrganism></CardCarrouselFoodOrganism>,
+					<CardCarrouselFoodOrganism></CardCarrouselFoodOrganism>,
+					<CardCarrouselFoodOrganism></CardCarrouselFoodOrganism>,
+					<CardCarrouselFoodOrganism></CardCarrouselFoodOrganism>,
+					<CardCarrouselFoodOrganism></CardCarrouselFoodOrganism>,
+					<CardCarrouselFoodOrganism></CardCarrouselFoodOrganism>,
+					<CardCarrouselFoodOrganism></CardCarrouselFoodOrganism>,
 				]}
 				itemSize={4}
 				itemHeight={260}
