@@ -1,19 +1,10 @@
 import styled, { css } from "styled-components";
 import { HomeTemplate } from "../components/templates/home-template";
-import {
-	CardCarrouselFoodOrganism,
-	CardEstablishmentFoodOrganism,
-	CardExpansiveEstablishmentFoodOrganism,
-} from "../components/organisms/card-establishment-food/card-establishment-food-organism";
-import { Box } from "../components/atoms/box/index";
+
 function Home() {
 	return (
 		<div>
-			<CardExpansiveEstablishmentFoodOrganism />
-			<CardEstablishmentFoodOrganism></CardEstablishmentFoodOrganism>
-			<CardCarrouselFoodOrganism></CardCarrouselFoodOrganism>
-			{/* <HomeTemplate></HomeTemplate> */}
-			<Box></Box>
+			<HomeTemplate></HomeTemplate>
 		</div>
 	);
 }

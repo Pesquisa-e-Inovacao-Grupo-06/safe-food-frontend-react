@@ -8,7 +8,7 @@ export const CardEstablishmentFoodOTemplate = ({}) => {
 			<Subtitle
 				large
 				style={{
-					marginBottom: "30px",
+					margin: "30px",
 					width: "fit-content",
 					borderBottom: "0.18em solid orange",
 				}}
@@ -26,7 +26,7 @@ export const CardEstablishmentFoodOTemplate = ({}) => {
 					<CardCarrouselFoodOrganism></CardCarrouselFoodOrganism>,
 				]}
 				itemSize={4}
-				itemHeight={260}
+				itemHeight={258}
 			></Carousel>
 		</>
 	);

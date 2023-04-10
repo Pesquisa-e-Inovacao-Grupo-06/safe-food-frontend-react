@@ -17,16 +17,16 @@ export const CardCarrouselFoodOrganism: React.FC<EstablishmentFood> = ({}) => {
 				display="flex"
 				flexDiretion="column"
 				borderRadius="md"
-				shadow="md"
+				// shadow="md"
 				style={{
 					width: "400px",
-					height: "215px",
-					margin: "10px",
+					height: "236px",
+					// margin: "10px",
 				}}
 				// height={"auto"}
 				// size="sm"
 			>
-				<div style={{ height: "50%", width: "100%" }}>
+				<div style={{ height: "46%", width: "100%" }}>
 					<img
 						src="https://a.cdn-hotels.com/gdcs/production0/d1513/35c1c89e-408c-4449-9abe-f109068f40c0.jpg?impolicy=fcrop&w=800&h=533&q=medium"
 						style={{ objectFit: "cover", borderRadius: "4px" }}
@@ -36,11 +36,12 @@ export const CardCarrouselFoodOrganism: React.FC<EstablishmentFood> = ({}) => {
 				</div>
 				<div
 					style={{
-						height: "50%",
+						height: "54%",
 						width: "100%",
 						display: "flex",
 						flexDirection: "column",
 						justifyContent: "space-between",
+						padding: "10px",
 					}}
 				>
 					<StyledRow>
@@ -51,9 +52,7 @@ export const CardCarrouselFoodOrganism: React.FC<EstablishmentFood> = ({}) => {
 					<TextAtom typeText="text-md">
 						Pizza vegana produzida a base de frutas e vegetais
 					</TextAtom>
-					<StyledRow
-						style={{ justifyContent: "space-around", alignItems: "flex-start" }}
-					>
+					<StyledRow style={{ alignItems: "flex-start" }}>
 						<StyledCost typeText="text-mdb">R$ 45,00</StyledCost>
 						<TextIcon
 							icon={<IoLocationSharp />}
@@ -92,7 +91,7 @@ export const CardEstablishmentFoodOrganism = ({}) => {
 					}}
 				/>
 			</div>
-			<StyledColumn style={{ margin: "14px", textAlign: "center" }}>
+			<StyledColumn style={{ margin: "14px", alignItems: "start" }}>
 				<Subtitle>Hamburguer Vegan 2.0</Subtitle>
 				<TextAtom style={{ height: "fit-content" }}>
 					Aproveite todo o sabor de um clássico hambúrguer sem sacrificar seus
@@ -103,7 +102,8 @@ export const CardEstablishmentFoodOrganism = ({}) => {
 					qualquer refeição, desde um lanche rápido até um jantar sofisticado.
 					Experimente agora e descubra o futuro do hambúrguer vegano!
 				</TextAtom>
-				<TextAtom>RS 30,00</TextAtom>
+				<StyledCost typeText="text-mdb">R$ 45,00</StyledCost>
+
 				<Divider />
 				<StyledRow>
 					<AvaliationStars
@@ -154,7 +154,7 @@ export const CardExpansiveEstablishmentFoodOrganism = ({}) => {
 						3.5
 					</TextIcon>
 					<TextIcon
-						icon={<FaCommentAlt></FaCommentAlt>}
+						icon={<FaCommentAlt />}
 						iconAlign="left"
 					>
 						53
@@ -213,8 +213,10 @@ export const StyledColumn = styled.div`
 	gap: 20px;
 `;
 
-export const StyledCost = styled(TextAtom)`
-	background-color: green;
+export const StyledCost = styled(TextAtom)<{
+	backgroundColor?: string;
+}>`
+	background-color: ${p => p.backgroundColor ?? "green"};
 	height: 100%;
 	border-radius: 4px;
 	padding-left: 3%;
