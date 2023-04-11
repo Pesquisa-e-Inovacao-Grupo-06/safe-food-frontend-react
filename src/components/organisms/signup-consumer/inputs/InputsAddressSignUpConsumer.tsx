@@ -1,3 +1,5 @@
+import { HttpClient } from "@/app/domain/services/HttpClient";
+import { FindAddress } from "@/app/domain/usecases/FindAddress";
 import { InputValidator } from "@/app/util/validations/input-validator";
 import { Column } from "@/components/atoms/column";
 import { Row } from "@/components/molecules/row/styles";
@@ -7,17 +9,40 @@ import { FaSearch } from "react-icons/fa";
 
 export const InputsAddressSignupConsumer: React.FC<{
 	validator: InputValidator;
-}> = ({ validator }) => {
+	usecase: FindAddress;
+}> = ({ validator, usecase }) => {
 	const [cep, setCep] = useState("");
 	const [errorCep, setError] = useState("");
 	const [state, setState] = useState("");
 	const [logradouro, setLogradouro] = useState("");
 	const [number, setNumber] = useState("");
 	const [complement, setComplement] = useState("");
+
+	const findAddress = (cep: string) => {
+		usecase
+			.execute(cep)
+			.then(({ params }) => {
+				const { cep, complemento, logradouro, estado } = params;
+				setCep(cep ?? "");
+				setComplement(complemento ?? "");
+				setLogradouro(logradouro ?? "");
+				setState(estado ?? "");
+			})
+			.catch(err => {
+				clearAddress();
+				setError("CEP invalido");
+			});
+	};
+	const clearAddress = () => {
+		setComplement("");
+		setLogradouro("");
+		setState("");
+	};
+
 	return (
 		<>
-			<Row gap="20px">
-				<Column maxWidth="210px">
+			<Row>
+				<Column maxWidth="48%">
 					<TextField
 						label="CEP: "
 						required={false}
@@ -25,7 +50,22 @@ export const InputsAddressSignupConsumer: React.FC<{
 						value={cep}
 						renderEndIcon={() => <FaSearch />}
 						onChange={ev => {
-							setCep(ev.currentTarget.value);
+							const str = ev.currentTarget.value;
+							const value = validator.format(str);
+							setCep(value);
+							if (str.length > 0) {
+								const errors = validator.validate(value);
+								if (errors.length == 0) {
+									setError("");
+									findAddress(value);
+								} else {
+									clearAddress();
+									setError(errors.join(";"));
+								}
+							} else {
+								clearAddress();
+								setError("");
+							}
 						}}
 						placeholder="00000-000"
 						title="Digite seu CEP"
@@ -34,7 +74,7 @@ export const InputsAddressSignupConsumer: React.FC<{
 						error={errorCep}
 					/>
 				</Column>
-				<Column maxWidth="210px">
+				<Column maxWidth="48%">
 					<TextField
 						label="Estado: "
 						id="address-state"
