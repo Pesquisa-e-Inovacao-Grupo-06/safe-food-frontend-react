@@ -8,7 +8,7 @@ export const CardEstablishmentFoodOTemplate = ({}) => {
 			<Subtitle
 				large
 				style={{
-					margin: "30px",
+					marginBottom: "30px",
 					width: "fit-content",
 					borderBottom: "0.18em solid orange",
 				}}

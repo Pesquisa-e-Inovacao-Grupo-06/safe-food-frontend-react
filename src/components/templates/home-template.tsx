@@ -5,20 +5,16 @@ import { MoreFavoritesTemplate } from "./more-favorites-template";
 import Header from "../molecules/header";
 import { Box } from "../atoms/box";
 import { CardEstablishmentFoodOTemplate } from "./card-establishment-food-organism";
+import { ContainerFluid } from "../atoms/container";
 
 export const HomeTemplate = ({}) => {
 	return (
 		<>
 			<Header />
-			<div style={{ paddingLeft: "150px", paddingRight: "150px" }}>
+			<ContainerFluid>
 				<Divider marginBottom="100px"></Divider>
 				<Box>
-					{/* <Container
-        height={"200px"}
-        size="xxlg"
-    > */}
 					<CardEstablishmentFoodOTemplate />
-					{/* </Container> */}
 					{/* more-favorites */}
 					<MoreFavoritesTemplate />
 					<Divider
@@ -34,7 +30,7 @@ export const HomeTemplate = ({}) => {
 					{/* footer */}
 					<FooterOrganism />
 				</Box>
-			</div>
+			</ContainerFluid>
 		</>
 	);
 };
