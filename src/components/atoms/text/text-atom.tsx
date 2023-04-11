@@ -15,12 +15,14 @@ export const TextAtom: React.FC<TextProps> = ({
 	...props
 }) => {
 	return (
-		<StyledText
-			typeText={typeText}
-			color={color}
-			{...props}
-		>
-			{children}
-		</StyledText>
+		<div>
+			<StyledText
+				typeText={typeText}
+				color={color}
+				{...props}
+			>
+				{children}
+			</StyledText>
+		</div>
 	);
 };

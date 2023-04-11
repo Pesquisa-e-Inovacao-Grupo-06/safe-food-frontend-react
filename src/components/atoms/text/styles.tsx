@@ -50,6 +50,8 @@ export const StyledText = styled.span<{
 				`;
 		}
 	}};
+	margin: 0px;
+	padding: 0px;
 	color: ${p =>
 		p.theme.isLight
 			? p.theme.colors.dark_gray[800]
