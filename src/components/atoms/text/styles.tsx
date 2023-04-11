@@ -1,24 +1,25 @@
 import styled, { css } from "styled-components";
-import { TypeText } from "./text-atom";
-import { pixelToRem } from "../../../styles/theme/light";
+import { AlignText, TypeText } from "./text-atom";
 
 export const StyledText = styled.span<{
 	typeText: TypeText;
-	color: string;
+	color?: string;
+	align?: AlignText;
 }>`
+	text-align: ${p => p.align ?? "start"};
 	${p => {
 		switch (p.typeText) {
 			case "text-md":
 				return css`
 					font-size: ${p => p.theme.font.size.md};
 					font-family: ${p => p.theme.font.family.text};
-					height: ${p => pixelToRem(24)};
+					line-height: ${p => p.theme.font.height.md};
 					font-weight: 400;
 				`;
 
 			case "text-mdb":
 				return css`
-					height: ${p => pixelToRem(24)};
+					line-height: ${p => p.theme.font.height.lg};
 					font-size: ${p => p.theme.font.size.lg};
 					font-weight: 700;
 					font-family: ${p => p.theme.font.family.text};
@@ -28,7 +29,7 @@ export const StyledText = styled.span<{
 			case "text-sm":
 				return css`
 					font-size: ${p => p.theme.font.size.sm};
-					height: ${p => pixelToRem(24)};
+					line-height: ${p => p.theme.font.height.sm};
 					font-family: ${p => p.theme.font.family.text};
 					font-weight: 400;
 				`;
@@ -36,14 +37,14 @@ export const StyledText = styled.span<{
 			case "text-xsm-i":
 				return css`
 					font-size: ${p => p.theme.font.size.xsm};
-					height: ${p => pixelToRem(20)};
+					line-height: ${p => p.theme.font.height.xsm};
 					font-weight: 400;
 					font-family: ${p => p.theme.font.family.text};
 				`;
 
 			default:
 				return css`
-					height: ${p => pixelToRem(24)};
+					line-height: ${p => p.theme.font.height.md};
 					font-size: ${p => p.theme.font.size.md};
 					font-weight: 400;
 					font-family: ${p => p.theme.font.family.text};

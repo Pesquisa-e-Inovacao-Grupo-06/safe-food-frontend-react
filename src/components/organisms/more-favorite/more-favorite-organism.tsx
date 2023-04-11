@@ -2,7 +2,6 @@ import { TextAtom } from "@/components/atoms/text/text-atom";
 import { AvaliationStars } from "@/components/molecules/avaliation-stars";
 import { Subtitle } from "@/styles/components/text/Subtitle";
 import { Button } from "@/components/atoms/button";
-import { TextIcon } from "@/components/molecules/text/text-icon-molecule";
 import { TiMediaEjectOutline } from "react-icons/ti";
 import {
 	StyledContainer,
@@ -11,6 +10,7 @@ import {
 	StyledTextWithBorder,
 	StyledCost,
 } from "./more-favorite-organism-style";
+import { TextIcon } from "@/components/molecules/text-icon/text-icon-molecule";
 
 export type MoreFavoriteOrganismProps = {
 	nameFoodTitle: string;

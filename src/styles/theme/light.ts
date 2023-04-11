@@ -15,7 +15,7 @@ export const lightTheme: DefaultTheme = {
 	},
 	colors: {
 		background: "#fcfcfcff",
-		text: "#1f1f1fff",
+		text: "#474747ff",
 		primary: {
 			200: "#ffebd6ff",
 			400: "#fed29aff",
@@ -51,10 +51,11 @@ export const lightTheme: DefaultTheme = {
 			"600": "#a03d44",
 		},
 		success: {
-			"200": "#A1FFBC",
-			"400": "#1CCE4F",
-			"600": "#18A942",
-			"800": "#008526",
+			"200": "#C7FFCC",
+			"400": "#84F2A3",
+			"600": "#40EE72",
+			"800": "#18A942",
+			"1000": "#008526",
 		},
 		warning: {
 			"200": "#FFFBA4",
@@ -70,10 +71,10 @@ export const lightTheme: DefaultTheme = {
 		},
 		shadow: {
 			"200": "0px 1px 1px 1px #00000022",
-			"400": "0px 2px 1px 1px #21212111",
-			"600": "0px 4px 12px 2px #21212111",
-			"800": "0px 6px 32px 4px #21212111",
-			"1000": "0px 8px 64px 8px #21212111",
+			"400": "0px 2px 1px 1px #00000022",
+			"600": "0px 4px 12px 2px #00000022",
+			"800": "0px 6px 32px 4px #00000022",
+			"1000": "0px 8px 64px 8px #00000022",
 		},
 	},
 	font: {

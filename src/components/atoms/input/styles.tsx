@@ -42,10 +42,6 @@ export const StyledInput = styled.input<StyledInputProps>`
 	}};
 
 	opacity: 0.8;
-
-	&:disabled {
-		filter: saturate(0.7);
-	}
 	&:hover,
 	&:focus {
 		border: 1px solid
@@ -60,5 +56,13 @@ export const StyledInput = styled.input<StyledInputProps>`
 			}};
 		transform: translateX(2px);
 		opacity: 1;
+	}
+	&:disabled {
+		opacity: 0.6;
+		&:hover,
+		&:focus {
+			border: none;
+			transform: none;
+		}
 	}
 `;
