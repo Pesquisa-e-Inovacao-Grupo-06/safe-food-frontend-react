@@ -3,7 +3,7 @@ import { IconAlign } from "./text-icon-molecule";
 
 export const StyledTextIcon = styled.div<{
 	iconAlign: IconAlign;
-	iconColor: string;
+	iconColor?: string;
 }>`
 	${p => {
 		if (p.iconAlign === "right") {
@@ -22,6 +22,5 @@ export const StyledTextIcon = styled.div<{
 			`;
 		}
 	}}
-
 	color: ${p => p.iconColor};
 `;

@@ -1,18 +1,23 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useSafeFoodTheme } from "./app/contexts/SafeFoodThemeProvider";
-import { Button } from "./components/atoms/button";
 import Home from "./pages/home";
 import About from "./pages/about";
 import FAQ from "./pages/faq";
 import SignIn from "./pages/signIn";
 import SignUp from "./pages/signUp";
-import Header from "./components/molecules/header";
+import { makeHttpClient } from "./app/factories/makeAxiosHttpClient";
+type ResponseLoginExample = {
+	name: string;
+	token: string;
+};
+type RequestLoginExample = {
+	email: string;
+	password: string;
+};
 export default function App() {
 	return (
 		<>
 			<Router>
-				<Header />
 				<Routes>
 					<Route
 						path="/"
@@ -39,3 +44,8 @@ export default function App() {
 		</>
 	);
 }
+
+export type UserType = {
+	email: string;
+	password: string;
+};

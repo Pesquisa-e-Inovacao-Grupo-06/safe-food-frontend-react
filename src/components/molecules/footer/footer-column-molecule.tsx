@@ -18,10 +18,7 @@ export const FooterColumnMolecule: React.FC<Props> = ({ title, children }) => {
 		<StyledDivFooterColumn>
 			<StyledFooterColumnContainer>
 				<StyledTitleFooterColumn>
-					<TextAtom
-						typeText="text-mdb"
-						text={title}
-					/>
+					<TextAtom typeText="text-mdb">{title}</TextAtom>
 				</StyledTitleFooterColumn>
 			</StyledFooterColumnContainer>
 			{children}

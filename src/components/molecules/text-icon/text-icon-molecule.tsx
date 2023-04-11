@@ -8,6 +8,7 @@ export type TextIconProps = {
 	icon: ReactNode;
 	iconAlign: IconAlign;
 	iconColor?: string;
+	color?: string;
 } & React.HtmlHTMLAttributes<HTMLButtonElement> &
 	React.PropsWithChildren;
 
@@ -16,21 +17,24 @@ export const TextIcon: React.FC<Props> = ({
 	icon,
 	typeText,
 	children,
-	text,
 	iconAlign = "left",
-	iconColor = "black",
-
+	iconColor = "red",
+	color = "black",
 	...props
 }) => {
 	return (
 		<StyledTextIcon
 			iconAlign={iconAlign}
-			iconColor={iconColor}
+			// iconColor={iconColor}
 		>
-			<>
-				{icon}
-				<TextAtom typeText={typeText}>{text}</TextAtom>
-			</>
+			{icon}
+			<TextAtom
+				color={color}
+				typeText={typeText}
+				{...props}
+			>
+				{children}
+			</TextAtom>
 		</StyledTextIcon>
 	);
 };

@@ -51,5 +51,8 @@ export const StyledText = styled.span<{
 				`;
 		}
 	}};
-	color: ${p => p.color || p.theme.colors.text};
+	color: ${p =>
+		p.theme.isLight
+			? p.theme.colors.dark_gray[800]
+			: p.theme.colors.light_gray[200]};
 `;

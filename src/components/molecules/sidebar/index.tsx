@@ -1,4 +1,9 @@
-import { ContainerSidebar, Content, ContainerBack, HeaderSidebar } from "./styles";
+import {
+	ContainerSidebar,
+	Content,
+	ContainerBack,
+	HeaderSidebar,
+} from "./styles";
 import {
 	FaTimes,
 	FaHome,
@@ -26,7 +31,7 @@ function Sidebar({ active, toggle }: Props) {
 			<ContainerSidebar sidebar={active}>
 				<FaTimes onClick={toggle} />
 				<HeaderSidebar height={75}>
-				<LogoAtom sizeLogo="logo-sm"/>
+					<LogoAtom sizeLogo="logo-sm" />
 				</HeaderSidebar>
 				<Content>
 					<SidebarItem

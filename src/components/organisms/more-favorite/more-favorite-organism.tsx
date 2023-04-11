@@ -1,136 +1,91 @@
-import { Box } from "@/components/atoms/box";
-import { Button } from "@/components/atoms/button";
-import { Column } from "@/components/atoms/column";
-import { AvaliationStars } from "@/components/molecules/avaliation-stars";
-import { Row } from "@/components/molecules/row/styles";
-import { TextIcon } from "@/components/molecules/text-icon/text-icon-molecule";
-import { Subtitle } from "@/styles/components/text/Subtitle";
-import { TiMediaEjectOutline } from "react-icons/ti";
-import foodFavorito from "../../../assets/food-favorite.png";
-import { Container } from "../../atoms/sidebarItem/styles";
-import styled from "styled-components";
 import { TextAtom } from "@/components/atoms/text/text-atom";
+import { AvaliationStars } from "@/components/molecules/avaliation-stars";
+import { Subtitle } from "@/styles/components/text/Subtitle";
+import { Button } from "@/components/atoms/button";
+import { TiMediaEjectOutline } from "react-icons/ti";
+import {
+	StyledContainer,
+	StyledContainerColumn,
+	StyledContainerRow,
+	StyledTextWithBorder,
+	StyledCost,
+} from "./more-favorite-organism-style";
+import { TextIcon } from "@/components/molecules/text-icon/text-icon-molecule";
 
-export const MoreFavoriteOrganism = ({}) => {
-	return (
-		<Container style={{ height: "280px" }}>
-			<Row style={{ gap: "40px" }}>
-				<Column maxWidth="100%">
-					<Box
-						display="flex"
-						justify="right"
-						height="100%"
-					>
-						<img src={foodFavorito} />
-					</Box>
-				</Column>
-				<Column size={4}>
-					<div>
-						<Row gap="36px">
-							<Subtitle>Tofu vegetariano</Subtitle>
-							<AvaliationStars avegareRate={1} />
-						</Row>
-						<Row>
-							<TextAtom
-								text="Tofu Vegetariano produzido com legumes e massas especiais."
-								typeText="text-md"
-							></TextAtom>
-						</Row>
-						<Row gap="10px">
-							<TextAtom
-								text="Tofu Dividido"
-								style={{
-									border: "1px solid green",
-									borderRadius: "8px",
-									paddingLeft: "5px",
-									paddingRight: "5px",
-								}}
-							>
-								Tofu Dividido
-							</TextAtom>
-							<TextAtom
-								text="Tofu Dividido"
-								style={{
-									border: "1px solid green",
-									borderRadius: "8px",
-									paddingLeft: "5px",
-									paddingRight: "5px",
-								}}
-							>
-								Tofu Dividido
-							</TextAtom>{" "}
-							<TextAtom
-								text="Tofu Dividido"
-								style={{
-									border: "1px solid green",
-									borderRadius: "8px",
-									paddingLeft: "5px",
-									paddingRight: "5px",
-								}}
-							>
-								Tofu Dividido
-							</TextAtom>
-							<TextAtom
-								text="Tofu Dividido"
-								style={{
-									border: "1px solid green",
-									borderRadius: "8px",
-									paddingLeft: "5px",
-									paddingRight: "5px",
-								}}
-							>
-								Tofu Dividido
-							</TextAtom>
-						</Row>
-						<Row>
-							<Subtitle
-								style={{
-									backgroundColor: "green",
-									borderRadius: "8px",
-									marginTop: "10px",
-									paddingLeft: "10px",
-									paddingRight: "10px",
-									color: "white",
-								}}
-							>
-								R$ 55,00
-							</Subtitle>
-						</Row>
-						<Button style={{ marginLeft: "0px" }}> Ver produto</Button>
-						<Column>
-							<TextIcon
-								icon={<TiMediaEjectOutline />}
-								iconAlign={"left"}
-							>
-								Veg To Go - Restaurante Vegetariano
-							</TextIcon>
-							<TextIcon
-								icon={<TiMediaEjectOutline />}
-								iconAlign={"left"}
-							>
-								Aberto
-							</TextIcon>
-							<TextIcon
-								icon={<TiMediaEjectOutline />}
-								iconAlign={"left"}
-							>
-								Rua dos Otonis 627, São Paulo, SP, 04025-001
-							</TextIcon>
-						</Column>
-					</div>
-				</Column>
-			</Row>
-		</Container>
-	);
+export type MoreFavoriteOrganismProps = {
+	nameFoodTitle: string;
+	descriptionFood: string;
+	ingredients: string[];
+	priceFood: string;
+	nameEstablishment: string;
+	workingPlaceEstablishment: boolean;
+	locationEstablishment: string;
 };
 
-export const StyledCost = styled.div`
-	padding-left: 15px;
-	padding-right: 15px;
-	border-radius: 8px;
-`;
+export const MoreFavoriteOrganism: React.FC<MoreFavoriteOrganismProps> = ({
+	nameFoodTitle,
+	descriptionFood,
+	ingredients,
+	priceFood,
+	nameEstablishment,
+	workingPlaceEstablishment,
+	locationEstablishment,
+}) => {
+	function IngredientsList(ingredients: string[]) {
+		return ingredients.map(ingredient => (
+			<StyledTextWithBorder>{ingredient}</StyledTextWithBorder>
+		));
+	}
+	return (
+		<StyledContainer>
+			<div style={{ width: "500px" }}>
+				<img
+					className="img-more-favorite"
+					src="https://img.freepik.com/premium-photo/food-pasta-pork-ribs-avocado-buddha-bowl-beet-salad-black-stone-background-top-view-free-space-text_187166-7546.jpg?w=2000"
+					alt=""
+					width={"100%"}
+					height={"100%"}
+					style={{ objectFit: "cover" }}
+				/>
+			</div>
+			<div>
+				<StyledContainerColumn>
+					<StyledContainerRow style={{ justifyContent: "space-between" }}>
+						<Subtitle>{nameFoodTitle}</Subtitle>
 
-export const StyledTextWithBorder = styled.p`
-	border: 1px solid "green";
-	border-radius: 8px;
-`;
+						<AvaliationStars avegareRate={1} />
+						<div></div>
+					</StyledContainerRow>
+					<TextAtom>{descriptionFood}</TextAtom>
+					<StyledContainerRow style={{ gap: "10px", width: "80%" }}>
+						{/* //TODO: TESTAR LIST BUILDER*/}
+						{IngredientsList(ingredients)}
+					</StyledContainerRow>
+					<StyledCost typeText="text-mdb">{priceFood}</StyledCost>
+					<Button style={{ marginLeft: "0px", width: "fit-content" }}>
+						Ver produto
+					</Button>
+					<TextIcon
+						icon={<TiMediaEjectOutline />}
+						iconAlign={"left"}
+					>
+						{nameEstablishment}
+					</TextIcon>
+					<TextIcon
+						icon={<TiMediaEjectOutline />}
+						iconAlign={"left"}
+					>
+						{workingPlaceEstablishment}
+					</TextIcon>
+					<TextIcon
+						style={{}}
+						icon={<TiMediaEjectOutline />}
+						iconAlign={"left"}
+					>
+						{locationEstablishment}
+					</TextIcon>
+				</StyledContainerColumn>
+			</div>
+		</StyledContainer>
+	);
+};
