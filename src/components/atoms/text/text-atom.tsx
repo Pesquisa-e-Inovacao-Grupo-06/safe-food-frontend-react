@@ -16,23 +16,11 @@ export const TextAtom: React.FC<TextProps> = ({
 	...props
 }) => {
 	return (
-<<<<<<< HEAD
 		<StyledText
 			typeText={typeText}
 			{...props}
 		>
 			{children}
 		</StyledText>
-=======
-		<div>
-			<StyledText
-				typeText={typeText}
-				color={color}
-				{...props}
-			>
-				{children}
-			</StyledText>
-		</div>
->>>>>>> feature/term-of-service
 	);
 };

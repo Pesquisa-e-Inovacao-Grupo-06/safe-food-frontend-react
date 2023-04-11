@@ -67,11 +67,7 @@ export const StyledButton = styled.button<{
 			return css`
 				min-width: min-content;
 				background-color: transparent;
-<<<<<<< HEAD
 				border: none;
-=======
-				/* border: 4px solid transparent; */
->>>>>>> feature/term-of-service
 			`;
 		}
 	}}
