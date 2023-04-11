@@ -6,6 +6,7 @@ export type typeInput = "checkbox" | "radio";
 type Props = {
 	value: string;
 	type?: typeInput;
+	callback: (checked: boolean) => void;
 };
 
 const Checkbox: React.FC<Props> = ({ type = "checkbox", ...props }) => {
@@ -24,7 +25,10 @@ const Checkbox: React.FC<Props> = ({ type = "checkbox", ...props }) => {
 				<input
 					type={type}
 					value={props.value}
-					onChange={handleChange}
+					onChange={e => {
+						handleChange(e);
+						props.callback(e.currentTarget.checked);
+					}}
 				/>
 				<span className="checkmark"></span>
 			</label>

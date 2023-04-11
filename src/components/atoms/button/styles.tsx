@@ -24,7 +24,7 @@ export const StyledButton = styled.button<{
 		} else if (p.buttonStyle === `outline`) {
 			return css`
 				background-color: transparent;
-				border: 4px solid ${p => p.theme.colors.primary[400]};
+				/* border: 4px solid transparent; */
 			`;
 		}
 	}}

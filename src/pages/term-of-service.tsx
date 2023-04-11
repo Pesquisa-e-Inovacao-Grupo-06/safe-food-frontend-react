@@ -1,17 +1,20 @@
 import styled, { css } from "styled-components";
-import { HomeTemplate } from "../components/templates/home-template";
-import Header from "@/components/molecules/header";
 import { Title } from "@/styles/components/text/Title";
 import { TextAtom } from "../components/atoms/text/text-atom";
 import { Modal } from "../components/molecules/modal/index";
 import { Box } from "@/components/atoms/box";
-import { StyledRow } from "@/components/organisms/card-establishment-food/card-establishment-food-organism";
 import { Subtitle } from "@/styles/components/text/Subtitle";
+import Checkbox from "../components/atoms/checkbox/index";
+import { Button } from "@/components/atoms/button";
+import { StyledRow } from "@/components/organisms/card-establishment-food/card-establishment-food-organism";
+import { useState } from "react";
 
 function TermOfService() {
+	const [termAccepted, setTermAccepted] = useState(false);
+
 	return (
 		<div>
-			<Modal
+			<StyledModal
 				isOpen={true}
 				size="lg"
 				style={{ overflowY: "scroll" }}
@@ -30,7 +33,7 @@ function TermOfService() {
 						display="flex"
 						flexDiretion="column"
 						justify="center"
-						style={{ textAlign: "center", gap: "20px" }}
+						style={{ textAlign: "center", gap: "30px" }}
 						width="80%"
 					>
 						<Title>Termos de uso e privacidade</Title>
@@ -44,6 +47,10 @@ function TermOfService() {
 						</div>
 						<div style={{ textAlign: "start", width: "100%" }}>
 							<TextAtom>Atualizado em 04/03/2023</TextAtom>
+							<Divider
+								marginAll="10px"
+								color="transparent"
+							/>
 							<div
 								style={{
 									display: "flex",
@@ -118,10 +125,30 @@ function TermOfService() {
 									mas isso pode afetar a funcionalidade do nosso aplicativo.
 								</TextAtom>
 							</div>
+							<Divider
+								marginAll="20px"
+								color="transparent"
+							></Divider>
+							<Checkbox
+								callback={checked => {
+									setTermAccepted(checked);
+								}}
+								value={
+									"Eu li e aceito os Termos e condições dos Serviços de mídia da SafeFood."
+								}
+							></Checkbox>
+							<Divider
+								marginAll="20px"
+								color="transparent"
+							></Divider>
+							<StyledRow style={{ justifyContent: "end" }}>
+								<Button buttonStyle="outline">Recusar</Button>
+								<Button disabled={!termAccepted}>Aceitar</Button>
+							</StyledRow>
 						</div>
 					</Box>
 				</div>
-			</Modal>
+			</StyledModal>
 		</div>
 	);
 }
@@ -162,4 +189,38 @@ export const Divider = styled.div<{
 			`;
 		}
 	}};
+`;
+
+export const StyledModal = styled(Modal)`
+	overflow-y: scroll;
+	::-webkit-scrollbar {
+		width: 8px;
+	}
+
+	::-webkit-scrollbar-track {
+		background-color: ${p =>
+			p.theme.name == "light"
+				? p.theme.colors.light_gray[200]
+				: p.theme.colors.dark_gray[600]};
+	}
+
+	::-webkit-scrollbar-thumb {
+		background-color: ${p =>
+			p.theme.name == "light"
+				? p.theme.colors.light_gray[800]
+				: p.theme.colors.dark_gray[1000]};
+		border-radius: 50px;
+		border: 3px solid
+			${p =>
+				p.theme.name == "light"
+					? p.theme.colors.light_gray[200]
+					: p.theme.colors.dark_gray[600]};
+
+		::-webkit-scrollbar-thumb:hover {
+			background-color: ${p =>
+				p.theme.name == "light"
+					? p.theme.colors.light_gray[800]
+					: p.theme.colors.black};
+		}
+	}
 `;
