@@ -18,7 +18,7 @@ export type BoxProps = {
 	alignItems?: "center" | "baseline";
 	margin?: string;
 	padding?: string;
-	overflow?: BoxJustify;
+	overflow?: BoxOverflow;
 	flexDiretion?: "column" | "row";
 	shadow?: "xsm" | "sm" | "md" | "lg" | "xlg" | "none";
 	borderRadius?: "sm" | "md" | "lg" | "none";

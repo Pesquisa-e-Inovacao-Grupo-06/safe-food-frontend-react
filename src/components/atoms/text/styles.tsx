@@ -53,6 +53,6 @@ export const StyledText = styled.span<{
 	}};
 	color: ${p =>
 		p.theme.isLight
-			? p.theme.colors.dark_gray[800]
+			? p.theme.colors.dark_gray[p.typeText == "text-mdb" ? 400 : 600]
 			: p.theme.colors.light_gray[200]};
 `;
