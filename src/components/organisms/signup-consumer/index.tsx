@@ -10,10 +10,11 @@ import {
 	RestrictionSignUpConsumer,
 } from "./steps";
 import { FooterSignUpConsumer } from "./complements/FooterSignUpConsumer";
+import { SignupConsumerProvider } from "@/app/contexts/SignupConsumerProvider";
 
 export type Steps = "general-info" | "restrictions" | "additional" | "finished";
 export const SignUpConsumer: React.FC = () => {
-	const [step, setStep] = useState<Steps>("general-info");
+	const [step, setStep] = useState<Steps>("additional");
 	const [isModalVisible, setModalVisible] = useState(true);
 
 	const StepScreen = () => {
@@ -47,12 +48,18 @@ export const SignUpConsumer: React.FC = () => {
 					maxWidth={"600px"}
 					alignSelf="center"
 				>
-					<StepScreen />
-
-					<FooterSignUpConsumer
-						step={step}
-						changeStep={setStep}
-					/>
+					<SignupConsumerProvider>
+						<form
+							encType="multipart/form-data"
+							id="signup-consumer-form"
+						>
+							<StepScreen />
+						</form>
+						<FooterSignUpConsumer
+							step={step}
+							changeStep={setStep}
+						/>
+					</SignupConsumerProvider>
 					<Box width="100%">
 						<UnderlineLink href="http://localhost:5173/signup-establishment">
 							Sou um estabelecimento

@@ -1,5 +1,5 @@
-import { createGlobalStyle } from "styled-components";
-import { rotate } from "./animations";
+import { createGlobalStyle, keyframes } from "styled-components";
+import {rotate, shake} from "./animations";
 const GlobalStyles = createGlobalStyle`
   *{
     border: 0;
@@ -27,6 +27,10 @@ const GlobalStyles = createGlobalStyle`
   }
   .transition{
     transition: all ${({ theme }) => theme.transition.duration.fast} ${({ theme }) => theme.transition.type.normal};
+  }
+  .shake{
+    transition: all ${({ theme }) => theme.transition.duration.fast} ${({ theme }) => theme.transition.type.normal};
+    animation: ${shake} ${p => p.theme.transition.type.normal} ${p => p.theme.transition.duration.normal};
   }
   input, button {
     transition: ${({ theme }) => theme.transition.duration.fast} ${({ theme }) => theme.transition.type.normal};

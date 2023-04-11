@@ -26,6 +26,6 @@ export class JustStringAndSpaceValidator implements InputValidator{
     }
 
     private isRegexValid = (str: string) => this.regexStringAndSpace.test(str);
-    private hasMinLength = (str: string) => str.length <= this.min;
+    private hasMinLength = (str: string) => str.length < this.min;
     private hasMaxLength = (str: string) => str.length > this.max;
 }

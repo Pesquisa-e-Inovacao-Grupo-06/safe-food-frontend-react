@@ -7,6 +7,10 @@ import { HeadingSignUpConsumer } from "../complements/HeadingSignUpConsumer";
 import { ProfilePhotoUploadWithPreview } from "@/components/molecules/upload-profile-photo";
 import { TextAtom } from "@/components/atoms/text/text-atom";
 import { TextField } from "@/components/molecules/textfield";
+import { InputPhoneSignup } from "../inputs/InputPhoneSignUpConsumer";
+import { PhoneValidator } from "@/app/util/validations/phone-validator";
+import { InputBirthdateSignUp } from "../inputs/InputBirthdateSignUpConsumer";
+import { InputsAddressSignupConsumer } from "../inputs/InputsAddressSignUpConsumer";
 
 export const AdditionalSignUpConsumer: FC = () => {
 	return (
@@ -28,94 +32,15 @@ export const AdditionalSignUpConsumer: FC = () => {
 					id="additional-profile-photo-consumer"
 				/>
 				<Row gap="20px">
-					<Column>
-						<TextField
-							label="Telefone: "
-							id="phone"
-							required={false}
-							value=""
-							placeholder="(99) 99999-9999"
-							onChange={() => {}}
-							title="Digite seu Telefone celular completo"
-							type="tel"
-							inputMode="tel"
-							error={""}
-						/>
+					<Column maxWidth="210px">
+						<InputPhoneSignup validator={new PhoneValidator()} />
 					</Column>
-					<Column>
-						<TextField
-							label="CEP: "
-							required={false}
-							id="address-cep"
-							value=""
-							renderEndIcon={() => <FaSearch />}
-							onChange={() => {}}
-							placeholder="99999-999"
-							title="Digite seu CEP"
-							type="string"
-							inputMode="numeric"
-							error={""}
-						/>
+					<Column maxWidth="210px">
+						<InputBirthdateSignUp validator={new PhoneValidator()} />
 					</Column>
 				</Row>
-				<Row gap="20px">
-					<Column>
-						<TextField
-							label="Logradouro: "
-							id="address-logradouro"
-							disabled
-							required={false}
-							value=""
-							onChange={() => {}}
-							title="Logradouro do endereço"
-							error={""}
-						/>
-					</Column>
-					<Column>
-						<TextField
-							label="Estado: "
-							id="address-state"
-							disabled
-							required={false}
-							value=""
-							placeholder="SP"
-							onChange={() => {}}
-							title="Estado/UF de seu endereço"
-							type="string"
-							inputMode="text"
-							error={""}
-						/>
-					</Column>
-				</Row>
-				<Row gap="20px">
-					<Column>
-						<TextField
-							label="Número: "
-							required={false} // TODO Depende
-							disabled={false} // depende
-							id="address-number"
-							value=""
-							onChange={() => {}}
-							placeholder="123"
-							title="Digite o número de seu endereço"
-							type="string"
-							error={""}
-						/>
-					</Column>
-					<Column>
-						<TextField
-							label="Complemento: "
-							required={false}
-							disabled={false} // depende
-							id="address-complement"
-							value=""
-							onChange={() => {}}
-							title="Complemento de seu endereço"
-							type="string"
-							error={""}
-						/>
-					</Column>
-				</Row>
+
+				<InputsAddressSignupConsumer validator={new PhoneValidator()} />
 			</Box>
 		</>
 	);

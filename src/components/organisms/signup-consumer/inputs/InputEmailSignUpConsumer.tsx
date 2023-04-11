@@ -17,6 +17,7 @@ export const InputEmailSignUp: React.FC<{
 				placeholder="nome@exemplo.com"
 				title="Digite seu e-mail completo"
 				type="email"
+				name="general-email"
 				inputMode="email"
 				max={100}
 				min={10}

@@ -46,11 +46,13 @@ export const TextField: React.FC<TextFieldProps> = ({
 			<InputIcon
 				id={id}
 				error={error}
+				required={required}
 				onChange={onChange}
 				{...props}
 			/>
 			{error && (
 				<Label
+					aria-errormessage={"error-" + id}
 					htmlFor={id}
 					style={{
 						color: colors.error[400],
