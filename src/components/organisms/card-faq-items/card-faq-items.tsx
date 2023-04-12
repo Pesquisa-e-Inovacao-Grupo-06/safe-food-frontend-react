@@ -9,18 +9,15 @@ export type CardFaqItemsOrganismProps = {
 export const CardFaqItemsOrganism: React.FC<CardFaqItemsOrganismProps> = ({
 	questionItemList,
 }) => {
-	{
-		console.log(questionItemList);
-	}
-
 	function faqItemsList(questionItemList: QuestionItemEntity[]) {
-		return questionItemList.map(item => {
+		return questionItemList.map((item, i) => {
 			const renderItem = () => (
-				<>
-					<div style={{ maxWidth: "49%" }}>
-						<Accordion title={item.title}>{item.text}</Accordion>
-					</div>
-				</>
+				<div
+					style={{ maxWidth: "49%" }}
+					key={item.title + i}
+				>
+					<Accordion title={item.title}>{item.text}</Accordion>
+				</div>
 			);
 
 			return renderItem();

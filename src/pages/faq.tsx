@@ -16,17 +16,12 @@ import {
 
 function FAQ() {
 	const [isConsumerSelected, setIsConsumerSelected] = useState(false);
-	var questionListMock: QuestionItemEntity[] = questionEstablishmentListMock;
+	const [list, setList] = useState(questionEstablishmentListMock);
 	const handleIsConsumerSelected = () => {
 		setIsConsumerSelected(!isConsumerSelected);
-
-		if (isConsumerSelected) {
-			questionListMock = questionEstablishmentListMock;
-			console.log(questionListMock);
-		} else {
-			questionListMock = questionConsumerListMock;
-			console.log(questionListMock);
-		}
+		setList(
+			isConsumerSelected ? questionEstablishmentListMock : questionConsumerListMock
+		);
 	};
 	return (
 		<>
@@ -69,7 +64,7 @@ function FAQ() {
 							</Button>
 						</StyledRow>
 					</div>
-					<CardFaqItemsOrganism questionItemList={questionListMock} />
+					<CardFaqItemsOrganism questionItemList={list} />
 				</Box>
 			</ContainerFluid>
 		</>
