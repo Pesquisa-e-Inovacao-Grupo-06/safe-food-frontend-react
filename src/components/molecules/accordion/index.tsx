@@ -34,6 +34,7 @@ export const Accordion: React.FC<AccordionProps> = ({
 					cursor: "pointer",
 				}}
 				alignItems="center"
+				gap="8px"
 				onClick={() => setOpen(!open)}
 			>
 				<Box>
