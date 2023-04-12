@@ -16,7 +16,7 @@ import {
 
 function FAQ() {
 	const [isConsumerSelected, setIsConsumerSelected] = useState(false);
-	var questionListMock: QuestionItemEntity[] = [];
+	var questionListMock: QuestionItemEntity[] = questionEstablishmentListMock;
 	const handleIsConsumerSelected = () => {
 		setIsConsumerSelected(!isConsumerSelected);
 
@@ -55,8 +55,18 @@ function FAQ() {
 						}}
 					>
 						<StyledRow style={{ justifyContent: "space-around", width: "80%" }}>
-							<Button onClick={handleIsConsumerSelected}>Estabelecimento</Button>
-							<Button onClick={handleIsConsumerSelected}>Consumidor</Button>
+							<Button
+								onClick={handleIsConsumerSelected}
+								disabled={!isConsumerSelected}
+							>
+								Estabelecimento
+							</Button>
+							<Button
+								onClick={handleIsConsumerSelected}
+								disabled={isConsumerSelected}
+							>
+								Consumidor
+							</Button>
 						</StyledRow>
 					</div>
 					<CardFaqItemsOrganism questionItemList={questionListMock} />
