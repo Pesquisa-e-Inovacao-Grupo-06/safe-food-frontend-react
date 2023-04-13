@@ -1,12 +1,9 @@
 import { Divider } from "@/pages/home";
 import { BannerMobilePlatform } from "../organisms/banner-mobile-platform/banner-mobile-platform";
 import { FooterOrganism } from "../organisms/footer/footer-organism";
-import { MoreFavoritesTemplate } from "./more-favorites-template";
 import Header from "../molecules/header";
 import { Box } from "../atoms/box";
-import { CardEstablishmentFoodOTemplate } from "./card-establishment-food-organism";
 import { Container, ContainerFluid } from "../atoms/container";
-import { Input } from "../atoms/input";
 import { Column } from "../atoms/column";
 import { TextField } from "../molecules/textfield";
 import { Button } from "../atoms/button";
@@ -16,6 +13,8 @@ import {
 	StyledRow,
 } from "../organisms/card-establishment-food/card-establishment-food-organism";
 import BannerHome from "../../assets/banner-home.svg";
+import { CardEstablishmentFoodOTemplate } from "./card-establishment-food-template";
+import { MoreFavoritesTemplate } from "./more-favorites-template";
 
 export const HomeTemplate = ({}) => {
 	return (
@@ -73,19 +72,16 @@ export const HomeTemplate = ({}) => {
 						</StyledRow>
 					</Box>
 					<CardEstablishmentFoodOTemplate />
-					{/* more-favorites */}
 					<MoreFavoritesTemplate />
 					<Divider
 						marginTop="20px"
 						color="transparent"
 					></Divider>
-					{/* banner-mobile */}
 					<BannerMobilePlatform />
 					<Divider
 						marginTop="39px"
 						marginBottom="39px"
 					></Divider>
-					{/* footer */}
 					<FooterOrganism />
 				</Box>
 			</ContainerFluid>

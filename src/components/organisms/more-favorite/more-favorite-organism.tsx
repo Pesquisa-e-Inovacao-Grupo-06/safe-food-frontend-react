@@ -7,41 +7,32 @@ import {
 	StyledContainer,
 	StyledContainerColumn,
 	StyledContainerRow,
-	StyledTextWithBorder,
 	StyledCost,
 } from "./more-favorite-organism-style";
 import { TextIcon } from "@/components/molecules/text-icon/text-icon-molecule";
+import { MoreFavoriteType } from "@/app/domain/entities/MoreFavorite";
+import styled from "styled-components";
 
-export type MoreFavoriteOrganismProps = {
-	nameFoodTitle: string;
-	descriptionFood: string;
-	ingredients: string[];
-	priceFood: string;
-	nameEstablishment: string;
-	workingPlaceEstablishment: boolean;
-	locationEstablishment: string;
+export type MoreFavoriteProps = {
+	moreFavoriteType: MoreFavoriteType;
 };
 
-export const MoreFavoriteOrganism: React.FC<MoreFavoriteOrganismProps> = ({
-	nameFoodTitle,
-	descriptionFood,
-	ingredients,
-	priceFood,
-	nameEstablishment,
-	workingPlaceEstablishment,
-	locationEstablishment,
+export const MoreFavoriteOrganism: React.FC<MoreFavoriteProps> = ({
+	moreFavoriteType,
 }) => {
 	function IngredientsList(ingredients: string[]) {
 		return ingredients.map(ingredient => (
-			<StyledTextWithBorder>{ingredient}</StyledTextWithBorder>
+			<StyledTextWithBorder style={{ border: "1px solid green", padding: "3px" }}>
+				{ingredient}
+			</StyledTextWithBorder>
 		));
 	}
 	return (
 		<StyledContainer>
-			<div style={{ width: "500px" }}>
+			<div style={{ width: "500px", height: "300px" }}>
 				<img
 					className="img-more-favorite"
-					src="https://img.freepik.com/premium-photo/food-pasta-pork-ribs-avocado-buddha-bowl-beet-salad-black-stone-background-top-view-free-space-text_187166-7546.jpg?w=2000"
+					src={moreFavoriteType.img}
 					alt=""
 					width={"100%"}
 					height={"100%"}
@@ -51,17 +42,17 @@ export const MoreFavoriteOrganism: React.FC<MoreFavoriteOrganismProps> = ({
 			<div>
 				<StyledContainerColumn>
 					<StyledContainerRow style={{ justifyContent: "space-between" }}>
-						<Subtitle>{nameFoodTitle}</Subtitle>
+						<Subtitle>{moreFavoriteType.name}</Subtitle>
 
 						<AvaliationStars avegareRate={1} />
 						<div></div>
 					</StyledContainerRow>
-					<TextAtom>{descriptionFood}</TextAtom>
+					<TextAtom>{moreFavoriteType.description}</TextAtom>
 					<StyledContainerRow style={{ gap: "10px", width: "80%" }}>
 						{/* //TODO: TESTAR LIST BUILDER*/}
-						{IngredientsList(ingredients)}
+						{IngredientsList(moreFavoriteType.ingredients!)}
 					</StyledContainerRow>
-					<StyledCost typeText="text-mdb">{priceFood}</StyledCost>
+					<StyledCost typeText="text-mdb">{moreFavoriteType.price}</StyledCost>
 					<Button style={{ marginLeft: "0px", width: "fit-content" }}>
 						Ver produto
 					</Button>
@@ -69,23 +60,29 @@ export const MoreFavoriteOrganism: React.FC<MoreFavoriteOrganismProps> = ({
 						icon={<TiMediaEjectOutline />}
 						iconAlign={"left"}
 					>
-						{nameEstablishment}
+						{moreFavoriteType.nameEstablishment}
 					</TextIcon>
 					<TextIcon
 						icon={<TiMediaEjectOutline />}
 						iconAlign={"left"}
 					>
-						{workingPlaceEstablishment}
+						{moreFavoriteType.workingPlaceEstablishment}
 					</TextIcon>
 					<TextIcon
 						style={{}}
 						icon={<TiMediaEjectOutline />}
 						iconAlign={"left"}
 					>
-						{locationEstablishment}
+						{moreFavoriteType.locationEstablishment}
 					</TextIcon>
 				</StyledContainerColumn>
 			</div>
 		</StyledContainer>
 	);
 };
+
+export const StyledTextWithBorder = styled(TextAtom)`
+	border: "1px solid green";
+	border-radius: 8px;
+	width: fit-content;
+`;

@@ -8,19 +8,21 @@ import { StyledRow } from "@/components/organisms/card-establishment-food/card-e
 import { Button } from "@/components/atoms/button";
 import { CardFaqItemsOrganism } from "../components/organisms/card-faq-items/card-faq-items";
 import { useState } from "react";
-import { questionConsumerListMock } from "../app/domain/entities/QuestionItem";
+import { getQuestionConsumerListMock } from "../app/domain/entities/QuestionItem";
 import {
 	QuestionItemEntity,
-	questionEstablishmentListMock,
+	getQuestionEstablishmentListMock,
 } from "@/app/domain/entities/QuestionItem";
 
 function FAQ() {
 	const [isConsumerSelected, setIsConsumerSelected] = useState(false);
-	const [list, setList] = useState(questionEstablishmentListMock);
+	const [list, setList] = useState(getQuestionEstablishmentListMock);
 	const handleIsConsumerSelected = () => {
 		setIsConsumerSelected(!isConsumerSelected);
 		setList(
-			isConsumerSelected ? questionEstablishmentListMock : questionConsumerListMock
+			isConsumerSelected
+				? getQuestionEstablishmentListMock
+				: getQuestionConsumerListMock
 		);
 	};
 	return (

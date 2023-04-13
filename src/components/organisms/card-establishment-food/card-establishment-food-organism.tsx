@@ -7,10 +7,15 @@ import { FaCommentAlt, IoLocationSharp } from "react-icons/all";
 import { Divider } from "../../../pages/home";
 import { Star } from "@/components/atoms/star";
 import { TextIcon } from "@/components/molecules/text-icon/text-icon-molecule";
+import { EstablishmentFoodType } from "@/app/domain/entities/FoodEstablishment";
 
-export type EstablishmentFood = {};
+export type EstablishmentFoodProps = {
+	establishemntFood: EstablishmentFoodType;
+};
 
-export const CardCarrouselFoodOrganism: React.FC<EstablishmentFood> = ({}) => {
+export const CardCarrouselFoodOrganism: React.FC<EstablishmentFoodProps> = ({
+	establishemntFood,
+}) => {
 	return (
 		<>
 			<Box
@@ -28,7 +33,7 @@ export const CardCarrouselFoodOrganism: React.FC<EstablishmentFood> = ({}) => {
 			>
 				<div style={{ height: "46%", width: "100%" }}>
 					<img
-						src="https://a.cdn-hotels.com/gdcs/production0/d1513/35c1c89e-408c-4449-9abe-f109068f40c0.jpg?impolicy=fcrop&w=800&h=533&q=medium"
+						src={establishemntFood.img}
 						style={{ objectFit: "cover", borderRadius: "4px" }}
 						height={"100%"}
 						width={"100%"}
@@ -45,21 +50,19 @@ export const CardCarrouselFoodOrganism: React.FC<EstablishmentFood> = ({}) => {
 					}}
 				>
 					<StyledRow>
-						<Subtitle>Pizza Vegana</Subtitle>
-						<AvaliationStars avegareRate={1} />
+						<Subtitle>{establishemntFood.name}</Subtitle>
+						<AvaliationStars avegareRate={establishemntFood.avegareRate} />
 						<div></div>
 					</StyledRow>
-					<TextAtom typeText="text-md">
-						Pizza vegana produzida a base de frutas e vegetais
-					</TextAtom>
+					<TextAtom typeText="text-md">{establishemntFood.description}</TextAtom>
 					<StyledRow style={{ alignItems: "flex-start" }}>
-						<StyledCost typeText="text-mdb">R$ 45,00</StyledCost>
+						<StyledCost typeText="text-mdb">{establishemntFood.price}</StyledCost>
 						<TextIcon
 							icon={<IoLocationSharp />}
 							iconAlign="left"
 							typeText="text-md"
 						>
-							500m
+							"{establishemntFood.currentDistance}+m"
 						</TextIcon>
 						<div></div>
 					</StyledRow>

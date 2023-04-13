@@ -11,7 +11,7 @@ export class QuestionItemEntity {
 };
 
 
-function getQuestionItemEstablishmentListMock(): QuestionItemEntity[] {
+function QuestionItemEstablishmentListMock(): QuestionItemEntity[] {
     return [
 
         new QuestionItemEntity(
@@ -48,7 +48,7 @@ function getQuestionItemEstablishmentListMock(): QuestionItemEntity[] {
     ];
 }
 
-export const questionEstablishmentListMock: QuestionItemEntity[] = getQuestionItemEstablishmentListMock();
+export const getQuestionEstablishmentListMock: QuestionItemEntity[] = QuestionItemEstablishmentListMock();
 
 function getQuestionItemConsumerListMock(): QuestionItemEntity[] {
     return [
@@ -61,4 +61,4 @@ function getQuestionItemConsumerListMock(): QuestionItemEntity[] {
 }
 
 //exemplo de como fazer uma lista para mock
-export const questionConsumerListMock: QuestionItemEntity[] = getQuestionItemConsumerListMock(); 
+export const getQuestionConsumerListMock: QuestionItemEntity[] = getQuestionItemConsumerListMock(); 
