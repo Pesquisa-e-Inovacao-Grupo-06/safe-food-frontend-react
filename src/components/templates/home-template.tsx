@@ -15,18 +15,22 @@ import {
 	StyledColumn,
 	StyledRow,
 } from "../organisms/card-establishment-food/card-establishment-food-organism";
+import BannerHome from "../../assets/banner-home.svg";
 
 export const HomeTemplate = ({}) => {
 	return (
 		<>
 			<Header />
 			<ContainerFluid>
-				<Divider marginBottom="100px"></Divider>
+				<Divider marginBottom="70px"></Divider>
 				<Box>
-					<Title>O Alimento restritivo que você pode confiar</Title>
-					<Box>
+					<Box width="100%">
 						<StyledRow>
 							<StyledColumn>
+								<Title style={{ color: "orange" }}>
+									O <span style={{ color: "green" }}> Alimento</span> restritivo que você
+									pode <span style={{ color: "green" }}> confiar</span>
+								</Title>
 								<Container
 									size="sm"
 									height={"auto"}
@@ -38,7 +42,7 @@ export const HomeTemplate = ({}) => {
 											id={""}
 											required={false}
 											onChange={() => {}}
-											value={""}
+											value={"Bolo de cenoura, Tapioca, Pizza..."}
 										></TextField>
 										<Divider
 											marginAll="10px"
@@ -50,15 +54,21 @@ export const HomeTemplate = ({}) => {
 											id={""}
 											required={false}
 											onChange={() => {}}
-											value={""}
+											value={"Rua Sete de Dezembro, n° 7"}
 										></TextField>
 										<Divider
 											marginAll="10px"
 											color="transparent"
 										></Divider>{" "}
-										<Button style={{ width: "100%" }}>Pesquisar</Button>
+										<Button style={{ width: "100%", height: "40px" }}>Pesquisar</Button>
 									</Column>
 								</Container>
+							</StyledColumn>
+							<StyledColumn>
+								<img
+									src={BannerHome}
+									alt=""
+								/>
 							</StyledColumn>
 						</StyledRow>
 					</Box>
