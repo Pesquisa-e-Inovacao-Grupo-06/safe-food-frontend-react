@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const SLayout = styled.div`
 	display: grid;
 	grid-template-columns: 0fr 1fr 0fr;
+	position: fixed;
 
 	@media screen and (max-width: 600px) {
 		grid-template-columns: none;
