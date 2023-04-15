@@ -1,4 +1,4 @@
-import { Button, ButtonProps } from "../../atoms/button/button-atom";
+import { ButtonProps, Button } from "@/components/atoms/button";
 import React, { ReactNode } from "react";
 
 export type AlignType = "left" | "right";

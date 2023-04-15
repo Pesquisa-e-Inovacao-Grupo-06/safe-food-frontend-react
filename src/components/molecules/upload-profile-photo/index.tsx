@@ -2,7 +2,7 @@ import React, { HTMLAttributes, useEffect, useRef, useState } from "react";
 import Camera from "../../../assets/form/camera.svg";
 import { StyledLabelForImage } from "./styles";
 import { Box } from "@/components/atoms/box";
-import { TextAtom } from "@/components/atoms/text/text-atom";
+import { TextAtom } from "@/components/atoms/text";
 export type ProfilePhotoUploadWithPreviewProps = {
 	name: string;
 	id: string;

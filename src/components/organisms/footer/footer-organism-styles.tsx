@@ -15,6 +15,7 @@ export const StyledFooterContainer = styled.div<{}>`
 	} */
 `;
 export const StyledLIFooterColumn = styled.li`
+	list-style-type: none;
 	padding-top: 12px;
 	@media (max-width: 390px) {
 		flex-direction: column;

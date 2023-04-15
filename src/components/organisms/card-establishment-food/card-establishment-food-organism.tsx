@@ -2,15 +2,21 @@ import { Box } from "../../atoms/box/index";
 import styled from "styled-components";
 import { AvaliationStars } from "@/components/molecules/avaliation-stars";
 import { Subtitle } from "@/styles/components/text/Subtitle";
-import { TextAtom } from "../../atoms/text/text-atom";
+import { TextAtom } from "../../atoms/text";
 import { FaCommentAlt, IoLocationSharp } from "react-icons/all";
-import { Divider } from "../../../pages/home";
 import { Star } from "@/components/atoms/star";
 import { TextIcon } from "@/components/molecules/text-icon/text-icon-molecule";
+import { EstablishmentFoodType } from "@/app/domain/entities/FoodEstablishment";
+import { Divider } from "@/components/atoms/divider";
+import { formatReal } from "@/app/util/convertions/price-br";
 
-export type EstablishmentFood = {};
+export type EstablishmentFoodProps = {
+	establishemntFood: EstablishmentFoodType;
+};
 
-export const CardCarrouselFoodOrganism: React.FC<EstablishmentFood> = ({}) => {
+export const CardCarrouselFoodOrganism: React.FC<EstablishmentFoodProps> = ({
+	establishemntFood,
+}) => {
 	return (
 		<>
 			<Box
@@ -23,15 +29,16 @@ export const CardCarrouselFoodOrganism: React.FC<EstablishmentFood> = ({}) => {
 					height: "236px",
 					// margin: "10px",
 				}}
-				// height={"auto"}
-				// size="sm"
+			// height={"auto"}
+			// size="sm"
 			>
 				<div style={{ height: "46%", width: "100%" }}>
 					<img
-						src="https://a.cdn-hotels.com/gdcs/production0/d1513/35c1c89e-408c-4449-9abe-f109068f40c0.jpg?impolicy=fcrop&w=800&h=533&q=medium"
-						style={{ objectFit: "cover", borderRadius: "4px" }}
+						src={establishemntFood.img}
+						style={{ objectFit: "cover", borderRadius: "4px", pointerEvents: "none" }}
 						height={"100%"}
 						width={"100%"}
+
 					/>
 				</div>
 				<div
@@ -45,21 +52,19 @@ export const CardCarrouselFoodOrganism: React.FC<EstablishmentFood> = ({}) => {
 					}}
 				>
 					<StyledRow>
-						<Subtitle>Pizza Vegana</Subtitle>
-						<AvaliationStars avegareRate={1} />
+						<Subtitle>{establishemntFood.name}</Subtitle>
+						<AvaliationStars avegareRate={establishemntFood.avegareRate} />
 						<div></div>
 					</StyledRow>
-					<TextAtom typeText="text-md">
-						Pizza vegana produzida a base de frutas e vegetais
-					</TextAtom>
+					<TextAtom typeText="text-md">{establishemntFood.description}</TextAtom>
 					<StyledRow style={{ alignItems: "flex-start" }}>
-						<StyledCost typeText="text-mdb">R$ 45,00</StyledCost>
+						<StyledCost typeText="text-mdb">{formatReal(establishemntFood.price)}</StyledCost>
 						<TextIcon
 							icon={<IoLocationSharp />}
 							iconAlign="left"
 							typeText="text-md"
 						>
-							500m
+							{establishemntFood.currentDistance + "m"}
 						</TextIcon>
 						<div></div>
 					</StyledRow>
@@ -69,7 +74,7 @@ export const CardCarrouselFoodOrganism: React.FC<EstablishmentFood> = ({}) => {
 	);
 };
 
-export const CardEstablishmentFoodOrganism = ({}) => {
+export const CardEstablishmentFoodOrganism = ({ }) => {
 	return (
 		<Box
 			display="flex"
@@ -116,7 +121,7 @@ export const CardEstablishmentFoodOrganism = ({}) => {
 		</Box>
 	);
 };
-export const CardExpansiveEstablishmentFoodOrganism = ({}) => {
+export const CardExpansiveEstablishmentFoodOrganism = ({ }) => {
 	return (
 		<Box
 			display="flex"
@@ -213,7 +218,7 @@ export const StyledColumn = styled.div`
 	gap: 20px;
 `;
 
-export const StyledCost = styled(TextAtom)<{
+export const StyledCost = styled(TextAtom) <{
 	backgroundColor?: string;
 }>`
 	background-color: ${p => p.backgroundColor ?? "green"};

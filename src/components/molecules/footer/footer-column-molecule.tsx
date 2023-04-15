@@ -1,5 +1,5 @@
 import { Container } from "react-dom";
-import { TextProps, TextAtom } from "../../atoms/text/text-atom";
+import { TextProps, TextAtom } from "../../atoms/text";
 import {
 	StyledDivFooterColumn,
 	StyledFooterColumnContainer,

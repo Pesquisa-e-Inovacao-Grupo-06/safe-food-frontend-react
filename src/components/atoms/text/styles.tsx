@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { AlignText, TypeText } from "./text-atom";
+import { AlignText, TypeText } from ".";
 
 export const StyledText = styled.span<{
 	typeText: TypeText;
@@ -51,8 +51,10 @@ export const StyledText = styled.span<{
 				`;
 		}
 	}};
+	margin: 0px;
+	padding: 0px;
 	color: ${p =>
 		p.theme.isLight
-			? p.theme.colors.dark_gray[800]
+			? p.theme.colors.dark_gray[p.typeText == "text-mdb" ? 400 : 600]
 			: p.theme.colors.light_gray[200]};
 `;

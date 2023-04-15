@@ -7,13 +7,13 @@ import {
 
 import Logo from "../../../assets/svg-logo.svg";
 import GoogleLogo from "../../../assets/google/selo-google.png";
-import { TextAtom } from "../../atoms/text/text-atom";
+import { TextAtom } from "../../atoms/text";
 import { FaFacebook, FaGoogle, FaInstagram, FaTwitter } from "react-icons/fa";
 import { TextIcon } from "@/components/molecules/text-icon/text-icon-molecule";
 
 export type FooterOrganismProps = {};
 
-export const FooterOrganism = ({}) => {
+export const FooterOrganism = ({ }) => {
 	var iconSize = 20;
 	return (
 		<div
@@ -25,20 +25,18 @@ export const FooterOrganism = ({}) => {
 		>
 			<StyledFooterContainer>
 				<FooterColumnMolecule title="Informações">
-					<ul>
-						<StyledLIFooterColumn>
-							<TextAtom> Sobre a Safe Food</TextAtom>
-						</StyledLIFooterColumn>
-						<StyledLIFooterColumn>
-							<TextAtom> Termos de uso</TextAtom>
-						</StyledLIFooterColumn>
-						<StyledLIFooterColumn>
-							<TextAtom>Blog de Receitas </TextAtom>
-						</StyledLIFooterColumn>
-						<StyledLIFooterColumn>
-							<TextAtom>FAQ </TextAtom>
-						</StyledLIFooterColumn>
-					</ul>
+					<StyledLIFooterColumn>
+						<TextAtom> Sobre a Safe Food</TextAtom>
+					</StyledLIFooterColumn>
+					<StyledLIFooterColumn>
+						<TextAtom> Termos de uso</TextAtom>
+					</StyledLIFooterColumn>
+					<StyledLIFooterColumn>
+						<TextAtom>Blog de Receitas </TextAtom>
+					</StyledLIFooterColumn>
+					<StyledLIFooterColumn>
+						<TextAtom>FAQ </TextAtom>
+					</StyledLIFooterColumn>
 				</FooterColumnMolecule>
 				<FooterColumnMolecule title="Redes Sociais">
 					<StyledLIFooterColumn>

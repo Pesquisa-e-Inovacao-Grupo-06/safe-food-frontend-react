@@ -1,6 +1,6 @@
+import { Button } from "@/components/atoms/button";
 import React from "react";
-import { Button } from "../../atoms/button/button-atom";
-import { Loading } from "../../atoms/loading/loading";
+import { Loading } from "../../atoms/loading";
 
 export type ButtonLoadingProps = {
 	sizeLoading?: number;

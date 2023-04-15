@@ -5,12 +5,14 @@ import React, { FC } from "react";
 import { FaSearch } from "react-icons/fa";
 import { HeadingSignUpConsumer } from "../complements/HeadingSignUpConsumer";
 import { ProfilePhotoUploadWithPreview } from "@/components/molecules/upload-profile-photo";
-import { TextAtom } from "@/components/atoms/text/text-atom";
+import { TextAtom } from "@/components/atoms/text";
 import { TextField } from "@/components/molecules/textfield";
 import { InputPhoneSignup } from "../inputs/InputPhoneSignUpConsumer";
 import { PhoneValidator } from "@/app/util/validations/phone-validator";
 import { InputBirthdateSignUp } from "../inputs/InputBirthdateSignUpConsumer";
 import { InputsAddressSignupConsumer } from "../inputs/InputsAddressSignUpConsumer";
+import { makeFindAddress } from "@/app/factories/makeFindAddressViaCep";
+import { CepValidator } from "@/app/util/validations/cep-validator";
 
 export const AdditionalSignUpConsumer: FC = () => {
 	return (
@@ -31,16 +33,19 @@ export const AdditionalSignUpConsumer: FC = () => {
 					name="additional-profile-photo-consumer"
 					id="additional-profile-photo-consumer"
 				/>
-				<Row gap="20px">
-					<Column maxWidth="210px">
+				<Row>
+					<Column maxWidth="48%">
 						<InputPhoneSignup validator={new PhoneValidator()} />
 					</Column>
-					<Column maxWidth="210px">
+					<Column maxWidth="48%">
 						<InputBirthdateSignUp validator={new PhoneValidator()} />
 					</Column>
 				</Row>
 
-				<InputsAddressSignupConsumer validator={new PhoneValidator()} />
+				<InputsAddressSignupConsumer
+					usecase={makeFindAddress()}
+					validator={new CepValidator()}
+				/>
 			</Box>
 		</>
 	);

@@ -22,5 +22,5 @@ export const StyledTextIcon = styled.div<{
 			`;
 		}
 	}}
-	color: ${p => p.iconColor};
+	fill: ${p => p.iconColor} !important;
 `;

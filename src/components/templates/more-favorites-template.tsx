@@ -1,7 +1,8 @@
 import { MoreFavoriteOrganism } from "../organisms/more-favorite/more-favorite-organism";
-import { Divider } from "../../pages/home";
 import { Subtitle } from "@/styles/components/text/Subtitle";
-export const MoreFavoritesTemplate = ({}) => {
+import { getMoreFavoriteListMock } from "@/app/domain/entities/MoreFavorite";
+import { Divider } from "../atoms/divider";
+export const MoreFavoritesTemplate = ({ }) => {
 	return (
 		<div style={{ marginTop: "40px" }}>
 			<Subtitle
@@ -14,28 +15,12 @@ export const MoreFavoritesTemplate = ({}) => {
 			>
 				Mais favoritados
 			</Subtitle>
-			<MoreFavoriteOrganism
-				nameFoodTitle={""}
-				descriptionFood={""}
-				ingredients={[]}
-				priceFood={""}
-				nameEstablishment={""}
-				workingPlaceEstablishment={false}
-				locationEstablishment={""}
-			/>
-			<Divider
-				marginAll="10px"
-				color="transparent"
-			/>
-			<MoreFavoriteOrganism
-				nameFoodTitle={""}
-				descriptionFood={""}
-				ingredients={["asdasd", "123123", "12321"]}
-				priceFood={""}
-				nameEstablishment={""}
-				workingPlaceEstablishment={false}
-				locationEstablishment={""}
-			/>
+			{getMoreFavoriteListMock.map((i, index) => (
+				<>
+					<MoreFavoriteOrganism moreFavoriteType={i.params} />
+					<Divider marginAll="10px" />
+				</>
+			))}
 		</div>
 	);
 };

@@ -1,6 +1,6 @@
 import { useSafeFoodTheme } from "@/app/contexts/SafeFoodThemeProvider";
 import { Box } from "@/components/atoms/box";
-import { TextAtom } from "@/components/atoms/text/text-atom";
+import { TextAtom } from "@/components/atoms/text";
 import { Subtitle } from "@/styles/components/text/Subtitle";
 import React from "react";
 

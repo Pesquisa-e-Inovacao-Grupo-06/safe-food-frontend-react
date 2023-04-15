@@ -1,4 +1,4 @@
-import { TextAtom } from "@/components/atoms/text/text-atom";
+import { TextAtom } from "@/components/atoms/text";
 import styled from "styled-components";
 
 export const StyledContainer = styled.div`
@@ -35,8 +35,8 @@ export const StyledCost = styled(TextAtom)`
 	width: fit-content;
 `;
 
-export const StyledTextWithBorder = styled.p`
-	border: 1px solid "green";
+export const StyledTextWithBorder = styled(TextAtom)`
+	border: "2px solid green ";
 	border-radius: 8px;
 	width: fit-content;
 `;
