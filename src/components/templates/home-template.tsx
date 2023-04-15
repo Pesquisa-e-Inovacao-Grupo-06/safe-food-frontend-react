@@ -10,6 +10,7 @@ import { LandingFormFoodOrganism } from "../organisms/landing-form-food/landing-
 import { CardEstablishmentFoodOTemplate } from "./card-establishment-food-template";
 import { MoreFavoritesTemplate } from "./more-favorites-template";
 import bannerHome from "../../assets/banner-home.svg";
+import { BodyTemplate } from "./body-template";
 
 
 
@@ -18,8 +19,7 @@ export const HomeTemplate = ({ }) => {
 	return (
 		<>
 			<Header />
-			<ContainerFluid>
-				<Divider marginBottom="70px" />
+			<BodyTemplate>
 				<Box>
 					<Box width="100%">
 						<StyledRow>
@@ -46,7 +46,7 @@ export const HomeTemplate = ({ }) => {
 					<Divider marginTop="39px" marginBottom="39px" />
 					<FooterOrganism />
 				</Box>
-			</ContainerFluid>
+			</BodyTemplate>
 		</>
 	);
 };

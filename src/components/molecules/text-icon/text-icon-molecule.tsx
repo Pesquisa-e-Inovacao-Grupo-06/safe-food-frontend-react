@@ -25,7 +25,7 @@ export const TextIcon: React.FC<Props> = ({
 	return (
 		<StyledTextIcon
 			iconAlign={iconAlign}
-			// iconColor={iconColor}
+			iconColor={iconColor}
 		>
 			{icon}
 			<TextAtom
