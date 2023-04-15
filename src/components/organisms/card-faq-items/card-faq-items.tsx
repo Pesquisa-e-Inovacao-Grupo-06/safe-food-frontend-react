@@ -2,6 +2,7 @@ import { Accordion } from "@/components/molecules/accordion";
 import { StyledRow } from "../card-establishment-food/card-establishment-food-organism";
 import { QuestionItemEntity } from "@/app/domain/entities/QuestionItem";
 import styled from "styled-components";
+import { Row } from "@/components/molecules/row/styles";
 
 export type CardFaqItemsOrganismProps = {
 	questionItemList: QuestionItemEntity[];
@@ -16,9 +17,7 @@ export const CardFaqItemsOrganism: React.FC<CardFaqItemsOrganismProps> = ({
 				<div
 					style={{
 						maxWidth: "49%",
-						whiteSpace: "nowrap",
-						textOverflow: "ellipsis",
-						overflow: "hidden",
+
 					}}
 					key={item.title + i}
 				>
@@ -30,10 +29,9 @@ export const CardFaqItemsOrganism: React.FC<CardFaqItemsOrganismProps> = ({
 		});
 	}
 	return (
-		<StyledRow
+		<Row
 			style={{
-				flexWrap: "wrap",
-				textOverflow: "ellipsis",
+				// flexWrap: "wrap",
 				justifyContent: "unset",
 				gap: "20px",
 				justifyItems: "flex-start",
@@ -42,6 +40,6 @@ export const CardFaqItemsOrganism: React.FC<CardFaqItemsOrganismProps> = ({
 			}}
 		>
 			{faqItemsList(questionItemList)}
-		</StyledRow>
+		</Row>
 	);
 };
