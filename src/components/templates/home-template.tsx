@@ -41,7 +41,8 @@ export const HomeTemplate = ({}) => {
 											id={""}
 											required={false}
 											onChange={() => {}}
-											value={"Bolo de cenoura, Tapioca, Pizza..."}
+											value={""}
+											placeholder="Bolo de cenoura, Tapioca, Pizza..."
 										></TextField>
 										<Divider
 											marginAll="10px"
@@ -53,12 +54,13 @@ export const HomeTemplate = ({}) => {
 											id={""}
 											required={false}
 											onChange={() => {}}
-											value={"Rua Sete de Dezembro, n° 7"}
+											value={""}
+											placeholder="Rua Sete de Dezembro, n° 7"
 										></TextField>
 										<Divider
 											marginAll="10px"
 											color="transparent"
-										></Divider>{" "}
+										></Divider>
 										<Button style={{ width: "100%", height: "40px" }}>Pesquisar</Button>
 									</Column>
 								</Container>

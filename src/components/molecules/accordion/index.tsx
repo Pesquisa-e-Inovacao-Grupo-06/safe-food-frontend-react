@@ -1,6 +1,11 @@
 import { BoxProps } from "@/components/atoms/box";
 import { Box } from "@/components/atoms/box";
-import React, { HTMLAttributes, PropsWithChildren, useState } from "react";
+import React, {
+	AllHTMLAttributes,
+	HTMLAttributes,
+	PropsWithChildren,
+	useState,
+} from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { Row } from "../row/styles";
 import { Column } from "@/components/atoms/column";

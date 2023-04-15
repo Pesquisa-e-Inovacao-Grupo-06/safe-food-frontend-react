@@ -1,5 +1,3 @@
-import { EstablishmentFoodProps } from "@/components/organisms/card-establishment-food/card-establishment-food-organism";
-
 export type EstablishmentFoodType = {
     name: string;
     description: string;

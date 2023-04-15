@@ -25,20 +25,18 @@ export const FooterOrganism = ({}) => {
 		>
 			<StyledFooterContainer>
 				<FooterColumnMolecule title="Informações">
-					<ul>
-						<StyledLIFooterColumn>
-							<TextAtom> Sobre a Safe Food</TextAtom>
-						</StyledLIFooterColumn>
-						<StyledLIFooterColumn>
-							<TextAtom> Termos de uso</TextAtom>
-						</StyledLIFooterColumn>
-						<StyledLIFooterColumn>
-							<TextAtom>Blog de Receitas </TextAtom>
-						</StyledLIFooterColumn>
-						<StyledLIFooterColumn>
-							<TextAtom>FAQ </TextAtom>
-						</StyledLIFooterColumn>
-					</ul>
+					<StyledLIFooterColumn>
+						<TextAtom> Sobre a Safe Food</TextAtom>
+					</StyledLIFooterColumn>
+					<StyledLIFooterColumn>
+						<TextAtom> Termos de uso</TextAtom>
+					</StyledLIFooterColumn>
+					<StyledLIFooterColumn>
+						<TextAtom>Blog de Receitas </TextAtom>
+					</StyledLIFooterColumn>
+					<StyledLIFooterColumn>
+						<TextAtom>FAQ </TextAtom>
+					</StyledLIFooterColumn>
 				</FooterColumnMolecule>
 				<FooterColumnMolecule title="Redes Sociais">
 					<StyledLIFooterColumn>

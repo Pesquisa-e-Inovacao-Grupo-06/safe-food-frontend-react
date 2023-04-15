@@ -62,7 +62,7 @@ export const CardCarrouselFoodOrganism: React.FC<EstablishmentFoodProps> = ({
 							iconAlign="left"
 							typeText="text-md"
 						>
-							"{establishemntFood.currentDistance}+m"
+							{establishemntFood.currentDistance + "m"}
 						</TextIcon>
 						<div></div>
 					</StyledRow>
