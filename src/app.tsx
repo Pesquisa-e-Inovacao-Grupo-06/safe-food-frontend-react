@@ -5,6 +5,7 @@ import FAQ from "./pages/faq";
 import SignIn from "./pages/signIn";
 import SignUp from "./pages/signUp";
 import { makeHttpClient } from "./app/factories/makeAxiosHttpClient";
+import Profile from "./pages/profile";
 type ResponseLoginExample = {
 	name: string;
 	token: string;
@@ -37,6 +38,10 @@ export default function App() {
 					<Route
 						path="/signup"
 						element={<SignUp />}
+					/>
+					<Route
+						path="/profile"
+						element={<Profile />}
 					/>
 				</Routes>
 			</Router>
