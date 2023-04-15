@@ -59,9 +59,11 @@ export const StyledBannerMobilePlatformBody = styled.div`
 
 	& .button-desktop-platform {
 		display: flex;
+		/* align-self: normal; */
+
 	}
 
-	@media (max-width: 900px) {
+	@media (max-width: 1020px) {
 		& .button-mobile-platform {
 			display: flex;
 			align-self: normal;

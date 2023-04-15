@@ -6,6 +6,7 @@ import { Subtitle } from "@/styles/components/text/Subtitle";
 import { TextAtom } from "../../atoms/text";
 import { StyledBannerDiv, StyledBannerMobilePlatformContainer, StyledBannerMobilePlatformBody, StyledBannerMobilePlatformImage } from "./style";
 import { Divider } from "@/components/atoms/divider";
+import { Box } from "@/components/atoms/box";
 
 export type BannerMobilePlatformProps = {
 	onClick?: () => void;
@@ -20,10 +21,12 @@ export const BannerMobilePlatform: React.FC<BannerMobilePlatformProps> = ({
 				<StyledBannerMobilePlatformBody>
 					<div>
 						<Subtitle>Gosta da Nossa Plataforma?</Subtitle>
-						<TextAtom typeText="text-md" >
-							Baixe o nosso APP na PlayStore e desfrute da
-							melhor usabilidade em qualquer lugar!
-						</TextAtom>
+						<Box width="80%">
+							<TextAtom typeText="text-md" >
+								Baixe o nosso APP na PlayStore e desfrute da
+								melhor usabilidade em qualquer lugar!
+							</TextAtom>
+						</Box>
 						<Divider marginTop="39px" />
 						<Button
 							className="button-desktop-platform"

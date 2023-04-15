@@ -8,6 +8,7 @@ import { Star } from "@/components/atoms/star";
 import { TextIcon } from "@/components/molecules/text-icon/text-icon-molecule";
 import { EstablishmentFoodType } from "@/app/domain/entities/FoodEstablishment";
 import { Divider } from "@/components/atoms/divider";
+import { formatReal } from "@/app/util/convertions/price-br";
 
 export type EstablishmentFoodProps = {
 	establishemntFood: EstablishmentFoodType;
@@ -34,9 +35,10 @@ export const CardCarrouselFoodOrganism: React.FC<EstablishmentFoodProps> = ({
 				<div style={{ height: "46%", width: "100%" }}>
 					<img
 						src={establishemntFood.img}
-						style={{ objectFit: "cover", borderRadius: "4px" }}
+						style={{ objectFit: "cover", borderRadius: "4px", pointerEvents: "none" }}
 						height={"100%"}
 						width={"100%"}
+
 					/>
 				</div>
 				<div
@@ -56,7 +58,7 @@ export const CardCarrouselFoodOrganism: React.FC<EstablishmentFoodProps> = ({
 					</StyledRow>
 					<TextAtom typeText="text-md">{establishemntFood.description}</TextAtom>
 					<StyledRow style={{ alignItems: "flex-start" }}>
-						<StyledCost typeText="text-mdb">{establishemntFood.price}</StyledCost>
+						<StyledCost typeText="text-mdb">{formatReal(establishemntFood.price)}</StyledCost>
 						<TextIcon
 							icon={<IoLocationSharp />}
 							iconAlign="left"

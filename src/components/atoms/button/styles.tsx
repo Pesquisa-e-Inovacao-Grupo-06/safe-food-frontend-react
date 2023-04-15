@@ -7,7 +7,7 @@ export const StyledButton = styled.button<{
 	height: string | number;
 }>`
 
-	width: ${p => p.width} + "px";
+	width:  ${p => (typeof p.width === "number" ? p.width + "px" : p.width)};
 	height: ${p => (typeof p.height === "number" ? p.height + "px" : p.height)};
 	min-width: 150px;
 	min-height: 35px;

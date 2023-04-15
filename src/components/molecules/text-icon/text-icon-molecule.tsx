@@ -18,7 +18,7 @@ export const TextIcon: React.FC<Props> = ({
 	typeText,
 	children,
 	iconAlign = "left",
-	iconColor = "red",
+	iconColor = "black",
 	color = "black",
 	...props
 }) => {

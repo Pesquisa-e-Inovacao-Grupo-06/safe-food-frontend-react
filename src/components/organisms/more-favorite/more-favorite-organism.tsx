@@ -12,6 +12,7 @@ import {
 import { TextIcon } from "@/components/molecules/text-icon/text-icon-molecule";
 import { MoreFavoriteType } from "@/app/domain/entities/MoreFavorite";
 import styled from "styled-components";
+import { formatReal } from "@/app/util/convertions/price-br";
 
 export type MoreFavoriteProps = {
 	moreFavoriteType: MoreFavoriteType;
@@ -52,7 +53,7 @@ export const MoreFavoriteOrganism: React.FC<MoreFavoriteProps> = ({
 						{/* //TODO: TESTAR LIST BUILDER*/}
 						{IngredientsList(moreFavoriteType.ingredients!)}
 					</StyledContainerRow>
-					<StyledCost typeText="text-mdb">{moreFavoriteType.price}</StyledCost>
+					<StyledCost typeText="text-mdb">{formatReal(moreFavoriteType.price)}</StyledCost>
 					<Button style={{ marginLeft: "0px", width: "fit-content" }}>
 						Ver produto
 					</Button>

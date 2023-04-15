@@ -20,7 +20,7 @@ export const Button: React.FC<ButtonProps> = ({
 	children,
 	loading = false,
 	sizeLoading,
-	width = 100,
+	width = "100%",
 	height = 20,
 	...props
 }) => {
