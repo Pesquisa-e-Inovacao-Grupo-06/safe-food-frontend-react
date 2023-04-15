@@ -4,10 +4,10 @@ import { AvaliationStars } from "@/components/molecules/avaliation-stars";
 import { Subtitle } from "@/styles/components/text/Subtitle";
 import { TextAtom } from "../../atoms/text/text-atom";
 import { FaCommentAlt, IoLocationSharp } from "react-icons/all";
-import { Divider } from "../../../pages/home";
 import { Star } from "@/components/atoms/star";
 import { TextIcon } from "@/components/molecules/text-icon/text-icon-molecule";
 import { EstablishmentFoodType } from "@/app/domain/entities/FoodEstablishment";
+import { Divider } from "@/components/atoms/divider";
 
 export type EstablishmentFoodProps = {
 	establishemntFood: EstablishmentFoodType;
@@ -28,8 +28,8 @@ export const CardCarrouselFoodOrganism: React.FC<EstablishmentFoodProps> = ({
 					height: "236px",
 					// margin: "10px",
 				}}
-				// height={"auto"}
-				// size="sm"
+			// height={"auto"}
+			// size="sm"
 			>
 				<div style={{ height: "46%", width: "100%" }}>
 					<img
@@ -72,7 +72,7 @@ export const CardCarrouselFoodOrganism: React.FC<EstablishmentFoodProps> = ({
 	);
 };
 
-export const CardEstablishmentFoodOrganism = ({}) => {
+export const CardEstablishmentFoodOrganism = ({ }) => {
 	return (
 		<Box
 			display="flex"
@@ -119,7 +119,7 @@ export const CardEstablishmentFoodOrganism = ({}) => {
 		</Box>
 	);
 };
-export const CardExpansiveEstablishmentFoodOrganism = ({}) => {
+export const CardExpansiveEstablishmentFoodOrganism = ({ }) => {
 	return (
 		<Box
 			display="flex"
@@ -216,7 +216,7 @@ export const StyledColumn = styled.div`
 	gap: 20px;
 `;
 
-export const StyledCost = styled(TextAtom)<{
+export const StyledCost = styled(TextAtom) <{
 	backgroundColor?: string;
 }>`
 	background-color: ${p => p.backgroundColor ?? "green"};

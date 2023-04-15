@@ -1,6 +1,5 @@
 import { ContainerFluid } from "@/components/atoms/container";
 import Header from "@/components/molecules/header";
-import { Divider } from "./home";
 import { Title } from "@/styles/components/text/Title";
 import { Box } from "@/components/atoms/box";
 import { Subtitle } from "@/styles/components/text/Subtitle";
@@ -10,9 +9,9 @@ import { CardFaqItemsOrganism } from "../components/organisms/card-faq-items/car
 import { useState } from "react";
 import { getQuestionConsumerListMock } from "../app/domain/entities/QuestionItem";
 import {
-	QuestionItemEntity,
 	getQuestionEstablishmentListMock,
 } from "@/app/domain/entities/QuestionItem";
+import { Divider } from "@/components/atoms/divider";
 
 function FAQ() {
 	const [isConsumerSelected, setIsConsumerSelected] = useState(false);
@@ -38,10 +37,10 @@ function FAQ() {
 					flexDiretion="column"
 					gap="30px"
 				>
-					<Divider marginBottom="100px"></Divider>
+					<Divider marginBottom="100px" />
 					<Title>Perguntas frequentes (FAQ)</Title>
 					<Subtitle>
-						Essas são algumas perguntas frequentemente feitas para a gente
+						Essas são algumas perguntas frequentes que nos são feitas
 					</Subtitle>
 					<div
 						style={{

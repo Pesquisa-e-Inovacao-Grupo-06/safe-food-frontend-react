@@ -1,5 +1,5 @@
+import { Button } from "@/components/atoms/button";
 import React from "react";
-import { Button } from "../../atoms/button/button-atom";
 import { Loading } from "../../atoms/loading/loading";
 
 export type ButtonLoadingProps = {
