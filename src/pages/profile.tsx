@@ -11,24 +11,6 @@ import { IoMdAddCircleOutline } from "react-icons/io";
 import { Chips } from "@/components/atoms/chips/chips-atom";
 
 function Profile() {
-	const restrictions = [
-		"Restrição",
-		"Restrição",
-		"Restrição",
-		"Restrição",
-		"Restrição",
-		"Restrição",
-		"Restrição",
-		"Restrição",
-		"Restrição",
-		"Restrição",
-		"Restrição",
-		"Restrição",
-		"Restrição",
-		"Restrição",
-		"Restrição",
-		"Restrição",
-	];
 	return (
 		<>
 			<Header />
@@ -48,20 +30,14 @@ function Profile() {
 					<PContainerInfo>
 						<PDivider />
 						<PTitle>Informações de cadastro</PTitle>
-						<ul>
-							<li>
-								<span>Nome:</span>
-								<PInputName value="" />
-							</li>
-							<li>
-								<span>Email:</span>
-								<PInputEmail value="" />
-							</li>
-							<li>
-								<span>Senha:</span>
-								<PBtnSenha buttonStyle="filled">Alterar Senha</PBtnSenha>
-							</li>
-						</ul>
+						{FormInputs.map(({ span, input }) => (
+							<ul>
+								<li>
+									<span>{span}</span>
+									{input}
+								</li>
+							</ul>
+						))}
 						<PDivider />
 						<PContainerInfo2>
 							<PTitle>Endereços</PTitle>
@@ -111,6 +87,51 @@ function Profile() {
 
 export default Profile;
 
+const FormInputs = [
+	{
+		span: "Nome:",
+		input: <Input value="" />,
+	},
+	{
+		span: "Email:",
+		input: <Input value="" />,
+	},
+	{
+		span: "Senha:",
+		input: (
+			<StyledButton
+				buttonStyle="filled"
+				style={{
+					fontSize: "16px",
+					maxHeight: "32px",
+					width: "fit-content",
+				}}
+			>
+				Alterar Senha
+			</StyledButton>
+		),
+	},
+];
+
+const restrictions = [
+	"Restrição",
+	"Restrição",
+	"Restrição",
+	"Restrição",
+	"Restrição",
+	"Restrição",
+	"Restrição",
+	"Restrição",
+	"Restrição",
+	"Restrição",
+	"Restrição",
+	"Restrição",
+	"Restrição",
+	"Restrição",
+	"Restrição",
+	"Restrição",
+];
+
 const PBanner = styled(Box)`
 	display: flex;
 	height: 225px;
@@ -120,6 +141,10 @@ const PBanner = styled(Box)`
 	background-size: cover;
 	background-position: center;
 	filter: brightness(46%);
+
+	@media (max-width: 800px) {
+		justify-content: flex-end;
+	}
 `;
 
 const PBtnEditar = styled(StyledButton)`
@@ -130,6 +155,12 @@ const PBtnEditar = styled(StyledButton)`
 	min-width: 90px;
 	color: white;
 	border: 2px solid white;
+
+	@media (max-width: 800px) {
+		margin: 10px 10px 0 0;
+		width: auto;
+		align-self: baseline;
+	}
 `;
 
 const PContainer = styled.div`
@@ -143,6 +174,17 @@ const PContainerProfilePhoto = styled.div`
 	position: relative;
 	margin-top: -60px;
 	margin-left: -80px;
+
+	@media (max-width: 800px) {
+		margin-left: auto;
+		margin-right: auto;
+
+		span {
+			text-align: center;
+			margin-left: auto;
+			margin-right: auto;
+		}
+	}
 `;
 
 const PProfilePhoto = styled(ProfilePhotoUploadWithPreview)`
@@ -153,11 +195,21 @@ const PProfilePhoto = styled(ProfilePhotoUploadWithPreview)`
 			p.theme.name == "light"
 				? p.theme.colors.light_gray[200]
 				: p.theme.colors.dark_gray[600]};
+
+	@media (max-width: 800px) {
+		margin-left: auto;
+		margin-right: auto;
+		justify-content: center;
+	}
 `;
 
 const PContainerSub = styled.div`
 	display: grid;
 	grid-template-columns: 1fr 0.4fr;
+
+	@media (max-width: 800px) {
+		grid-template-columns: 1fr;
+	}
 `;
 
 //Info
@@ -173,6 +225,14 @@ const PContainerInfo = styled.div`
 		span {
 			align-self: center;
 			font-weight: 600;
+		}
+
+		@media (max-width: 800px) {
+			grid-template-columns: 1fr;
+
+			span {
+				margin-bottom: 5px;
+			}
 		}
 	}
 `;
@@ -193,17 +253,13 @@ const PTitle = styled(Subtitle)`
 	font-weight: 600;
 `;
 
-const PInputName = styled(Input)``;
-const PInputEmail = styled(Input)``;
-const PBtnSenha = styled(StyledButton)`
-	font-size: 16px;
-	max-height: 32px;
-	width: fit-content;
-`;
-
 const PContainerInfo2 = styled.div`
 	display: flex;
 	justify-content: space-between;
+
+	@media (max-width: 800px) {
+		flex-direction: column;
+	}
 `;
 
 const PBtnAdicionarEndereco = styled(ButtonIcon)`
@@ -222,10 +278,14 @@ const PBtnAdicionarEndereco = styled(ButtonIcon)`
 const PContainerInfo3 = styled.div`
 	display: flex;
 	justify-content: space-between;
+
+	@media (max-width: 800px) {
+		flex-direction: column;
+	}
 `;
 
 const PContainerRestricao = styled(Box)`
-	max-height: 200px;
+	max-height: 250px;
 	max-width: 500px;
 	margin: 0 24px;
 	padding: 10px 0;
@@ -264,6 +324,10 @@ const PContainerRestricao = styled(Box)`
 				? p.theme.colors.light_gray[800]
 				: p.theme.colors.black};
 	}
+
+	@media (max-width: 800px) {
+		margin: 10px 0 0 0;
+	}
 `;
 
 //Buttom
@@ -272,6 +336,10 @@ const PContainerBtn = styled.div`
 	display: flex;
 	justify-content: flex-end;
 	gap: 15px;
+
+	@media (max-width: 800px) {
+		justify-content: flex-start;
+	}
 `;
 
 const PBtnSalvar = styled(StyledButton)`
