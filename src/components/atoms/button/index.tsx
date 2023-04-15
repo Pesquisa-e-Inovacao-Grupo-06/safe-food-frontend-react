@@ -9,6 +9,8 @@ export type ButtonProps = {
 	disabled?: boolean;
 	loading?: boolean;
 	sizeLoading?: number;
+	width?: string | number;
+	height?: string | number;
 } & React.HTMLAttributes<HTMLButtonElement> &
 	React.PropsWithChildren;
 
@@ -18,6 +20,8 @@ export const Button: React.FC<ButtonProps> = ({
 	children,
 	loading = false,
 	sizeLoading,
+	width = 100,
+	height = 20,
 	...props
 }) => {
 	return loading ? (
@@ -27,6 +31,8 @@ export const Button: React.FC<ButtonProps> = ({
 			{...props}
 			disabled={disabled || false}
 			buttonStyle={buttonStyle}
+			height={height}
+			width={width}
 		>
 			{children}
 		</S.StyledButton>

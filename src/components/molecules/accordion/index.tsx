@@ -5,7 +5,7 @@ import React, {
 	useState,
 } from "react";
 import { IoIosArrowDown } from "react-icons/io";
-import { TextAtom } from "@/components/atoms/text/text-atom";
+import { TextAtom } from "@/components/atoms/text";
 import { Container } from "@/components/atoms/container";
 
 export type AccordionProps = {

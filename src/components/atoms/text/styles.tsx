@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { AlignText, TypeText } from "./text-atom";
+import { AlignText, TypeText } from ".";
 
 export const StyledText = styled.span<{
 	typeText: TypeText;

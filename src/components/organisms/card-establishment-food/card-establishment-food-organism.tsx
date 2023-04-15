@@ -2,7 +2,7 @@ import { Box } from "../../atoms/box/index";
 import styled from "styled-components";
 import { AvaliationStars } from "@/components/molecules/avaliation-stars";
 import { Subtitle } from "@/styles/components/text/Subtitle";
-import { TextAtom } from "../../atoms/text/text-atom";
+import { TextAtom } from "../../atoms/text";
 import { FaCommentAlt, IoLocationSharp } from "react-icons/all";
 import { Star } from "@/components/atoms/star";
 import { TextIcon } from "@/components/molecules/text-icon/text-icon-molecule";

@@ -1,5 +1,5 @@
 import { StyledTextIcon } from "./text-icon-style";
-import { TextProps, TextAtom } from "../../atoms/text/text-atom";
+import { TextProps, TextAtom } from "../../atoms/text";
 import { ReactNode } from "react";
 
 export type IconAlign = "right" | "left";

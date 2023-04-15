@@ -2,7 +2,7 @@ import { Box } from "@/components/atoms/box";
 import { Button } from "@/components/atoms/button";
 import Checkbox from "@/components/atoms/checkbox";
 import { Divider } from "@/components/atoms/divider";
-import { TextAtom } from "@/components/atoms/text/text-atom";
+import { TextAtom } from "@/components/atoms/text";
 import { StyledModal } from "@/pages/term-of-service";
 import { Subtitle } from "@/styles/components/text/Subtitle";
 import { Title } from "@/styles/components/text/Title";

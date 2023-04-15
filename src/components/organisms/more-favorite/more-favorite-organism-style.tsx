@@ -1,4 +1,4 @@
-import { TextAtom } from "@/components/atoms/text/text-atom";
+import { TextAtom } from "@/components/atoms/text";
 import styled from "styled-components";
 
 export const StyledContainer = styled.div`
