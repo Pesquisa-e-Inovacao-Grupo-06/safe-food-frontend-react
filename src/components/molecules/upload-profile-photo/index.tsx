@@ -7,17 +7,18 @@ export type ProfilePhotoUploadWithPreviewProps = {
 	name: string;
 	id: string;
 	width: string;
+	justify?: string;
 } & HTMLAttributes<HTMLLabelElement>;
 export const ProfilePhotoUploadWithPreview: React.FC<
 	ProfilePhotoUploadWithPreviewProps
-> = props => {
+> = ({ justify = "center", ...props }) => {
 	const [preview, setPreview] = useState(Camera);
 	const [fileName, setFilename] = useState("Nenhum arquivo selecionado");
 	return (
 		<>
 			<Box
 				display="flex"
-				justify="center"
+				justify={justify}
 				gap="8px"
 				style={{
 					flexWrap: "wrap",
