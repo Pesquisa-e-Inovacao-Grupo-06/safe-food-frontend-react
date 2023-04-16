@@ -10,7 +10,7 @@ const GlobalStyles = createGlobalStyle`
     list-style: none;
     box-sizing: border-box;
     color: inherit;
-    /* fill: inherit; */
+    fill: inherit;
 
   }
   img{
