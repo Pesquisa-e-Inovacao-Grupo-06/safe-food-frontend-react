@@ -11,19 +11,21 @@ export const Subtitle = styled.h2<{
 	margin: ${p => (p.margin ? p.margin : 0)};
 	${p => {
 		if (p.large) {
+			let lineHeight = p.center ? p.theme.font.height.lg : p.theme.font.height.xlg;
 			return css`
 				font-size: ${p => p.theme.font.size.xlg};
-				line-height: ${p => p.theme.font.height.xlg};
+				line-height: ${lineHeight};
 			`;
 		}
+		let lineHeight = p.center ? p.theme.font.height.md : p.theme.font.height.lg;
 		return css`
 			font-size: ${p => p.theme.font.size.lg};
-			line-height: ${p => p.theme.font.height.lg};
+			line-height: ${lineHeight};
 		`;
 	}}
 
 	color: ${p =>
 		p.theme.isLight
-			? p.theme.colors.dark_gray[600]
+			? p.theme.colors.dark_gray[400]
 			: p.theme.colors.light_gray[400]}
 `;

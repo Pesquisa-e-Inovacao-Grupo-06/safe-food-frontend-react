@@ -7,99 +7,80 @@ import {
 
 import Logo from "../../../assets/svg-logo.svg";
 import GoogleLogo from "../../../assets/google/selo-google.png";
-import { TextAtom } from "../../atoms/text/text-atom";
+import { Text } from "../../atoms/text";
 import { FaFacebook, FaGoogle, FaInstagram, FaTwitter } from "react-icons/fa";
-import { TextIcon } from "../../molecules/text/text-icon-molecule";
+import { TextIcon } from "@/components/molecules/text-icon/text-icon-molecule";
+import { ImageAtom } from "@/components/atoms/img";
+import { Box } from "@/components/atoms/box";
+import { Column } from "@/components/atoms/column";
+import { TextIconProps } from "../../molecules/text-icon/text-icon-molecule";
 
 export type FooterOrganismProps = {};
 
 export const FooterOrganism = ({}) => {
 	var iconSize = 20;
-	//	TODO: responsividade para celular
+
 	return (
-		<>
+		<Box margin="0px 0px 100px 0px ">
 			<StyledFooterContainer>
 				<FooterColumnMolecule title="Informações">
-					<ul>
-						<StyledLIFooterColumn>
-							<TextAtom
-								text="Sobre a Safe Food"
-								typeText="text-md"
-							/>
-						</StyledLIFooterColumn>
-						<StyledLIFooterColumn>
-							<TextAtom
-								text="Termos de uso"
-								typeText="text-md"
-							/>
-						</StyledLIFooterColumn>
-						<StyledLIFooterColumn>
-							<TextAtom
-								text="Blog de Receitas"
-								typeText="text-md"
-							/>
-						</StyledLIFooterColumn>
-						<StyledLIFooterColumn>
-							<TextAtom
-								text="FAQ"
-								typeText="text-md"
-							/>
-						</StyledLIFooterColumn>
-					</ul>
+					<Text cursor> Sobre a Safe Food</Text>
+					<Text cursor> Termos de uso</Text>
+					<Text cursor>Blog de Receitas </Text>
+					<Text cursor>FAQ </Text>
 				</FooterColumnMolecule>
 				<FooterColumnMolecule title="Redes Sociais">
-					<StyledLIFooterColumn>
-						<TextIcon
-							icon={<FaFacebook size={iconSize} />}
-							iconAlign="left"
-							text="Facebook"
-							iconColor="orange"
-						/>
-					</StyledLIFooterColumn>
-					<StyledLIFooterColumn>
-						<TextIcon
-							icon={<FaGoogle size={iconSize} />}
-							iconAlign="left"
-							text="Gmail"
-							iconColor="orange"
-						/>
-					</StyledLIFooterColumn>
+					<TextIcon
+						icon={<FaFacebook size={iconSize} />}
+						iconAlign="left"
+						iconColor="orange"
+						cursor
+					>
+						Facebook
+					</TextIcon>
+					<TextIcon
+						icon={<FaGoogle size={iconSize} />}
+						iconAlign="left"
+						iconColor="orange"
+						cursor
+					>
+						Gmail
+					</TextIcon>
 
-					<StyledLIFooterColumn>
-						<TextIcon
-							icon={<FaInstagram size={iconSize} />}
-							iconAlign="left"
-							text="Instagram"
-							iconColor="orange"
-						/>
-					</StyledLIFooterColumn>
+					<TextIcon
+						icon={<FaInstagram size={iconSize} />}
+						iconAlign="left"
+						iconColor="orange"
+						cursor
+					>
+						Instagram
+					</TextIcon>
 
-					<StyledLIFooterColumn>
-						<TextIcon
-							icon={<FaTwitter size={iconSize} />}
-							iconAlign="left"
-							text="Twitter"
-							iconColor="orange"
-						/>
-					</StyledLIFooterColumn>
+					<TextIcon
+						icon={<FaTwitter size={iconSize} />}
+						iconAlign="left"
+						iconColor="orange"
+						cursor
+					>
+						Twitter
+					</TextIcon>
 				</FooterColumnMolecule>
 				<FooterColumnMolecule title="Baixe o Aplicativo">
-					<img
-						id="play-store"
+					<ImageAtom
+						height={"auto"}
+						maxWidth={186}
+						cursor={true}
 						src={GoogleLogo}
-						alt=""
 					/>
 				</FooterColumnMolecule>
 			</StyledFooterContainer>
 
 			<StyledCopyRightContainer>
-				<TextAtom
-					typeText="text-sm"
-					text="© Safe Food 2023 - Todos os Direitos Reservados."
-				></TextAtom>
-				{/* TODO: icone da safefood em svg para aumentar resolução */}
+				<Text typeText="text-sm">
+					© Safe Food 2023 - Todos os Direitos Reservados.
+				</Text>
 				<img src={Logo} />
 			</StyledCopyRightContainer>
-		</>
+		</Box>
 	);
 };

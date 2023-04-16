@@ -15,24 +15,44 @@ export const ContainerChips = styled.div<{
 	key?: number;
 	onClick?: (id: number) => void;
 }>`
-	background-color: ${({ favorite }) => (favorite ? "#EDFFD9 " : "#e1e1e1")};
+	background-color: ${p => {
+		if (p.theme.isLight) {
+			return p.favorite
+				? p.theme.colors.success[200]
+				: p.theme.colors.light_gray[600];
+		}
+		if (p.theme.isDark) {
+			return p.favorite
+				? p.theme.colors.success[1000]
+				: p.theme.colors.dark_gray[600];
+		}
+	}};
 	cursor: pointer;
 	height: fit-content;
 	width: fit-content;
-	border: 2px solid ${({ favorite }) => (favorite ? "#18A942" : "#d5d5d5")};
+	border: 2px solid
+		${p => {
+			if (p.theme.isLight) {
+				return p.favorite
+					? p.theme.colors.success[800]
+					: p.theme.colors.light_gray[200];
+			}
+			if (p.theme.isDark) {
+				return p.favorite
+					? p.theme.colors.success[1000]
+					: p.theme.colors.light_gray[800];
+			}
+		}};
 
 	${l => {
 		switch (l.sizeChips) {
 			case "chips-sm":
 				return css`
-					margin: 10px;
 					padding: 3px 10px;
 					border-radius: 25px;
 
 					p {
-						margin: 0;
 						font-size: small;
-						font-weight: 500;
 					}
 
 					p svg {
@@ -41,14 +61,11 @@ export const ContainerChips = styled.div<{
 				`;
 			case "chips-md":
 				return css`
-					margin: 10px;
 					padding: 5px 10px;
 					border-radius: 25px;
 
 					p {
-						margin: 0;
 						font-size: medium;
-						font-weight: 500;
 					}
 
 					p svg {
@@ -57,14 +74,11 @@ export const ContainerChips = styled.div<{
 				`;
 			case "chips-lg":
 				return css`
-					margin: 10px;
 					padding: 7px 10px;
 					border-radius: 25px;
 
 					p {
-						margin: 0;
 						font-size: large;
-						font-weight: 500;
 					}
 
 					p svg {
@@ -73,14 +87,11 @@ export const ContainerChips = styled.div<{
 				`;
 			default:
 				return css`
-					margin: 10px;
 					padding: 5px 10px;
 					border-radius: 25px;
 
 					p {
-						margin: 0;
 						font-size: medium;
-						font-weight: 500;
 					}
 
 					p svg {
@@ -91,10 +102,21 @@ export const ContainerChips = styled.div<{
 	}}
 
 	& p {
-		font-family: sans-serif;
-		color: ${({ favorite }) => (favorite ? "#18A942" : "#767676")};
+		font-weight: 600;
+		color: ${p => {
+			if (p.theme.isLight) {
+				return p.favorite
+					? p.theme.colors.success[800]
+					: p.theme.colors.dark_gray[200];
+			}
+			if (p.theme.isDark) {
+				return p.favorite
+					? p.theme.colors.success[200]
+					: p.theme.colors.light_gray[800];
+			}
+		}};
 		display: flex;
-		gap: 5px;
+		gap: 4px;
 		align-items: center;
 	}
 

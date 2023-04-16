@@ -1,7 +1,8 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export type StyledInputProps = {
 	error?: boolean;
+	disabled?: boolean;
 };
 export const StyledDivInput = styled.div<StyledInputProps>`
 	display: flex;
@@ -15,10 +16,12 @@ export const StyledDivInput = styled.div<StyledInputProps>`
 	background: ${p => {
 		if (p.theme.isLight) {
 			if (p.error) return p.theme.colors.error[200];
+			if (p.disabled) return p.theme.colors.light_gray[600];
 			return p.theme.colors.light_gray[400];
 		}
 		if (p.theme.isDark) {
 			if (p.error) return p.theme.colors.error[600];
+			if (p.disabled) return p.theme.colors.dark_gray[400];
 			return p.theme.colors.dark_gray[600];
 		}
 	}};
@@ -30,6 +33,9 @@ export const StyledDivInput = styled.div<StyledInputProps>`
 			}
 			if (p.theme.isDark) {
 				return p.theme.colors.dark_gray[400];
+			}
+			if (p.disabled) {
+				return "transparent";
 			}
 		}};
 	box-shadow: ${p => p.theme.colors.shadow[200]};
@@ -43,19 +49,24 @@ export const StyledDivInput = styled.div<StyledInputProps>`
 			return p.theme.colors.light_gray[600];
 		}
 	}};
+	fill: ${p => {
+		if (p.theme.isLight) {
+			if (p.error) return p.theme.colors.error[600];
+			return p.theme.colors.dark_gray[200];
+		}
+		if (p.theme.isDark) {
+			if (p.error) return p.theme.colors.error[200];
+			return p.theme.colors.light_gray[400];
+		}
+	}};
 
 	opacity: 0.8;
-
-	&:disabled {
-		filter: saturate(0.7);
-	}
 	&:hover,
-	&:focus,
 	&.focus {
 		border: 1px solid
 			${p => {
 				if (p.error) return p.theme.colors.error[400];
-				if (p.theme.isLight) {
+				if (p.theme.isLight || p.disabled) {
 					return "transparent";
 				}
 				if (p.theme.isDark) {
@@ -65,6 +76,17 @@ export const StyledDivInput = styled.div<StyledInputProps>`
 		transform: translateX(2px);
 		opacity: 1;
 	}
+	${p => {
+		if (p.disabled)
+			return css`
+				opacity: 0.6;
+				&:hover,
+				&.focus {
+					transform: none;
+					opacity: 0.6;
+				}
+			`;
+	}}
 `;
 
 export const StyledInputSingle = styled.input<StyledInputProps>`

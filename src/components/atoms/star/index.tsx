@@ -35,6 +35,7 @@ export const Star: React.FC<StarProps> = ({
 				onMouseOut={e => onMouseOut(e)}
 				style={{
 					cursor: "pointer",
+					fill: filled ? color : "none",
 				}}
 				opacity={opacity}
 				height={`${size}px`}

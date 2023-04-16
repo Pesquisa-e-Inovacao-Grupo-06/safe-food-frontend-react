@@ -1,12 +1,12 @@
-import { MoreFavoriteOrganism } from "@/components/organisms/more-favorite/more-favorite-organism";
+import { HomeTemplate } from "../components/templates/home-template";
 
 function Home() {
 	return (
-		<div style={{ paddingTop: "75px" }}>
-			<h1>Home</h1>
-			<MoreFavoriteOrganism></MoreFavoriteOrganism>
+		<div>
+			<HomeTemplate></HomeTemplate>
 		</div>
 	);
 }
 
 export default Home;
+

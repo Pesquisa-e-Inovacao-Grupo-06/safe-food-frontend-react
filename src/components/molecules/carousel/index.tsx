@@ -43,7 +43,7 @@ export const Carousel: React.FC<CarouselProps> = ({
 					return (
 						<CarouselItem
 							marginHorizontal={margin}
-							key={item + index}
+							key={index + "item"}
 							width={itemSize}
 							height={itemHeight}
 						>

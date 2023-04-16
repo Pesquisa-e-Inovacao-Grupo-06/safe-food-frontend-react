@@ -1,5 +1,5 @@
 import { StyledTextIcon } from "./text-icon-style";
-import { TextProps, TextAtom } from "../../atoms/text/text-atom";
+import { TextProps, Text } from "../../atoms/text";
 import { ReactNode } from "react";
 
 export type IconAlign = "right" | "left";
@@ -8,6 +8,7 @@ export type TextIconProps = {
 	icon: ReactNode;
 	iconAlign: IconAlign;
 	iconColor?: string;
+	color?: string;
 } & React.HtmlHTMLAttributes<HTMLButtonElement> &
 	React.PropsWithChildren;
 
@@ -16,10 +17,9 @@ export const TextIcon: React.FC<Props> = ({
 	icon,
 	typeText,
 	children,
-	text,
 	iconAlign = "left",
 	iconColor = "black",
-
+	color = "black",
 	...props
 }) => {
 	return (
@@ -27,10 +27,14 @@ export const TextIcon: React.FC<Props> = ({
 			iconAlign={iconAlign}
 			iconColor={iconColor}
 		>
-			<>
-				{icon}
-				<TextAtom typeText={typeText}>{text}</TextAtom>
-			</>
+			{icon}
+			<Text
+				color={color}
+				typeText={typeText}
+				{...props}
+			>
+				{children}
+			</Text>
 		</StyledTextIcon>
 	);
 };

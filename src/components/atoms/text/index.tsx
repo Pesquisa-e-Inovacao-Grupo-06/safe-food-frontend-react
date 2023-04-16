@@ -1,25 +1,29 @@
-import { ColorType } from "@/styles/theme/styled";
 import { PropsWithChildren } from "react";
 import { StyledText } from "./styles";
 
 export type TypeText = "text-md" | "text-mdb" | "text-sm" | "text-xsm-i";
+export type AlignText = "center" | "start" | "end";
 export type TextProps = {
 	typeText?: TypeText;
 	text?: string;
+	align?: AlignText;
+	cursor?: boolean;
 } & React.HTMLAttributes<HTMLButtonElement> &
 	React.HTMLAttributes<PropsWithChildren>;
 
-export const TextAtom: React.FC<TextProps> = ({
+export const Text: React.FC<TextProps> = ({
 	typeText = "text-md",
-	color = "black",
 	children,
+	align,
+	cursor,
 	...props
 }) => {
 	return (
 		<StyledText
 			typeText={typeText}
-			color={color}
 			{...props}
+			align={align}
+			cursor={cursor}
 		>
 			{children}
 		</StyledText>

@@ -12,13 +12,15 @@ export const InputIcon: React.FC<InputIconProps> = ({
 	min = 0,
 	type = "string",
 	error,
+	disabled,
 	...props
 }) => {
 	const [classNameStyled, setClassname] = useState("");
 	return (
 		<>
 			<StyledDivInput
-				className={classNameStyled}
+				disabled={disabled}
+				className={classNameStyled + " transition"}
 				error={!!error}
 			>
 				<StyledInputSingle
@@ -31,6 +33,7 @@ export const InputIcon: React.FC<InputIconProps> = ({
 					value={value}
 					maxLength={max}
 					minLength={min}
+					disabled={disabled}
 					{...props}
 				/>
 				{renderEndIcon && renderEndIcon()}
