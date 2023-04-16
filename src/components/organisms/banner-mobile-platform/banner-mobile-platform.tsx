@@ -3,8 +3,13 @@ import styled from "styled-components";
 import mobilePlatform from "../../../assets/mobile-platform.png";
 import { Button } from "../../atoms/button/index";
 import { Subtitle } from "@/styles/components/text/Subtitle";
-import { TextAtom } from "../../atoms/text";
-import { StyledBannerDiv, StyledBannerMobilePlatformContainer, StyledBannerMobilePlatformBody, StyledBannerMobilePlatformImage } from "./style";
+import { Text } from "../../atoms/text";
+import {
+	StyledBannerDiv,
+	StyledBannerMobilePlatformContainer,
+	StyledBannerMobilePlatformBody,
+	StyledBannerMobilePlatformImage,
+} from "./style";
 import { Divider } from "@/components/atoms/divider";
 import { Box } from "@/components/atoms/box";
 
@@ -22,10 +27,10 @@ export const BannerMobilePlatform: React.FC<BannerMobilePlatformProps> = ({
 					<div>
 						<Subtitle>Gosta da Nossa Plataforma?</Subtitle>
 						<Box width="80%">
-							<TextAtom typeText="text-md" >
-								Baixe o nosso APP na PlayStore e desfrute da
-								melhor usabilidade em qualquer lugar!
-							</TextAtom>
+							<Text typeText="text-md">
+								Baixe o nosso APP na PlayStore e desfrute da melhor usabilidade em
+								qualquer lugar!
+							</Text>
 						</Box>
 						<Divider marginTop="39px" />
 						<Button
@@ -46,14 +51,9 @@ export const BannerMobilePlatform: React.FC<BannerMobilePlatformProps> = ({
 						/>
 					</StyledBannerMobilePlatformImage>
 
-					<Button
-						className="button-mobile-platform"
-					>
-						Baixar agora
-					</Button>
+					<Button className="button-mobile-platform">Baixar agora</Button>
 				</StyledBannerMobilePlatformBody>
 			</StyledBannerMobilePlatformContainer>
 		</StyledBannerDiv>
 	);
 };
-

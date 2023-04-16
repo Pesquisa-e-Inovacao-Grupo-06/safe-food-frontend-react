@@ -4,7 +4,10 @@ import { ContainerFluid } from "../atoms/container";
 import { Divider } from "../atoms/divider";
 import Header from "../molecules/header";
 import { BannerMobilePlatform } from "../organisms/banner-mobile-platform/banner-mobile-platform";
-import { StyledRow, StyledColumn } from "../organisms/card-establishment-food/card-establishment-food-organism";
+import {
+	StyledRow,
+	StyledColumn,
+} from "../organisms/card-establishment-food/card-establishment-food-organism";
 import { FooterOrganism } from "../organisms/footer/footer-organism";
 import { LandingFormFoodOrganism } from "../organisms/landing-form-food/landing-form-food";
 import { CardEstablishmentFoodOTemplate } from "./card-establishment-food-template";
@@ -12,10 +15,7 @@ import { MoreFavoritesTemplate } from "./more-favorites-template";
 import bannerHome from "../../assets/banner-home.svg";
 import { BodyTemplate } from "./body-template";
 
-
-
-export const HomeTemplate = ({ }) => {
-
+export const HomeTemplate = ({}) => {
 	return (
 		<>
 			<Header />
@@ -43,7 +43,6 @@ export const HomeTemplate = ({ }) => {
 					<MoreFavoritesTemplate />
 					<Divider marginTop="20px" />
 					<BannerMobilePlatform />
-					<Divider marginTop="39px" marginBottom="39px" />
 					<FooterOrganism />
 				</Box>
 			</BodyTemplate>

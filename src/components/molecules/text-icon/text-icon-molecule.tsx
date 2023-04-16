@@ -1,5 +1,5 @@
 import { StyledTextIcon } from "./text-icon-style";
-import { TextProps, TextAtom } from "../../atoms/text";
+import { TextProps, Text } from "../../atoms/text";
 import { ReactNode } from "react";
 
 export type IconAlign = "right" | "left";
@@ -28,13 +28,13 @@ export const TextIcon: React.FC<Props> = ({
 			iconColor={iconColor}
 		>
 			{icon}
-			<TextAtom
+			<Text
 				color={color}
 				typeText={typeText}
 				{...props}
 			>
 				{children}
-			</TextAtom>
+			</Text>
 		</StyledTextIcon>
 	);
 };

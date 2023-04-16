@@ -1,11 +1,8 @@
 import { BoxProps } from "@/components/atoms/box";
 import { Box } from "@/components/atoms/box";
-import React, {
-	PropsWithChildren,
-	useState,
-} from "react";
+import React, { PropsWithChildren, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
-import { TextAtom } from "@/components/atoms/text";
+import { Text } from "@/components/atoms/text";
 import { Container } from "@/components/atoms/container";
 
 export type AccordionProps = {
@@ -39,12 +36,14 @@ export const Accordion: React.FC<AccordionProps> = ({
 				gap="8px"
 				onClick={() => setOpen(!open)}
 			>
-				<Box style={{
-					whiteSpace: !open ? "nowrap" : "unset",
-					overflow: !open ? "hidden" : "unset",
-					textOverflow: !open ? "ellipsis" : "unset",
-				}}>
-					<TextAtom typeText="text-mdb">{title}</TextAtom>
+				<Box
+					style={{
+						whiteSpace: !open ? "nowrap" : "unset",
+						overflow: !open ? "hidden" : "unset",
+						textOverflow: !open ? "ellipsis" : "unset",
+					}}
+				>
+					<Text typeText="text-mdb">{title}</Text>
 				</Box>
 				<Box
 					alignSelf="center"

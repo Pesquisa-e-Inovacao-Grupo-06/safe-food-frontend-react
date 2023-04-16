@@ -2,7 +2,7 @@ import { Box } from "../../atoms/box/index";
 import styled from "styled-components";
 import { AvaliationStars } from "@/components/molecules/avaliation-stars";
 import { Subtitle } from "@/styles/components/text/Subtitle";
-import { TextAtom } from "../../atoms/text";
+import { Text } from "../../atoms/text";
 import { FaCommentAlt, IoLocationSharp } from "react-icons/all";
 import { Star } from "@/components/atoms/star";
 import { TextIcon } from "@/components/molecules/text-icon/text-icon-molecule";
@@ -29,8 +29,8 @@ export const CardCarrouselFoodOrganism: React.FC<EstablishmentFoodProps> = ({
 					height: "236px",
 					// margin: "10px",
 				}}
-			// height={"auto"}
-			// size="sm"
+				// height={"auto"}
+				// size="sm"
 			>
 				<div style={{ height: "46%", width: "100%" }}>
 					<img
@@ -38,7 +38,6 @@ export const CardCarrouselFoodOrganism: React.FC<EstablishmentFoodProps> = ({
 						style={{ objectFit: "cover", borderRadius: "4px", pointerEvents: "none" }}
 						height={"100%"}
 						width={"100%"}
-
 					/>
 				</div>
 				<div
@@ -56,9 +55,11 @@ export const CardCarrouselFoodOrganism: React.FC<EstablishmentFoodProps> = ({
 						<AvaliationStars avegareRate={establishemntFood.avegareRate} />
 						<div></div>
 					</StyledRow>
-					<TextAtom typeText="text-md">{establishemntFood.description}</TextAtom>
+					<Text typeText="text-md">{establishemntFood.description}</Text>
 					<StyledRow style={{ alignItems: "flex-start" }}>
-						<StyledCost typeText="text-mdb">{formatReal(establishemntFood.price)}</StyledCost>
+						<StyledCost typeText="text-mdb">
+							{formatReal(establishemntFood.price)}
+						</StyledCost>
 						<TextIcon
 							icon={<IoLocationSharp />}
 							iconAlign="left"
@@ -74,7 +75,7 @@ export const CardCarrouselFoodOrganism: React.FC<EstablishmentFoodProps> = ({
 	);
 };
 
-export const CardEstablishmentFoodOrganism = ({ }) => {
+export const CardEstablishmentFoodOrganism = ({}) => {
 	return (
 		<Box
 			display="flex"
@@ -98,7 +99,7 @@ export const CardEstablishmentFoodOrganism = ({ }) => {
 			</div>
 			<StyledColumn style={{ margin: "14px", alignItems: "start" }}>
 				<Subtitle>Hamburguer Vegan 2.0</Subtitle>
-				<TextAtom style={{ height: "fit-content" }}>
+				<Text style={{ height: "fit-content" }}>
 					Aproveite todo o sabor de um clássico hambúrguer sem sacrificar seus
 					princípios veganos com o nosso revolucionário Hambúrguer 2.0 Vegan. Feito
 					com ingredientes de origem vegetal de alta qualidade, este hambúrguer é uma
@@ -106,7 +107,7 @@ export const CardEstablishmentFoodOrganism = ({ }) => {
 					sustentável. Com sua textura suculenta e sabor inigualável, é perfeito para
 					qualquer refeição, desde um lanche rápido até um jantar sofisticado.
 					Experimente agora e descubra o futuro do hambúrguer vegano!
-				</TextAtom>
+				</Text>
 				<StyledCost typeText="text-mdb">R$ 45,00</StyledCost>
 
 				<Divider />
@@ -115,13 +116,13 @@ export const CardEstablishmentFoodOrganism = ({ }) => {
 						color="orange"
 						avegareRate={1}
 					/>
-					<TextAtom>(123 avaliações)</TextAtom>
+					<Text>(123 avaliações)</Text>
 				</StyledRow>
 			</StyledColumn>
 		</Box>
 	);
 };
-export const CardExpansiveEstablishmentFoodOrganism = ({ }) => {
+export const CardExpansiveEstablishmentFoodOrganism = ({}) => {
 	return (
 		<Box
 			display="flex"
@@ -176,7 +177,7 @@ export const CardExpansiveEstablishmentFoodOrganism = ({ }) => {
 				}}
 			></div> */}
 			<StyledRow style={{ flexBasis: "59%" }}>
-				<TextAtom style={{ height: "fit-content" }}>
+				<Text style={{ height: "fit-content" }}>
 					Aproveite todo o sabor de um clássico hambúrguer sem sacrificar seus
 					princípios veganos com o nosso revolucionário Hambúrguer 2.0 Vegano. Feito
 					com ingredientes de origem vegetal de alta qualidade, este hambúrguer é uma
@@ -184,7 +185,7 @@ export const CardExpansiveEstablishmentFoodOrganism = ({ }) => {
 					sustentável. Com sua textura suculenta e sabor inigualável, é perfeito para
 					qualquer refeição, desde um lanche rápido até um jantar sofisticado.
 					Experimente agora e descubra o futuro do hambúrguer vegano!
-				</TextAtom>
+				</Text>
 			</StyledRow>
 		</Box>
 	);
@@ -210,15 +211,17 @@ export const StyledRow = styled.div`
 	align-items: center;
 	width: 100%;
 `;
-export const StyledColumn = styled.div`
+export const StyledColumn = styled.div<{
+	alignItems?: AlignSetting;
+}>`
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	align-items: center;
+	align-items: ${p => p.alignItems};
 	gap: 20px;
 `;
 
-export const StyledCost = styled(TextAtom) <{
+export const StyledCost = styled(Text)<{
 	backgroundColor?: string;
 }>`
 	background-color: ${p => p.backgroundColor ?? "green"};

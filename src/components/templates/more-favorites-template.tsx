@@ -2,7 +2,7 @@ import { MoreFavoriteOrganism } from "../organisms/more-favorite/more-favorite-o
 import { Subtitle } from "@/styles/components/text/Subtitle";
 import { getMoreFavoriteListMock } from "@/app/domain/entities/MoreFavorite";
 import { Divider } from "../atoms/divider";
-export const MoreFavoritesTemplate = ({ }) => {
+export const MoreFavoritesTemplate = ({}) => {
 	return (
 		<div style={{ marginTop: "40px" }}>
 			<Subtitle

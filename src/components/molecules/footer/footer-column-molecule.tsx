@@ -1,10 +1,11 @@
 import { Container } from "react-dom";
-import { TextProps, TextAtom } from "../../atoms/text";
+import { TextProps, Text } from "../../atoms/text";
 import {
 	StyledDivFooterColumn,
 	StyledFooterColumnContainer,
 	StyledTitleFooterColumn,
 } from "./footer-column-style";
+import { Box } from "@/components/atoms/box";
 
 export type FooterColumnMoleculeProps = {
 	title?: TextProps;
@@ -18,10 +19,17 @@ export const FooterColumnMolecule: React.FC<Props> = ({ title, children }) => {
 		<StyledDivFooterColumn>
 			<StyledFooterColumnContainer>
 				<StyledTitleFooterColumn>
-					<TextAtom typeText="text-mdb">{title}</TextAtom>
+					<Text typeText="text-mdb">{title}</Text>
 				</StyledTitleFooterColumn>
 			</StyledFooterColumnContainer>
-			{children}
+			<Box
+				display="flex"
+				flexDiretion="column"
+				alignItems="start"
+				gap="12px"
+			>
+				{children}
+			</Box>
 		</StyledDivFooterColumn>
 	);
 };

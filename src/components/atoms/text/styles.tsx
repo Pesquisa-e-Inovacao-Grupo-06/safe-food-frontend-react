@@ -5,6 +5,7 @@ export const StyledText = styled.span<{
 	typeText: TypeText;
 	color?: string;
 	align?: AlignText;
+	cursor?: boolean;
 }>`
 	text-align: ${p => p.align ?? "start"};
 	${p => {
@@ -53,6 +54,8 @@ export const StyledText = styled.span<{
 	}};
 	margin: 0px;
 	padding: 0px;
+	cursor: ${p => (p.cursor ? "pointer" : null)};
+
 	color: ${p =>
 		p.theme.isLight
 			? p.theme.colors.dark_gray[p.typeText == "text-mdb" ? 400 : 600]

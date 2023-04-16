@@ -1,5 +1,6 @@
 import styled from "styled-components";
 export const StyledFooterContainer = styled.div<{}>`
+	padding-top: 100px;
 	width: 100%;
 	display: flex;
 	flex-wrap: wrap;
