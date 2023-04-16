@@ -4,6 +4,7 @@ export const SLayout = styled.div`
 	display: grid;
 	grid-template-columns: 0fr 1fr 0fr;
 	position: fixed;
+	width: 100dvw;
 
 	@media screen and (max-width: 600px) {
 		grid-template-columns: none;
@@ -11,8 +12,9 @@ export const SLayout = styled.div`
 `;
 
 export const SMain = styled.main`
-	padding: calc(8px * 2);
+	padding: 0 8px 0 16px ;
 	overflow-y: scroll;
+	overflow-x: none;
 	height: 100dvh;
 
 	/* Scrollbar modification */
