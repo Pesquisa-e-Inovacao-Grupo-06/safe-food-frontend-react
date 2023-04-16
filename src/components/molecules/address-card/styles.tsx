@@ -48,7 +48,7 @@ export const AddresCardContainer = styled(Box)`
 	.address-car-container-text {
 		padding: 20px;
 		min-width: 150px;
-		min-height: 80px;
+		min-height: 150px;
 		max-width: 350px;
 		color: ${p =>
 			p.theme.name == "light"
