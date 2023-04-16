@@ -1,3 +1,4 @@
+import { HtmlHTMLAttributes, ImgHTMLAttributes } from "react";
 import { StyledImage } from "./styles";
 
 export type ImageProps = {
@@ -9,7 +10,7 @@ export type ImageProps = {
 	cursor: boolean;
 	borderRadius?: "sm" | "md" | "lg" | "none";
 	objectFit?: "fill" | "contain" | "cover" | "none" | "scale-down";
-};
+} & ImgHTMLAttributes<HTMLImageElement>;
 
 export const ImageAtom: React.FC<ImageProps> = props => {
 	return (

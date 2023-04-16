@@ -24,10 +24,10 @@ export const FooterOrganism = ({}) => {
 		<Box margin="0px 0px 100px 0px ">
 			<StyledFooterContainer>
 				<FooterColumnMolecule title="Informações">
-					<Text> Sobre a Safe Food</Text>
-					<Text> Termos de uso</Text>
-					<Text>Blog de Receitas </Text>
-					<Text>FAQ </Text>
+					<Text cursor> Sobre a Safe Food</Text>
+					<Text cursor> Termos de uso</Text>
+					<Text cursor>Blog de Receitas </Text>
+					<Text cursor>FAQ </Text>
 				</FooterColumnMolecule>
 				<FooterColumnMolecule title="Redes Sociais">
 					<TextIcon
