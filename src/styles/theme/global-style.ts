@@ -11,6 +11,9 @@ const GlobalStyles = createGlobalStyle`
     color: inherit;
     fill: inherit;
   }
+  svg path[fill='none']{
+    fill: none;
+  }
   img{
     height: 100%;
     image-rendering: optimizeSpeed;

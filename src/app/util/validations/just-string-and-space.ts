@@ -1,8 +1,8 @@
 import {InputValidator} from "./input-validator";
 
 export class JustStringAndSpaceValidator implements InputValidator{
-    private regexStringAndSpace = /^[a-zA-Z\s]+$/;
-    private regexNotStringAndSpace = /[^a-zA-Z\s]/g;
+    private regexStringAndSpace = /^[a-zA-ZÀ-ÿ\s]+$/;
+    private regexNotStringAndSpace = /[^a-zA-ZÀ-ÿ\s]/g;
 
     constructor(private min: number, private max: number){
 
