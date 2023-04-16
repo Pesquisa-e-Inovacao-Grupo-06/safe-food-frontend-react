@@ -3,6 +3,7 @@ import { ContainerFluid } from "../container";
 
 export const ContainerItem = styled(ContainerFluid)`
 	height: 75px;
+	padding: 0;
 	width: fit-content;
 	border-bottom: 3px solid
 		${props => (props.theme.name === "dark" ? "#252525" : "#fcfcfc")};
