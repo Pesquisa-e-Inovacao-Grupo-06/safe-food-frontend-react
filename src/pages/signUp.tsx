@@ -1,4 +1,5 @@
 import { SignUpConsumer } from "@/components/organisms/signup-consumer";
+import { SignUpEstablishment } from "@/components/organisms/signup-establishment";
 import React from "react";
 
 function SignUp() {
@@ -6,7 +7,8 @@ function SignUp() {
 		<div style={{ paddingTop: "75px" }}>
 			<h1>SignUp</h1>
 
-			<SignUpConsumer />
+			{/*<SignUpConsumer />*/}
+			<SignUpEstablishment />
 		</div>
 	);
 }
