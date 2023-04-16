@@ -5,7 +5,7 @@ import { useSafeFoodTheme } from "../../../app/contexts/SafeFoodThemeProvider";
 import { LogoAtom } from "@/components/atoms/logo";
 import NavbarItem from "@/components/atoms/navbarItem";
 import SignUpButton from "@/components/atoms/navbarItem/btnsignup";
-import Switch from "@/components/atoms/toggleSwitch";
+import Switch from "@/components/atoms/toggle-switch";
 import Sidebar from "../sidebar";
 
 interface Props {

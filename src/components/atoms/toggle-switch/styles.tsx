@@ -23,7 +23,10 @@ export const ContainerSwitch = styled.label<{
 		right: 0;
 		bottom: 0;
 
-		background-color: ${(props) => props.theme.name == "dark" ? "#4e4e4e" :"#ccc"};
+		background-color: ${p =>
+			p.theme.name == "dark"
+				? p.theme.colors.primary[600]
+				: p.theme.colors.light_gray[600]};
 		transition: 0.4s;
 
 		border-radius: ${({ rounded }) => (rounded ? "34px" : "0px")};
@@ -36,16 +39,19 @@ export const ContainerSwitch = styled.label<{
 		width: 15px;
 		left: 3px;
 		bottom: 2px;
-		/* background-color: white; */
-		background-color: ${(props) =>
-			props.theme.name === "dark" ? "#fcfcfc" : "#1f1f1f"};;
+		background-color: ${p =>
+			p.theme.name === "dark"
+				? p.theme.colors.dark_gray[1000]
+				: p.theme.colors.light_gray[200]};
 		transition: 0.4s;
 		border-radius: ${({ rounded }) => (rounded ? "50%" : "0%")};
 	}
 
 	input:checked + span {
-		background-color: ${props =>
-			props.theme.name === "dark" ? "#4e4e4e" : "#ccc"};
+		background-color: ${p =>
+			p.theme.name === "dark"
+				? p.theme.colors.primary[600]
+				: p.theme.colors.light_gray[600]};
 	}
 
 	& input:checked + span:before {

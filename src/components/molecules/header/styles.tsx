@@ -16,7 +16,7 @@ export const Container = styled.div`
 	grid-template-columns: 0fr 2fr 1.2fr 0fr;
 	justify-items: center;
 	grid-gap: 10px;
-	box-shadow: 0px 0px 25px 4px
+	box-shadow: 0px 0px 5px 1px
 		${p =>
 			p.theme.name == "dark"
 				? p.theme.colors.dark_gray[800]
@@ -35,7 +35,7 @@ export const Container = styled.div`
 	}
 
 	& ul {
-		margin-left: 125px;
+		place-self: end;
 		height: inherit;
 		display: flex;
 		list-style: none;
