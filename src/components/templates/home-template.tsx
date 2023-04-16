@@ -12,12 +12,12 @@ export const HomeTemplate = ({}) => {
 		<>
 			<Header />
 			<BodyTemplate footer>
-				<Box>
-					<Landing></Landing>
-					<CardEstablishmentFoodOTemplate />
-					<MoreFavoritesTemplate />
-					<BannerMobilePlatform />
-				</Box>
+				{/* <Box> */}
+				<Landing></Landing>
+				<CardEstablishmentFoodOTemplate />
+				<MoreFavoritesTemplate />
+				<BannerMobilePlatform />
+				{/* </Box> */}
 			</BodyTemplate>
 		</>
 	);

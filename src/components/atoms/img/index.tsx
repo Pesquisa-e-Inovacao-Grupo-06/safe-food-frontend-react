@@ -7,6 +7,8 @@ export type ImageProps = {
 	height?: string | number;
 	maxWidth?: string | number;
 	maxHeight?: string | number;
+	minWidth?: string | number;
+	minHeight?: string | number;
 	cursor: boolean;
 	borderRadius?: "sm" | "md" | "lg" | "none";
 	objectFit?: "fill" | "contain" | "cover" | "none" | "scale-down";

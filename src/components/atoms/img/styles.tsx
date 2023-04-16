@@ -8,6 +8,10 @@ export const StyledImage = styled.img<ImageProps>`
 		typeof p.maxWidth === "number" ? p.maxWidth + "px" : p.maxWidth};
 	max-height: ${p =>
 		typeof p.maxHeight === "number" ? p.maxHeight + "px" : p.maxHeight};
+	min-width: ${p =>
+		typeof p.minWidth === "number" ? p.minWidth + "px" : p.minWidth};
+	min-height: ${p =>
+		typeof p.minHeight === "number" ? p.minHeight + "px" : p.minHeight};
 	object-fit: ${p => p.objectFit || "cover"};
 	border-radius: ${p => {
 		if (p.borderRadius === "sm") return p.theme.border.radius.sm;

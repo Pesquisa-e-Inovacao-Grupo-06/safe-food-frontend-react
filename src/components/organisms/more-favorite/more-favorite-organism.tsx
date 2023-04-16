@@ -23,53 +23,79 @@ export type MoreFavoriteProps = {
 export const MoreFavoriteOrganism: React.FC<MoreFavoriteProps> = ({
 	moreFavoriteType,
 }) => {
-	function IngredientsList(ingredients: string[]) {
-		return ingredients.map(ingredient => (
-			<StyledTextWithBorder
-				style={{ border: "1px solid green", padding: "3px", height: "fit-content" }}
-			>
-				{ingredient}
-			</StyledTextWithBorder>
-		));
-	}
 	return (
 		<Box
 			display="flex"
 			flexDiretion="row"
 			gap="20px"
 			justify="flex-start"
+			height="300px"
+			style={{ flexWrap: "wrap" }}
+			width="100%"
 		>
 			<div style={{ width: "500px", height: "300px" }}>
 				<ImageAtom
 					src={moreFavoriteType.img}
-					width={"100%"}
-					height={"100%"}
+					// width={"100%"}
+					// height={"100%"}
+					minWidth={500}
+					minHeight={300}
+					maxWidth={500}
+					maxHeight={300}
 					objectFit="cover"
 					borderRadius="lg"
+					cursor
 				/>
 			</div>
-			<div>
-				<StyledContainerColumn
-					height={"100%"}
-					style={{ justifyContent: "space-between" }}
+			<div style={{ height: "100%" }}>
+				<Box
+					display="flex"
+					flexDiretion="column"
+					alignItems="start"
+					justify="space-between"
+					height="100%"
 				>
-					<StyledContainerRow style={{ justifyContent: "space-between" }}>
-						<Subtitle>{moreFavoriteType.name}</Subtitle>
+					<Box
+						style={{
+							display: "flex",
+							flexDirection: "row",
+							gap: "10px",
+							justifyContent: "flex-start",
+						}}
+					>
+						<Subtitle
+							style={{
+								flexBasis: "70%",
+								overflow: "hidden",
+								textOverflow: "ellipsis",
+								whiteSpace: "nowrap",
+							}}
+						>
+							{moreFavoriteType.name}
+						</Subtitle>
 						<AvaliationStars avegareRate={1} />
-						<div></div>
-					</StyledContainerRow>
+						<div style={{ flexBasis: "10%" }}></div>
+					</Box>
 					<Text>{moreFavoriteType.description}</Text>
-					<StyledContainerRow style={{ gap: "10px", width: "80%" }}>
-						{/* //TODO: TESTAR LIST BUILDER*/}
+					<Box
+						display="flex"
+						flexDiretion="row"
+						style={{
+							gap: "10px",
+							overflow: "hidden",
+							textOverflow: "ellipsis",
+							whiteSpace: "nowrap",
+							textAlign: "start",
+							placeContent: "flex-start",
+						}}
+					>
 						{IngredientsList(moreFavoriteType.ingredients!)}
-					</StyledContainerRow>
+					</Box>
 					<StyledColumn alignItems="start">
 						<StyledCost typeText="text-mdb">
 							{formatReal(moreFavoriteType.price)}
 						</StyledCost>
-						<Button style={{ marginLeft: "0px", width: "fit-content" }}>
-							Ver produto
-						</Button>
+						<Button>Ver produto</Button>
 					</StyledColumn>
 
 					<TextIcon
@@ -91,7 +117,7 @@ export const MoreFavoriteOrganism: React.FC<MoreFavoriteProps> = ({
 					>
 						{moreFavoriteType.locationEstablishment}
 					</TextIcon>
-				</StyledContainerColumn>
+				</Box>
 			</div>
 		</Box>
 	);
@@ -102,3 +128,34 @@ export const StyledTextWithBorder = styled(Text)`
 	border-radius: 8px;
 	width: fit-content;
 `;
+
+function IngredientsList(ingredients: string[]) {
+	const qtdIngredients = ingredients.length;
+	const result = [];
+
+	for (let i = 0; i < 5; i++) {
+		result.push(
+			<StyledTextWithBorder
+				style={{
+					border: "1px solid green",
+					padding: "3px",
+					height: "fit-content",
+				}}
+			>
+				{ingredients[i]}
+			</StyledTextWithBorder>
+		);
+		if (qtdIngredients > 5 && i == 4) {
+			result.push(
+				<Text
+					typeText="text-md"
+					style={{ alignSelf: "flex-end" }}
+				>
+					...
+				</Text>
+			);
+		}
+	}
+
+	return result;
+}
