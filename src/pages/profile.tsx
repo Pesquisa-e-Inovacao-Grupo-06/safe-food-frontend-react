@@ -9,13 +9,20 @@ import { Input } from "@/components/atoms/input";
 import { ButtonIcon } from "@/components/molecules/button/button-icon";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { Chips } from "@/components/atoms/chips/chips-atom";
+import AddresCard from "@/components/molecules/address-card";
 
 function Profile() {
 	return (
 		<>
 			<Header />
 			<PBanner>
-				<PBtnEditar buttonStyle="outline">Editar imagem</PBtnEditar>
+				<PBtnEditar
+					height="fit-content"
+					width="fit-content"
+					buttonStyle="outline"
+				>
+					Editar imagem
+				</PBtnEditar>
 			</PBanner>
 			<PContainer>
 				<PContainerProfilePhoto>
@@ -40,17 +47,23 @@ function Profile() {
 						))}
 						<PDivider />
 						<PContainerInfo2>
-							<PTitle>Endereços</PTitle>
-							<PBtnAdicionarEndereco
-								icon={<IoMdAddCircleOutline color="#087704" />}
-								alignIcon="right"
-								buttonStyle="outline"
-								style={{
-									height: 45,
-								}}
-							>
-								<span>adicionar endereço</span>
-							</PBtnAdicionarEndereco>
+							<div className="pcontainerinfo2-sub">
+								<PTitle>Endereços</PTitle>
+								<PBtnAdicionarEndereco
+									icon={<IoMdAddCircleOutline color="#087704" />}
+									alignIcon="right"
+									buttonStyle="outline"
+									style={{
+										height: 45,
+									}}
+								>
+									<span>adicionar endereço</span>
+								</PBtnAdicionarEndereco>
+							</div>
+							<PContainerAddressCard>
+								<AddresCard />
+								<AddresCard />
+							</PContainerAddressCard>
 						</PContainerInfo2>
 						<PDivider />
 						<PContainerInfo3>
@@ -76,8 +89,20 @@ function Profile() {
 						</PContainerInfo3>
 					</PContainerInfo>
 					<PContainerBtn>
-						<PBtnCancelar buttonStyle="outline">Cancelar</PBtnCancelar>
-						<PBtnSalvar buttonStyle="filled">Salvar</PBtnSalvar>
+						<PBtnCancelar
+							height="fit-content"
+							width="fit-content"
+							buttonStyle="outline"
+						>
+							Cancelar
+						</PBtnCancelar>
+						<PBtnSalvar
+							height="fit-content"
+							width="fit-content"
+							buttonStyle="filled"
+						>
+							Salvar
+						</PBtnSalvar>
 					</PContainerBtn>
 				</PContainerSub>
 			</PContainer>
@@ -100,6 +125,8 @@ const FormInputs = [
 		span: "Senha:",
 		input: (
 			<StyledButton
+				height="fit-content"
+				width="fit-content"
 				buttonStyle="filled"
 				style={{
 					fontSize: "16px",
@@ -255,7 +282,21 @@ const PTitle = styled(Subtitle)`
 
 const PContainerInfo2 = styled.div`
 	display: flex;
-	justify-content: space-between;
+	flex-direction: column;
+
+	.pcontainerinfo2-sub {
+		display: flex;
+		justify-content: space-between;
+
+		@media (max-width: 800px) {
+			flex-direction: column;
+
+			button {
+				margin-top: 15px;
+				padding: 0;
+			}
+		}
+	}
 
 	@media (max-width: 800px) {
 		flex-direction: column;
@@ -263,6 +304,7 @@ const PContainerInfo2 = styled.div`
 `;
 
 const PBtnAdicionarEndereco = styled(ButtonIcon)`
+	width: fit-content;
 	max-height: 35px;
 	align-items: center;
 	color: ${p =>
@@ -272,6 +314,19 @@ const PBtnAdicionarEndereco = styled(ButtonIcon)`
 
 	& span {
 		font-size: 16px;
+	}
+`;
+
+const PContainerAddressCard = styled(Box)`
+	margin-top: 15px;
+	padding-right: 24px;
+	display: flex;
+	justify-content: space-between;
+	gap: 50px;
+
+	@media (max-width: 800px) {
+		flex-direction: column;
+		padding: 0;
 	}
 `;
 
