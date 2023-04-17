@@ -122,6 +122,10 @@ const FormInputs = [
 		input: <Input value="" />,
 	},
 	{
+		span: "Número:",
+		input: <Input value="" />,
+	},
+	{
 		span: "Senha:",
 		input: (
 			<StyledButton

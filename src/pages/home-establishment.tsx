@@ -1,5 +1,8 @@
 import Layout from "@/components/molecules/sidebar-establishment/layout";
-import { CardEstablishmentFoodOrganism, CardExpansiveEstablishmentFoodOrganism } from "@/components/organisms/card-establishment-food/card-establishment-food-organism";
+import {
+	CardEstablishmentFoodOrganism,
+	CardExpansiveEstablishmentFoodOrganism,
+} from "@/components/organisms/card-establishment-food/card-establishment-food-organism";
 import React from "react";
 import styled from "styled-components";
 import imgFood from "../assets/food-favorite.png";
@@ -11,86 +14,13 @@ function HomeEstablishment() {
 				<div className="header-home-establishment"></div>
 				<div className="main-home-establishment">
 					<div className="container-main-home-establishment">
-						<div>
-							<img src={imgFood} />
-							<div className="info-product">
-								<p>Name Food</p>
-								<span>
-									Aproveite todo o sabor de um clássico hambúrguer sem sacrificar seus
-									princípios veganos com o nosso revolucionário Hambúrguer 2.0 Vegan.
-									Feito com ingredientes de origem vegetal de alta qualidade, este
-									hambúrguer é uma deliciosa opção para quem busca uma alimentação mais
-									saudável e sustentável. Com sua textura suculenta e sabor inigualável,
-									é perfeito para qualquer refeição, desde um lanche rápido até um jantar
-									sofisticado. Experimente agora e descubra o futuro do hambúrguer
-									vegano!
-								</span>
-							</div>
-						</div>
-						<div>
-							<img src={imgFood} />
-							<div className="info-product">
-								<p>Name Food</p>
-								<span>
-									Aproveite todo o sabor de um clássico hambúrguer sem sacrificar seus
-									princípios veganos com o nosso revolucionário Hambúrguer 2.0 Vegan.
-									Feito com ingredientes de origem vegetal de alta qualidade, este
-									hambúrguer é uma deliciosa opção para quem busca uma alimentação mais
-									saudável e sustentável. Com sua textura suculenta e sabor inigualável,
-									é perfeito para qualquer refeição, desde um lanche rápido até um jantar
-									sofisticado. Experimente agora e descubra o futuro do hambúrguer
-									vegano!
-								</span>
-							</div>
-						</div>
-						<div>
-							<img src={imgFood} />
-							<div className="info-product">
-								<p>Name Food</p>
-								<span>
-									Aproveite todo o sabor de um clássico hambúrguer sem sacrificar seus
-									princípios veganos com o nosso revolucionário Hambúrguer 2.0 Vegan.
-									Feito com ingredientes de origem vegetal de alta qualidade, este
-									hambúrguer é uma deliciosa opção para quem busca uma alimentação mais
-									saudável e sustentável. Com sua textura suculenta e sabor inigualável,
-									é perfeito para qualquer refeição, desde um lanche rápido até um jantar
-									sofisticado. Experimente agora e descubra o futuro do hambúrguer
-									vegano!
-								</span>
-							</div>
-						</div>
-						<div>
-							<img src={imgFood} />
-							<div className="info-product">
-								<p>Name Food</p>
-								<span>
-									Aproveite todo o sabor de um clássico hambúrguer sem sacrificar seus
-									princípios veganos com o nosso revolucionário Hambúrguer 2.0 Vegan.
-									Feito com ingredientes de origem vegetal de alta qualidade, este
-									hambúrguer é uma deliciosa opção para quem busca uma alimentação mais
-									saudável e sustentável. Com sua textura suculenta e sabor inigualável,
-									é perfeito para qualquer refeição, desde um lanche rápido até um jantar
-									sofisticado. Experimente agora e descubra o futuro do hambúrguer
-									vegano!
-								</span>
-							</div>
-						</div>
-						<div>
-							<img src={imgFood} />
-							<div className="info-product">
-								<p>Name Food</p>
-								<span>
-									Aproveite todo o sabor de um clássico hambúrguer sem sacrificar seus
-									princípios veganos com o nosso revolucionário Hambúrguer 2.0 Vegan.
-									Feito com ingredientes de origem vegetal de alta qualidade, este
-									hambúrguer é uma deliciosa opção para quem busca uma alimentação mais
-									saudável e sustentável. Com sua textura suculenta e sabor inigualável,
-									é perfeito para qualquer refeição, desde um lanche rápido até um jantar
-									sofisticado. Experimente agora e descubra o futuro do hambúrguer
-									vegano!
-								</span>
-							</div>
-						</div>
+						<CardHomeEstablishment />
+						<CardHomeEstablishment />
+						<CardHomeEstablishment />
+						<CardHomeEstablishment />
+						<CardHomeEstablishment />
+						<CardHomeEstablishment />
+						<CardHomeEstablishment />
 					</div>
 				</div>
 				<div className="footer-home-establishment"></div>
@@ -128,19 +58,41 @@ const ContainerHomeEstablishment = styled.div`
 			margin: 0 auto;
 			align-items: center;
 
-			img {
-				max-width: 200px;
-				max-height: 145px;
-			}
 			> div {
 				max-width: min-content;
 				flex: 1 1 200px;
 				margin: 10px;
-				background: gray;
-				border-radius: 8px;
+				background: ${p =>
+					p.theme.name == "light"
+						? p.theme.colors.light_gray[600]
+						: p.theme.colors.light_gray[400]};
+				box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px 0px;
 
-				.info-product {
-					padding: 10px;
+				> div {
+					gap: 5px;
+				}
+
+				img {
+					height: 125px;
+				}
+
+				h2 {
+					font-size: 16px;
+					line-height: 20px;
+					color: black;
+				}
+				span {
+					line-height: 20px;
+					font-size: 12px;
+					color: black;
+				}
+
+				span:nth-last-child(3) {
+					color: ${p => p.theme.colors.light_gray[200]};
+				}
+				span:nth-last-child(1) {
+					margin-left: 10px;
+					width: max-content;
 				}
 			}
 
@@ -159,4 +111,3 @@ const ContainerHomeEstablishment = styled.div`
 `;
 
 const CardHomeEstablishment = styled(CardEstablishmentFoodOrganism)``;
-const CardHeaderHomeEstablishment = styled(CardExpansiveEstablishmentFoodOrganism)``;

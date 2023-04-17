@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const SSidebar = styled.div<{
 	isOpen: boolean;
 }>`
-	width: ${p => (!p.isOpen ? "fit-content" : "300px")};
+	width: ${p => (!p.isOpen ? "100px" : "300px")};
 	background: ${p =>
 		p.theme.name == "light"
 			? p.theme.colors.light_gray[200]
@@ -19,7 +19,7 @@ export const SSidebar = styled.div<{
 		opacity: ${p => (p.theme.name == "light" ? {} : "85%")};
 	}
 
-	@media screen and (max-width: 600px) {
+	@media screen and (max-width: 800px) {
 		display: none;
 	}
 `;
@@ -30,7 +30,7 @@ export const SHeader = styled.div`
 	position: fixed;
 	display: none;
 
-	@media screen and (max-width: 600px) {
+	@media screen and (max-width: 800px) {
 		display: block;
 	}
 `;

@@ -3,18 +3,23 @@ import styled from "styled-components";
 export const SLayout = styled.div`
 	display: grid;
 	grid-template-columns: 0fr 1fr 0fr;
-	position: fixed;
+	/* position: fixed; */
 	width: 100dvw;
 
-	@media screen and (max-width: 600px) {
+	@media screen and (max-width: 800px) {
 		grid-template-columns: none;
+		width: auto;
+	}
+
+	@media screen and (max-height: 800px) {
+		width: auto;
 	}
 `;
 
 export const SMain = styled.main`
-	padding: 0 8px 0 16px ;
+	padding: 0 8px 0 16px;
 	overflow-y: scroll;
-	overflow-x: none;
+	overflow-x: hidden;
 	height: 100dvh;
 
 	/* Scrollbar modification */

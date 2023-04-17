@@ -18,7 +18,8 @@ export const ContainerRegisterProduct = styled.div<{
 	.container-info-register-product {
 		display: grid;
 		grid-template-columns: 1fr;
-		grid-template-rows: 20dvh 70dvh 10dvh;
+		/* grid-template-rows: 20dvh 70dvh 10dvh; */
+		grid-template-rows: 0fr 75dvh 0fr;
 
 		grid-template-areas: "header" "main" "footer";
 
@@ -68,9 +69,58 @@ export const ContainerRegisterProduct = styled.div<{
 	//header
 	.header-register-product {
 		display: ${p => (!p.isOpen ? "none" : "")};
-		background: yellow;
+		/* background: yellow; */
 		padding: 24px 24px 0 24px;
 		grid-area: header;
+
+		> div {
+			height: 99px;
+
+			background: ${p =>
+				p.theme.name == "light"
+					? p.theme.colors.light_gray[600]
+					: p.theme.colors.light_gray[400]};
+			border-radius: 10px;
+			display: grid;
+			/* grid-template-columns: 1fr 1.5fr; */
+
+			grid-template-columns: 1fr 2.5fr;
+
+			box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px 0px;
+
+			> div {
+				border-radius: 10px;
+				/* width: fit-content; */
+				align-self: center;
+				grid-gap: 2px;
+
+				padding-bottom: 25px;
+
+				> div:nth-last-child(1) {
+					> div {
+						svg {
+							cursor: pointer;
+							filter: invert(69%) sepia(34%) saturate(3661%) hue-rotate(339deg)
+								brightness(100%) contrast(102%);
+						}
+					}
+				}
+
+				img {
+					cursor: pointer;
+					height: auto;
+				}
+
+				h2 {
+					color: ${p => p.theme.colors.dark_gray[800]};
+					font-size: 18px;
+				}
+
+				span {
+					display: none;
+				}
+			}
+		}
 	}
 
 	//main
@@ -81,7 +131,7 @@ export const ContainerRegisterProduct = styled.div<{
 		grid-area: main;
 
 		.divider-register-product {
-			display: none;
+			/* display: none; */
 			margin: 15px 0;
 			grid-area: divider;
 		}
@@ -90,7 +140,7 @@ export const ContainerRegisterProduct = styled.div<{
 	//footer
 	.footer-register-product {
 		display: ${p => (!p.isOpen ? "none" : "")};
-        background: red;
+		/* background: red; */
 		padding: 0 24px 24px 24px;
 		grid-area: footer;
 
@@ -115,6 +165,10 @@ export const ContainerRegisterProduct = styled.div<{
 				padding: 0%;
 			}
 		}
+	}
+
+	@media (max-width: 800px) {
+		display: none;
 	}
 `;
 

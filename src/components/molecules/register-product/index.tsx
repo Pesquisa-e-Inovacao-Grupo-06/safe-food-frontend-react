@@ -4,6 +4,7 @@ import { AiOutlineRight } from "react-icons/ai";
 import { SDivider } from "../sidebar-establishment/styles";
 import { StyledButton } from "@/components/atoms/button/styles";
 import { Box } from "@/components/atoms/box";
+import { CardExpansiveEstablishmentFoodOrganism } from "@/components/organisms/card-establishment-food/card-establishment-food-organism";
 
 function RegisterProduct() {
 	const [sidebarRegisterOpen, setSidebarRegisterOpen] = useState(false);
@@ -20,7 +21,9 @@ function RegisterProduct() {
 					</BtnRegisterProduct>
 				</>
 				<div className="container-info-register-product">
-					<div className="header-register-product"></div>
+					<div className="header-register-product">
+						<CardExpansiveEstablishmentFoodOrganism/>
+					</div>
 					<div className="main-register-product">
 						<SDivider className="divider-register-product" />
 					</div>
