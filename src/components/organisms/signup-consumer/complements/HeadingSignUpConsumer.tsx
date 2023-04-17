@@ -1,6 +1,6 @@
 import { useSafeFoodTheme } from "@/app/contexts/SafeFoodThemeProvider";
 import { Box } from "@/components/atoms/box";
-import { TextAtom } from "@/components/atoms/text";
+import { Text } from "@/components/atoms/text";
 import { Subtitle } from "@/styles/components/text/Subtitle";
 import React from "react";
 
@@ -24,7 +24,7 @@ export const HeadingSignUpConsumer: React.FC<{
 			>
 				{title}
 			</Subtitle>
-			<TextAtom
+			<Text
 				typeText="text-md"
 				align="center"
 				style={{
@@ -32,7 +32,7 @@ export const HeadingSignUpConsumer: React.FC<{
 				}}
 			>
 				{text}
-			</TextAtom>
+			</Text>
 		</Box>
 	);
 };

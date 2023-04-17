@@ -5,7 +5,7 @@ import React, { FC } from "react";
 import { FaSearch } from "react-icons/fa";
 import { HeadingSignUpConsumer } from "../complements/HeadingSignUpConsumer";
 import { ProfilePhotoUploadWithPreview } from "@/components/molecules/upload-profile-photo";
-import { TextAtom } from "@/components/atoms/text";
+import { Text } from "@/components/atoms/text";
 import { TextField } from "@/components/molecules/textfield";
 import { InputPhoneSignup } from "../inputs/InputPhoneSignUpConsumer";
 import { PhoneValidator } from "@/app/util/validations/phone-validator";
@@ -27,7 +27,7 @@ export const AdditionalSignUpConsumer: FC = () => {
 				display="flex"
 				flexDiretion="column"
 			>
-				<TextAtom typeText="text-md">Foto de perfil: </TextAtom>
+				<Text typeText="text-md">Foto de perfil: </Text>
 				<ProfilePhotoUploadWithPreview
 					width="120px"
 					name="additional-profile-photo-consumer"

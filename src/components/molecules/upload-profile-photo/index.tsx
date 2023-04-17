@@ -2,7 +2,7 @@ import React, { HTMLAttributes, useEffect, useRef, useState } from "react";
 import Camera from "../../../assets/form/camera.svg";
 import { StyledLabelForImage } from "./styles";
 import { Box } from "@/components/atoms/box";
-import { TextAtom } from "@/components/atoms/text";
+import { Text } from "@/components/atoms/text";
 export type ProfilePhotoUploadWithPreviewProps = {
 	name: string;
 	id: string;
@@ -37,7 +37,7 @@ export const ProfilePhotoUploadWithPreview: React.FC<
 						alt="Camera para editar a foto de perfil"
 					/>
 				</StyledLabelForImage>
-				<TextAtom>{fileName}</TextAtom>
+				<Text>{fileName}</Text>
 			</Box>
 
 			<input

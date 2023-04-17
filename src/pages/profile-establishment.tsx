@@ -7,15 +7,22 @@ import { StyledButton } from "@/components/atoms/button/styles";
 import { Subtitle } from "@/styles/components/text/Subtitle";
 import { Input } from "@/components/atoms/input";
 import { ButtonIcon } from "@/components/molecules/button/button-icon";
-import { IoMdAddCircleOutline } from "react-icons/io";
-import { Chips } from "@/components/atoms/chips/chips-atom";
+import AddresCard from "@/components/molecules/address-card";
+import { MdOutlineCloudDownload, MdOutlineFileDownload } from "react-icons/md";
+import { ContainerFluid } from "@/components/atoms/container";
 
-function Profile() {
+function ProfileEstablishment() {
 	return (
 		<>
 			<Header />
 			<PBanner>
-				<PBtnEditar buttonStyle="outline">Editar imagem</PBtnEditar>
+				<PBtnEditar
+					height="fit-content"
+					width="fit-content"
+					buttonStyle="outline"
+				>
+					Editar imagem
+				</PBtnEditar>
 			</PBanner>
 			<PContainer>
 				<PContainerProfilePhoto>
@@ -29,8 +36,8 @@ function Profile() {
 				<PContainerSub>
 					<PContainerInfo>
 						<PDivider />
-						<PTitle>Informações de cadastro</PTitle>
-						{FormInputs.map(({ span, input }) => (
+						<PTitle>Administrador</PTitle>
+						{FormInputsAdministrador.map(({ span, input }) => (
 							<ul>
 								<li>
 									<span>{span}</span>
@@ -39,45 +46,68 @@ function Profile() {
 							</ul>
 						))}
 						<PDivider />
-						<PContainerInfo2>
-							<PTitle>Endereços</PTitle>
-							<PBtnAdicionarEndereco
-								icon={<IoMdAddCircleOutline color="#087704" />}
-								alignIcon="right"
-								buttonStyle="outline"
-								style={{
-									height: 45,
-								}}
-							>
-								<span>adicionar endereço</span>
-							</PBtnAdicionarEndereco>
-						</PContainerInfo2>
+						<PTitle>Empresa</PTitle>
+						<div className="form-inputs-empresa">
+							{FormInputsEmpresa.map(({ span, input, classname }) => (
+								<ul>
+									<li className={classname}>
+										<span>{span}</span>
+										{input}
+									</li>
+								</ul>
+							))}
+						</div>
 						<PDivider />
 						<PContainerInfo3>
-							<PTitle>Restrições</PTitle>
-							<PContainerRestricao
-								display="flex"
-								justify="center"
-								gap="10px"
-								margin="0 auto"
-								style={{
-									flexWrap: "wrap",
-								}}
-							>
-								{restrictions.map((r, i) => (
-									<Chips
-										key={r + i}
-										sizeChips="chips-lg"
-									>
-										{r}
-									</Chips>
-								))}
-							</PContainerRestricao>
+							<PTitle>Endereço do estabelecimento</PTitle>
+							<PContainerAddressCard>
+								<AddresCard subtitle="Açogue Vegano" />
+							</PContainerAddressCard>
 						</PContainerInfo3>
+						<PDivider />
+						<PTitle>Importações</PTitle>
+						<PBtnBaixar
+							icon={<MdOutlineFileDownload />}
+							alignIcon="right"
+							buttonStyle="filled"
+							style={{
+								height: 45,
+							}}
+						>
+							<span>Baixar template em Excel</span>
+						</PBtnBaixar>
+						<PBtnImportar
+							icon={<MdOutlineCloudDownload />}
+							alignIcon="right"
+							buttonStyle="filled"
+							style={{
+								height: 45,
+							}}
+						>
+							<span>Importar Excel preenchido</span>
+						</PBtnImportar>
+						<Box style={{ marginTop: "16px" }}>
+							Baixe o nosso template para excel e o preencha com infomações de seus
+							produtos, assim o cadastro fica mais fácil quando em grandes quantidades.
+							Logo após preencher é apenas nos importar o excel preenchido novamente.
+							<b> OBS: apenas aceitamos no nosso formato de Excel.</b>
+						</Box>
 					</PContainerInfo>
 					<PContainerBtn>
-						<PBtnCancelar buttonStyle="outline">Cancelar</PBtnCancelar>
-						<PBtnSalvar buttonStyle="filled">Salvar</PBtnSalvar>
+						<PBtnCancelar
+							height="fit-content"
+							width="fit-content"
+							buttonStyle="outline"
+						>
+							Cancelar
+						</PBtnCancelar>
+						<PBtnSalvar
+							height="fit-content"
+							width="fit-content"
+							buttonStyle="filled"
+						>
+							Salvar
+						</PBtnSalvar>
 					</PContainerBtn>
 				</PContainerSub>
 			</PContainer>
@@ -85,9 +115,9 @@ function Profile() {
 	);
 }
 
-export default Profile;
+export default ProfileEstablishment;
 
-const FormInputs = [
+const FormInputsAdministrador = [
 	{
 		span: "Nome:",
 		input: <Input value="" />,
@@ -100,6 +130,8 @@ const FormInputs = [
 		span: "Senha:",
 		input: (
 			<StyledButton
+				height="fit-content"
+				width="fit-content"
 				buttonStyle="filled"
 				style={{
 					fontSize: "16px",
@@ -113,23 +145,34 @@ const FormInputs = [
 	},
 ];
 
-const restrictions = [
-	"Restrição",
-	"Restrição",
-	"Restrição",
-	"Restrição",
-	"Restrição",
-	"Restrição",
-	"Restrição",
-	"Restrição",
-	"Restrição",
-	"Restrição",
-	"Restrição",
-	"Restrição",
-	"Restrição",
-	"Restrição",
-	"Restrição",
-	"Restrição",
+const FormInputsEmpresa = [
+	{
+		span: "Nome da empresa:",
+		input: <Input value="" />,
+	},
+	{
+		span: "CNPJ:",
+		input: <Input value="" />,
+	},
+	{
+		span: "Celular (responsável):",
+		input: <Input value="" />,
+	},
+	{
+		classname: "penultima-input",
+		span: "Contato (Whatsaap para clientes):",
+		input: <Input value="" />,
+	},
+	{
+		classname: "last-input",
+		span: "Descrição:",
+		input: (
+			<Input
+				value=""
+				style={{ height: "120px" }}
+			/>
+		),
+	},
 ];
 
 const PBanner = styled(Box)`
@@ -220,7 +263,7 @@ const PContainerInfo = styled.div`
 	& li {
 		margin-top: 24px;
 		display: grid;
-		grid-template-columns: 0.4fr 1fr 0.4fr;
+		grid-template-columns: 0.4fr 1fr 0.1fr;
 
 		span {
 			align-self: center;
@@ -233,6 +276,19 @@ const PContainerInfo = styled.div`
 			span {
 				margin-bottom: 5px;
 			}
+		}
+	}
+
+	.last-input {
+		span {
+			place-self: start;
+		}
+	}
+
+	.penultima-input {
+		input {
+			align-self: center;
+			align-items: center;
 		}
 	}
 `;
@@ -253,80 +309,51 @@ const PTitle = styled(Subtitle)`
 	font-weight: 600;
 `;
 
-const PContainerInfo2 = styled.div`
-	display: flex;
-	justify-content: space-between;
-
-	@media (max-width: 800px) {
-		flex-direction: column;
-	}
-`;
-
-const PBtnAdicionarEndereco = styled(ButtonIcon)`
+const PBtnBaixar = styled(ButtonIcon)`
+	margin-top: 24px;
+	width: fit-content;
 	max-height: 35px;
 	align-items: center;
-	color: ${p =>
-		p.theme.name == "light"
-			? p.theme.colors.dark_gray[800]
-			: p.theme.colors.light_gray[200]};
+	color: ${p => p.theme.colors.light_gray[200]};
 
 	& span {
 		font-size: 16px;
 	}
+
+	@media (max-width: 800px) {
+		max-height: none;
+	}
+`;
+
+const PBtnImportar = styled(ButtonIcon)`
+	margin-top: 16px;
+	width: fit-content;
+	padding: 12px 20px;
+	max-height: 35px;
+	align-items: center;
+	background: ${p => p.theme.colors.light_gray[800]};
+	color: ${p => p.theme.colors.dark_gray[400]};
+	border-color: ${p => p.theme.colors.light_gray[800]};
+
+	& span {
+		font-size: 16px;
+	}
+
+	@media (max-width: 800px) {
+		max-height: none;
+	}
+`;
+
+const PContainerAddressCard = styled(Box)`
+	margin-top: 24px;
 `;
 
 const PContainerInfo3 = styled.div`
 	display: flex;
-	justify-content: space-between;
+	flex-direction: column;
 
 	@media (max-width: 800px) {
 		flex-direction: column;
-	}
-`;
-
-const PContainerRestricao = styled(Box)`
-	max-height: 250px;
-	max-width: 500px;
-	margin: 0 24px;
-	padding: 10px 0;
-	background: ${p =>
-		p.theme.name == "light" ? "#f5f5f5" : p.theme.colors.dark_gray[400]};
-	border-radius: 0.25rem;
-	overflow-y: scroll;
-
-	/* Scrollbar modification */
-
-	::-webkit-scrollbar {
-		width: 8px;
-	}
-
-	/ Track / ::-webkit-scrollbar-track {
-		background-color: ${p =>
-			p.theme.name == "light" ? "#f5f5f5" : p.theme.colors.dark_gray[600]};
-	}
-
-	/* Handle */
-
-	::-webkit-scrollbar-thumb {
-		background-color: ${p =>
-			p.theme.name == "light"
-				? p.theme.colors.light_gray[600]
-				: p.theme.colors.dark_gray[1000]};
-		border-radius: 50px;
-		border: 3px solid ${p => (p.theme.name == "light" ? "#f5f5f5" : "#474747")};
-	}
-
-	/* Handle on Hover */
-
-	::-webkit-scrollbar-thumb:hover {
-		background-color: ${p =>
-			p.theme.name == "light"
-				? p.theme.colors.light_gray[800]
-				: p.theme.colors.black};
-	}
-
-	@media (max-width: 800px) {
-		margin: 10px 0 0 0;
 	}
 `;
 

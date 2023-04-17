@@ -6,7 +6,8 @@ export type BoxJustify =
 	| "space-between"
 	| "space-around"
 	| "left"
-	| "right";
+	| "right"
+	| "flex-start";
 export type BoxOverflow = "auto" | "hidden" | "visible";
 export type BoxProps = {
 	height?: string;
@@ -15,7 +16,7 @@ export type BoxProps = {
 	maxWidth?: string;
 	display?: BoxDisplay;
 	justify?: BoxJustify;
-	alignItems?: "center" | "baseline";
+	alignItems?: "center" | "baseline" | "start" | "end";
 	margin?: string;
 	padding?: string;
 	overflow?: BoxOverflow;

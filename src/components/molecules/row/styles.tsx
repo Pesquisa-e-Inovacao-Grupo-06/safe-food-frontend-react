@@ -4,7 +4,13 @@ import styled from "styled-components";
 export const Row = styled.div<{
 	gap?: string;
 	justify?: BoxJustify;
+	width?: string | number;
+	height?: string | number;
 }>`
+	width: ${p =>
+		(typeof p.width === "number" ? p.width + "px" : p.width) || "100%"};
+	height: ${p =>
+		(typeof p.height === "number" ? p.height + "px" : p.height) || "100%"};
 	display: flex;
 	justify-content: ${p => p.justify ?? "space-between"};
 	flex-wrap: wrap;

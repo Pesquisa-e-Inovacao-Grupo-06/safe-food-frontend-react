@@ -9,7 +9,7 @@ const GlobalStyles = createGlobalStyle`
     text-decoration: none;
     box-sizing: border-box;
     color: inherit;
-    /* fill: inherit; */
+    fill: inherit;
   }
   svg path[fill='none']{
     fill: none;

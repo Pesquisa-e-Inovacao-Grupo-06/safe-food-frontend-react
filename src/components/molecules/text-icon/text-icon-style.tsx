@@ -4,6 +4,7 @@ import { IconAlign } from "./text-icon-molecule";
 export const StyledTextIcon = styled.div<{
 	iconAlign: IconAlign;
 	iconColor?: string;
+	cursor?: boolean;
 }>`
 	${p => {
 		if (p.iconAlign === "right") {

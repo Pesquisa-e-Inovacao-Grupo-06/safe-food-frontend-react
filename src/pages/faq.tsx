@@ -8,10 +8,10 @@ import { Button } from "@/components/atoms/button";
 import { CardFaqItemsOrganism } from "../components/organisms/card-faq-items/card-faq-items";
 import { useState } from "react";
 import { getQuestionConsumerListMock } from "../app/domain/entities/QuestionItem";
-import {
-	getQuestionEstablishmentListMock,
-} from "@/app/domain/entities/QuestionItem";
+import { getQuestionEstablishmentListMock } from "@/app/domain/entities/QuestionItem";
 import { Divider } from "@/components/atoms/divider";
+import { BodyTemplate } from "@/components/templates/body-template";
+import { Row } from "@/components/molecules/row/styles";
 
 function FAQ() {
 	const [isConsumerSelected, setIsConsumerSelected] = useState(false);
@@ -27,47 +27,56 @@ function FAQ() {
 	return (
 		<>
 			<Header />
-			<ContainerFluid
-				display="flex"
-				justify="space-between"
-			>
-				<Box
+			<BodyTemplate footer={true}>
+				<ContainerFluid
 					display="flex"
-					justify="center"
-					flexDiretion="column"
-					gap="30px"
+					justify="space-between"
 				>
-					<Divider marginBottom="100px" />
-					<Title>Perguntas frequentes (FAQ)</Title>
-					<Subtitle>
-						Essas são algumas perguntas frequentes que nos são feitas
-					</Subtitle>
-					<div
-						style={{
-							width: "100%",
-							alignItems: "center",
-							justifyContent: "center",
-							display: "flex",
-						}}
+					<Box
+						display="flex"
+						justify="center"
+						flexDiretion="column"
+						gap="30px"
 					>
-						<StyledRow style={{ justifyContent: "space-around", width: "80%" }}>
-							<Button
-								onClick={handleIsConsumerSelected}
-								disabled={!isConsumerSelected}
+						<Divider marginAll="30px" />
+						<Title>Perguntas frequentes (FAQ)</Title>
+						<Subtitle>
+							Essas são algumas perguntas frequentes que nos são feitas
+						</Subtitle>
+						<div
+							style={{
+								width: "100%",
+								alignItems: "center",
+								justifyContent: "center",
+								display: "flex",
+							}}
+						>
+							<Row
+								justify="space-around"
+								width={80}
 							>
-								Estabelecimento
-							</Button>
-							<Button
-								onClick={handleIsConsumerSelected}
-								disabled={isConsumerSelected}
-							>
-								Consumidor
-							</Button>
-						</StyledRow>
-					</div>
-					<CardFaqItemsOrganism questionItemList={list} />
-				</Box>
-			</ContainerFluid>
+								<Button
+									onClick={handleIsConsumerSelected}
+									disabled={!isConsumerSelected}
+									width={"fit-content"}
+									height={40}
+								>
+									Estabelecimento
+								</Button>
+								<Button
+									onClick={handleIsConsumerSelected}
+									disabled={isConsumerSelected}
+									width={"fit-content"}
+									height={40}
+								>
+									Consumidor
+								</Button>
+							</Row>
+						</div>
+						<CardFaqItemsOrganism questionItemList={list} />
+					</Box>
+				</ContainerFluid>
+			</BodyTemplate>
 		</>
 	);
 }

@@ -4,6 +4,7 @@ export const Title = styled.h1<{
 	margin?: string;
 	center?: boolean;
 	large?: boolean;
+	color?: string | null | undefined;
 }>`
 	font-family: ${p => p.theme.font.family.title};
 	font-weight: 800;
@@ -23,7 +24,9 @@ export const Title = styled.h1<{
 	}}
 
 	color: ${p =>
-		p.theme.isLight
+		p.color
+			? p.color
+			: p.theme.isLight
 			? p.theme.colors.dark_gray[800]
-			: p.theme.colors.light_gray[200]}
+			: p.theme.colors.light_gray[200]};
 `;
