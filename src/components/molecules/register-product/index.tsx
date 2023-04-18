@@ -1,10 +1,15 @@
 import React, { useState } from "react";
-import { ContainerRegisterProduct, BtnRegisterProduct } from "./styles";
+import {
+	ContainerRegisterProduct,
+	BtnRegisterProduct,
+	InputNameSignUpHomeEstablishment,
+} from "./styles";
 import { AiOutlineRight } from "react-icons/ai";
 import { SDivider } from "../sidebar-establishment/styles";
 import { StyledButton } from "@/components/atoms/button/styles";
 import { Box } from "@/components/atoms/box";
 import { CardExpansiveEstablishmentFoodOrganism } from "@/components/organisms/card-establishment-food/card-establishment-food-organism";
+import { JustStringAndSpaceValidator } from "@/app/util/validations/just-string-and-space";
 
 function RegisterProduct() {
 	const [sidebarRegisterOpen, setSidebarRegisterOpen] = useState(false);
@@ -22,10 +27,23 @@ function RegisterProduct() {
 				</>
 				<div className="container-info-register-product">
 					<div className="header-register-product">
-						<CardExpansiveEstablishmentFoodOrganism/>
+						<CardExpansiveEstablishmentFoodOrganism />
 					</div>
 					<div className="main-register-product">
 						<SDivider className="divider-register-product" />
+						<div className="container-main-register-product">
+							{FormInputsRegisterProduct.map(({ span, input, classname }) => (
+								<ul>
+									<li className={classname}>
+										<span>
+											{span}
+											<label>*</label>
+										</span>
+										{input}
+									</li>
+								</ul>
+							))}
+						</div>
 					</div>
 					<div className="footer-register-product">
 						<Box className="container-footer-register-product">
@@ -54,3 +72,31 @@ function RegisterProduct() {
 }
 
 export default RegisterProduct;
+
+const FormInputsRegisterProduct = [
+	{
+		span: "Nome do Produto:",
+		input: (
+			<InputNameSignUpHomeEstablishment
+				validator={new JustStringAndSpaceValidator(5, 100)}
+			/>
+		),
+	},
+	{
+		span: "Preço:",
+		input: (
+			<InputNameSignUpHomeEstablishment
+				validator={new JustStringAndSpaceValidator(5, 100)}
+			/>
+		),
+	},
+	{
+		classname: "input-descricao-home-establishment",
+		span: "Descrição:",
+		input: (
+			<InputNameSignUpHomeEstablishment
+				validator={new JustStringAndSpaceValidator(5, 100)}
+			/>
+		),
+	},
+];

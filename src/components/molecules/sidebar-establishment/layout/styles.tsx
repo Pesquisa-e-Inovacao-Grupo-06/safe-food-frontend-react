@@ -5,6 +5,7 @@ export const SLayout = styled.div`
 	grid-template-columns: 0fr 1fr 0fr;
 	/* position: fixed; */
 	width: 100dvw;
+	overflow: hidden;
 
 	@media screen and (max-width: 800px) {
 		grid-template-columns: none;

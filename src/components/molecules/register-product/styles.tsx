@@ -2,6 +2,7 @@ import { Box } from "@/components/atoms/box";
 import styled from "styled-components";
 import { SSidebarButton } from "../sidebar-establishment/styles";
 import { CardExpansiveEstablishmentFoodOrganism } from "@/components/organisms/card-establishment-food/card-establishment-food-organism";
+import { InputNameSignUp } from "@/components/organisms/signup-consumer/inputs/InputNameSignUpConsumer";
 
 export const ContainerRegisterProduct = styled.div<{
 	isOpen: boolean;
@@ -12,6 +13,8 @@ export const ContainerRegisterProduct = styled.div<{
 		p.theme.name == "light"
 			? p.theme.colors.light_gray[200]
 			: p.theme.colors.dark_gray[1000]};
+
+	transition: 0.2s ease-out;
 
 	position: relative;
 
@@ -24,7 +27,7 @@ export const ContainerRegisterProduct = styled.div<{
 		grid-template-areas: "header" "main" "footer";
 
 		overflow-y: scroll;
-		overflow-x: none;
+		overflow-x: hidden;
 
 		/* Scrollbar modification */
 
@@ -69,7 +72,6 @@ export const ContainerRegisterProduct = styled.div<{
 	//header
 	.header-register-product {
 		display: ${p => (!p.isOpen ? "none" : "")};
-		/* background: yellow; */
 		padding: 24px 24px 0 24px;
 		grid-area: header;
 
@@ -126,7 +128,6 @@ export const ContainerRegisterProduct = styled.div<{
 	//main
 	.main-register-product {
 		display: ${p => (!p.isOpen ? "none" : "")};
-		background-color: green;
 		padding: 0 24px;
 		grid-area: main;
 
@@ -134,6 +135,44 @@ export const ContainerRegisterProduct = styled.div<{
 			/* display: none; */
 			margin: 15px 0;
 			grid-area: divider;
+		}
+
+		.container-main-register-product {
+			ul {
+				margin-top: 10px;
+				list-style: none;
+				li {
+					display: flex;
+					flex-direction: column;
+					gap: 3px;
+
+					> div {
+						label {
+							display: none;
+						}
+					}
+
+					span {
+						color: ${p =>
+							p.theme.name == "light"
+								? p.theme.colors.dark_gray[1000]
+								: p.theme.colors.light_gray[400]};
+
+						label {
+							margin: 0 2px;
+							color: #e65769;
+						}
+					}
+				}
+
+				.input-descricao-home-establishment {
+					> div {
+						> div {
+							height: 100px;
+						}
+					}
+				}
+			}
 		}
 	}
 
@@ -182,3 +221,5 @@ export const CardHeaderHomeEstablishment = styled(
 	max-height: 100px;
 	height: 100px;
 `;
+
+export const InputNameSignUpHomeEstablishment = styled(InputNameSignUp)``;
