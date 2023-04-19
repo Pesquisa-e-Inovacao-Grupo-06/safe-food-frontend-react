@@ -6,12 +6,33 @@ import {
 import React from "react";
 import styled from "styled-components";
 import imgFood from "../assets/food-favorite.png";
+import { Box } from "@/components/atoms/box";
+import { Text } from "@/components/atoms/text";
+import imgTeste from "../assets/food-favorite.png";
+import { StyledButton } from "@/components/atoms/button/styles";
 
 function HomeEstablishment() {
 	return (
 		<Layout>
 			<ContainerHomeEstablishment>
-				<div className="header-home-establishment"></div>
+				<div className="header-home-establishment">
+					<Box className="container-home-establishment">
+						<Text className="text-intro">
+							<h1>Seja Bem-Vindo, Açougue Vegano</h1>
+							<label>Sexta-feira, 11 Mar 2023</label>
+						</Text>
+						<Box className="container-banner-home-establishment">
+							<Box className="banner-info-home-establishment">
+								<img src={imgTeste} />
+								<div>
+									<h1>Safe Food</h1>
+									<label>Gerencie seus produtos</label>
+								</div>
+							</Box>
+							<StyledButton buttonStyle="filled">ADICIONAR</StyledButton>
+						</Box>
+					</Box>
+				</div>
 				<div className="main-home-establishment">
 					<div className="container-main-home-establishment">
 						<CardHomeEstablishment />
@@ -34,20 +55,93 @@ export default HomeEstablishment;
 const ContainerHomeEstablishment = styled.div`
 	display: grid;
 	grid-template-columns: 1fr;
-	grid-template-rows: 20dvh 0fr 10dvh;
+	grid-template-rows: 0fr 0fr 10dvh;
 
 	grid-template-areas: "header" "main" "footer";
 
 	//header
 	.header-home-establishment {
-		background: yellow;
 		padding: 24px 24px 0 24px;
 		grid-area: header;
+
+		.text-intro {
+			line-height: 80%;
+			h1 {
+				font-size: 15px;
+				color: ${p =>
+					p.theme.name == "light"
+						? p.theme.colors.dark_gray[600]
+						: p.theme.colors.light_gray[400]};
+			}
+
+			label {
+				font-size: 12px;
+				color: ${p =>
+					p.theme.name == "light"
+						? p.theme.colors.dark_gray[200]
+						: p.theme.colors.light_gray[600]};
+			}
+		}
+
+		.container-banner-home-establishment {
+			display: flex;
+			flex-wrap: wrap;
+			margin: 20px 0;
+			padding: 13px 28px;
+			justify-content: space-between;
+			border-radius: 8px;
+			background: ${p =>
+				p.theme.name == "light"
+					? p.theme.colors.light_gray[400]
+					: p.theme.colors.black};
+			box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px 0px;
+
+			gap: 15px;
+
+			.banner-info-home-establishment {
+				display: flex;
+				justify-content: flex-start;
+				width: fit-content;
+				align-items: center;
+				gap: 10px;
+
+				img {
+					height: 60px;
+					width: 60px;
+					border-radius: 50px;
+				}
+
+				h1 {
+					font-size: 15px;
+					color: ${p =>
+						p.theme.name == "light"
+							? p.theme.colors.dark_gray[600]
+							: p.theme.colors.light_gray[400]};
+				}
+
+				label {
+					font-size: 13px;
+					color: ${p =>
+						p.theme.name == "light"
+							? p.theme.colors.dark_gray[400]
+							: p.theme.colors.light_gray[600]};
+				}
+			}
+
+			button {
+				padding: 0;
+				height: 30px;
+				width: 100px;
+				min-width: 100px;
+				min-height: 30px;
+				font-size: 12px;
+				place-self: end;
+			}
+		}
 	}
 
 	//main
 	.main-home-establishment {
-		background: green;
 		grid-area: main;
 		padding: 24px;
 
@@ -64,12 +158,16 @@ const ContainerHomeEstablishment = styled.div`
 				margin: 10px;
 				background: ${p =>
 					p.theme.name == "light"
-						? p.theme.colors.light_gray[600]
-						: p.theme.colors.light_gray[400]};
+						? p.theme.colors.light_gray[400]
+						: p.theme.colors.black};
 				box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px 0px;
 
+				color: ${p =>
+					p.theme.name == "light"
+						? p.theme.colors.dark_gray[800]
+						: p.theme.colors.light_gray[600]};
 				> div {
-					gap: 5px;
+					gap: 15px;
 				}
 
 				img {
@@ -79,19 +177,35 @@ const ContainerHomeEstablishment = styled.div`
 				h2 {
 					font-size: 16px;
 					line-height: 20px;
-					color: black;
 				}
-				span {
-					line-height: 20px;
+				span:nth-last-child(4) {
+					line-height: 16px;
 					font-size: 12px;
-					color: black;
+				}
+
+				span:nth-last-child(3) {
+					line-height: 25px;
+					font-size: 16px;
 				}
 
 				span:nth-last-child(3) {
 					color: ${p => p.theme.colors.light_gray[200]};
 				}
+
+				> div {
+					> div:nth-last-child(2) {
+						height: 1px;
+						background: ${p =>
+							p.theme.name == "light"
+								? p.theme.colors.light_gray[600]
+								: p.theme.colors.dark_gray[600]};
+					}
+				}
+
 				span:nth-last-child(1) {
 					margin-left: 10px;
+					line-height: 16px;
+					font-size: 12px;
 					width: max-content;
 				}
 			}
@@ -104,7 +218,6 @@ const ContainerHomeEstablishment = styled.div`
 
 	//footer
 	.footer-home-establishment {
-		background-color: red;
 		padding: 0 24px 24px 24px;
 		grid-area: footer;
 	}

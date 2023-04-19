@@ -10,6 +10,9 @@ import { StyledButton } from "@/components/atoms/button/styles";
 import { Box } from "@/components/atoms/box";
 import { CardExpansiveEstablishmentFoodOrganism } from "@/components/organisms/card-establishment-food/card-establishment-food-organism";
 import { JustStringAndSpaceValidator } from "@/app/util/validations/just-string-and-space";
+import { Text } from "@/components/atoms/text";
+import { CLabelAttention } from "@/components/atoms/checkbox/styles";
+import { Chips } from "@/components/atoms/chips/chips-atom";
 
 function RegisterProduct() {
 	const [sidebarRegisterOpen, setSidebarRegisterOpen] = useState(false);
@@ -43,6 +46,25 @@ function RegisterProduct() {
 									</li>
 								</ul>
 							))}
+							<div className="container-restricao-register-product">
+								<CLabelAttention
+									required={true}
+									alert={false}
+									htmlFor=""
+								>
+									Restrições:
+								</CLabelAttention>
+								<Box className="restricao-register-product">
+									{restrictions.map((r, i) => (
+										<Chips
+											key={r + i}
+											sizeChips="chips-md"
+										>
+											{r}
+										</Chips>
+									))}
+								</Box>
+							</div>
 						</div>
 					</div>
 					<div className="footer-register-product">
@@ -99,4 +121,23 @@ const FormInputsRegisterProduct = [
 			/>
 		),
 	},
+];
+
+const restrictions = [
+	"Restrição",
+	"Restrição",
+	"Restrição",
+	"Restrição",
+	"Restrição",
+	"Restrição",
+	"Restrição",
+	"Restrição",
+	"Restrição",
+	"Restrição",
+	"Restrição",
+	"Restrição",
+	"Restrição",
+	"Restrição",
+	"Restrição",
+	"Restrição",
 ];

@@ -118,6 +118,7 @@ export const ContainerChips = styled.div<{
 		display: flex;
 		gap: 4px;
 		align-items: center;
+		user-select: none;
 	}
 
 	& p svg {

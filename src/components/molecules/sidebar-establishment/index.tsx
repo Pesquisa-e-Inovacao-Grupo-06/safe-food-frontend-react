@@ -119,7 +119,7 @@ const linksArray = [
 	{
 		label: "Início",
 		icon: <AiOutlineHome />,
-		to: "/",
+		to: "/home-establishment",
 	},
 	{
 		label: "Produtos",
@@ -132,7 +132,7 @@ const secondaryLinksArray = [
 	{
 		label: "Perfil",
 		icon: <HiOutlineUser />,
-		to: "/profile",
+		to: "/profile-establishment",
 	},
 	{
 		label: "Preferências",
