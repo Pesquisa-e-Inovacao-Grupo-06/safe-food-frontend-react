@@ -4,7 +4,7 @@ import React from "react";
 function About() {
 	return (
 		<div style={{ paddingTop: "75px" }}>
-			<Dots countItems={3} currentItem={2} direction="row" size={40} colorActive="orange"></Dots>
+			<h1>ABOUT</h1>
 		</div>
 	);
 }
