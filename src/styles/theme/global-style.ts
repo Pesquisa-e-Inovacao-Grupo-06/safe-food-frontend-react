@@ -1,5 +1,5 @@
 import { createGlobalStyle, keyframes } from "styled-components";
-import {rotate, shake} from "./animations";
+import { rotate, shake } from "./animations";
 const GlobalStyles = createGlobalStyle`
   *{
     border: 0;
@@ -10,6 +10,9 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
     color: inherit;
     fill: inherit;
+  }
+  svg path[fill='none']{
+    fill: none;
   }
   img{
     height: 100%;

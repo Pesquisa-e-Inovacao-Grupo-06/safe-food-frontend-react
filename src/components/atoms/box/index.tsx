@@ -7,7 +7,8 @@ export type BoxJustify =
 	| "space-around"
 	| "left"
 	| "right"
-	| "flex-start";
+	| "flex-start"
+	| "unset";
 export type BoxOverflow = "auto" | "hidden" | "visible";
 export type BoxProps = {
 	height?: string;
