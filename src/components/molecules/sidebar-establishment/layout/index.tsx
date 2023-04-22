@@ -13,7 +13,7 @@ const Layout: React.FC<Props> = ({ ...props }) => {
 	return (
 		<SLayout>
 			<SidebarEstab />
-			<SMain>{props.children}</SMain>
+			<SMain active={props.active}>{props.children}</SMain>
 			<RegisterProduct active={props.active} toggle={props.toggle}/>
 		</SLayout>
 	);

@@ -9,6 +9,7 @@ export const SLayout = styled.div`
 
 	@media screen and (max-width: 800px) {
 		grid-template-columns: none;
+		grid-template-columns: 1fr 0fr 0fr;
 		width: auto;
 	}
 
@@ -17,7 +18,9 @@ export const SLayout = styled.div`
 	}
 `;
 
-export const SMain = styled.main`
+export const SMain = styled.main<{
+	active: boolean;
+}>`
 	padding: 0 8px 0 16px;
 	overflow-y: scroll;
 	overflow-x: hidden;
@@ -71,5 +74,7 @@ export const SMain = styled.main`
 	@media screen and (max-width: 600px) {
 		margin-top: 75px;
 		overflow-y: initial;
+
+		padding: ${p => (!p.active ? "0px 8px 0px 16px" : "0")};
 	}
 `;

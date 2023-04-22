@@ -27,6 +27,7 @@ export const ContainerRegisterProduct = styled.div<{
 		overflow-x: hidden;
 
 		height: 100dvh;
+		height: 100%;
 		/* Scrollbar modification */
 
 		::-webkit-scrollbar {
@@ -326,12 +327,31 @@ export const ContainerRegisterProduct = styled.div<{
 	}
 
 	@media (max-width: 800px) {
-		display: none;
+		margin-top: 75px;
+		position: inherit;
+		width: fit-content;
+
+		.container-info-register-product {
+			width: ${p => (!p.isOpen ? "0" : "100dvw")};
+		}
+
+		.container-footer-register-product {
+			flex-direction: column-reverse;
+			button {
+				margin-bottom: 15px;
+			}
+		}
 	}
 `;
 
 export const BtnRegisterProduct = styled(SSidebarButton)`
 	right: ${p => (p.isOpen ? `385px` : `10px`)};
+
+	@media (max-width: 800px) {
+		right: 10px;
+		top: 85px;
+		position: fixed;
+	}
 `;
 
 export const CardHeaderHomeEstablishment = styled(
