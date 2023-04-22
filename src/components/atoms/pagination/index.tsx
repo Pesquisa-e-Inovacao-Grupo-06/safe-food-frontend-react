@@ -1,221 +1,120 @@
-import React, { useState } from "react";
-import { Text } from "@/components/atoms/text";
+import React, { PropsWithChildren, useEffect, useState } from "react";
 import { Box } from "@/components/atoms/box";
 
-import styled from "styled-components";
 import { useSafeFoodTheme } from "@/app/contexts/SafeFoodThemeProvider";
 import {
 	MdOutlineKeyboardArrowLeft,
 	MdOutlineKeyboardArrowRight,
 } from "react-icons/md";
+import * as S from "./styles";
 
-interface PaginationProps<T> {
-	items: T[];
-	itemsPerPage: number;
-	renderItem: (item: T, index: number) => React.ReactNode;
-}
-
-function Pagination<T>({
-	items,
-	itemsPerPage,
-	renderItem,
-}: PaginationProps<T>) {
-	const [currentPage, setCurrentPage] = useState(1);
-	const [showComponents, setShowComponents] = useState(true);
-	const [activePrevComponent, setActivePrevComponent] = useState(false);
-	const [activeNextComponent, setActiveNextComponent] = useState(true);
-	const [isListBegger, setisListBegger] = useState(false);
-	const totalPages = Math.ceil(items.length / itemsPerPage);
-	let numberVisible: number[] = [];
-
+export const Pagination: React.FC<{
+	totalPages: number;
+}> = ({ totalPages }) => {
 	const { colors } = useSafeFoodTheme().getTheme();
-	function goToPage(page: number) {
-		console.log(currentPage);
-
-		if (currentPage == 3) {
-			setisListBegger(true);
-		}
-		if (currentPage >= 3) {
-			setisListBegger(true);
-		}
-		if (currentPage < 3) {
-			setisListBegger(false);
-		}
-		if (page >= 0 && page != totalPages) {
-			setCurrentPage(page);
-		}
-		if (page > 0) {
-			setActivePrevComponent(true);
-		} else {
-			setActivePrevComponent(false);
-		}
-		if (page >= totalPages - 1) {
-			setActiveNextComponent(false);
-		} else {
-			setActiveNextComponent(true);
-		}
+	let qtyPages: string | number[] = [];
+	for (let i = 1; i <= totalPages; i++) {
+		qtyPages.push(i);
 	}
+	let DOTS = "...";
+	const [currentPage, setCurrentPage] = useState<string | number>(1);
+	const [pages, setPages] = useState(["<", ...qtyPages, ">"]);
 
-	const startIndex = (currentPage - 1) * itemsPerPage;
-	const endIndex = startIndex + itemsPerPage;
-	const currentItems = items.slice(startIndex, endIndex);
-	const endIndexAt = (items.length - 1) / itemsPerPage;
+	const changePage = (val: string | number, index: number) => {
+		if (index == 0)
+			setCurrentPage(prev => (prev == 1 ? prev : (prev as number) - 1));
+		else if (val == pages[pages.length - 1])
+			setCurrentPage(prev =>
+				prev == qtyPages.length ? prev : (prev as number) + 1
+			);
+		else if (index == pages.length - 3 && val == DOTS)
+			setCurrentPage(prev => (prev as number) + 2);
+		else if (index == 2 && val == DOTS)
+			setCurrentPage(prev => (prev as number) - 2);
+		else setCurrentPage(val);
+	};
 
-	return (
-		<Box>
-			<Box style={{ minHeight: "300px" }}>
-				{currentItems.map((item, index) => renderItem(item, startIndex + index))}
-			</Box>
-			<Box style={{ minHeight: "300px" }}></Box>
-			<p>current page: {currentPage}</p>
-			<p>activePrevComponent: {activePrevComponent}</p>
-			<p>activeNextComponent: {activeNextComponent}</p>
-			<Box
-				id="sla"
-				display="flex"
-				flexDiretion="row"
-				// maxWidth="300px"
-				justify="unset"
+	useEffect(() => {
+		if (qtyPages.length - 1 > 4) {
+			if (typeof currentPage === "number" && currentPage >= 1 && currentPage < 4) {
+				let slice = qtyPages.slice(0, 4);
+				setPages(["<", ...slice, DOTS, pages[pages.length - 2], ">"]);
+			} else if (
+				typeof currentPage === "number" &&
+				currentPage >= 4 &&
+				currentPage < qtyPages.length - 2
+			) {
+				let slice = qtyPages.slice(currentPage - 2, currentPage + 1);
+				setPages(["<", 1, DOTS, ...slice, DOTS, pages[pages.length - 2], ">"]);
+			} else if (
+				typeof currentPage === "number" &&
+				currentPage >= qtyPages.length - 2 &&
+				currentPage <= qtyPages.length
+			) {
+				let slice = qtyPages.slice(qtyPages.length - 4, qtyPages.length);
+				setPages(["<", 1, DOTS, ...slice, ">"]);
+			}
+		}
+	}, [currentPage]);
+
+	const PrevArrowButton = () => (
+		<MdOutlineKeyboardArrowLeft
+			size={32}
+			style={{
+				cursor: currentPage == 1 ? "not-allowed" : "pointer",
+				fill: currentPage != 1 ? colors.primary[600] : colors.primary[400],
+			}}
+		/>
+	);
+	const NextArrowButton = () => (
+		<MdOutlineKeyboardArrowRight
+			size={32}
+			style={{
+				cursor: currentPage == totalPages ? "not-allowed" : "pointer",
+				fill: currentPage != totalPages ? colors.primary[600] : colors.primary[400],
+			}}
+		/>
+	);
+	const renderPageItem = (val: string | number, index: number) => {
+		const Item = ({ children }: PropsWithChildren) => (
+			<S.PageItem
+				onClick={() => changePage(val, index)}
+				currentPage={currentPage}
+				totalPages={totalPages}
 			>
-				<Box
-					display="flex"
-					flexDiretion="row"
-				>
-					<Box>
-						<MdOutlineKeyboardArrowLeft
-							size={32}
-							onClick={() => goToPage(currentPage - 1)}
-							style={{
-								cursor: !activePrevComponent ? "not-allowed" : "pointer",
-								pointerEvents: !activePrevComponent ? "none" : "all",
-								fill: activePrevComponent ? colors.primary[600] : colors.primary[400],
-							}}
-						/>
-					</Box>
-					{isListBegger ? listMore() : listLess()}
-				</Box>
-				<Box>
-					<MdOutlineKeyboardArrowRight
-						size={32}
-						style={{
-							pointerEvents: !activeNextComponent ? "none" : "all",
-							cursor: activeNextComponent ? "pointer" : "not-allowed",
-							fill: activeNextComponent ? colors.primary[600] : colors.primary[400],
-						}}
-					/>
-				</Box>
-			</Box>
+				{children}
+			</S.PageItem>
+		);
+		if (index == 0) {
+			return (
+				<Item key={val + "-" + index}>
+					<PrevArrowButton />
+				</Item>
+			);
+		} else if (index == pages.length - 1) {
+			return (
+				<Item key={val + "-" + index}>
+					<NextArrowButton />
+				</Item>
+			);
+		} else {
+			const PageNumber =
+				currentPage == val ? S.PaginationItemActive : S.PaginationItemDisable;
+			return (
+				<Item key={val + "-" + index}>
+					<PageNumber>{val}</PageNumber>
+				</Item>
+			);
+		}
+	};
+	return (
+		<Box
+			display="flex"
+			flexDiretion="row"
+			width="min-content"
+			justify="center"
+		>
+			{pages.map(renderPageItem)}
 		</Box>
 	);
-
-	function listMore() {
-		console.log("LISTMORE");
-
-		numberVisible[0] = 1;
-		numberVisible[1] = -1;
-		numberVisible[2] = currentPage - 1;
-		numberVisible[3] = currentPage;
-		numberVisible[4] = currentPage + 1;
-		numberVisible[5] = -1;
-		numberVisible[6] = endIndex;
-
-		console.log(numberVisible.join(", "));
-		return Array.from({ length: numberVisible.length }, (_, i) =>
-			numberVisible[i] !== -1 ? (
-				<Box
-					margin="20px"
-					key={i}
-				>
-					<PaginationItemActive
-						cursor
-						style={{
-							padding: "10px 16px 10px 16px",
-							borderRadius: "8px",
-							fontWeight: "bold",
-						}}
-						onClick={() => goToPage(numberVisible[i])}
-						typeText="text-x-md"
-					>
-						{numberVisible[i]}
-					</PaginationItemActive>
-				</Box>
-			) : (
-				<Box
-					margin="20px"
-					key={i}
-				>
-					<PaginationItemDisable
-						// cursor
-						style={{
-							padding: "10px 16px 10px 16px",
-							borderRadius: "8px",
-							fontWeight: "bold",
-						}}
-						onClick={() => goToPage(numberVisible[i - 1])}
-						typeText="text-x-md"
-					>
-						{"..."}
-					</PaginationItemDisable>
-				</Box>
-			)
-		);
-	}
-	function listLess() {
-		console.log("array");
-		numberVisible[0] = 1;
-		numberVisible[1] = 2;
-		numberVisible[2] = 3;
-		numberVisible[3] = 4;
-		numberVisible[4] = endIndexAt;
-
-		return Array.from({ length: numberVisible.length }, (_, i) =>
-			numberVisible[i] !== -1 ? (
-				<Box
-					margin="20px"
-					key={i}
-				>
-					<PaginationItemActive
-						cursor
-						style={{
-							padding: "10px 16px 10px 16px",
-							borderRadius: "8px",
-							fontWeight: "bold",
-						}}
-						onClick={() => goToPage(numberVisible[i])}
-						typeText="text-x-md"
-					>
-						{numberVisible[i]}
-					</PaginationItemActive>
-				</Box>
-			) : (
-				<Box
-					margin="20px"
-					key={i}
-				>
-					<PaginationItemDisable
-						// cursor
-						style={{
-							padding: "10px 16px 10px 16px",
-							borderRadius: "8px",
-							fontWeight: "bold",
-						}}
-						// onClick={() => goToPage(numberVisible[i])}
-						typeText="text-x-md"
-					>
-						{"..."}
-					</PaginationItemDisable>
-				</Box>
-			)
-		);
-	}
-}
-
-export default Pagination;
-
-const PaginationItemActive = styled(Text)`
-	color: ${p => p.theme.colors.primary[600]};
-`;
-
-const PaginationItemDisable = styled(Text)`
-	color: ${p => p.theme.colors.dark_gray[200]};
-`;
+};
