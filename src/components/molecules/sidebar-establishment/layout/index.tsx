@@ -5,6 +5,8 @@ import RegisterProduct from "../../register-product";
 
 type Props = {
 	children?: any;
+	active: boolean;
+	toggle: () => void;
 };
 
 const Layout: React.FC<Props> = ({ ...props }) => {
@@ -12,7 +14,7 @@ const Layout: React.FC<Props> = ({ ...props }) => {
 		<SLayout>
 			<SidebarEstab />
 			<SMain>{props.children}</SMain>
-			<RegisterProduct />
+			<RegisterProduct active={props.active} toggle={props.toggle}/>
 		</SLayout>
 	);
 };

@@ -14,16 +14,22 @@ import { Text } from "@/components/atoms/text";
 import { CLabelAttention } from "@/components/atoms/checkbox/styles";
 import { Chips } from "@/components/atoms/chips/chips-atom";
 
-function RegisterProduct() {
-	const [sidebarRegisterOpen, setSidebarRegisterOpen] = useState(false);
+type Props = {
+	active: boolean;
+	toggle: () => void;
+};
 
+function RegisterProduct({ active, toggle }: Props) {
 	return (
 		<>
-			<ContainerRegisterProduct isOpen={sidebarRegisterOpen}>
+			<ContainerRegisterProduct
+				className="transition"
+				isOpen={active}
+			>
 				<>
 					<BtnRegisterProduct
-						isOpen={sidebarRegisterOpen}
-						onClick={() => setSidebarRegisterOpen(p => !p)}
+						isOpen={active}
+						onClick={toggle}
 					>
 						<AiOutlineRight />
 					</BtnRegisterProduct>
@@ -33,8 +39,30 @@ function RegisterProduct() {
 						<CardExpansiveEstablishmentFoodOrganism />
 					</div>
 					<div className="main-register-product">
-						<SDivider className="divider-register-product" />
 						<div className="container-main-register-product">
+							<SDivider className="divider-register-product" />
+							<Text className="text-categoria-register-product">
+								<h1>Categoria</h1>
+							</Text>
+							<Box className="container-categoria-register-product">
+								{categoriaResgisterProduct.map((r, i) => (
+									<StyledButton
+										height="fit-content"
+										width="fit-content"
+										buttonStyle="filled"
+										style={{
+											fontSize: "14px",
+											maxHeight: "20px",
+											width: "fit-content",
+											maxWidth: "50px",
+										}}
+										key={r + i}
+									>
+										{r}
+									</StyledButton>
+								))}
+							</Box>
+
 							{FormInputsRegisterProduct.map(({ span, input, classname }) => (
 								<ul>
 									<li className={classname}>
@@ -94,6 +122,16 @@ function RegisterProduct() {
 }
 
 export default RegisterProduct;
+
+const categoriaResgisterProduct = [
+	"Todos",
+	"Todos",
+	"Todos",
+	"Todos",
+	"Todos",
+	"Todos",
+	"Todos",
+];
 
 const FormInputsRegisterProduct = [
 	{

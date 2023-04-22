@@ -1,19 +1,24 @@
 import Layout from "@/components/molecules/sidebar-establishment/layout";
-import {
-	CardEstablishmentFoodOrganism,
-	CardExpansiveEstablishmentFoodOrganism,
-} from "@/components/organisms/card-establishment-food/card-establishment-food-organism";
-import React from "react";
+import { CardEstablishmentFoodOrganism } from "@/components/organisms/card-establishment-food/card-establishment-food-organism";
+import { useState } from "react";
 import styled from "styled-components";
-import imgFood from "../assets/food-favorite.png";
 import { Box } from "@/components/atoms/box";
 import { Text } from "@/components/atoms/text";
 import imgTeste from "../assets/food-favorite.png";
 import { StyledButton } from "@/components/atoms/button/styles";
 
 function HomeEstablishment() {
+	const [modalRegister, setModalRegister] = useState(false);
+
+	function toggleModalResgiter() {
+		setModalRegister(!modalRegister);
+	}
+
 	return (
-		<Layout>
+		<Layout
+			active={modalRegister}
+			toggle={toggleModalResgiter}
+		>
 			<ContainerHomeEstablishment>
 				<div className="header-home-establishment">
 					<Box className="container-home-establishment">
@@ -29,7 +34,33 @@ function HomeEstablishment() {
 									<label>Gerencie seus produtos</label>
 								</div>
 							</Box>
-							<StyledButton buttonStyle="filled">ADICIONAR</StyledButton>
+							<StyledButton
+								onClick={toggleModalResgiter}
+								buttonStyle="filled"
+							>
+								ADICIONAR
+							</StyledButton>
+						</Box>
+						<Text className="text-categoria-home-establishment">
+							<h1>Categoria</h1>
+						</Text>
+						<Box className="container-categoria-home-establishment">
+							{categoria.map((r, i) => (
+								<StyledButton
+									height="fit-content"
+									width="fit-content"
+									buttonStyle="filled"
+									style={{
+										fontSize: "16px",
+										maxHeight: "32px",
+										width: "fit-content",
+										maxWidth: "50px",
+									}}
+									key={r + i}
+								>
+									{r}
+								</StyledButton>
+							))}
 						</Box>
 					</Box>
 				</div>
@@ -51,6 +82,16 @@ function HomeEstablishment() {
 }
 
 export default HomeEstablishment;
+
+const categoria = [
+	"Todos",
+	"Todos",
+	"Todos",
+	"Todos",
+	"Todos",
+	"Todos",
+	"Todos",
+];
 
 const ContainerHomeEstablishment = styled.div`
 	display: grid;
@@ -86,7 +127,7 @@ const ContainerHomeEstablishment = styled.div`
 		.container-banner-home-establishment {
 			display: flex;
 			flex-wrap: wrap;
-			margin: 20px 0;
+			margin: 20px 0 0 0;
 			padding: 13px 28px;
 			justify-content: space-between;
 			border-radius: 8px;
@@ -136,6 +177,68 @@ const ContainerHomeEstablishment = styled.div`
 				min-height: 30px;
 				font-size: 12px;
 				place-self: end;
+				opacity: inherit;
+			}
+		}
+
+		.text-categoria-home-establishment {
+			> h1 {
+				margin: 16px 0;
+				font-size: 15px;
+			}
+		}
+
+		.container-categoria-home-establishment {
+			display: flex;
+			justify-content: flex-start;
+			gap: 10px;
+			overflow-x: auto;
+			contain: inline-size;
+
+			::-webkit-scrollbar {
+				width: 8px;
+				height: 8px;
+			}
+
+			/* Track */
+
+			::-webkit-scrollbar-track {
+				background-color: ${p =>
+					p.theme.name == "light"
+						? p.theme.colors.light_gray[600]
+						: p.theme.colors.dark_gray[600]};
+			}
+
+			/* Handle */
+
+			::-webkit-scrollbar-thumb {
+				background-color: ${p =>
+					p.theme.name == "light"
+						? p.theme.colors.light_gray[800]
+						: p.theme.colors.dark_gray[1000]};
+				border-radius: 50px;
+				border: 3px solid
+					${p =>
+						p.theme.name == "light"
+							? p.theme.colors.light_gray[600]
+							: p.theme.colors.dark_gray[600]};
+			}
+
+			/* Handle on Hover */
+
+			::-webkit-scrollbar-thumb:hover {
+				background-color: ${p =>
+					p.theme.name == "light"
+						? p.theme.colors.light_gray[800]
+						: p.theme.colors.black};
+			}
+
+			> button {
+				margin-bottom: 3px;
+				opacity: inherit;
+				min-width: 80px;
+				min-height: 25px;
+				padding: 3px;
 			}
 		}
 	}

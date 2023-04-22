@@ -8,13 +8,11 @@ export const ContainerRegisterProduct = styled.div<{
 	isOpen: boolean;
 }>`
 	left: ${p => (!p.isOpen ? "100%" : "0")};
-	width: ${p => (!p.isOpen ? "fit-content" : "400px")};
+	width: ${p => (!p.isOpen ? "0" : "400px")};
 	background: ${p =>
 		p.theme.name == "light"
 			? p.theme.colors.light_gray[200]
 			: p.theme.colors.dark_gray[1000]};
-
-	transition: 0.2s ease-out;
 
 	position: relative;
 
@@ -28,6 +26,7 @@ export const ContainerRegisterProduct = styled.div<{
 		overflow-y: scroll;
 		overflow-x: hidden;
 
+		height: 100dvh;
 		/* Scrollbar modification */
 
 		::-webkit-scrollbar {
@@ -111,7 +110,10 @@ export const ContainerRegisterProduct = styled.div<{
 				}
 
 				h2 {
-					color: ${p => p.theme.name == "light" ? p.theme.colors.dark_gray[800] : p.theme.colors.light_gray[400]};
+					color: ${p =>
+						p.theme.name == "light"
+							? p.theme.colors.dark_gray[800]
+							: p.theme.colors.light_gray[400]};
 					font-size: 18px;
 				}
 
@@ -128,9 +130,70 @@ export const ContainerRegisterProduct = styled.div<{
 		padding: 0 24px;
 		grid-area: main;
 
+		.container-categoria-register-product {
+			display: flex;
+			justify-content: flex-start;
+			gap: 10px;
+			overflow-x: auto;
+			contain: inline-size;
+
+			::-webkit-scrollbar {
+				width: 8px;
+				height: 8px;
+			}
+
+			/* Track */
+
+			::-webkit-scrollbar-track {
+				background-color: ${p =>
+					p.theme.name == "light"
+						? p.theme.colors.light_gray[200]
+						: p.theme.colors.dark_gray[1000]};
+			}
+
+			/* Handle */
+
+			::-webkit-scrollbar-thumb {
+				background-color: ${p =>
+					p.theme.name == "light"
+						? p.theme.colors.light_gray[600]
+						: p.theme.colors.dark_gray[800]};
+				border-radius: 50px;
+				border: 3px solid
+					${p =>
+						p.theme.name == "light"
+							? p.theme.colors.light_gray[200]
+							: p.theme.colors.dark_gray[1000]};
+			}
+
+			/* Handle on Hover */
+
+			::-webkit-scrollbar-thumb:hover {
+				background-color: ${p =>
+					p.theme.name == "light"
+						? p.theme.colors.light_gray[800]
+						: p.theme.colors.dark_gray[800]};
+			}
+
+			> button {
+				margin-bottom: 3px;
+				opacity: inherit;
+				min-width: 80px;
+				min-height: 25px;
+				padding: 0;
+			}
+		}
+
 		.divider-register-product {
 			margin: 15px 0;
 			grid-area: divider;
+		}
+
+		.text-categoria-register-product {
+			> h1 {
+				margin: 10px 0;
+				font-size: 15px;
+			}
 		}
 
 		.container-main-register-product {
@@ -164,7 +227,7 @@ export const ContainerRegisterProduct = styled.div<{
 				.input-descricao-home-establishment {
 					> div {
 						> div {
-							height: 100px;
+							height: 80px;
 						}
 					}
 				}
@@ -185,10 +248,12 @@ export const ContainerRegisterProduct = styled.div<{
 					flex-wrap: wrap;
 					gap: 10px;
 					margin-top: 6px;
-					max-height: 200px;
+					max-height: 135px;
 					padding: 10px;
 					background: ${p =>
-						p.theme.name == "light" ? p.theme.colors.light_gray[400] : p.theme.colors.dark_gray[600]};
+						p.theme.name == "light"
+							? p.theme.colors.light_gray[400]
+							: p.theme.colors.dark_gray[600]};
 					border-radius: 0.25rem;
 					border: ${p =>
 						p.theme.name == "light" ? "none" : "1px solid rgb(71, 71, 71)"};
