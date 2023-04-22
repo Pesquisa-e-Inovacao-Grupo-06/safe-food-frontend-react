@@ -311,6 +311,16 @@ const ContainerHomeEstablishment = styled.div`
 					font-size: 12px;
 					width: max-content;
 				}
+
+				@media screen and (max-width: 600px) {
+					width: auto;
+					max-width: fit-content;
+					margin: 15px 0;
+
+					img {
+						min-height: 200px;
+					}
+				}
 			}
 
 			@media (max-width: 1100px) {

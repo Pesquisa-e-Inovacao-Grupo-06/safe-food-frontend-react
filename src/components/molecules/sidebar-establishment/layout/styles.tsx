@@ -69,6 +69,7 @@ export const SMain = styled.main`
 	}
 
 	@media screen and (max-width: 600px) {
+		margin-top: 75px;
 		overflow-y: initial;
 	}
 `;
