@@ -4,7 +4,8 @@ import styled from "styled-components";
 export const SSidebar = styled.div<{
 	isOpen: boolean;
 }>`
-	width: ${p => (!p.isOpen ? "fit-content" : "300px")};
+	height: 100dvh;
+	width: ${p => (!p.isOpen ? "100px" : "300px")};
 	background: ${p =>
 		p.theme.name == "light"
 			? p.theme.colors.light_gray[200]
@@ -19,7 +20,7 @@ export const SSidebar = styled.div<{
 		opacity: ${p => (p.theme.name == "light" ? {} : "85%")};
 	}
 
-	@media screen and (max-width: 600px) {
+	@media screen and (max-width: 800px) {
 		display: none;
 	}
 `;
@@ -30,7 +31,7 @@ export const SHeader = styled.div`
 	position: fixed;
 	display: none;
 
-	@media screen and (max-width: 600px) {
+	@media screen and (max-width: 800px) {
 		display: block;
 	}
 `;
@@ -57,6 +58,7 @@ export const SSidebarButton = styled.button<{
 		p.theme.name == "light"
 			? p.theme.colors.light_gray[200]
 			: p.theme.colors.dark_gray[1000]};
+	/* background: ${p => p.theme.colors.primary[600]}; */
 	box-shadow: 0 0 4px
 			${p =>
 				p.theme.name == "light"

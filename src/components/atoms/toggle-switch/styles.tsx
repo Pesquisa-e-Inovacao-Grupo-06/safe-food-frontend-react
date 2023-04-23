@@ -42,7 +42,7 @@ export const ContainerSwitch = styled.label<{
 		background-color: ${p =>
 			p.theme.name === "dark"
 				? p.theme.colors.dark_gray[1000]
-				: p.theme.colors.light_gray[200]};
+				: p.theme.colors.primary[600]};
 		transition: 0.4s;
 		border-radius: ${({ rounded }) => (rounded ? "50%" : "0%")};
 	}
@@ -56,9 +56,5 @@ export const ContainerSwitch = styled.label<{
 
 	& input:checked + span:before {
 		transform: translate(15px);
-		/* transform: ${() =>
-			sessionStorage.key.name === "dark"
-				? "translate(26px)"
-				: "translate(-26px)"}; */
 	}
 `;
