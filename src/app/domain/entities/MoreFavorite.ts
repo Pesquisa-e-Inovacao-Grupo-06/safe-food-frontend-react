@@ -3,7 +3,7 @@ export type MoreFavoriteType = {
     name?: string;
     description?: string;
     ingredients?: string[];
-    price: number;
+    price?: number | any;
     nameEstablishment?: string;
     workingPlaceEstablishment?: boolean;
     locationEstablishment?: string;

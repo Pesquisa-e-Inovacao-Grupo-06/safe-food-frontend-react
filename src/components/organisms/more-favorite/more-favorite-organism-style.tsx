@@ -33,7 +33,7 @@ export const StyledCost = styled(Text)`
 	height: fit-content;
 	/* padding-bottom: 5px; */
 	/* padding-top: 5px; */
-	padding: 8px 3% 8px 3%;
+	padding: 8px 16px 8px 16px;
 	border-radius: 4px;
 	margin-top: 10px;
 	/* padding-left: 3%; */

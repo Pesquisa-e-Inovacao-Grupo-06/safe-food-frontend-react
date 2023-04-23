@@ -4,7 +4,7 @@ import { getMoreFavoriteListMock } from "@/app/domain/entities/MoreFavorite";
 import { Divider } from "../atoms/divider";
 export const MoreFavoritesTemplate = ({}) => {
 	return (
-		<div style={{ marginTop: "40px" }}>
+		<div style={{ marginTop: "40px", width: "100%" }}>
 			<Subtitle
 				large
 				style={{
