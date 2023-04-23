@@ -181,6 +181,14 @@ const ContainerHomeEstablishment = styled.div`
 			}
 		}
 
+		@media (max-width: 600px) {
+			.container-banner-home-establishment {
+				button {
+					width: 100%;
+				}
+			}
+		}
+
 		.text-categoria-home-establishment {
 			> h1 {
 				margin: 16px 0;
