@@ -18,6 +18,8 @@ function HomeEstablishment() {
 		<Layout
 			active={modalRegister}
 			toggle={toggleModalResgiter}
+			activeRegisterProduct={true}
+			paddingMain={true}
 		>
 			<ContainerHomeEstablishment>
 				<div className="header-home-establishment">
@@ -213,7 +215,7 @@ const ContainerHomeEstablishment = styled.div`
 			::-webkit-scrollbar-track {
 				background-color: ${p =>
 					p.theme.name == "light"
-						? p.theme.colors.light_gray[600]
+						? p.theme.colors.light_gray[200]
 						: p.theme.colors.dark_gray[600]};
 			}
 
@@ -222,13 +224,13 @@ const ContainerHomeEstablishment = styled.div`
 			::-webkit-scrollbar-thumb {
 				background-color: ${p =>
 					p.theme.name == "light"
-						? p.theme.colors.light_gray[800]
-						: p.theme.colors.dark_gray[1000]};
+						? p.theme.colors.light_gray[600]
+						: p.theme.colors.dark_gray[800]};
 				border-radius: 50px;
 				border: 3px solid
 					${p =>
 						p.theme.name == "light"
-							? p.theme.colors.light_gray[600]
+							? p.theme.colors.light_gray[200]
 							: p.theme.colors.dark_gray[600]};
 			}
 
@@ -323,11 +325,15 @@ const ContainerHomeEstablishment = styled.div`
 				@media screen and (max-width: 600px) {
 					width: auto;
 					max-width: fit-content;
-					margin: 15px 0;
+					margin: 15px 10px;
 
 					img {
 						min-height: 200px;
 					}
+				}
+
+				@media screen and (max-width: 480px) {
+					margin: 15px 0px;
 				}
 			}
 

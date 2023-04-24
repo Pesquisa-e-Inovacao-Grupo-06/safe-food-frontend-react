@@ -26,6 +26,18 @@ export const HeaderSidebar = styled(ContainerFluid)`
 		height: 25px;
 		cursor: pointer;
 	}
+
+	@media (max-width: 600px) {
+		> div {
+			img {
+				width: 50px;
+			}
+
+			h1 {
+				font-size: 15px;
+			}
+		}
+	}
 `;
 
 export const ContainerSidebar = styled.div<{ sidebar: boolean }>`
@@ -47,6 +59,10 @@ export const ContainerSidebar = styled.div<{ sidebar: boolean }>`
 		margin-top: 25px;
 		margin-left: 10px;
 		cursor: pointer;
+	}
+
+	@media (max-width: 600px) {
+		width: ${({ sidebar }) => (sidebar ? "100%" : "0px")};
 	}
 `;
 

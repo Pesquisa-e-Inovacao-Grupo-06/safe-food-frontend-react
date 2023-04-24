@@ -10,6 +10,11 @@ export const SSidebar = styled.div<{
 		p.theme.name == "light"
 			? p.theme.colors.light_gray[200]
 			: p.theme.colors.dark_gray[1000]};
+	border-right: 1px solid
+		${p =>
+			p.theme.name == "light"
+				? p.theme.colors.light_gray[800]
+				: p.theme.colors.dark_gray[1000]};
 	padding: 24px;
 
 	position: relative;
@@ -37,7 +42,7 @@ export const SHeader = styled.div`
 `;
 
 export const SSidebarButton = styled.button<{
-	isOpen: boolean;
+	isOpen?: boolean;
 }>`
 	font-family: inherit;
 	outline: none;

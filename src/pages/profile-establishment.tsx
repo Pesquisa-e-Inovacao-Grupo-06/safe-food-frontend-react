@@ -1,5 +1,4 @@
 import { Box } from "@/components/atoms/box";
-import Header from "@/components/molecules/header";
 import banner from "../assets/food-favorite.png";
 import styled from "styled-components";
 import { ProfilePhotoUploadWithPreview } from "@/components/molecules/upload-profile-photo";
@@ -9,108 +8,112 @@ import { Input } from "@/components/atoms/input";
 import { ButtonIcon } from "@/components/molecules/button/button-icon";
 import AddresCard from "@/components/molecules/address-card";
 import { MdOutlineCloudDownload, MdOutlineFileDownload } from "react-icons/md";
-import { ContainerFluid } from "@/components/atoms/container";
+import Layout from "@/components/molecules/sidebar-establishment/layout";
 
 function ProfileEstablishment() {
 	return (
 		<>
-			<Header />
-			<PBanner>
-				<PBtnEditar
-					height="fit-content"
-					width="fit-content"
-					buttonStyle="outline"
-				>
-					Editar imagem
-				</PBtnEditar>
-			</PBanner>
-			<PContainer>
-				<PContainerProfilePhoto>
-					<PProfilePhoto
-						name="profile"
-						id="p1"
-						width="160px"
-						justify="start"
-					/>
-				</PContainerProfilePhoto>
-				<PContainerSub>
-					<PContainerInfo>
-						<PDivider />
-						<PTitle>Administrador</PTitle>
-						{FormInputsAdministrador.map(({ span, input }) => (
-							<ul>
-								<li>
-									<span>{span}</span>
-									{input}
-								</li>
-							</ul>
-						))}
-						<PDivider />
-						<PTitle>Empresa</PTitle>
-						<div className="form-inputs-empresa">
-							{FormInputsEmpresa.map(({ span, input, classname }) => (
-								<ul>
-									<li className={classname}>
-										<span>{span}</span>
-										{input}
-									</li>
-								</ul>
-							))}
-						</div>
-						<PDivider />
-						<PContainerInfo3>
-							<PTitle>Endereço do estabelecimento</PTitle>
-							<PContainerAddressCard>
-								<AddresCard subtitle="Açogue Vegano" />
-							</PContainerAddressCard>
-						</PContainerInfo3>
-						<PDivider />
-						<PTitle>Importações</PTitle>
-						<PBtnBaixar
-							icon={<MdOutlineFileDownload />}
-							alignIcon="right"
-							buttonStyle="filled"
-							style={{
-								height: 45,
-							}}
-						>
-							<span>Baixar template em Excel</span>
-						</PBtnBaixar>
-						<PBtnImportar
-							icon={<MdOutlineCloudDownload />}
-							alignIcon="right"
-							buttonStyle="filled"
-							style={{
-								height: 45,
-							}}
-						>
-							<span>Importar Excel preenchido</span>
-						</PBtnImportar>
-						<Box style={{ marginTop: "16px" }}>
-							Baixe o nosso template para excel e o preencha com infomações de seus
-							produtos, assim o cadastro fica mais fácil quando em grandes quantidades.
-							Logo após preencher é apenas nos importar o excel preenchido novamente.
-							<b> OBS: apenas aceitamos no nosso formato de Excel.</b>
-						</Box>
-					</PContainerInfo>
-					<PContainerBtn>
-						<PBtnCancelar
-							height="fit-content"
-							width="fit-content"
-							buttonStyle="outline"
-						>
-							Cancelar
-						</PBtnCancelar>
-						<PBtnSalvar
-							height="fit-content"
-							width="fit-content"
-							buttonStyle="filled"
-						>
-							Salvar
-						</PBtnSalvar>
-					</PContainerBtn>
-				</PContainerSub>
-			</PContainer>
+			<Layout>
+				<PBanner>
+					<PBtnEditar
+						height="fit-content"
+						width="fit-content"
+						buttonStyle="outline"
+					>
+						Editar imagem
+					</PBtnEditar>
+				</PBanner>
+				<PContainer>
+					<PContainerProfilePhoto>
+						<PProfilePhoto
+							name="profile"
+							id="p1"
+							width="125px"
+							justify="start"
+						/>
+					</PContainerProfilePhoto>
+					<PContainerSub>
+						<PContainerInfo>
+							<PDivider />
+							<PTitle>Administrador</PTitle>
+							<div className="form-inputs-adm">
+								{FormInputsAdministrador.map(({ span, input }) => (
+									<ul>
+										<li>
+											<span>{span}</span>
+											{input}
+										</li>
+									</ul>
+								))}
+							</div>
+							<PDivider />
+							<PTitle>Empresa</PTitle>
+							<div className="form-inputs-empresa">
+								{FormInputsEmpresa.map(({ span, input, classname }) => (
+									<ul>
+										<li className={classname}>
+											<span>{span}</span>
+											{input}
+										</li>
+									</ul>
+								))}
+							</div>
+							<PDivider />
+							<PContainerInfo3>
+								<PTitle>Endereço do estabelecimento</PTitle>
+								<PContainerAddressCard>
+									<AddresCard subtitle="Açogue Vegano" />
+								</PContainerAddressCard>
+							</PContainerInfo3>
+							<PDivider />
+							<PTitle>Importações</PTitle>
+							<PBtnBaixar
+								icon={<MdOutlineFileDownload />}
+								alignIcon="right"
+								buttonStyle="filled"
+								style={{
+									height: 45,
+								}}
+							>
+								<span>Baixar template em Excel</span>
+							</PBtnBaixar>
+							<PBtnImportar
+								icon={<MdOutlineCloudDownload />}
+								alignIcon="right"
+								buttonStyle="filled"
+								style={{
+									height: 45,
+								}}
+							>
+								<span>Importar Excel preenchido</span>
+							</PBtnImportar>
+							<Box style={{ marginTop: "16px" }}>
+								Baixe o nosso template para excel e o preencha com infomações de seus
+								produtos, assim o cadastro fica mais fácil quando em grandes
+								quantidades. Logo após preencher é apenas nos importar o excel
+								preenchido novamente.
+								<b> OBS: apenas aceitamos no nosso formato de Excel.</b>
+							</Box>
+						</PContainerInfo>
+						<PContainerBtn>
+							<PBtnCancelar
+								height="fit-content"
+								width="fit-content"
+								buttonStyle="outline"
+							>
+								Cancelar
+							</PBtnCancelar>
+							<PBtnSalvar
+								height="fit-content"
+								width="fit-content"
+								buttonStyle="filled"
+							>
+								Salvar
+							</PBtnSalvar>
+						</PContainerBtn>
+					</PContainerSub>
+				</PContainer>
+			</Layout>
 		</>
 	);
 }
@@ -131,7 +134,7 @@ const FormInputsAdministrador = [
 		input: <Input value="" />,
 	},
 	{
-		span: "Número:",
+		span: "Número telefone:",
 		input: <Input value="" />,
 	},
 	{
@@ -144,7 +147,6 @@ const FormInputsAdministrador = [
 				style={{
 					fontSize: "16px",
 					maxHeight: "32px",
-					width: "fit-content",
 				}}
 			>
 				Alterar Senha
@@ -185,13 +187,11 @@ const FormInputsEmpresa = [
 
 const PBanner = styled(Box)`
 	display: flex;
-	height: 225px;
-	padding-top: 75px;
+	height: 150px;
 	background: url(${banner});
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center;
-	filter: brightness(46%);
 
 	@media (max-width: 800px) {
 		justify-content: flex-end;
@@ -206,11 +206,10 @@ const PBtnEditar = styled(StyledButton)`
 	min-width: 90px;
 	color: white;
 	border: 2px solid white;
+	opacity: 100% !important;
 
 	@media (max-width: 800px) {
-		margin: 10px 10px 0 0;
 		width: auto;
-		align-self: baseline;
 	}
 `;
 
@@ -223,7 +222,7 @@ const PContainer = styled.div`
 
 const PContainerProfilePhoto = styled.div`
 	position: relative;
-	margin-top: -60px;
+	margin-top: -45px;
 	margin-left: -80px;
 
 	@media (max-width: 800px) {
@@ -276,6 +275,7 @@ const PContainerInfo = styled.div`
 		span {
 			align-self: center;
 			font-weight: 600;
+			opacity: 80%;
 		}
 
 		@media (max-width: 800px) {
@@ -283,13 +283,29 @@ const PContainerInfo = styled.div`
 
 			span {
 				margin-bottom: 5px;
+				opacity: 100%;
 			}
 		}
+	}
+
+	@media (max-width: 600px) {
+		button {
+			width: 100%;
+			svg {
+				font-size: x-large;
+			}
+		}
+	}
+
+	input {
+		background: ${p => (p.theme.name == "light" ? "" : p.theme.colors.dark_gray[400])};
+		opacity: 100%;
 	}
 
 	.last-input {
 		span {
 			place-self: start;
+			opacity: 80%;
 		}
 	}
 
@@ -299,10 +315,22 @@ const PContainerInfo = styled.div`
 			align-items: center;
 		}
 	}
+
+	.form-inputs-adm {
+		button {
+			opacity: 100%;
+			width: fit-content;
+		}
+		@media (max-width: 600px) {
+			button {
+				width: 100%;
+			}
+		}
+	}
 `;
 
 const PDivider = styled.div`
-	height: 1.5px;
+	height: 1px;
 	width: 100%;
 	background: ${p =>
 		p.theme.name == "light"
@@ -315,6 +343,7 @@ const PTitle = styled(Subtitle)`
 	font-size: 24px;
 	line-height: 36px;
 	font-weight: 600;
+	opacity: 100%;
 `;
 
 const PBtnBaixar = styled(ButtonIcon)`
@@ -375,9 +404,15 @@ const PContainerBtn = styled.div`
 	@media (max-width: 800px) {
 		justify-content: flex-start;
 	}
+
+	@media (max-width: 600px) {
+		flex-direction: column-reverse;
+	}
 `;
 
 const PBtnSalvar = styled(StyledButton)`
+	position: sticky;
+	top: 100px;
 	font-size: 16px;
 	background: #087704;
 	border-color: #087704;
@@ -387,6 +422,8 @@ const PBtnSalvar = styled(StyledButton)`
 `;
 
 const PBtnCancelar = styled(StyledButton)`
+	position: sticky;
+	top: 100px;
 	font-size: 16px;
 	max-height: 36px;
 	min-width: 90px;
