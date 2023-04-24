@@ -9,8 +9,10 @@ import { ButtonIcon } from "@/components/molecules/button/button-icon";
 import AddresCard from "@/components/molecules/address-card";
 import { MdOutlineCloudDownload, MdOutlineFileDownload } from "react-icons/md";
 import Layout from "@/components/molecules/sidebar-establishment/layout";
+import React from "react";
+import { DownloadRestricions } from "@/app/domain/usecases/DownloadRestricions";
 
-function ProfileEstablishment() {
+export const ProfileEstablishment: React.FC = () => {
 	return (
 		<>
 			<Layout>
@@ -67,16 +69,35 @@ function ProfileEstablishment() {
 							</PContainerInfo3>
 							<PDivider />
 							<PTitle>Importações</PTitle>
-							<PBtnBaixar
-								icon={<MdOutlineFileDownload />}
-								alignIcon="right"
-								buttonStyle="filled"
-								style={{
-									height: 45,
-								}}
+							<Box
+								display="flex"
+								justify="left"
+								gap="20px"
 							>
-								<span>Baixar template em Excel</span>
-							</PBtnBaixar>
+								<PBtnBaixar
+									icon={<MdOutlineFileDownload />}
+									alignIcon="right"
+									buttonStyle="filled"
+									style={{
+										height: 45,
+									}}
+									onClick={() => {
+										window.location.href = "http://localhost:8081/restricoes/download";
+									}}
+								>
+									<span>Baixar restrições em Excel</span>
+								</PBtnBaixar>
+								<PBtnBaixar
+									icon={<MdOutlineFileDownload />}
+									alignIcon="right"
+									buttonStyle="filled"
+									style={{
+										height: 45,
+									}}
+								>
+									<span>Baixar template de produtos</span>
+								</PBtnBaixar>
+							</Box>
 							<PBtnImportar
 								icon={<MdOutlineCloudDownload />}
 								alignIcon="right"
@@ -116,7 +137,7 @@ function ProfileEstablishment() {
 			</Layout>
 		</>
 	);
-}
+};
 
 export default ProfileEstablishment;
 
@@ -298,7 +319,8 @@ const PContainerInfo = styled.div`
 	}
 
 	input {
-		background: ${p => (p.theme.name == "light" ? "" : p.theme.colors.dark_gray[400])};
+		background: ${p =>
+			p.theme.name == "light" ? "" : p.theme.colors.dark_gray[400]};
 		opacity: 100%;
 	}
 
