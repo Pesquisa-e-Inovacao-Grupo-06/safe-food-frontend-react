@@ -1,4 +1,3 @@
-import { Box } from "@/components/atoms/box";
 import styled from "styled-components";
 import { SSidebarButton } from "../sidebar-establishment/styles";
 import { CardExpansiveEstablishmentFoodOrganism } from "@/components/organisms/card-establishment-food/card-establishment-food-organism";
@@ -8,6 +7,7 @@ export const ContainerRegisterProduct = styled.div<{
 	activeRegisterProduct?: boolean;
 	isOpen?: boolean;
 }>`
+	height: 100dvh;
 	display: ${p => (p.activeRegisterProduct ? "block" : "none")};
 	left: ${p => (!p.isOpen ? "100%" : "0")};
 	width: ${p => (!p.isOpen ? "0" : "400px")};
@@ -34,7 +34,7 @@ export const ContainerRegisterProduct = styled.div<{
 		overflow-x: hidden;
 
 		height: 100dvh;
-		height: 100%;
+
 		/* Scrollbar modification */
 
 		::-webkit-scrollbar {
