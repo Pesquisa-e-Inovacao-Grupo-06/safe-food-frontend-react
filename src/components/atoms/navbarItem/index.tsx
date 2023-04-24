@@ -5,11 +5,12 @@ import { ContainerItem } from "./styles";
 type Props = {
 	to: string;
 	text: string;
+	isActive?: boolean;
 };
 
-function NavbarItem({ to, text }: Props) {
+function NavbarItem({ to, text, isActive }: Props) {
 	return (
-		<ContainerItem height={75}>
+		<ContainerItem isActive={isActive}>
 			<Link to={to}>{text}</Link>
 		</ContainerItem>
 	);

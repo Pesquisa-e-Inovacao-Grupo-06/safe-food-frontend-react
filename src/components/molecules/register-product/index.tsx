@@ -15,14 +15,16 @@ import { CLabelAttention } from "@/components/atoms/checkbox/styles";
 import { Chips } from "@/components/atoms/chips/chips-atom";
 
 type Props = {
-	active: boolean;
-	toggle: () => void;
+	active?: boolean;
+	toggle?: () => void;
+	activeRegisterProduct?: boolean;
 };
 
-function RegisterProduct({ active, toggle }: Props) {
+function RegisterProduct({ active, toggle, activeRegisterProduct }: Props) {
 	return (
 		<>
 			<ContainerRegisterProduct
+				activeRegisterProduct={activeRegisterProduct}
 				className="transition"
 				isOpen={active}
 			>

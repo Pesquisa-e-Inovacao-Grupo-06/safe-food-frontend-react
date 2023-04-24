@@ -4,17 +4,14 @@ import {
 	ContainerBack,
 	HeaderSidebar,
 } from "./styles";
-import {
-	FaTimes,
-	FaHome,
-	FaSignOutAlt,
-	FaQuestionCircle,
-	FaSignInAlt,
-} from "react-icons/fa";
-import { BsInfoCircleFill, BsPersonFillAdd } from "react-icons/bs";
+import { FaTimes } from "react-icons/fa";
+import { BsInfoCircle, BsQuestionCircle } from "react-icons/bs";
 import SidebarItem from "../../atoms/sidebarItem";
-import { ContainerFluid } from "@/components/atoms/container";
 import { LogoAtom } from "@/components/atoms/logo";
+import { AiOutlineHome } from "react-icons/ai";
+import { MdLogout, MdPersonAddAlt } from "react-icons/md";
+import { RxEnter } from "react-icons/rx";
+import { useLocation } from "react-router-dom";
 
 type Props = {
 	active: boolean;
@@ -22,6 +19,8 @@ type Props = {
 };
 
 function Sidebar({ active, toggle }: Props) {
+	const { pathname } = useLocation();
+
 	return (
 		<ContainerBack
 			sidebar={active}
@@ -34,42 +33,15 @@ function Sidebar({ active, toggle }: Props) {
 					<LogoAtom sizeLogo="logo-sm" />
 				</HeaderSidebar>
 				<Content>
-					<SidebarItem
-						Icon={FaHome}
-						text="Início"
-						to="/"
-						onClick={toggle}
-					/>
-					<SidebarItem
-						Icon={BsInfoCircleFill}
-						text="Safe Food"
-						to="/about"
-						onClick={toggle}
-					/>
-					<SidebarItem
-						Icon={FaQuestionCircle}
-						text="FAQ"
-						to="/faq"
-						onClick={toggle}
-					/>
-					<SidebarItem
-						Icon={FaSignInAlt}
-						text="Entrar"
-						to="/signin"
-						onClick={toggle}
-					/>
-					<SidebarItem
-						Icon={BsPersonFillAdd}
-						text="Cadastrar"
-						to="/signup"
-						onClick={toggle}
-					/>
-					<SidebarItem
-						Icon={FaSignOutAlt}
-						text="Sair"
-						to="/"
-						onClick={toggle}
-					/>
+					{itemLinkArray.map(({ icon, text, to }) => (
+						<SidebarItem
+							Icon={icon}
+							text={text}
+							to={to}
+							isActive={pathname === to}
+							onClick={toggle}
+						/>
+					))}
 				</Content>
 			</ContainerSidebar>
 		</ContainerBack>
@@ -77,3 +49,36 @@ function Sidebar({ active, toggle }: Props) {
 }
 
 export default Sidebar;
+
+const itemLinkArray = [
+	{
+		icon: AiOutlineHome,
+		text: "Início",
+		to: "/",
+	},
+	{
+		icon: BsInfoCircle,
+		text: "Safe Food",
+		to: "/about",
+	},
+	{
+		icon: BsQuestionCircle,
+		text: "FAQ",
+		to: "/faq",
+	},
+	{
+		icon: RxEnter,
+		text: "Entrar",
+		to: "/signin",
+	},
+	{
+		icon: MdPersonAddAlt,
+		text: "Cadastrar",
+		to: "/signup",
+	},
+	{
+		icon: MdLogout,
+		text: "Sair",
+		to: "#",
+	},
+];

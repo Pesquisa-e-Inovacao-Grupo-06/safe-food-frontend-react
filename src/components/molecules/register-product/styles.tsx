@@ -5,14 +5,21 @@ import { CardExpansiveEstablishmentFoodOrganism } from "@/components/organisms/c
 import { InputNameSignUp } from "@/components/organisms/signup-consumer/inputs/InputNameSignUpConsumer";
 
 export const ContainerRegisterProduct = styled.div<{
-	isOpen: boolean;
+	activeRegisterProduct?: boolean;
+	isOpen?: boolean;
 }>`
+	display: ${p => (p.activeRegisterProduct ? "block" : "none")};
 	left: ${p => (!p.isOpen ? "100%" : "0")};
 	width: ${p => (!p.isOpen ? "0" : "400px")};
 	background: ${p =>
 		p.theme.name == "light"
 			? p.theme.colors.light_gray[200]
 			: p.theme.colors.dark_gray[1000]};
+	border-left: 1px solid
+		${p =>
+			p.theme.name == "light"
+				? p.theme.colors.light_gray[800]
+				: p.theme.colors.dark_gray[1000]};
 
 	position: relative;
 
@@ -246,7 +253,7 @@ export const ContainerRegisterProduct = styled.div<{
 						}
 					}
 				}
-				
+
 				div {
 					opacity: 100%;
 				}

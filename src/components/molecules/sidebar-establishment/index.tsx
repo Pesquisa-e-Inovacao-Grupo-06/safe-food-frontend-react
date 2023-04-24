@@ -145,7 +145,7 @@ const thirdLinksArray = [
 	{
 		label: "Logout",
 		icon: <MdLogout />,
-		to: "/logout",
+		to: "/",
 	},
 ];
 
