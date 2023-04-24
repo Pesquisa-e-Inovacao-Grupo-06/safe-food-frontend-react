@@ -137,7 +137,7 @@ const secondaryLinksArray = [
 	{
 		label: "Preferências",
 		icon: <BsGear />,
-		to: "/preferences",
+		to: "/preferences-establishment",
 	},
 ];
 
