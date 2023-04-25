@@ -1,12 +1,11 @@
 import { DefaultTheme } from "styled-components";
 
-export const pixelToRem = (px: number) => px / 16 + "em";
+export const pixelToRem = (px: number) => px / 16 + "rem";
 
 export const lightTheme: DefaultTheme = {
 	name: "light",
-	isLight: () => true,
-	isDark: () => false,
-	pxToRem: (px: number) => px / 16 + "rem", 
+	isLight: true,
+	isDark: false,
 	border: {
 		radius: {
 			sm: pixelToRem(2),
@@ -16,7 +15,7 @@ export const lightTheme: DefaultTheme = {
 	},
 	colors: {
 		background: "#fcfcfcff",
-		text: "#1f1f1fff",
+		text: "#474747ff",
 		primary: {
 			200: "#ffebd6ff",
 			400: "#fed29aff",
@@ -49,13 +48,14 @@ export const lightTheme: DefaultTheme = {
 		error:{
 			"200": "#FFDEE2",
 			"400": "#E65769",
-			"600": "#83282E",
+			"600": "#a03d44",
 		},
 		success: {
-			"200": "#A1FFBC",
-			"400": "#1CCE4F",
-			"600": "#18A942",
-			"800": "#008526",
+			"200": "#C7FFCC",
+			"400": "#84F2A3",
+			"600": "#40EE72",
+			"800": "#18A942",
+			"1000": "#008526",
 		},
 		warning: {
 			"200": "#FFFBA4",
@@ -71,7 +71,7 @@ export const lightTheme: DefaultTheme = {
 		},
 		shadow: {
 			"200": "0px 1px 1px 1px #00000022",
-			"400": "0px 2px 4px 1px #00000022",
+			"400": "0px 2px 1px 1px #00000022",
 			"600": "0px 4px 12px 2px #00000022",
 			"800": "0px 6px 32px 4px #00000022",
 			"1000": "0px 8px 64px 8px #00000022",
@@ -82,19 +82,19 @@ export const lightTheme: DefaultTheme = {
 			xsm: pixelToRem(10),
 			sm: pixelToRem(12),
 			md: pixelToRem(16),
-			lg: pixelToRem(20),
-			xlg: pixelToRem(24),
-			xxlg: pixelToRem(36),
-			xxxlg: pixelToRem(54),
+			lg: pixelToRem(24),
+			xlg: pixelToRem(36),
+			xxlg: pixelToRem(56),
+			xxxlg: pixelToRem(64),
 		},
 		height: {
-			xsm: pixelToRem(14),
-			sm: pixelToRem(16),
-			md: pixelToRem(24),
-			lg: pixelToRem(28),
-			xlg: pixelToRem(32),
-			xxlg: pixelToRem(42),
-			xxxlg: pixelToRem(60),
+			xsm: pixelToRem(10*1.4),
+			sm: pixelToRem(12*1.4),
+			md: pixelToRem(16*1.4),
+			lg: pixelToRem(24*1.4),
+			xlg: pixelToRem(36*1.4),
+			xxlg: pixelToRem(56*1.4),
+			xxxlg: pixelToRem(64*1.4),
 		},
 		family: {
 			text: "Source Sans Pro, sans-serif",

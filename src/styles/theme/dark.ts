@@ -1,11 +1,10 @@
 import { DefaultTheme } from "styled-components";
-const pixelToRem = (px: number) => px / 16 + "em";
+const pixelToRem = (px: number) => px / 16 + "rem";
 
 export const darkTheme: DefaultTheme = {
 	name: "dark",
-	isLight: () => false,
-	isDark: () => true,
-	pxToRem: (px: number) => px / 16 + "rem", 
+	isLight: false,
+	isDark: true,
 	border: {
 		radius: {
 			sm: pixelToRem(2),
@@ -52,10 +51,11 @@ export const darkTheme: DefaultTheme = {
 			"600": "#83282E",
 		},
 		success: {
-			"200": "#A1FFBC",
-			"400": "#1CCE4F",
-			"600": "#18A942",
-			"800": "#008526",
+			"200": "#C7FFCC",
+			"400": "#84F2A3",
+			"600": "#40EE72",
+			"800": "#18A942",
+			"1000": "#008526",
 		},
 		warning: {
 			"200": "#FFFBA4",
@@ -80,19 +80,19 @@ export const darkTheme: DefaultTheme = {
 			xsm: pixelToRem(10),
 			sm: pixelToRem(12),
 			md: pixelToRem(16),
-			lg: pixelToRem(20),
-			xlg: pixelToRem(24),
-			xxlg: pixelToRem(36),
-			xxxlg: pixelToRem(54),
+			lg: pixelToRem(24),
+			xlg: pixelToRem(36),
+			xxlg: pixelToRem(56),
+			xxxlg: pixelToRem(64),
 		},
 		height: {
-			xsm: pixelToRem(14),
-			sm: pixelToRem(16),
-			md: pixelToRem(24),
-			lg: pixelToRem(28),
-			xlg: pixelToRem(32),
-			xxlg: pixelToRem(42),
-			xxxlg: pixelToRem(60),
+			xsm: pixelToRem(10*1.4),
+			sm: pixelToRem(12*1.4),
+			md: pixelToRem(16*1.4),
+			lg: pixelToRem(24*1.4),
+			xlg: pixelToRem(36*1.4),
+			xxlg: pixelToRem(56*1.4),
+			xxxlg: pixelToRem(64*1.4),
 		},
 		family: {
 			text: "Source Sans Pro, sans-serif",
