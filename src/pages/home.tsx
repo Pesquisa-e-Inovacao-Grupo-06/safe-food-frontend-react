@@ -1,4 +1,4 @@
-import Pagination from "@/components/atoms/pagination";
+import { HomeTemplate } from "@/components/templates/home-template";
 import { ReactNode } from "react";
 
 interface User {
@@ -45,12 +45,7 @@ function Home() {
 	return (
 		<div>
 			<h1>Users</h1>
-			<Pagination
-				items={users}
-				itemsPerPage={3}
-				renderItem={renderUser}
-			/>
-			{/* <HomeTemplate></HomeTemplate> */}
+			<HomeTemplate></HomeTemplate>
 		</div>
 	);
 }
