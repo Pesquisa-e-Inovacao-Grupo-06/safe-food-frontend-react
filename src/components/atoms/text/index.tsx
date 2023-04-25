@@ -1,13 +1,19 @@
 import { PropsWithChildren } from "react";
 import { StyledText } from "./styles";
 
-export type TypeText = "text-md" | "text-mdb" | "text-sm" | "text-xsm-i";
+export type TypeText =
+	| "text-x-md"
+	| "text-md"
+	| "text-mdb"
+	| "text-sm"
+	| "text-xsm-i";
 export type AlignText = "center" | "start" | "end";
 export type TextProps = {
 	typeText?: TypeText;
 	text?: string;
 	align?: AlignText;
 	cursor?: boolean;
+	color?: string;
 } & React.HTMLAttributes<HTMLButtonElement> &
 	React.HTMLAttributes<PropsWithChildren>;
 
@@ -16,6 +22,7 @@ export const Text: React.FC<TextProps> = ({
 	children,
 	align,
 	cursor,
+	color,
 	...props
 }) => {
 	return (
@@ -24,6 +31,7 @@ export const Text: React.FC<TextProps> = ({
 			{...props}
 			align={align}
 			cursor={cursor}
+			color={color}
 		>
 			{children}
 		</StyledText>

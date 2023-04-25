@@ -10,6 +10,13 @@ export const StyledText = styled.span<{
 	text-align: ${p => p.align ?? "start"};
 	${p => {
 		switch (p.typeText) {
+			case "text-x-md":
+				return css`
+					font-size: ${p => p.theme.font.size.lg};
+					font-family: ${p => p.theme.font.family.text};
+					line-height: ${p => p.theme.font.height.lg};
+					font-weight: 400;
+				`;
 			case "text-md":
 				return css`
 					font-size: ${p => p.theme.font.size.md};
@@ -57,7 +64,9 @@ export const StyledText = styled.span<{
 	cursor: ${p => (p.cursor ? "pointer" : null)};
 
 	color: ${p =>
-		p.theme.isLight
+		p.color
+			? p.color
+			: p.theme.isLight
 			? p.theme.colors.dark_gray[p.typeText == "text-mdb" ? 400 : 600]
 			: p.theme.colors.light_gray[200]};
 `;

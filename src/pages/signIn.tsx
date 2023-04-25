@@ -4,7 +4,7 @@ import { Modal } from "@/components/molecules/modal";
 import React, { useState } from "react";
 import { Title } from "@/styles/components/text/Title";
 import { Subtitle } from "@/styles/components/text/Subtitle";
-import { TextAtom } from "@/components/atoms/text/text-atom";
+import { Text } from "@/components/atoms/text/index";
 import { TextField } from "@/components/molecules/textfield";
 import { InputPropsComponent } from "@/components/atoms/input";
 import { SizeLogo } from "@/components/atoms/logo";
@@ -51,14 +51,14 @@ function SignIn() {
 
 					<Subtitle large>Entrar</Subtitle>
 
-					<TextAtom
+					<Text
 						typeText="text-md"
 						style={{
 							color: colors.dark_gray[200],
 						}}
 					>
 						Bem vindo de volta! Digite seu e-mail e senha abaixo para entrar.
-					</TextAtom>
+					</Text>
 
 					<Box
 						margin="20px 0"
@@ -108,7 +108,7 @@ function SignIn() {
 						</Button>
 					</Box>
 
-					<TextAtom>
+					<Text>
 						Não possui uma conta?
 						<UnderlineLink
 							href="/signup"
@@ -118,16 +118,16 @@ function SignIn() {
 						>
 							Cadastre-se
 						</UnderlineLink>
-					</TextAtom>
+					</Text>
 
-					<TextAtom
+					<Text
 						typeText="text-sm"
 						style={{
 							color: colors.dark_gray[200],
 						}}
 					>
 						© 2023 Safe Food direitos reservados
-					</TextAtom>
+					</Text>
 				</Box>
 			</Modal>
 		</>

@@ -1,4 +1,3 @@
-import { Box } from "../atoms/box";
 import Header from "../molecules/header";
 import { BannerMobilePlatform } from "../organisms/banner-mobile-platform/banner-mobile-platform";
 
