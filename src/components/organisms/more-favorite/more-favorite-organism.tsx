@@ -3,11 +3,7 @@ import { AvaliationStars } from "@/components/molecules/avaliation-stars";
 import { Subtitle } from "@/styles/components/text/Subtitle";
 import { Button } from "@/components/atoms/button";
 import { TiMediaEjectOutline } from "react-icons/ti";
-import {
-	StyledContainerColumn,
-	StyledContainerRow,
-	StyledCost,
-} from "./more-favorite-organism-style";
+import { StyledCost } from "./more-favorite-organism-style";
 import { TextIcon } from "@/components/molecules/text-icon/text-icon-molecule";
 import { MoreFavoriteType } from "@/app/domain/entities/MoreFavorite";
 import styled from "styled-components";
@@ -15,7 +11,9 @@ import { formatReal } from "@/app/util/convertions/price-br";
 import { StyledColumn } from "../card-establishment-food/card-establishment-food-organism";
 import { Box } from "@/components/atoms/box";
 import { ImageAtom } from "@/components/atoms/img";
-import { Carousel } from "@/components/molecules/carousel";
+import iconNoGluten from "../../../assets/icons8-no-gluten-50.png";
+import iconNoMeat from "../../../assets/icons8-no-meat-50.png";
+import iconNoSoy from "../../../assets/icons8-no-soy-30.png";
 
 export type MoreFavoriteProps = {
 	moreFavoriteType: MoreFavoriteType;
@@ -41,9 +39,9 @@ export const MoreFavoriteOrganism: React.FC<MoreFavoriteProps> = ({
 					// width={"100%"}
 					// height={"100%"}
 					minWidth={500}
-					minHeight={300}
+					minHeight={320}
 					maxWidth={500}
-					maxHeight={300}
+					maxHeight={320}
 					objectFit="cover"
 					borderRadius="lg"
 					cursor
@@ -56,7 +54,7 @@ export const MoreFavoriteOrganism: React.FC<MoreFavoriteProps> = ({
 				justify="space-between"
 				// height="100%"
 				style={{ flexBasis: "50%" }}
-				height="300px"
+				height="320px"
 			>
 				<Box
 					display="flex"
@@ -75,10 +73,42 @@ export const MoreFavoriteOrganism: React.FC<MoreFavoriteProps> = ({
 						{moreFavoriteType.name}
 					</Subtitle>
 					<AvaliationStars avegareRate={1} />
-					<div style={{ flexBasis: "10%" }}></div>
+					<div
+						style={{
+							flexBasis: "14%",
+							height: "20px",
+							display: "flex",
+							justifyContent: "space-between",
+						}}
+					>
+						<ImageAtom
+							src={iconNoGluten}
+							cursor
+						/>
+						<ImageAtom
+							src={iconNoMeat}
+							cursor
+						/>
+						<ImageAtom
+							src={iconNoSoy}
+							cursor
+						/>
+					</div>
 				</Box>
-				<Text>{moreFavoriteType.description}</Text>
-				{/* <Box
+				<Text
+					style={{
+						WebkitLineClamp: 3,
+						display: "-webkit-box",
+						textOverflow: "ellipsis",
+						overflow: "hidden",
+						width: "400px",
+						height: "auto",
+						WebkitBoxOrient: "vertical",
+					}}
+				>
+					{moreFavoriteType.description}
+				</Text>
+				<Box
 					display="flex"
 					flexDiretion="row"
 					style={{
@@ -91,12 +121,8 @@ export const MoreFavoriteOrganism: React.FC<MoreFavoriteProps> = ({
 					}}
 				>
 					{IngredientsList(moreFavoriteType.ingredients!)}
-				</Box> */}
-				<Carousel
-					items={IngredientsListCarousel(moreFavoriteType.ingredients!)}
-					itemSize={4}
-					itemHeight={50}
-				/>
+				</Box>
+
 				<StyledColumn alignItems="start">
 					<StyledCost typeText="text-mdb">
 						{formatReal(moreFavoriteType.price)}
@@ -140,67 +166,22 @@ export const BoxMoreFavorite = styled(Box)`
 	}
 `;
 
-// function IngredientsList(ingredients: string[]) {
-// 	const qtdIngredients = ingredients.length;
-// 	const result = [];
-
-// 	for (let i = 0; i < 5; i++) {
-// 		result.push(
-// 			<StyledTextWithBorder
-// 				style={{
-// 					border: "1px solid green",
-// 					padding: "3px",
-// 					height: "fit-content",
-// 				}}
-// 			>
-// 				{ingredients[i]}
-// 			</StyledTextWithBorder>
-// 		);
-// 		if (qtdIngredients > 5 && i == 4) {
-// 			result.push(
-// 				<Text
-// 					typeText="text-md"
-// 					style={{ alignSelf: "flex-end" }}
-// 				>
-// 					...
-// 				</Text>
-// 			);
-// 		}
-// 	}
-
-// 	return result;
-// }
-
-function IngredientsListCarousel(ingredients: string[]): React.ReactNode[] {
+function IngredientsList(ingredients: string[]) {
 	const qtdIngredients = ingredients.length;
-	const result: React.ReactNode[] = [];
+	const result = [];
 
-	for (let i = 0; i < qtdIngredients; i++) {
-		if (i < 5) {
-			result.push(
-				<Box
-					display="flex"
-					justify="center"
-					style={{
-						height: "fit-content",
-						width: "fit-content",
-					}}
-				>
-					<StyledTextWithBorder
-						style={{
-							border: "1px solid green",
-							padding: "3px",
-							height: "fit-content",
-							width: "fit-content",
-							margin: "0px",
-							textAlign: "center",
-						}}
-					>
-						{ingredients[i]}
-					</StyledTextWithBorder>
-				</Box>
-			);
-		}
+	for (let i = 0; i < 5; i++) {
+		result.push(
+			<StyledTextWithBorder
+				style={{
+					border: "1px solid green",
+					padding: "3px",
+					height: "fit-content",
+				}}
+			>
+				{ingredients[i]}
+			</StyledTextWithBorder>
+		);
 		if (qtdIngredients > 5 && i == 4) {
 			result.push(
 				<Text

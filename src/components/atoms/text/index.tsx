@@ -14,7 +14,7 @@ export type TextProps = {
 	align?: AlignText;
 	cursor?: boolean;
 	color?: string;
-} & React.HTMLAttributes<HTMLButtonElement> &
+} & React.HTMLAttributes<HTMLParagraphElement> &
 	React.HTMLAttributes<PropsWithChildren>;
 
 export const Text: React.FC<TextProps> = ({

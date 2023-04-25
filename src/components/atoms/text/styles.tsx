@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { AlignText, TypeText } from ".";
 
-export const StyledText = styled.span<{
+export const StyledText = styled.p<{
 	typeText: TypeText;
 	color?: string;
 	align?: AlignText;
