@@ -89,6 +89,13 @@ const PreferencesEstablishment: React.FC = () => {
 									cursor={false}
 								/>
 								<Text>Claro</Text>
+								{/* TODO: IMPLEMENTAR RADIO BUTTON */}
+								<input
+									type="radio"
+									name=""
+									id=""
+									style={{ accentColor: "orange" }}
+								/>
 							</Box>
 							<Box
 								display="flex"
@@ -102,12 +109,19 @@ const PreferencesEstablishment: React.FC = () => {
 									cursor={false}
 								/>
 								<Text>Escuro</Text>
+								<input
+									type="radio"
+									name=""
+									id=""
+									style={{ accentColor: "orange" }}
+								/>
 							</Box>
 						</Box>
 					</Box>
 					<Divider
 						color="grey"
 						marginAll="20px"
+						width={"40%"}
 					/>
 					<Box
 						display="flex"
@@ -135,6 +149,7 @@ const PreferencesEstablishment: React.FC = () => {
 					<Divider
 						color="grey"
 						marginAll="30px"
+						width={"40%"}
 					/>
 					<Box
 						display="flex"

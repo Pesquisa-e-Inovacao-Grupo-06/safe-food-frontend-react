@@ -4,10 +4,12 @@ export const Divider = styled.div<{
 	marginTop?: string;
 	marginBottom?: string;
 	marginAll?: string;
-
+	width?: string | number;
 	color?: string;
 }>`
-	width: 100%;
+	width: ${p =>
+		(typeof p.width === "number" ? p.width + "px" : p.width) ?? "100%"};
+
 	height: 1px;
 	margin-top: ${p => {
 		if (p.marginAll != null) {
@@ -26,7 +28,7 @@ export const Divider = styled.div<{
 	background-color: ${p => {
 		if (p.color != null) {
 			return css`
-				${({ theme }) => theme.colors.dark_gray[200]};
+				${({ theme }) => theme.colors.light_gray[600]};
 			`;
 		} else {
 			return css`
