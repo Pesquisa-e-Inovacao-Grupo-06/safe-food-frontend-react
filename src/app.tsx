@@ -9,6 +9,7 @@ import Profile from "./pages/profile-consumer";
 import TermOfService from "./pages/term-of-service";
 import ProfileEstablishment from "./pages/profile-establishment";
 import HomeEstablishment from "./pages/home-establishment";
+import ProductConsumer from "./pages/product-consumer";
 
 type ResponseLoginExample = {
 	name: string;
@@ -58,6 +59,10 @@ export default function App() {
 					<Route
 						path="/home-establishment"
 						element={<HomeEstablishment />}
+					/>
+					<Route
+						path="/product-consumer"
+						element={<ProductConsumer />}
 					/>
 				</Routes>
 			</Router>
