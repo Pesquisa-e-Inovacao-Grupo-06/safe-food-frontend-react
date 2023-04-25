@@ -3,8 +3,8 @@ import { ButtonStyle } from ".";
 
 export const StyledButton = styled.button<{
 	buttonStyle: ButtonStyle;
-	width: string | number,
-	height: string | number;
+	width?: string | number,
+	height?: string | number;
 }>`
 
 	width:  ${p => (typeof p.width === "number" ? p.width + "px" : p.width)};

@@ -7,12 +7,14 @@ import NavbarItem from "@/components/atoms/navbarItem";
 import SignUpButton from "@/components/atoms/navbarItem/btnsignup";
 import Switch from "@/components/atoms/toggle-switch";
 import Sidebar from "../sidebar";
+import { useLocation } from "react-router-dom";
 
 interface Props {
 	toggleTheme(): void;
 }
 
 const Header: React.FC = () => {
+	const { pathname } = useLocation();
 	const [sidebar, setSidebar] = useState(false);
 
 	function toggleSidebar() {
@@ -32,24 +34,15 @@ const Header: React.FC = () => {
 				<LogoAtom />
 			</ContainerLogo>
 			<ul>
-				<li>
-					<NavbarItem
-						to="/"
-						text="Início"
-					/>
-				</li>
-				<li>
-					<NavbarItem
-						to="/about"
-						text="Safe Food"
-					/>
-				</li>
-				<li>
-					<NavbarItem
-						to="/faq"
-						text="FAQ"
-					/>
-				</li>
+				{itemLinkArray.map(({ text, to }) => (
+					<li>
+						<NavbarItem
+							to={to}
+							text={text}
+							isActive={pathname === to}
+						/>
+					</li>
+				))}
 			</ul>
 			<ContainerBtn>
 				<NavbarItem
@@ -67,3 +60,18 @@ const Header: React.FC = () => {
 };
 
 export default Header;
+
+const itemLinkArray = [
+	{
+		text: "Início",
+		to: "/",
+	},
+	{
+		text: "Safe Food",
+		to: "/about",
+	},
+	{
+		text: "FAQ",
+		to: "/faq",
+	},
+];

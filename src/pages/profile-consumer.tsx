@@ -29,7 +29,7 @@ function Profile() {
 					<PProfilePhoto
 						name="profile"
 						id="p1"
-						width="160px"
+						width="125px"
 						justify="start"
 					/>
 				</PContainerProfilePhoto>
@@ -122,6 +122,14 @@ const FormInputs = [
 		input: <Input value="" />,
 	},
 	{
+		span: "Número:",
+		input: <Input value="" />,
+	},
+	{
+		span: "Número telefone:",
+		input: <Input value="" />,
+	},
+	{
 		span: "Senha:",
 		input: (
 			<StyledButton
@@ -184,9 +192,7 @@ const PBtnEditar = styled(StyledButton)`
 	border: 2px solid white;
 
 	@media (max-width: 800px) {
-		margin: 10px 10px 0 0;
 		width: auto;
-		align-self: baseline;
 	}
 `;
 
@@ -199,7 +205,7 @@ const PContainer = styled.div`
 
 const PContainerProfilePhoto = styled.div`
 	position: relative;
-	margin-top: -60px;
+	margin-top: -45px;
 	margin-left: -80px;
 
 	@media (max-width: 800px) {
@@ -254,18 +260,32 @@ const PContainerInfo = styled.div`
 			font-weight: 600;
 		}
 
+		button {
+			width: fit-content;
+		}
+
 		@media (max-width: 800px) {
 			grid-template-columns: 1fr;
 
 			span {
 				margin-bottom: 5px;
 			}
+
+			button {
+				width: 100% !important;
+			}
 		}
+	}
+
+	input {
+		background: ${p =>
+			p.theme.name == "light" ? "" : p.theme.colors.dark_gray[400]};
+		opacity: 100%;
 	}
 `;
 
 const PDivider = styled.div`
-	height: 1.5px;
+	height: 1px;
 	width: 100%;
 	background: ${p =>
 		p.theme.name == "light"
@@ -395,9 +415,15 @@ const PContainerBtn = styled.div`
 	@media (max-width: 800px) {
 		justify-content: flex-start;
 	}
+
+	@media (max-width: 600px) {
+		flex-direction: column-reverse;
+	}
 `;
 
 const PBtnSalvar = styled(StyledButton)`
+	position: sticky;
+	top: 100px;
 	font-size: 16px;
 	background: #087704;
 	border-color: #087704;
@@ -407,6 +433,8 @@ const PBtnSalvar = styled(StyledButton)`
 `;
 
 const PBtnCancelar = styled(StyledButton)`
+	position: sticky;
+	top: 100px;
 	font-size: 16px;
 	max-height: 36px;
 	min-width: 90px;

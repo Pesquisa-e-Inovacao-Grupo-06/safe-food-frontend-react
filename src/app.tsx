@@ -8,6 +8,9 @@ import { makeHttpClient } from "./app/factories/makeAxiosHttpClient";
 import Profile from "./pages/profile-consumer";
 import TermOfService from "./pages/term-of-service";
 import ProfileEstablishment from "./pages/profile-establishment";
+import HomeEstablishment from "./pages/home-establishment";
+import ProductConsumer from "./pages/product-consumer";
+import PreferencesEstablishment from "./pages/preferences-establishment";
 
 type ResponseLoginExample = {
 	name: string;
@@ -53,6 +56,18 @@ export default function App() {
 					<Route
 						path="/term-of-service"
 						element={<TermOfService />}
+					/>
+					<Route
+						path="/home-establishment"
+						element={<HomeEstablishment />}
+					/>
+					<Route
+						path="/product-consumer"
+						element={<ProductConsumer />}
+					/>
+					<Route
+						path="/preferences-establishment"
+						element={<PreferencesEstablishment />}
 					/>
 				</Routes>
 			</Router>

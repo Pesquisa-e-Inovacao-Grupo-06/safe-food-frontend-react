@@ -1,5 +1,5 @@
 import { IconType } from "react-icons/lib";
-import { Container } from "./styles";
+import { ItemSidebarContainer } from "./styles";
 import { Link } from "react-router-dom";
 
 type Props = {
@@ -7,16 +7,17 @@ type Props = {
 	text: string;
 	to: string;
 	onClick: () => void;
+	isActive?: boolean
 };
 
-const SidebarItem = ({ Icon, text, to, onClick }: Props) => {
+const SidebarItem = ({ Icon, text, to, onClick, isActive }: Props) => {
 	return (
-		<Container>
+		<ItemSidebarContainer isActive={isActive}>
 			<Link to={to} onClick={onClick}>
 				<Icon />
 				{text}
 			</Link>
-		</Container>
+		</ItemSidebarContainer>
 	);
 };
 

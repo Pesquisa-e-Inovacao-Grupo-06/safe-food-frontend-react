@@ -14,7 +14,7 @@ export const AddresCardContainer = styled(Box)`
 		background: ${p =>
 			p.theme.name == "light"
 				? p.theme.colors.light_gray[800]
-				: p.theme.colors.dark_gray[200]};
+				: p.theme.colors.dark_gray[400]};
 		border-bottom: 1px solid ${p => p.theme.colors.dark_gray[200]};
 	}
 
