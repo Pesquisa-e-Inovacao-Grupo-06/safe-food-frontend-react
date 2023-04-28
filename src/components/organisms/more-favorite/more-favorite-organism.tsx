@@ -14,6 +14,7 @@ import { ImageAtom } from "@/components/atoms/img";
 import iconNoGluten from "../../../assets/icons8-no-gluten-50.png";
 import iconNoMeat from "../../../assets/icons8-no-meat-50.png";
 import iconNoSoy from "../../../assets/icons8-no-soy-30.png";
+import { useSafeFoodTheme } from "@/app/contexts/SafeFoodThemeProvider";
 
 export type MoreFavoriteProps = {
 	moreFavoriteType: MoreFavoriteType;
@@ -22,6 +23,7 @@ export type MoreFavoriteProps = {
 export const MoreFavoriteOrganism: React.FC<MoreFavoriteProps> = ({
 	moreFavoriteType,
 }) => {
+	const colors = useSafeFoodTheme();
 	return (
 		<BoxMoreFavorite
 			display="flex"
@@ -36,8 +38,6 @@ export const MoreFavoriteOrganism: React.FC<MoreFavoriteProps> = ({
 			<div style={{ width: "500px", height: "300px" }}>
 				<ImageAtom
 					src={moreFavoriteType.img}
-					// width={"100%"}
-					// height={"100%"}
 					minWidth={500}
 					minHeight={320}
 					maxWidth={500}
@@ -105,6 +105,7 @@ export const MoreFavoriteOrganism: React.FC<MoreFavoriteProps> = ({
 						height: "auto",
 						WebkitBoxOrient: "vertical",
 					}}
+					color={"whitegray"}
 				>
 					{moreFavoriteType.description}
 				</Text>
@@ -123,12 +124,10 @@ export const MoreFavoriteOrganism: React.FC<MoreFavoriteProps> = ({
 					{IngredientsList(moreFavoriteType.ingredients!)}
 				</Box>
 
-				<StyledColumn alignItems="start">
-					<StyledCost typeText="text-mdb">
-						{formatReal(moreFavoriteType.price)}
-					</StyledCost>
-					<Button>Ver produto</Button>
-				</StyledColumn>
+				<StyledCost typeText="text-mdb">
+					{formatReal(moreFavoriteType.price)}
+				</StyledCost>
+				<Button width="fit-content">Ver produto</Button>
 
 				<TextIcon
 					icon={<TiMediaEjectOutline />}

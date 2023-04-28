@@ -21,7 +21,7 @@ export const Button: React.FC<ButtonProps> = ({
 	loading = false,
 	sizeLoading,
 	width = "100%",
-	height = 20,
+	height = 40,
 	...props
 }) => {
 	return loading ? (

@@ -15,6 +15,8 @@ export const BodyTemplate: React.FC<BodyTemplateProps> = ({
 		<ContainerFluid>
 			<Divider marginBottom="70px" />
 			{children}
+
+			{/* <Divider marginBottom="70px" /> */}
 			{footer ? <FooterOrganism /> : null}
 		</ContainerFluid>
 	);

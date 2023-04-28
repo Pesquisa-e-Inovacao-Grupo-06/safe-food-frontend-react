@@ -23,14 +23,10 @@ export const CardCarrouselFoodOrganism: React.FC<EstablishmentFoodProps> = ({
 				display="flex"
 				flexDiretion="column"
 				borderRadius="md"
-				// shadow="md"
 				style={{
-					width: "400px",
+					width: "480px",
 					height: "236px",
-					// margin: "10px",
 				}}
-				// height={"auto"}
-				// size="sm"
 			>
 				<div style={{ height: "46%", width: "100%" }}>
 					<img
@@ -46,14 +42,30 @@ export const CardCarrouselFoodOrganism: React.FC<EstablishmentFoodProps> = ({
 						width: "100%",
 						display: "flex",
 						flexDirection: "column",
-						justifyContent: "space-between",
+						justifyContent: "space-around",
 						padding: "10px",
 					}}
 				>
-					<StyledRow>
-						<Subtitle>{establishemntFood.name}</Subtitle>
-						<AvaliationStars avegareRate={establishemntFood.avegareRate} />
-						<div></div>
+					<StyledRow style={{ justifyContent: "unset" }}>
+						<Subtitle
+							style={{
+								WebkitLineClamp: 1,
+								display: "-webkit-box",
+								textOverflow: "ellipsis",
+								overflow: "hidden",
+								width: "200px",
+								height: "auto",
+								WebkitBoxOrient: "vertical",
+								flexBasis: "79.4%",
+							}}
+						>
+							{establishemntFood.name}
+						</Subtitle>
+						<AvaliationStars
+							avegareRate={establishemntFood.avegareRate}
+							style={{ flexBasis: "20.6%" }}
+						/>
+						<div style={{ flexBasis: "10%" }}></div>
 					</StyledRow>
 					<Text typeText="text-md">{establishemntFood.description}</Text>
 					<StyledRow style={{ alignItems: "flex-start" }}>

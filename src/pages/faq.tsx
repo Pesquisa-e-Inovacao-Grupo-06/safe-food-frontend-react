@@ -54,6 +54,8 @@ function FAQ() {
 							<Row
 								justify="space-around"
 								width={80}
+								flexWap="nowap"
+								gap="10px"
 							>
 								<Button
 									onClick={handleIsConsumerSelected}

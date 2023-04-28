@@ -13,10 +13,7 @@ export const CardFaqItemsOrganism: React.FC<CardFaqItemsOrganismProps> = ({
 	function faqItemsList(questionItemList: QuestionItemEntity[]) {
 		return questionItemList.map((item, i) => {
 			const renderItem = () => (
-				<StyledFaqDiv
-					style={{ maxWidth: "49%" }}
-					key={item.title + i}
-				>
+				<StyledFaqDiv key={item.title + i}>
 					<Accordion title={item.title}>{item.text}</Accordion>
 				</StyledFaqDiv>
 			);
@@ -40,15 +37,11 @@ export const CardFaqItemsOrganism: React.FC<CardFaqItemsOrganismProps> = ({
 };
 
 export const StyledFaqDiv = styled.div`
-max-width: "49%";
-backgorund-color: red;
-/* @media(max-width: 1000px) {
-	max-width: "100%";
-	background-color: "red";
-	
-} */
+	max-width: 49%;
+	@media (max-width: 1210px) {
+		max-width: 100%;
+	}
 `;
-
 
 export const StyledBannerMobilePlatformContainer = styled.div`
 	display: grid;

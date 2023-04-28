@@ -20,6 +20,7 @@ export const LandingFormFoodOrganism = ({}) => {
 		<ContainerLanding
 			size="sm"
 			height={"auto"}
+			style={{ width: "100%" }}
 		>
 			<Column style={{ width: "70%" }}>
 				<TextField

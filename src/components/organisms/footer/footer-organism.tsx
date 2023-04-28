@@ -21,7 +21,7 @@ export const FooterOrganism = ({}) => {
 	var iconSize = 20;
 
 	return (
-		<Box margin="0px 0px 100px 0px ">
+		<Box margin="0px 0px 0px 0px ">
 			<StyledFooterContainer>
 				<FooterColumnMolecule title="Informações">
 					<Text cursor> Sobre a Safe Food</Text>
