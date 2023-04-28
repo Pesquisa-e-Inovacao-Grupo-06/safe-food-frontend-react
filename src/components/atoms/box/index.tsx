@@ -8,7 +8,9 @@ export type BoxJustify =
 	| "left"
 	| "right"
 	| "unset"
-	| "flex-start";
+	| "flex-start"
+	| "start";
+
 export type BoxOverflow = "auto" | "hidden" | "visible";
 export type BoxProps = {
 	height?: string;

@@ -10,7 +10,6 @@ import AddresCard from "@/components/molecules/address-card";
 import { MdOutlineCloudDownload, MdOutlineFileDownload } from "react-icons/md";
 import Layout from "@/components/molecules/sidebar-establishment/layout";
 import React from "react";
-import { DownloadRestricions } from "@/app/domain/usecases/DownloadRestricions";
 
 export const ProfileEstablishment: React.FC = () => {
 	return (

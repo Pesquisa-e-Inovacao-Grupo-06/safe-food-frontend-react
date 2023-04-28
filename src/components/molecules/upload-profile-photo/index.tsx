@@ -1,17 +1,17 @@
 import React, { HTMLAttributes, useEffect, useRef, useState } from "react";
 import Camera from "../../../assets/form/camera.svg";
 import { StyledLabelForImage } from "./styles";
-import { Box } from "@/components/atoms/box";
+import { Box, BoxJustify } from "@/components/atoms/box";
 import { Text } from "@/components/atoms/text";
 export type ProfilePhotoUploadWithPreviewProps = {
 	name: string;
 	id: string;
 	width: string;
-	justify?: string;
+	justify?: BoxJustify;
 } & HTMLAttributes<HTMLLabelElement>;
 export const ProfilePhotoUploadWithPreview: React.FC<
 	ProfilePhotoUploadWithPreviewProps
-> = ({ justify = "center", ...props }) => {
+> = ({ justify, ...props }) => {
 	const [preview, setPreview] = useState(Camera);
 	const [fileName, setFilename] = useState("Nenhum arquivo selecionado");
 	return (

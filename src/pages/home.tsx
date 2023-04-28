@@ -1,46 +1,36 @@
+import { makeHttpClient } from "@/app/factories/makeAxiosHttpClient";
 import { HomeTemplate } from "@/components/templates/home-template";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 
-interface User {
-	id: number;
+type ResponseLoginExample = {
 	name: string;
+	token: string;
+};
+type RequestLoginExample = {
 	email: string;
-}
-
-const users: User[] = [
-	{ id: 1, name: "Alice", email: "alice@example.com" },
-	{ id: 2, name: "Bob", email: "bob@example.com" },
-	{ id: 3, name: "Charlie", email: "charlie@example.com" },
-	{ id: 4, name: "David", email: "david@example.com" },
-	{ id: 5, name: "Eve", email: "eve@example.com" },
-	{ id: 6, name: "Frank", email: "frank@example.com" },
-	{ id: 7, name: "Grace", email: "grace@example.com" },
-	{ id: 8, name: "Heidi", email: "heidi@example.com" },
-	{ id: 9, name: "Ivan", email: "ivan@example.com" },
-	{ id: 10, name: "Jasmine", email: "jasmine@example.com" },
-	{ id: 7, name: "Grace", email: "grace@example.com" },
-	{ id: 8, name: "Heidi", email: "heidi@example.com" },
-	{ id: 9, name: "Ivan", email: "ivan@example.com" },
-	{ id: 10, name: "Jasmine", email: "jasmine@example.com" },
-	{ id: 7, name: "Grace", email: "grace@example.com" },
-	{ id: 8, name: "Heidi", email: "heidi@example.com" },
-	{ id: 9, name: "Ivan", email: "ivan@example.com" },
-	{ id: 10, name: "Jasmine", email: "jasmine@example.com" },
-	{ id: 7, name: "Grace", email: "grace@example.com" },
-	{ id: 8, name: "Heidi", email: "heidi@example.com" },
-	{ id: 9, name: "Ivan", email: "ivan@example.com" },
-	{ id: 10, name: "Jasmine", email: "jasmine@example.com" },
-];
-
+	senha: string;
+};
 function Home() {
-	function renderUser(user: User): ReactNode {
-		return (
-			<div key={user.id}>
-				<p>Name: {user.name}</p>
-				<p>Email: {user.email}</p>
-			</div>
-		);
-	}
+	useEffect(() => {
+		(async () => {
+			const baseURL = "http://localhost:8081/usuarios";
+			const http = makeHttpClient(baseURL);
+			let res1 = await http.execute<ResponseLoginExample, RequestLoginExample>({
+				url: "usuarios",
+				method: "POST",
+				contentType: "application/json",
+				body: {
+					email: "example@domain.com",
+					senha: "#Gfformiga123",
+				},
+				paramsURL: {
+					content: 2,
+				},
+			});
+			console.log(res1);
+			// Veja o console e tbm o network do devtools do navegador (filtre por requisições)
+		})();
+	}, []);
 
 	return (
 		<div>

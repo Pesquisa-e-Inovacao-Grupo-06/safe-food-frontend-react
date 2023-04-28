@@ -8,11 +8,11 @@ import {
 import { Box } from "@/components/atoms/box";
 
 export type FooterColumnMoleculeProps = {
-	title?: TextProps;
+	title?: string;
 } & React.PropsWithChildren &
 	React.AllHTMLAttributes<Container>;
 
-type Props = FooterColumnMoleculeProps & TextProps;
+type Props = FooterColumnMoleculeProps;
 
 export const FooterColumnMolecule: React.FC<Props> = ({ title, children }) => {
 	return (

@@ -40,6 +40,8 @@ function Sidebar({ active, toggle }: Props) {
 							to={to}
 							isActive={pathname === to}
 							onClick={toggle}
+							// TODO: VERIFICAR key
+							key={text + icon}
 						/>
 					))}
 				</Content>

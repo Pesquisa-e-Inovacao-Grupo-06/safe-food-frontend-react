@@ -1,7 +1,7 @@
 import React from "react";
 import { ContainerFluid } from "../atoms/container";
 import { Divider } from "../atoms/divider";
-import { FooterOrganism } from "../organisms/footer/footer-organism";
+import FooterOrganism from "../organisms/footer/footer-organism";
 
 type BodyTemplateProps = {
 	footer?: boolean;
