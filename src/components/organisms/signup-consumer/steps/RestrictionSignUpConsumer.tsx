@@ -1,10 +1,11 @@
 import { Box } from "@/components/atoms/box";
 import { Chips } from "@/components/atoms/chips/chips-atom";
-import React, { FC } from "react";
+import { FC } from "react";
 import { HeadingSignUpConsumer } from "../complements/HeadingSignUpConsumer";
+import { Restriction } from "@/app/domain/entities/Restriction";
 
 export const RestrictionSignUpConsumer: FC<{
-	restrictions: string[];
+	restrictions: Restriction[];
 }> = ({ restrictions }) => {
 	return (
 		<>
@@ -24,10 +25,11 @@ export const RestrictionSignUpConsumer: FC<{
 			>
 				{restrictions.map((r, i) => (
 					<Chips
-						key={r + i}
+						key={r.id}
 						sizeChips="chips-lg"
+						title={r.descricao}
 					>
-						{r}
+						{r.name}
 					</Chips>
 				))}
 			</Box>

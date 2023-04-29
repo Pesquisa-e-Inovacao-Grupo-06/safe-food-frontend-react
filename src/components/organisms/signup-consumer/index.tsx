@@ -1,5 +1,5 @@
 import { Modal } from "@/components/molecules/modal";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box } from "@/components/atoms/box";
 import { Button } from "@/components/atoms/button";
 import { UnderlineLink } from "@/components/atoms/underline-link";
@@ -11,19 +11,33 @@ import {
 } from "./steps";
 import { FooterSignUpConsumer } from "./complements/FooterSignUpConsumer";
 import { SignupConsumerProvider } from "@/app/contexts/SignupConsumerProvider";
+import { RestrictionService } from "@/app/domain/services/RestrictionService";
+import { Restriction } from "@/app/domain/entities/Restriction";
 
 export type Steps = "general-info" | "restrictions" | "additional" | "finished";
-export const SignUpConsumer: React.FC = () => {
+
+export type SignUpConsumerProps = {
+	restrictionService: RestrictionService;
+};
+export const SignUpConsumer: React.FC<SignUpConsumerProps> = ({
+	restrictionService,
+}) => {
 	const [step, setStep] = useState<Steps>("additional");
 	const [isModalVisible, setModalVisible] = useState(true);
+	const [restrictions, setRestrictions] = useState<Restriction[]>([]);
+
+	useEffect(() => {
+		(async () => {
+			const result = await restrictionService.findAllRestriction();
+			setRestrictions(result);
+		})();
+	}, []);
 
 	const StepScreen = () => {
 		if (step === "additional") return <AdditionalSignUpConsumer />;
 		if (step === "finished") return <FinishedSignUpConsumer />;
 		if (step === "restrictions")
-			return (
-				<RestrictionSignUpConsumer restrictions={["Gluten", "Gluten", "Gluten"]} />
-			);
+			return <RestrictionSignUpConsumer restrictions={restrictions} />;
 		return <GeneralInfoSignUpConsumer />;
 	};
 	return (

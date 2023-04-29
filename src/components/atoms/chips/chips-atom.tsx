@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useState } from "react";
+import React, { HtmlHTMLAttributes, PropsWithChildren, useState } from "react";
 import { ContainerChips } from "./styles";
 import { IconType } from "react-icons/lib";
 
@@ -7,7 +7,8 @@ export type SizeChips = "chips-sm" | "chips-md" | "chips-lg";
 type PropsChips = {
 	Icon?: IconType | any;
 	sizeChips?: SizeChips;
-} & PropsWithChildren;
+} & PropsWithChildren &
+	HtmlHTMLAttributes<HTMLDivElement>;
 
 export const Chips: React.FC<PropsChips> = ({
 	sizeChips = "chips-md",
@@ -22,6 +23,7 @@ export const Chips: React.FC<PropsChips> = ({
 
 	return (
 		<ContainerChips
+			{...props}
 			sizeChips={sizeChips}
 			favorite={state}
 			onClick={toggleState}

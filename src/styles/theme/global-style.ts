@@ -20,33 +20,37 @@ const GlobalStyles = createGlobalStyle`
   }
   body {
     font-family: ${p =>
-					p.theme.font.family
-						.text}, "Nunito Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    p.theme.font.family
+      .text}, "Nunito Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 100%;
     background-color: ${p => p.theme.colors.background};
     color: ${p => p.theme.colors.text};
     fill: ${p => p.theme.colors.text};
   }
+  //TODO: TERMINAR CONFIGURAÇÃO DE ZOOM
+  /* body.zoom-120{
+    zoom: 120%;
+  } */
   .spin{
     animation: ${rotate} infinite ${p => p.theme.transition.type.elastic} ${p =>
-	p.theme.transition.duration.slow};
+    p.theme.transition.duration.slow};
   }
   .transition{
     transition: all ${({ theme }) => theme.transition.duration.fast} ${({
-	theme,
-}) => theme.transition.type.normal};
+      theme,
+    }) => theme.transition.type.normal};
   }
   .shake{
     transition: all ${({ theme }) => theme.transition.duration.fast} ${({
-	theme,
-}) => theme.transition.type.normal};
+      theme,
+    }) => theme.transition.type.normal};
     animation: ${shake} ${p => p.theme.transition.type.normal} ${p =>
-	p.theme.transition.duration.normal};
+    p.theme.transition.duration.normal};
   }
   input, button {
     transition: ${({ theme }) => theme.transition.duration.fast} ${({
-	theme,
-}) => theme.transition.type.normal};
+      theme,
+    }) => theme.transition.type.normal};
   }
 `;
 

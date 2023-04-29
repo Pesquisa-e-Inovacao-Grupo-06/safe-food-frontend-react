@@ -168,7 +168,7 @@ const PreferencesEstablishment: React.FC = () => {
 							defaultValue={100}
 							// getAriaValueText={valuetext}
 							valueLabelDisplay="auto"
-							step={3}
+							step={20}
 							marks={marksZoom}
 							min={80}
 							max={120}

@@ -1,14 +1,17 @@
+import { makeHttpClient } from "@/app/factories/makeAxiosHttpClient";
+import { RemoteRestrictionService } from "@/app/infra/services/RemoteRestrictionService";
 import { SignUpConsumer } from "@/components/organisms/signup-consumer";
-import { SignUpEstablishment } from "@/components/organisms/signup-establishment";
-import React from "react";
 
 function SignUp() {
+	const service = new RemoteRestrictionService(
+		makeHttpClient("http://localhost:8081")
+	);
 	return (
 		<div style={{ paddingTop: "75px" }}>
 			<h1>SignUp</h1>
 
-			{/*<SignUpConsumer />*/}
-			<SignUpEstablishment />
+			<SignUpConsumer restrictionService={service} />
+			{/* <SignUpEstablishment /> */}
 		</div>
 	);
 }
