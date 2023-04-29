@@ -4,7 +4,6 @@ import About from "./pages/about";
 import FAQ from "./pages/faq";
 import SignIn from "./pages/signIn";
 import SignUp from "./pages/signUp";
-import { makeHttpClient } from "./app/factories/makeAxiosHttpClient";
 import Profile from "./pages/profile-consumer";
 import TermOfService from "./pages/term-of-service";
 import ProfileEstablishment from "./pages/profile-establishment";
@@ -12,14 +11,6 @@ import HomeEstablishment from "./pages/home-establishment";
 import ProductConsumer from "./pages/product-consumer";
 import PreferencesEstablishment from "./pages/preferences-establishment";
 
-type ResponseLoginExample = {
-	name: string;
-	token: string;
-};
-type RequestLoginExample = {
-	email: string;
-	password: string;
-};
 export default function App() {
 	return (
 		<>
@@ -74,8 +65,3 @@ export default function App() {
 		</>
 	);
 }
-
-export type UserType = {
-	email: string;
-	password: string;
-};
