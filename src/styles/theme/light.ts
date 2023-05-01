@@ -51,18 +51,10 @@ export const lightTheme: DefaultTheme = {
 			"600": "#a03d44",
 		},
 		success: {
-<<<<<<< HEAD
-			"200": "#C7FFCC",
-			"400": "#84F2A3",
-			"600": "#40EE72",
-			"800": "#18A942",
-			"1000": "#008526",
-=======
 			"200": "#e6feed",
 			"400": "#40e76f",
 			"600": "#18A942",
 			"800": "#008526",
->>>>>>> origin/feature/components-alerts
 		},
 		warning: {
 			"200": "#fbf9c2",

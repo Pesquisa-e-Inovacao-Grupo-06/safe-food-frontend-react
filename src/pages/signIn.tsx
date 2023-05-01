@@ -11,6 +11,7 @@ import { PasswordValidator } from "@/app/util/validations/password-validator";
 import { EmailValidator } from "@/app/util/validations/email-validator";
 import { UserService } from "@/app/domain/services/UserService";
 import { IoAlertSharp } from "react-icons/io5";
+import { Alert } from "@/components/atoms/alert";
 
 type SignInProps = {
 	useCase: UserService;
@@ -67,6 +68,7 @@ function SignIn({ useCase, emailValidator, passwordValidator }: SignInProps) {
 					>
 						Bem vindo de volta! Digite seu e-mail e senha abaixo para entrar.
 					</Text>
+					<Alert type="warning">Usuario nao encontrado</Alert>
 					<Box
 						margin="20px 0"
 						display="flex"
