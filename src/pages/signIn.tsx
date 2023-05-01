@@ -2,21 +2,29 @@ import { Box } from "@/components/atoms/box";
 import { Button } from "@/components/atoms/button";
 import { Modal } from "@/components/molecules/modal";
 import React, { useState } from "react";
-import { Title } from "@/styles/components/text/Title";
 import { Subtitle } from "@/styles/components/text/Subtitle";
 import { Text } from "@/components/atoms/text/index";
 import { TextField } from "@/components/molecules/textfield";
-import { InputPropsComponent } from "@/components/atoms/input";
-import { SizeLogo } from "@/components/atoms/logo";
-import { LogoAtom } from "@/components/atoms/logo";
-import { InputEmailSignUp } from "@/components/organisms/signup-consumer/inputs/InputEmailSignUpConsumer";
-import { InputValidator } from "@/app/util/validations/input-validator";
 import { UnderlineLink } from "@/components/atoms/underline-link";
 import { useSafeFoodTheme } from "@/app/contexts/SafeFoodThemeProvider";
+import { PasswordValidator } from "@/app/util/validations/password-validator";
+import { EmailValidator } from "@/app/util/validations/email-validator";
+import { UserService } from "@/app/domain/services/UserService";
+import { IoAlertSharp } from "react-icons/io5";
 
-function SignIn() {
+type SignInProps = {
+	useCase: UserService;
+	passwordValidator: PasswordValidator;
+	emailValidator: EmailValidator;
+};
+function SignIn({ useCase, emailValidator, passwordValidator }: SignInProps) {
 	const [isModalVisible, setModalVisible] = useState(true);
 	const { colors } = useSafeFoodTheme().getTheme();
+
+	const [email, setEmail] = useState("");
+	const [errorEmail, setErrorEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [errorPassword, setErrorPassword] = useState("");
 	return (
 		<>
 			<Button onClick={() => setModalVisible(!isModalVisible)}>Abrir modal</Button>
@@ -59,7 +67,6 @@ function SignIn() {
 					>
 						Bem vindo de volta! Digite seu e-mail e senha abaixo para entrar.
 					</Text>
-
 					<Box
 						margin="20px 0"
 						display="flex"
@@ -73,28 +80,50 @@ function SignIn() {
 							label="Email:"
 							required
 							id="email"
-							value=""
+							value={email}
 							placeholder="email@exemple.com"
 							type="email"
 							name="general-email"
 							inputMode="email"
 							max={100}
 							min={10}
-							onChange={ev => {}}
+							onChange={ev => {
+								let str = ev.currentTarget.value;
+								let value = emailValidator.format(str);
+								setEmail(value);
+								const errors = emailValidator.validate(value);
+								if (errors.length > 0) {
+									setErrorEmail(errors.join(";"));
+								} else {
+									setErrorEmail("");
+								}
+							}}
+							error={errorEmail}
 						/>
 
 						<TextField
 							label="Senha:"
 							required
 							id="password"
-							value=""
-							placeholder="*******"
+							value={password}
+							placeholder="********"
 							type="password"
 							name="general-password"
 							inputMode="text"
-							max={100}
-							min={10}
-							onChange={ev => {}}
+							max={20}
+							min={8}
+							onChange={ev => {
+								const str = ev.currentTarget.value;
+								const value = passwordValidator.format(str);
+								setPassword(value);
+								const errors = passwordValidator.validate(value);
+								if (errors.length > 0) {
+									setErrorPassword(errors.join(";"));
+								} else {
+									setErrorPassword("");
+								}
+							}}
+							error={errorPassword}
 						/>
 
 						<UnderlineLink href="forget-password">Esqueceu a senha?</UnderlineLink>
@@ -102,6 +131,35 @@ function SignIn() {
 						<Button
 							style={{
 								width: "100%",
+							}}
+							onClick={() => {
+								if (
+									errorEmail ||
+									errorPassword ||
+									email.length == 0 ||
+									password.length == 0
+								) {
+									console.log("preencha todos os campos corretamente");
+									return;
+								}
+								useCase
+									.SignIn(email, password)
+									.then(res => {
+										if (res?.status == 400) {
+											// tratamento dos campos
+											console.log("Verifique suas credenciais");
+											return;
+										}
+										if (res?.status == 404) {
+											// mostrar alerta
+											console.log("email nao encontrado");
+											return;
+										}
+										console.log(res);
+									})
+									.catch(err => {
+										console.error(err);
+									});
 							}}
 						>
 							Entrar

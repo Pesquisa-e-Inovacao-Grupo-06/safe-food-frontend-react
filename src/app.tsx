@@ -10,8 +10,13 @@ import ProfileEstablishment from "./pages/profile-establishment";
 import HomeEstablishment from "./pages/home-establishment";
 import ProductConsumer from "./pages/product-consumer";
 import PreferencesEstablishment from "./pages/preferences-establishment";
+import { RemoteSignInService } from "./app/infra/services/RemoteSignInService";
+import { makeHttpClient } from "./app/factories/makeAxiosHttpClient";
+import { EmailValidator } from "./app/util/validations/email-validator";
+import { PasswordValidator } from "./app/util/validations/password-validator";
 
 export default function App() {
+	const client = makeHttpClient("http://localhost:8081");
 	return (
 		<>
 			<Router>
@@ -30,7 +35,13 @@ export default function App() {
 					/>
 					<Route
 						path="/signin"
-						element={<SignIn />}
+						element={
+							<SignIn
+								emailValidator={new EmailValidator(5, 100)}
+								passwordValidator={new PasswordValidator(7, 20)}
+								useCase={new RemoteSignInService(client)}
+							/>
+						}
 					/>
 					<Route
 						path="/signup"

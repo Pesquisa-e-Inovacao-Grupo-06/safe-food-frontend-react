@@ -20,7 +20,8 @@ export class AxiosHttpClient implements HttpClient<AxiosAllHeaders>{
             data: body,
             url: url,
             auth: basicAuth,
-            params: paramsURL
+            params: paramsURL,
+            validateStatus: ()=>true
         });
 
         const response: HttpResponse<M> = {

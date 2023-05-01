@@ -1,5 +1,5 @@
-import { User } from "../entities/User";
+import {RemoteModelSignIn} from "@/app/infra/models/RemoteModelSignin";
 
 export interface UserService {
-    SignIn(): Promise<User>;
+    SignIn(email: string, password: string): Promise<RemoteModelSignIn|null>;
 }
