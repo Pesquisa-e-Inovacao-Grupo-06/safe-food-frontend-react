@@ -6,7 +6,7 @@ import { Box } from "@/components/atoms/box";
 import { Label } from "@/components/atoms/label";
 import { ListItem } from "@/components/atoms/list-item";
 
-export type TextFieldProps = {
+export type TextFieldProps = InputIconProps & {
 	label: string;
 	id: string;
 	autoFocus?: boolean;
