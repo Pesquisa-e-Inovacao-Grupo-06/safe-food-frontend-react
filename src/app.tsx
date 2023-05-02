@@ -11,6 +11,7 @@ import ProfileEstablishment from "./pages/profile-establishment";
 import HomeEstablishment from "./pages/home-establishment";
 import ProductConsumer from "./pages/product-consumer";
 import PreferencesEstablishment from "./pages/preferences-establishment";
+import HomeConsumer from "./pages/home-consumer";
 
 type ResponseLoginExample = {
 	name: string;
@@ -68,6 +69,10 @@ export default function App() {
 					<Route
 						path="/preferences-establishment"
 						element={<PreferencesEstablishment />}
+					/>
+					<Route
+						path="/home-consumer"
+						element={<HomeConsumer />}
 					/>
 				</Routes>
 			</Router>
