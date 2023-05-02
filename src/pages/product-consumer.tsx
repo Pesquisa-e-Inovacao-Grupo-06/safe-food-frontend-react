@@ -1,86 +1,634 @@
-import Header from "@/components/molecules/header"
-import { FooterOrganism } from "@/components/organisms/footer/footer-organism";
+import Header from "@/components/molecules/header";
 import { BodyTemplate } from "@/components/templates/body-template";
 import styled from "styled-components";
+import {
+	StyledColumn,
+	StyledCost,
+	StyledRow,
+} from "@/components/organisms/card-establishment-food/card-establishment-food-organism";
+import { Subtitle } from "@/styles/components/text/Subtitle";
+import { Text } from "@/components/atoms/text";
+import { AvaliationStars } from "@/components/molecules/avaliation-stars";
+import { Box } from "@/components/atoms/box";
+import { MdLocationOn, MdPhoneEnabled } from "react-icons/md";
+import { AiFillClockCircle } from "react-icons/ai";
+import { SiHomeassistantcommunitystore } from "react-icons/si";
+import imgTeste from "../assets/food-favorite.png";
+import { ButtonIcon } from "@/components/molecules/button/button-icon";
+import { FaMapMarkedAlt } from "react-icons/fa";
+import ProgressBar from "@/components/molecules/progress-bar";
+import { StyledButton } from "@/components/atoms/button/styles";
+import TextArea from "@/components/atoms/textarea";
+import BoxComent from "@/components/molecules/box-coment";
 
 const ProductConsumer: React.FC = () => {
-    return (
-        <>
-            <Header />
-            <BodyTemplate footer>
-                <ContainerProductConsumer>
-                    <div className="header-product-consumer"></div>
-                    <div className="main-product-consumer">
-                        <div className="img-product-consumer"></div>
-                        <div className="info-product-consumer"></div>
-                        <div className="comentario-product-consumer"></div>
-                    </div>
-                </ContainerProductConsumer>
-            </BodyTemplate>
-        </>
-    )
-}
+	return (
+		<>
+			<Header />
+			<BodyTemplate footer>
+				<ContainerProductConsumer>
+					<div className="header-product-consumer"></div>
+					<div className="main-product-consumer">
+						<div className="img-product-consumer">
+							<img src="https://midias.agazeta.com.br/2022/05/25/hamburguer-da-101-brasa-burger-em-vila-velha-769174-article.jpg" />
+						</div>
+						<div className="info-product-consumer">
+							<StyledColumn style={{ margin: "14px", alignItems: "start" }}>
+								<Subtitle>Hamburguer Vegan 2.0</Subtitle>
+								<Text style={{ height: "fit-content" }}>
+									Aproveite todo o sabor de um clássico hambúrguer sem sacrificar seus
+									princípios veganos com o nosso revolucionário Hambúrguer 2.0 Vegan.
+									Feito com ingredientes de origem vegetal de alta qualidade, este
+									hambúrguer é uma deliciosa opção para quem busca uma alimentação mais
+									saudável e sustentável. Com sua textura suculenta e sabor inigualável,
+									é perfeito para qualquer refeição, desde um lanche rápido até um jantar
+									sofisticado. Experimente agora e descubra o futuro do hambúrguer
+									vegano!
+								</Text>
+								<StyledRow>
+									<AvaliationStars
+										color="orange"
+										avegareRate={1}
+									/>
+									<Text>(1200 avaliações)</Text>
+								</StyledRow>
+								<Box className="container-ingredientes-product-info">
+									{categoriaResgisterProduct.map((r, i) => (
+										<span className="ingredientes-product-info">{r}</span>
+									))}
+								</Box>
+								<StyledCost typeText="text-mdb">
+									R$ 45,00<span>Unidade</span>
+								</StyledCost>
+							</StyledColumn>
+							<div className="info-local">
+								<MdLocationOn className="icon-one-info-local" />
+								<Text>
+									Rua das Flores, 123 - Bairro Central, Cidade Imaginária, Estado XPTO -
+									CEP 00000-000
+								</Text>
+							</div>
+							<div className="info-local">
+								<AiFillClockCircle className="icon-two-info-local" />
+								<Text>Tempo de espera: 40 min</Text>
+							</div>
+							<div className="info-local">
+								<SiHomeassistantcommunitystore className="icon-three-info-local" />
+								<Text>
+									Funcionamento: Segunda a sábado, das 11h às 22h; aos domingos, das 12h
+									às 20h.
+								</Text>
+							</div>
+							<div className="info-local">
+								<MdPhoneEnabled className="icon-four-info-local" />
+								<Text>Telefone: (00) 0000-0000</Text>
+							</div>
+							<Box className="container-store-info-local">
+								<img src={imgTeste} />
+								<Text>
+									<h3>GreenBite - Comida Vegetariana e Vegana.</h3>
+									<span>20 Produtos</span>
+								</Text>
+							</Box>
+							<ButtonIcon icon={<FaMapMarkedAlt />}>VISUALIZAR</ButtonIcon>
+							<Subtitle className="subtitulo-avaliacao-info-product">
+								Avaliações
+							</Subtitle>
+							<Box className="container-evaluation-info-product">
+								<div className="container-progress-bar">
+									<div className="progress-bar-1">
+										<Text>9 - 10</Text>
+										<ProgressBar value={90} />
+									</div>
+									<div className="progress-bar-2">
+										<Text>7 - 8</Text>
+										<ProgressBar value={70} />
+									</div>
+									<div className="progress-bar-3">
+										<Text>5 - 6</Text>
+										<ProgressBar value={50} />
+									</div>
+									<div className="progress-bar-4">
+										<Text>3 - 4</Text>
+										<ProgressBar value={30} />
+									</div>
+									<div className="progress-bar-5">
+										<Text>1 - 2</Text>
+										<ProgressBar value={10} />
+									</div>
+								</div>
+								<div className="container-circulo-value">
+									<div className="circulo-value">
+										<Text>9,0</Text>
+									</div>
+									<Subtitle>
+										<h3>Excelente</h3>
+										<span>1400 reviews</span>
+									</Subtitle>
+								</div>
+							</Box>
+						</div>
+						<div className="comentario-product-consumer">
+							<Box className="container-comentario-product-consumer-first-row">
+								<Subtitle>Contribua</Subtitle>
+								<Text>Dê uma nota para sua experiência</Text>
+								<div className="comentario-product-avaliation-start">
+									<AvaliationStars
+										color="orange"
+										avegareRate={1}
+									/>
+									<ul>
+										<li>MUITO BOM</li>
+									</ul>
+								</div>
+								<Text>Faça um comentário</Text>
+								<TextArea height="42px" />
+								<StyledButton buttonStyle="filled">CONTRIBUIR</StyledButton>
+							</Box>
+							<Box className="container-comentario-product-consumer-second-row">
+								<Subtitle>Comentários</Subtitle>
+								<div className="container-comentario-product-text">
+									<BoxComent
+										name="Denise Oliveira"
+										date="09/09/2022"
+										qtdComentario={4}
+										comentario="Eu sou vegetariana há alguns anos e já experimentei muitos
+											hambúrgueres vegetarianos e veganos, mas devo dizer que o Hambúrguer
+											2.0 Vegan do GreenBite é realmente impressionante! A textura é
+											perfeita e o sabor é incrível, eu não conseguia acreditar que não era
+											carne de verdade! Além disso, adorei a ideia de que é uma opção mais
+											saudável e sustentável para o meio ambiente. Com certeza vou voltar
+											para experimentar mais opções do menu."
+									/>
+									<BoxComent />
+									<BoxComent />
+								</div>
+							</Box>
+						</div>
+					</div>
+				</ContainerProductConsumer>
+			</BodyTemplate>
+		</>
+	);
+};
 
 export default ProductConsumer;
 
+const categoriaResgisterProduct = ["Ingrediente", "Ingrediente", "Ingrediente"];
+
 const ContainerProductConsumer = styled.div`
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 0fr 0fr;
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 0fr 0fr;
 
-    grid-template-areas: "header" "main";
-    
-    .header-product-consumer {
-        background: red;
-        height: 10dvh;
-        grid-area: header;
-    }
-    
-    .main-product-consumer {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 1fr;
+	grid-template-areas: "header" "main";
 
-        grid-template-areas: "img" "coment" "info";
+	.header-product-consumer {
+		height: 10dvh;
+		grid-area: header;
+	}
 
-        height: 70dvh;
-        background: blue;
-        grid-area: main;
-    }
+	.main-product-consumer {
+		display: grid;
+		grid-template-columns: 0.8fr 1fr;
+		grid-template-rows: 1fr 1fr;
+		grid-column-gap: 40px;
 
-    .img-product-consumer {
-        background: gray;
-        grid-area: img;
-    }
+		grid-template-areas: "img" "coment";
 
-    .info-product-consumer {
-        grid-column-start: 2;
-        grid-column-end: 2;
-        grid-row-start: 1;
-        grid-row-end: 3;
-        background: black;
-    }
+		grid-area: main;
+	}
 
-    .comentario-product-consumer {
-        background: orange;
-        grid-area: coment;
-    }
+	.img-product-consumer {
+		grid-area: img;
 
-    @media (max-width: 600px) {
-        .main-product-consumer {
-            grid-template-columns: 1fr;
-            grid-template-rows: 1fr 1fr 1fr;
+		> img {
+			max-height: 100%;
+			object-fit: cover;
+			width: 100%;
+			border-radius: 8px;
+		}
+	}
 
-            grid-template-areas: "img" "info" "coment";
-        }
+	.info-product-consumer {
+		grid-column-start: 2;
+		grid-row: 1 / 3;
+		padding: 0 60px;
 
-        .info-product-consumer {
-            grid-area: info;
-        }
-    
-        .comentario-product-consumer {
-            grid-area: coment;
-        }
-        
-    }
-`
+		> div {
+			margin: 14px 0 !important;
+
+			> h2:nth-child(1) {
+				font-size: 36px;
+			}
+
+			> div:nth-child(3) {
+				justify-content: flex-start;
+				gap: 15px;
+			}
+
+			> span:nth-child(5) {
+				margin: 15px 0 15px 0;
+				background: none;
+				padding: 0;
+				font-size: 48px;
+				color: ${p => p.theme.colors.primary[600]};
+				> span {
+					margin-left: 10px;
+					font-size: 14px;
+				}
+
+				@media (max-width: 1000px) {
+					font-size: 38px;
+				}
+
+				@media (max-width: 800px) {
+					font-size: 48px;
+				}
+
+				@media (max-width: 500px) {
+					font-size: 38px;
+				}
+			}
+
+			@media (max-width: 800px) {
+				margin: 25px 0 0 0 !important;
+			}
+		}
+
+		.container-ingredientes-product-info {
+			display: flex;
+			justify-content: flex-start;
+			gap: 10px;
+			overflow-x: auto;
+			contain: inline-size;
+
+			::-webkit-scrollbar {
+				width: 8px;
+				height: 8px;
+			}
+
+			/* Track */
+
+			::-webkit-scrollbar-track {
+				background-color: ${p =>
+					p.theme.name == "light"
+						? p.theme.colors.light_gray[200]
+						: p.theme.colors.dark_gray[1000]};
+			}
+
+			/* Handle */
+
+			::-webkit-scrollbar-thumb {
+				background-color: ${p =>
+					p.theme.name == "light"
+						? p.theme.colors.light_gray[600]
+						: p.theme.colors.dark_gray[800]};
+				border-radius: 50px;
+				border: 3px solid
+					${p =>
+						p.theme.name == "light"
+							? p.theme.colors.light_gray[200]
+							: p.theme.colors.dark_gray[1000]};
+			}
+
+			/* Handle on Hover */
+
+			::-webkit-scrollbar-thumb:hover {
+				background-color: ${p =>
+					p.theme.name == "light"
+						? p.theme.colors.light_gray[800]
+						: p.theme.colors.dark_gray[800]};
+			}
+			.ingredientes-product-info {
+				margin-bottom: 3px;
+				padding: 5px 16px;
+				background: #087704;
+				border-radius: 30px;
+				text-align: center;
+				color: ${p => p.theme.colors.light_gray[200]};
+			}
+		}
+
+		.info-local {
+			display: grid;
+			grid-template-columns: 30px 1fr;
+			grid-column-gap: 10px;
+			align-items: center;
+			margin: 5px 0 !important;
+
+			svg {
+				height: min-content;
+				width: 25px;
+				place-self: flex-start;
+				justify-self: center;
+				fill: #087704;
+			}
+
+			.icon-two-info-local {
+				width: 21px;
+			}
+
+			.icon-three-info-local {
+				width: 17px;
+			}
+
+			.icon-four-info-local {
+				width: 21px;
+			}
+		}
+
+		.container-store-info-local {
+			display: flex;
+			justify-content: flex-start;
+			gap: 10px;
+			align-items: center;
+			margin: 25px 0 !important;
+
+			img {
+				height: 36px;
+				width: 36px;
+				border-radius: 50px;
+			}
+
+			> span {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				color: ${p =>
+					p.theme.name == "light"
+						? p.theme.colors.dark_gray[400]
+						: p.theme.colors.light_gray[200]};
+
+				> h3 {
+					font-size: 16px;
+					line-height: 16px;
+				}
+
+				> span {
+					font-size: 12px;
+					line-height: 12px;
+				}
+			}
+		}
+
+		> button:nth-child(7) {
+			max-width: fit-content;
+			font-weight: 500;
+			gap: 8px;
+
+			@media (max-width: 500px) {
+				max-width: 100%;
+			}
+		}
+
+		.subtitulo-avaliacao-info-product {
+			margin-top: 40px;
+			font-size: 32px;
+
+			@media (max-width: 600px) {
+				text-align: center;
+			}
+		}
+
+		.container-evaluation-info-product {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
+
+			.container-progress-bar {
+				display: grid;
+				grid-row-gap: 5px;
+
+				> div > span {
+					font-size: 14px;
+					font-weight: 600;
+					place-self: center;
+				}
+
+				.progress-bar-1,
+				.progress-bar-2,
+				.progress-bar-3,
+				.progress-bar-4,
+				.progress-bar-5 {
+					display: grid;
+					grid-template-columns: 35px 1fr;
+					align-items: center;
+					grid-column-gap: 10px;
+				}
+			}
+
+			.container-circulo-value {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				gap: 15px;
+				height: 132px;
+
+				.circulo-value {
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					height: 60px;
+					width: 60px;
+					border-radius: 100%;
+					border: 3.5px solid #087704;
+
+					> span {
+						font-size: 24px;
+						font-weight: 600;
+						color: #087704;
+						padding-bottom: 4px;
+					}
+				}
+
+				> h2 {
+					line-height: 15px;
+					> h3 {
+						font-size: 24px;
+						line-height: 24px;
+					}
+
+					> span {
+						font-size: 14px;
+						line-height: 14px;
+						font-weight: 500;
+						color: ${p =>
+							p.theme.name == "light"
+								? p.theme.colors.dark_gray[200]
+								: p.theme.colors.light_gray[800]};
+					}
+				}
+			}
+		}
+	}
+
+	.comentario-product-consumer {
+		grid-area: coment;
+		padding: 30px 0;
+
+		.container-comentario-product-consumer-first-row {
+			> h2 {
+				margin-bottom: 8px;
+			}
+
+			.comentario-product-avaliation-start {
+				display: flex;
+				margin: 3px 0 8px 0;
+
+				ul {
+					list-style: none;
+					color: ${p => p.theme.colors.primary[600]};
+					font-weight: 600;
+				}
+
+				li::before {
+					content: "•";
+					color: ${p => p.theme.colors.primary[600]};
+					display: inline-block;
+					font-weight: bold;
+					width: 1em;
+					margin-left: 10px;
+				}
+			}
+
+			> textarea {
+				margin-top: 4px;
+			}
+
+			> button {
+				margin-top: 12px;
+				font-weight: 600;
+				padding: 4px 20px;
+				font-size: 16px;
+			}
+		}
+
+		.container-comentario-product-consumer-second-row {
+			margin-top: 30px;
+			height: 250px;
+
+			.container-comentario-product-text {
+				margin-top: 10px;
+				height: 100%;
+				padding: 10px 0;
+
+				overflow-x: auto;
+
+				::-webkit-scrollbar {
+					width: 8px;
+					height: 8px;
+				}
+
+				/* Track */
+
+				::-webkit-scrollbar-track {
+					background-color: ${p =>
+						p.theme.name == "light"
+							? p.theme.colors.light_gray[200]
+							: p.theme.colors.dark_gray[600]};
+				}
+
+				/* Handle */
+
+				::-webkit-scrollbar-thumb {
+					background-color: ${p =>
+						p.theme.name == "light"
+							? p.theme.colors.light_gray[600]
+							: p.theme.colors.dark_gray[800]};
+					border-radius: 50px;
+					border: 3px solid
+						${p =>
+							p.theme.name == "light"
+								? p.theme.colors.light_gray[200]
+								: p.theme.colors.dark_gray[600]};
+				}
+
+				/* Handle on Hover */
+
+				::-webkit-scrollbar-thumb:hover {
+					background-color: ${p =>
+						p.theme.name == "light"
+							? p.theme.colors.light_gray[800]
+							: p.theme.colors.black};
+				}
+
+				.box-coment {
+					height: fit-content;
+					display: flex;
+					flex-direction: column;
+					padding: 8px;
+					border-radius: ${p => p.theme.border.radius.md};
+					background: ${p =>
+						p.theme.name == "light"
+							? p.theme.colors.light_gray[400]
+							: p.theme.colors.dark_gray[600]};
+
+					border: 1px solid
+						${p =>
+							p.theme.name == "light" ? "transparent" : p.theme.colors.dark_gray[400]};
+					box-shadow: ${p => p.theme.colors.shadow[200]};
+					color: ${p =>
+						p.theme.name == "light"
+							? p.theme.colors.dark_gray[600]
+							: p.theme.colors.light_gray[600]};
+					gap: 10px;
+
+					.header-comentario-product-text {
+						display: flex;
+						justify-content: flex-start;
+						gap: 10px;
+						align-items: center;
+
+						img {
+							height: 36px;
+							width: 36px;
+							border-radius: 50px;
+						}
+
+						> span {
+							display: flex;
+							flex-direction: column;
+							justify-content: center;
+							color: ${p =>
+								p.theme.name == "light"
+									? p.theme.colors.dark_gray[400]
+									: p.theme.colors.light_gray[200]};
+
+							> h3 {
+								font-size: 16px;
+								line-height: 16px;
+							}
+
+							> span {
+								font-size: 12px;
+								line-height: 12px;
+							}
+						}
+					}
+
+					> span {
+						font-size: 12px;
+					}
+				}
+			}
+		}
+	}
+
+	@media (max-width: 800px) {
+		.main-product-consumer {
+			grid-template-columns: 1fr;
+			grid-template-rows: 0fr 0fr 0fr;
+
+			grid-template-areas: "img" "info" "coment";
+		}
+
+		.info-product-consumer {
+			grid-area: info;
+			padding: 0;
+		}
+
+		.comentario-product-consumer {
+			grid-area: coment;
+		}
+	}
+`;
