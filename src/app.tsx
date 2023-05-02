@@ -10,13 +10,24 @@ import ProfileEstablishment from "./pages/profile-establishment";
 import HomeEstablishment from "./pages/home-establishment";
 import ProductConsumer from "./pages/product-consumer";
 import PreferencesEstablishment from "./pages/preferences-establishment";
-import { RemoteSignInService } from "./app/infra/services/RemoteSignInService";
-import { makeHttpClient } from "./app/factories/makeAxiosHttpClient";
-import { EmailValidator } from "./app/util/validations/email-validator";
-import { PasswordValidator } from "./app/util/validations/password-validator";
+import { SafeFoodUserGateway } from "./app/infra/gateway/safefood/SafeFoodUserGateway";
+import { SafeFoodConsumerGateway } from "./app/infra/gateway/safefood/SafeFoodConsumerGateway";
+import { SafeFoodRestrictionGateway } from "./app/infra/gateway/safefood/SafeFoodRestrictionGateway";
+import { AxiosHttpClient } from "./app/infra/protocols/AxiosHttpClient";
+import { Cache } from "./app/domain/protocols/Cache";
 
-export default function App() {
-	const client = makeHttpClient("http://localhost:8081");
+type AppProps = {
+	cache: Cache;
+	userGateway: SafeFoodUserGateway;
+	consumerGateway: SafeFoodConsumerGateway;
+	restrictionsGateway: SafeFoodRestrictionGateway;
+};
+export default function App({
+	cache,
+	consumerGateway,
+	restrictionsGateway,
+	userGateway,
+}: AppProps) {
 	return (
 		<>
 			<Router>
@@ -37,9 +48,8 @@ export default function App() {
 						path="/signin"
 						element={
 							<SignIn
-								emailValidator={new EmailValidator(5, 100)}
-								passwordValidator={new PasswordValidator(7, 20)}
-								useCase={new RemoteSignInService(client)}
+								gateway={userGateway}
+								cache={cache}
 							/>
 						}
 					/>

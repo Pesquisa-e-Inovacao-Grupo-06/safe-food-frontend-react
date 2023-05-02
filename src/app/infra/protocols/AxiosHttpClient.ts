@@ -1,4 +1,4 @@
-import {HttpClient, HttpClientMethodParams, HttpResponse} from "@/app/domain/services/HttpClient";
+import {HttpClient, HttpClientMethodParams, HttpResponse} from "@/app/domain/protocols/HttpClient";
 import axios, {RawAxiosResponseHeaders, AxiosResponseHeaders} from 'axios'
 
 type AxiosAllHeaders = RawAxiosResponseHeaders | AxiosResponseHeaders;

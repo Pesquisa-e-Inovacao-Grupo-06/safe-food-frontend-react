@@ -1,8 +1,8 @@
 import {Address} from "@/app/domain/entities/Address";
-import {AddressModel} from "../models/AddressModelViaCep";
+import {AddressViaCepModel} from "../models/AddressModelViaCep";
 
 export class AddressMapper {
-    public static viaCepToEntity(add: AddressModel): Address {
+    public static viaCepToEntity(add: AddressViaCepModel): Address {
         const { cep, complemento,localidade, logradouro, uf} = add;
         return new Address({
             cep,
