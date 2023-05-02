@@ -5,7 +5,7 @@ import { Text } from "../atoms/text";
 import { Modal } from "../molecules/modal";
 import { Button } from "../atoms/button";
 import { Box } from "../atoms/box";
-import { Alert } from "../atoms/alert";
+import { Alert, AlertType } from "../atoms/alert";
 import { TextField } from "../molecules/textfield";
 import { UnderlineLink } from "../atoms/underline-link";
 export type SignInTemplateProps = {
@@ -18,6 +18,9 @@ export type SignInTemplateProps = {
 	email: string;
 	password: string;
 	onClickLogin(): void;
+	isAlertVisible?: boolean;
+	typeAlert?: AlertType;
+	textAlert?: string;
 };
 export const SignInTemplate: React.FC<SignInTemplateProps> = ({
 	isModalVisible,
@@ -29,6 +32,9 @@ export const SignInTemplate: React.FC<SignInTemplateProps> = ({
 	onChangeInputPassword,
 	password,
 	onClickLogin,
+	isAlertVisible,
+	typeAlert,
+	textAlert,
 }) => {
 	const { colors } = useSafeFoodTheme().getTheme();
 
@@ -63,9 +69,7 @@ export const SignInTemplate: React.FC<SignInTemplateProps> = ({
 						src="/src/assets/svg-logo.svg"
 						alt="Logo-Safe-Food"
 					/>
-
 					<Subtitle large>Entrar</Subtitle>
-
 					<Text
 						typeText="text-md"
 						style={{
@@ -74,7 +78,9 @@ export const SignInTemplate: React.FC<SignInTemplateProps> = ({
 					>
 						Bem vindo de volta! Digite seu e-mail e senha abaixo para entrar.
 					</Text>
-					<Alert type="warning">Usuario nao encontrado</Alert>
+					{isAlertVisible ? (
+						<Alert type={typeAlert ?? "info"}>{textAlert}</Alert>
+					) : null}
 					<Box
 						margin="20px 0"
 						display="flex"
@@ -125,7 +131,6 @@ export const SignInTemplate: React.FC<SignInTemplateProps> = ({
 							Entrar
 						</Button>
 					</Box>
-
 					<Text>
 						Não possui uma conta?
 						<UnderlineLink
@@ -137,7 +142,6 @@ export const SignInTemplate: React.FC<SignInTemplateProps> = ({
 							Cadastre-se
 						</UnderlineLink>
 					</Text>
-
 					<Text
 						typeText="text-sm"
 						style={{
