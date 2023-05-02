@@ -55,8 +55,9 @@ export const ContainerBoxComent = styled(Box)`
 			}
 		}
 	}
-
+	
 	> span {
 		font-size: 12px;
+		place-self: flex-start;
 	}
 `;
