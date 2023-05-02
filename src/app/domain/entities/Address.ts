@@ -1,11 +1,11 @@
-export type AddressParams =
-{
+export type AddressParams = {
   cep: string,
   logradouro: string,
   complemento: string,
   cidade: string,
-  estado: string
-  numero: string
+  estado: string,
+  numero: string,
+  apelido: string,
 }
         
 export class Address {

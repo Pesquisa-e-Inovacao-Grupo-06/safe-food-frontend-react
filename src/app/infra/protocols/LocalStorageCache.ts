@@ -1,4 +1,4 @@
-import {Cache} from "@/app/domain/services/Cache";
+import {Cache} from "@/app/domain/protocols/Cache";
 
 export class LocalStorageCache implements Cache {
 	setItem(key: string, value: string): boolean {

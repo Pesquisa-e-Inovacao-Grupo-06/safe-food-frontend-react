@@ -1,4 +1,4 @@
-import {HttpClient, HttpClientMethodParams, HttpResponse} from "@/app/domain/services/HttpClient";
+import {HttpClient, HttpClientMethodParams, HttpResponse} from "@/app/domain/protocols/HttpClient";
 import axios, {RawAxiosResponseHeaders, AxiosResponseHeaders} from 'axios'
 
 type AxiosAllHeaders = RawAxiosResponseHeaders | AxiosResponseHeaders;
@@ -20,7 +20,8 @@ export class AxiosHttpClient implements HttpClient<AxiosAllHeaders>{
             data: body,
             url: url,
             auth: basicAuth,
-            params: paramsURL
+            params: paramsURL,
+            validateStatus: ()=>true
         });
 
         const response: HttpResponse<M> = {

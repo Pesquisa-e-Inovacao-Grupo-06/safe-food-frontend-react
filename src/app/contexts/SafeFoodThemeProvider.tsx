@@ -9,7 +9,7 @@ import {
 	useState,
 } from "react";
 import { DefaultTheme, ThemeProvider } from "styled-components";
-import { Cache } from "../domain/services/Cache";
+import { Cache } from "../domain/protocols/Cache";
 type Sizes = "xsm" | "sm" | "md" | "lg" | "xlg" | "xxlg";
 type BreakpointObject = {
 	size: Sizes;

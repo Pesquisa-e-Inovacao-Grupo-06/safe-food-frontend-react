@@ -1,136 +1,105 @@
-import { Box } from "@/components/atoms/box";
-import { Button } from "@/components/atoms/button";
-import { Modal } from "@/components/molecules/modal";
-import React, { useState } from "react";
-import { Title } from "@/styles/components/text/Title";
-import { Subtitle } from "@/styles/components/text/Subtitle";
-import { Text } from "@/components/atoms/text/index";
-import { TextField } from "@/components/molecules/textfield";
-import { InputPropsComponent } from "@/components/atoms/input";
-import { SizeLogo } from "@/components/atoms/logo";
-import { LogoAtom } from "@/components/atoms/logo";
-import { InputEmailSignUp } from "@/components/organisms/signup-consumer/inputs/InputEmailSignUpConsumer";
-import { InputValidator } from "@/app/util/validations/input-validator";
-import { UnderlineLink } from "@/components/atoms/underline-link";
-import { useSafeFoodTheme } from "@/app/contexts/SafeFoodThemeProvider";
+import React, { ChangeEvent, useCallback, useState } from "react";
+import { SafeFoodUserGateway } from "@/app/infra/gateway/safefood/SafeFoodUserGateway";
+import { SignInTemplate } from "@/components/templates/sign-in-template";
+import { useInputsValidator } from "@/app/contexts/InputValidatorsProvider";
+import { Cache } from "@/app/domain/protocols/Cache";
 
-function SignIn() {
+type SignInProps = {
+	gateway: SafeFoodUserGateway;
+	cache: Cache;
+};
+function SignIn({ gateway, cache }: SignInProps) {
+	const { getEmailValidator, getPasswordValidator } = useInputsValidator();
+	const emailValidator = getEmailValidator(8, 100);
+	const passwordValidator = getPasswordValidator(8, 20);
+
+	const [email, setEmail] = useState("");
+	const [errorEmail, setErrorEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [errorPassword, setErrorPassword] = useState("");
+
 	const [isModalVisible, setModalVisible] = useState(true);
-	const { colors } = useSafeFoodTheme().getTheme();
+
+	const changeEmail = useCallback(
+		(ev: ChangeEvent<HTMLInputElement>) => {
+			let str = ev.currentTarget.value;
+			let value = emailValidator.format(str);
+			setEmail(value);
+			const errors = emailValidator.validate(value);
+			if (errors.length > 0) {
+				setErrorEmail(errors.join(";"));
+			} else {
+				setErrorEmail("");
+			}
+		},
+		[email, errorEmail, setEmail, setErrorEmail]
+	);
+
+	const changePassword = useCallback(
+		(ev: ChangeEvent<HTMLInputElement>) => {
+			const str = ev.currentTarget.value;
+			const value = passwordValidator.format(str);
+			setPassword(value);
+			const errors = passwordValidator.validate(value);
+			if (errors.length > 0) {
+				setErrorPassword(errors.join(";"));
+			} else {
+				setErrorPassword("");
+			}
+		},
+		[password, setPassword, errorPassword, setErrorPassword]
+	);
+
+	const onClickLogin = useCallback(() => {
+		if (
+			errorEmail ||
+			errorPassword ||
+			email.length == 0 ||
+			password.length == 0
+		) {
+			console.log(errorEmail);
+			console.log(errorPassword);
+			console.log(email);
+			console.log(password);
+			console.log("preencha todos os campos corretamente");
+			return;
+		}
+		gateway
+			.login({
+				email: email,
+				senha: password,
+			})
+			.then(res => {
+				if (res?.status == 400) {
+					// tratamento dos campos
+					console.log("Verifique suas credenciais");
+					return;
+				}
+				if (res?.status == 404) {
+					// mostrar alerta
+					console.log("email nao encontrado");
+					return;
+				}
+				cache.setItem("token", res.token);
+				window.location.href = "/profile-consumer";
+			})
+			.catch(err => {
+				console.error(err);
+			});
+	}, [email, password]);
+
 	return (
-		<>
-			<Button onClick={() => setModalVisible(!isModalVisible)}>Abrir modal</Button>
-
-			<Modal
-				size="sm"
-				height="md"
-				padding="20px 20px 40px 20px"
-				responsive
-				isOpen={isModalVisible}
-				onClickForeground={() => setModalVisible(!isModalVisible)}
-			>
-				<Box
-					display="flex"
-					justify="left"
-					alignItems="baseline"
-					flexDiretion="column"
-					padding="20px"
-					height="90%"
-					margin="auto"
-					gap={"12px"}
-					maxWidth={"400px"}
-					alignSelf="center"
-				>
-					<img
-						style={{
-							marginLeft: -12,
-						}}
-						src="/src/assets/svg-logo.svg"
-						alt="Logo-Safe-Food"
-					/>
-
-					<Subtitle large>Entrar</Subtitle>
-
-					<Text
-						typeText="text-md"
-						style={{
-							color: colors.dark_gray[200],
-						}}
-					>
-						Bem vindo de volta! Digite seu e-mail e senha abaixo para entrar.
-					</Text>
-
-					<Box
-						margin="20px 0"
-						display="flex"
-						flexDiretion="column"
-						gap="20px"
-						style={{
-							alignItems: "flex-end",
-						}}
-					>
-						<TextField
-							label="Email:"
-							required
-							id="email"
-							value=""
-							placeholder="email@exemple.com"
-							type="email"
-							name="general-email"
-							inputMode="email"
-							max={100}
-							min={10}
-							onChange={ev => {}}
-						/>
-
-						<TextField
-							label="Senha:"
-							required
-							id="password"
-							value=""
-							placeholder="*******"
-							type="password"
-							name="general-password"
-							inputMode="text"
-							max={100}
-							min={10}
-							onChange={ev => {}}
-						/>
-
-						<UnderlineLink href="forget-password">Esqueceu a senha?</UnderlineLink>
-
-						<Button
-							style={{
-								width: "100%",
-							}}
-						>
-							Entrar
-						</Button>
-					</Box>
-
-					<Text>
-						Não possui uma conta?
-						<UnderlineLink
-							href="/signup"
-							style={{
-								marginLeft: 8,
-							}}
-						>
-							Cadastre-se
-						</UnderlineLink>
-					</Text>
-
-					<Text
-						typeText="text-sm"
-						style={{
-							color: colors.dark_gray[200],
-						}}
-					>
-						© 2023 Safe Food direitos reservados
-					</Text>
-				</Box>
-			</Modal>
-		</>
+		<SignInTemplate
+			email={email}
+			errorEmail={errorEmail}
+			errorPassword={errorPassword}
+			isModalVisible={isModalVisible}
+			toggleModal={() => setModalVisible(!isModalVisible)}
+			password={password}
+			onChangeInputEmail={changeEmail}
+			onClickLogin={onClickLogin}
+			onChangeInputPassword={changePassword}
+		/>
 	);
 }
 
