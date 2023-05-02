@@ -32,7 +32,7 @@ function SignIn({ gateway, cache }: SignInProps) {
 				setErrorEmail("");
 			}
 		},
-		[email]
+		[email, errorEmail, setEmail, setErrorEmail]
 	);
 
 	const changePassword = useCallback(
@@ -47,7 +47,7 @@ function SignIn({ gateway, cache }: SignInProps) {
 				setErrorPassword("");
 			}
 		},
-		[email]
+		[password, setPassword, errorPassword, setErrorPassword]
 	);
 
 	const onClickLogin = useCallback(() => {
@@ -57,6 +57,10 @@ function SignIn({ gateway, cache }: SignInProps) {
 			email.length == 0 ||
 			password.length == 0
 		) {
+			console.log(errorEmail);
+			console.log(errorPassword);
+			console.log(email);
+			console.log(password);
 			console.log("preencha todos os campos corretamente");
 			return;
 		}
@@ -77,11 +81,12 @@ function SignIn({ gateway, cache }: SignInProps) {
 					return;
 				}
 				cache.setItem("token", res.token);
+				window.location.href = "/profile-consumer";
 			})
 			.catch(err => {
 				console.error(err);
 			});
-	}, []);
+	}, [email, password]);
 
 	return (
 		<SignInTemplate

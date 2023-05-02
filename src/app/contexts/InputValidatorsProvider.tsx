@@ -19,7 +19,7 @@ export const inputsValidatorsContext = createContext<InputsValidatorParams>(
 export const useInputsValidator = () => useContext(inputsValidatorsContext);
 
 export type InputsValidatorProviderProps = {} & PropsWithChildren;
-export const SignupConsumerProvider: FC<
+export const InputsValidatorProvider: FC<
 	InputsValidatorProviderProps
 > = props => {
 	return (
