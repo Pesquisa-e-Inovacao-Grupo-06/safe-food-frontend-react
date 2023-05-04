@@ -1,5 +1,5 @@
 import {HttpClient} from "@/app/domain/protocols/HttpClient";
-import {SafeFoodTipoRestricaoModel} from "./models/SafeFoodRestriction";
+import {SafeFoodRestrictionModel, SafeFoodTipoRestricaoModel} from "./models/SafeFoodRestriction";
 
 export class SafeFoodRestrictionGateway {
 
@@ -8,21 +8,21 @@ export class SafeFoodRestrictionGateway {
     async getById(id: number): Promise<SafeFoodTipoRestricaoModel>{
         const res = await this.http.execute<SafeFoodTipoRestricaoModel>({
             url: `/restricoes/${id}`,
-            method: 'POST',
+            method: 'GET',
         })
         if(!res.data){
-            throw new Error("Erro ao realizar requisicao de Login")
+            throw new Error("Erro ao realizar requisicao de pegar restricao por id")
         }
         return res.data;    
     
     }
-    async getAll(): Promise<SafeFoodTipoRestricaoModel[]>{
-        const res = await this.http.execute<SafeFoodTipoRestricaoModel[]>({
+    async getAll(): Promise<SafeFoodRestrictionModel[]>{
+        const res = await this.http.execute<SafeFoodRestrictionModel[]>({
             url: `/restricoes`,
-            method: 'POST',
+            method: 'GET',
         })
         if(!res.data){
-            throw new Error("Erro ao realizar requisicao de Login")
+            throw new Error("Erro ao realizar requisicao de pegar restricoes")
         }
         return res.data;    
     }

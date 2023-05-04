@@ -9,11 +9,12 @@ export type SafeFoodUpdateConsumerRequest = {
     restricoes: number[]
 } & SafeFoodUpdateUserRequest;
 
-
+export type SafeFoodSaveProfileImage = {
+  file?: File
+}
 export type SafeFoodCreateConsumerRequest = {
-    enderecos: SafeFoodCreateAddressRequest[],
-} & SafeFoodCreateUserRequest & SafeFoodUpdateConsumerRequest;
-
+    dataNascimento: string | Date
+} & SafeFoodCreateUserRequest & SafeFoodUpdateConsumerRequest & SafeFoodCreateAddressRequest & SafeFoodSaveProfileImage;
 
 // response
 export type SafeFoodConsumerResponse = SafeFoodGenericDataResponse<

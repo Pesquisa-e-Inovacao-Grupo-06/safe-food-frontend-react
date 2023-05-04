@@ -13,21 +13,23 @@ import PreferencesEstablishment from "./pages/preferences-establishment";
 import { SafeFoodUserGateway } from "./app/infra/gateway/safefood/SafeFoodUserGateway";
 import { SafeFoodConsumerGateway } from "./app/infra/gateway/safefood/SafeFoodConsumerGateway";
 import { SafeFoodRestrictionGateway } from "./app/infra/gateway/safefood/SafeFoodRestrictionGateway";
-import { AxiosHttpClient } from "./app/infra/protocols/AxiosHttpClient";
 import { Cache } from "./app/domain/protocols/Cache";
 import { InputsValidatorProvider } from "./app/contexts/InputValidatorsProvider";
+import { ViaCepGateway } from "./app/infra/gateway/viacep/ViaCepGateway";
 
 type AppProps = {
 	cache: Cache;
 	userGateway: SafeFoodUserGateway;
 	consumerGateway: SafeFoodConsumerGateway;
 	restrictionsGateway: SafeFoodRestrictionGateway;
+	viaCepGateway: ViaCepGateway;
 };
 export default function App({
 	cache,
 	consumerGateway,
 	restrictionsGateway,
 	userGateway,
+	viaCepGateway,
 }: AppProps) {
 	return (
 		<>
@@ -57,7 +59,13 @@ export default function App({
 						/>
 						<Route
 							path="/signup"
-							element={<SignUp />}
+							element={
+								<SignUp
+									cache={cache}
+									viaCepGateway={viaCepGateway}
+									gateway={consumerGateway}
+								/>
+							}
 						/>
 						<Route
 							path="/profile-consumer"

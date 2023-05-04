@@ -1,14 +1,18 @@
 import {
+	Dispatch,
 	FC,
 	PropsWithChildren,
+	SetStateAction,
 	createContext,
 	useContext,
 	useState,
 } from "react";
+import { SafeFoodCreateConsumerRequest } from "../infra/gateway/safefood/models/SafeFoodConsumer";
+import { SafeFoodCreateAddressRequest } from "../infra/gateway/safefood/models/SafeFoodAddress";
 
 export type SignupConsumerContextParams = {
-	saveFormData: (form: FormData) => void;
-	getFormData: FormData;
+	consumer: SafeFoodCreateConsumerRequest;
+	setConsumer: Dispatch<SetStateAction<SafeFoodCreateConsumerRequest>>;
 	errors: string[];
 	saveErrors: (errors: string[]) => void;
 };
@@ -22,16 +26,31 @@ export type SignupConsumerProviderProps = {} & PropsWithChildren;
 export const SignupConsumerProvider: FC<
 	SignupConsumerProviderProps
 > = props => {
-	const [data, setData] = useState<FormData>(new FormData());
 	const [errors, setErrors] = useState<string[]>([]);
+	const [consumer, setConsumer] = useState<SafeFoodCreateConsumerRequest>({
+		dataNascimento: "",
+		email: "",
+		nome: "",
+		senha: "",
+		telefone: "",
+		restricoes: [],
+		apelido: "",
+		bairro: "",
+		cep: "",
+		cidade: "",
+		complemento: "",
+		numero: "",
+		estado: "",
+		logradouro: "",
+	} as SafeFoodCreateConsumerRequest);
 
 	return (
 		<signupConsumerContext.Provider
 			value={{
-				saveFormData: setData,
-				getFormData: data,
 				errors,
 				saveErrors: setErrors,
+				consumer,
+				setConsumer,
 			}}
 		>
 			{props.children}

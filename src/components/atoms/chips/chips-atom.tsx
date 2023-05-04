@@ -7,26 +7,27 @@ export type SizeChips = "chips-sm" | "chips-md" | "chips-lg";
 type PropsChips = {
 	Icon?: IconType | any;
 	sizeChips?: SizeChips;
+	onClick(state: boolean): void;
 } & PropsWithChildren &
 	HtmlHTMLAttributes<HTMLDivElement>;
 
 export const Chips: React.FC<PropsChips> = ({
 	sizeChips = "chips-md",
 	children,
+	onClick,
 	...props
 }) => {
 	const [state, setState] = useState<boolean>(false);
-
-	function toggleState() {
-		setState(!state);
-	}
-
 	return (
 		<ContainerChips
 			{...props}
 			sizeChips={sizeChips}
 			favorite={state}
-			onClick={toggleState}
+			onClick={() => {
+				const newState = !state;
+				setState(newState);
+				onClick(newState);
+			}}
 			className="transition"
 		>
 			<p>{children}</p>

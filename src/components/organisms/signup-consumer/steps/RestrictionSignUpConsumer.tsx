@@ -3,10 +3,12 @@ import { Chips } from "@/components/atoms/chips/chips-atom";
 import { FC } from "react";
 import { HeadingSignUpConsumer } from "../complements/HeadingSignUpConsumer";
 import { Restriction } from "@/app/domain/entities/Restriction";
+import { useSignupConsumer } from "@/app/contexts/SignupConsumerProvider";
 
 export const RestrictionSignUpConsumer: FC<{
 	restrictions: Restriction[];
 }> = ({ restrictions }) => {
+	const { consumer, setConsumer } = useSignupConsumer();
 	return (
 		<>
 			<HeadingSignUpConsumer
@@ -27,6 +29,27 @@ export const RestrictionSignUpConsumer: FC<{
 					<Chips
 						key={r.id}
 						sizeChips="chips-lg"
+						onClick={st => {
+							const data = consumer.restricoes;
+							if (st) {
+								data.push(r.id);
+								setConsumer({
+									...consumer,
+									restricoes: data,
+								});
+							} else {
+								const index = data.indexOf(r.id);
+								if (index > -1) {
+									data.splice(index, 1);
+								}
+							}
+							console.log(consumer);
+
+							setConsumer({
+								...consumer,
+								restricoes: data,
+							});
+						}}
 						title={r.descricao}
 					>
 						{r.name}

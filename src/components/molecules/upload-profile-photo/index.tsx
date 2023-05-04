@@ -8,6 +8,7 @@ export type ProfilePhotoUploadWithPreviewProps = {
 	id: string;
 	width: string;
 	justify?: BoxJustify;
+	onChangeFile?(file: File): void;
 } & HTMLAttributes<HTMLLabelElement>;
 export const ProfilePhotoUploadWithPreview: React.FC<
 	ProfilePhotoUploadWithPreviewProps
@@ -53,6 +54,7 @@ export const ProfilePhotoUploadWithPreview: React.FC<
 							const img = URL.createObjectURL(file);
 							setPreview(img);
 							setFilename(file.name);
+							if (props.onChangeFile) props.onChangeFile(file);
 						}
 					} else {
 						setPreview(Camera);

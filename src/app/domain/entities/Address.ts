@@ -5,6 +5,7 @@ export type AddressParams = {
   cidade: string,
   estado: string,
   numero: string,
+  bairro: string,
   apelido: string,
 }
         
