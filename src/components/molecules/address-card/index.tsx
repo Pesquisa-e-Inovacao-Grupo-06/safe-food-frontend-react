@@ -6,7 +6,7 @@ import { IconType } from "react-icons/lib";
 import { MdEdit } from "react-icons/md";
 import { Box } from "@/components/atoms/box";
 
-type AddresCardProps = {
+export type AddresCardProps = {
 	Icon?: IconType;
 	subtitle?: string;
 	text?: string;
