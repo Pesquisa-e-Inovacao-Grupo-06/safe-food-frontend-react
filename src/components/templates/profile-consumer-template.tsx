@@ -11,18 +11,23 @@ import { Chips } from "@/components/atoms/chips/chips-atom";
 import AddresCard, {
 	AddresCardProps,
 } from "@/components/molecules/address-card";
-import { Form } from "@/components/molecules/form";
+import { Form, FormProps } from "@/components/molecules/form";
 import { Button } from "@/components/atoms/button";
 import { Restriction } from "@/app/domain/entities/Restriction";
+import { InputPropsComponent } from "../atoms/input";
 
 export type ProfileProps = {
 	restrictions: Restriction[];
-	address: AddresCardProps[];
+	listOfAddress: AddresCardProps[];
+	form: InputPropsComponent[];
+	urlDefault: string;
 };
 
 export const ProfileTemplate: React.FC<ProfileProps> = ({
 	restrictions,
-	address: listOfAddress,
+	listOfAddress,
+	form,
+	urlDefault,
 }) => {
 	return (
 		<>
@@ -43,20 +48,13 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 						id="p1"
 						width="125px"
 						justify="start"
+						urlDefault={urlDefault}
 					/>
 				</PContainerProfilePhoto>
 				<PContainerSub>
 					<PContainerInfo>
 						<PDivider />
-						<Form
-							listOfComponent={[
-								{ name: "Nome:", value: "" },
-								{ name: "Email:", value: "" },
-								{ name: "Número:", value: "" },
-								{ name: "Número telefone:", value: "" },
-								{ name: "Senha:", value: "" },
-							]}
-						></Form>
+						<Form listOfComponent={form}></Form>
 						<PDivider />
 						<PContainerInfo2>
 							<div className="pcontainerinfo2-sub">
