@@ -3,6 +3,7 @@ import { SafeFoodUserGateway } from "@/app/infra/gateway/safefood/SafeFoodUserGa
 import { SignInTemplate } from "@/components/templates/sign-in-template";
 import { useInputsValidator } from "@/app/contexts/InputValidatorsProvider";
 import { Cache } from "@/app/domain/protocols/Cache";
+import { AlertType } from "@/components/atoms/alert";
 
 type SignInProps = {
 	gateway: SafeFoodUserGateway;
@@ -11,14 +12,17 @@ type SignInProps = {
 function SignIn({ gateway, cache }: SignInProps) {
 	const { getEmailValidator, getPasswordValidator } = useInputsValidator();
 	const emailValidator = getEmailValidator(8, 100);
-	const passwordValidator = getPasswordValidator(8, 20);
+	const passwordValidator = getPasswordValidator(0, 200);
 
 	const [email, setEmail] = useState("");
 	const [errorEmail, setErrorEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [errorPassword, setErrorPassword] = useState("");
-
 	const [isModalVisible, setModalVisible] = useState(true);
+	//TODO: MELHORAR LÓGICA DE ALERT (LINCOLN)
+	const [isVisibleAlert, setIsVisibleAlert] = useState<boolean>(false);
+	const [typeAlert, setTypeAlert] = useState<AlertType>();
+	const [textAlert, setTextAlert] = useState<string>();
 
 	const changeEmail = useCallback(
 		(ev: ChangeEvent<HTMLInputElement>) => {
@@ -61,7 +65,10 @@ function SignIn({ gateway, cache }: SignInProps) {
 			console.log(errorPassword);
 			console.log(email);
 			console.log(password);
-			console.log("preencha todos os campos corretamente");
+			console.log("preencha todos os campos corretamente!");
+			setIsVisibleAlert(true);
+			setTypeAlert("warning");
+			setTextAlert("Preencha todos os campos corretamente!");
 			return;
 		}
 		gateway
@@ -71,16 +78,23 @@ function SignIn({ gateway, cache }: SignInProps) {
 			})
 			.then(res => {
 				if (res?.status == 400) {
-					// tratamento dos campos
-					console.log("Verifique suas credenciais");
+					setIsVisibleAlert(true);
+					setTypeAlert("warning");
+					setTextAlert("Verifique suas credenciais!");
+					console.log("Verifique suas credenciais!");
 					return;
 				}
 				if (res?.status == 404) {
-					// mostrar alerta
-					console.log("email nao encontrado");
+					setIsVisibleAlert(true);
+					setTypeAlert("danger");
+					setTextAlert("email nao encontrado!");
+					console.log("email nao encontrado!");
 					return;
 				}
 				cache.setItem("token", res.token);
+				setIsVisibleAlert(true);
+				setTypeAlert("success");
+				setTextAlert("Logado com sucesso!");
 				window.location.href = "/profile-consumer";
 			})
 			.catch(err => {
@@ -99,6 +113,9 @@ function SignIn({ gateway, cache }: SignInProps) {
 			onChangeInputEmail={changeEmail}
 			onClickLogin={onClickLogin}
 			onChangeInputPassword={changePassword}
+			isAlertVisible={isVisibleAlert}
+			typeAlert={typeAlert}
+			textAlert={textAlert}
 		/>
 	);
 }
