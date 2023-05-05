@@ -13,7 +13,10 @@ export class SafeFoodUserGateway {
             body: data,
         })
         if(!res.data){
-            throw new Error("Erro ao realizar requisicao de Login")
+            return {
+                status: res.statusCode,
+                statusMessage: res.statusMessage,
+            } as SafeFoodLoginResponse
         }
         return res.data;
     }
