@@ -1,9 +1,9 @@
-import {HttpClient} from "@/app/domain/protocols/HttpClient";
-import {SafeFoodLoginResponse, SafeFoodLoginUserRequest } from "./models/SafeFoodUser";
+import { HttpClient } from "@/app/domain/protocols/HttpClient";
+import { SafeFoodLoginResponse, SafeFoodLoginUserRequest } from "./models/SafeFoodUser";
 
 export class SafeFoodUserGateway {
 
-    constructor (private readonly http: HttpClient){}
+    constructor(private readonly http: HttpClient) { }
 
 
     async login(data: SafeFoodLoginUserRequest): Promise<SafeFoodLoginResponse> {
@@ -12,7 +12,7 @@ export class SafeFoodUserGateway {
             method: 'POST',
             body: data,
         })
-        if(!res.data){
+        if (!res.data) {
             return {
                 status: res.statusCode,
                 statusMessage: res.statusMessage,

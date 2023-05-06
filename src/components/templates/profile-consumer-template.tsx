@@ -15,10 +15,11 @@ import { Form, FormProps } from "@/components/molecules/form";
 import { Button } from "@/components/atoms/button";
 import { Restriction } from "@/app/domain/entities/Restriction";
 import { InputPropsComponent } from "../atoms/input";
+import { Address } from "@/app/domain/entities/Address";
 
 export type ProfileProps = {
 	restrictions: Restriction[];
-	listOfAddress: AddresCardProps[];
+	listOfAddress: Address[];
 	form: InputPropsComponent[];
 	urlDefault: string;
 };
@@ -71,11 +72,24 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 								</PBtnAdicionarEndereco>
 							</div>
 							<PContainerAddressCard>
-								{listOfAddress.map(adress => (
+								{listOfAddress.map((adress, i) => (
 									<AddresCard
-										text={adress.text}
-										subtitle={adress.subtitle}
-										Icon={adress.Icon}
+										text={adress.params.apelido}
+										subtitle={
+											adress.params.bairro +
+											"," +
+											adress.params.numero +
+											"," +
+											adress.params.cidade +
+											"," +
+											adress.params.estado +
+											"," +
+											adress.params.cep +
+											","
+										}
+										//VERIFICAR SOBRE ESSE ICONE
+										// Icon={adress.Icon}
+										key={i}
 									></AddresCard>
 								))}
 							</PContainerAddressCard>
@@ -96,6 +110,8 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 									<Chips
 										key={restriction.name + "item"}
 										sizeChips="chips-lg"
+										//TODO: verificar com o guilherme
+										onClick={() => {}}
 									>
 										{restriction.name}
 									</Chips>
