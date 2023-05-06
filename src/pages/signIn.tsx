@@ -5,16 +5,19 @@ import { AlertType } from "@/components/atoms/alert";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/app/contexts/AuthProvider";
 import { SafeFoodConsumerGateway } from "@/app/infra/gateway/safefood/SafeFoodConsumerGateway";
+import { Cache } from "@/app/domain/protocols/Cache";
 
 type SignInProps = {
 	gateway: SafeFoodUserGateway;
 	consumerGateway: SafeFoodConsumerGateway;
 	establishmentGateway: SafeFoodConsumerGateway;
+	cache: Cache;
 };
 function SignIn({
 	gateway,
 	consumerGateway,
 	establishmentGateway,
+	cache,
 }: SignInProps) {
 	const navigate = useNavigate();
 	const [loading, setLoading] = useState(false);
@@ -43,7 +46,7 @@ function SignIn({
 		[setPassword]
 	);
 
-	const onClickLogin = useCallback(() => {
+	const onClickLogin = () => {
 		setIsVisibleAlert(false);
 		setLoading(true);
 		if (email.length == 0 || password.length == 0) {
@@ -72,11 +75,19 @@ function SignIn({
 				setTextAlert("Logado com sucesso!");
 
 				if (res.usuario.tipoUsuario === "CONSUMIDOR") {
-					consumerGateway.findById(res.usuario.id).then(data => {
-						// TODO: SETAR OS DADOS DO USUARIO AQUI? OU DENTRO DA PAGINA DE FATO? VAMOS CRIAR OUTRO PROVIDER PRA ELE?
-					});
-					navigate("/profile");
+					consumerGateway
+						.findById(res.usuario.id)
+						.then(data => {
+							cache.setItem("consumer", JSON.stringify(data.data));
+						})
+						.finally(() => {
+							navigate("/profile");
+						});
 				} else if (res.usuario.tipoUsuario === "ESTABELECIMENTO") {
+					// TODO: setar cache do estabelecimento
+					//consumerGateway.findById(res.usuario.id).then(data => {
+					//	cache.setItem("consumer", JSON.stringify(data.data));
+					//});
 					navigate("/profile-establishment");
 				}
 			})
@@ -84,7 +95,7 @@ function SignIn({
 				console.error(err);
 			})
 			.finally(() => setLoading(false));
-	}, [email, password]);
+	};
 
 	return (
 		<SignInTemplate

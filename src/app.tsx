@@ -55,6 +55,7 @@ export default function App({
 								path="/signin"
 								element={
 									<SignIn
+										cache={cache}
 										gateway={userGateway}
 										consumerGateway={consumerGateway}
 										establishmentGateway={consumerGateway}
@@ -75,10 +76,7 @@ export default function App({
 								path="/profile"
 								element={
 									<AuthRoute userAuth="CONSUMIDOR">
-										<Profile
-											consumerGateway={consumerGateway}
-											cache={cache}
-										/>
+										<Profile cache={cache} />
 									</AuthRoute>
 								}
 							/>

@@ -23,7 +23,6 @@ if (!cache.getItem("restricoes")) {
 		cache.setItem("restricoes", JSON.stringify(data.map(of)));
 	});
 }
-consumerGateway.findById(1).then(data => console.log(data));
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 	<React.StrictMode>
 		<SafeFoodThemeProvider cache={cache}>
