@@ -10,8 +10,7 @@ export const FooterSignUpConsumer: React.FC<{
 	step: StepsEstablishment;
 	changeStep: (step: StepsEstablishment) => void;
 }> = ({ step, changeStep }) => {
-	let { saveFormData, getFormData, errors, saveErrors } =
-		useSignupEstablishment();
+	let { errors, saveErrors } = useSignupEstablishment();
 
 	const getOnBackClick = () => {
 		if (step === "finished") {
@@ -81,17 +80,6 @@ export const FooterSignUpConsumer: React.FC<{
 		return <></>;
 	};
 
-	const salvarFormDataNoContexto = (formEl: HTMLFormElement) => {
-		const data = new FormData(formEl);
-		data.forEach((v, k) => {
-			if (getFormData.get(k)) {
-				getFormData.set(k, v);
-			} else {
-				getFormData.append(k, v);
-			}
-		});
-		saveFormData(getFormData);
-	};
 	return (
 		<>
 			<Box
@@ -126,8 +114,6 @@ export const FooterSignUpConsumer: React.FC<{
 								// todo message error global context
 							} else {
 								getOnClickAhead();
-								salvarFormDataNoContexto(formEl);
-								console.log(getFormData);
 							}
 						}
 					}}

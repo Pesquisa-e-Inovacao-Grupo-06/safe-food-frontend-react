@@ -1,12 +1,10 @@
 import { Box } from "@/components/atoms/box";
 import React from "react";
 import { HeadingSignUpConsumer } from "../complements/HeadingSignUpConsumer";
-import { JustStringAndSpaceValidator } from "@/app/util/validations/just-string-and-space";
-import { InputNameSignUpEstablishment } from "../inputs/InputNameSignUpConsumer";
-import { InputEmailSignUp } from "../inputs/InputEmailSignUpConsumer";
+import { InputEmailSignUp } from "../inputs/InputEmailSignUpEstablishment";
 import { EmailValidator } from "@/app/util/validations/email-validator";
-import { InputsPasswordsSignUpConsumer } from "../inputs/InputsPasswordSignUpConsumer";
 import { PasswordValidator } from "@/app/util/validations/password-validator";
+import { InputsPasswordsSignUpEstablishment } from "../inputs/InputsPasswordSignUpEstablishment";
 
 export const SecuritySignUp: React.FC = () => {
 	return (
@@ -21,7 +19,9 @@ export const SecuritySignUp: React.FC = () => {
 				flexDiretion="column"
 			>
 				<InputEmailSignUp validator={new EmailValidator(5, 100)} />
-				<InputsPasswordsSignUpConsumer validator={new PasswordValidator(8, 20)} />
+				<InputsPasswordsSignUpEstablishment
+					validator={new PasswordValidator(8, 20)}
+				/>
 			</Box>
 		</>
 	);

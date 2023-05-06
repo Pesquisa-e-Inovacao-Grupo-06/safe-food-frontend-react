@@ -2,7 +2,7 @@ import { InputValidator } from "@/app/util/validations/input-validator";
 import { TextField } from "@/components/molecules/textfield";
 import React, { useState } from "react";
 
-export const InputsPasswordsSignUpConsumer: React.FC<{
+export const InputsPasswordsSignUpEstablishment: React.FC<{
 	validator: InputValidator;
 }> = ({ validator }) => {
 	const [password, setPassword] = useState("");

@@ -6,7 +6,7 @@ import { InputPhoneSignupWpp } from "../inputs/InputPhoneSignUpWpp";
 import { InputPhoneSignupFixo } from "../inputs/InputPhoneSignUpFixo";
 import { InputCnpjSignUp } from "../inputs/InputCnpjSignUp";
 import { CnpjValidator } from "@/app/util/validations/cnpj-validator";
-import { InputNameSignUpEstablishment } from "../inputs/InputNameSignUpConsumer";
+import { InputNameSignUpEstablishment } from "../inputs/InputNameSignUpEstablishment";
 import { JustStringAndSpaceValidator } from "@/app/util/validations/just-string-and-space";
 
 export const CompanySignUp: FC = () => {

@@ -1,3 +1,4 @@
+import { useSignupEstablishment } from "@/app/contexts/SignupEstablishmentProvider";
 import { InputValidator } from "@/app/util/validations/input-validator";
 import { TextField } from "@/components/molecules/textfield";
 import React, { useState } from "react";
@@ -5,7 +6,7 @@ import React, { useState } from "react";
 export const InputPhoneSignupWpp: React.FC<{
 	validator: InputValidator;
 }> = ({ validator }) => {
-	const [phone, setPhone] = useState("");
+	const { establishment, setEstablishment } = useSignupEstablishment();
 	const [error, setError] = useState("");
 	return (
 		<>
@@ -13,7 +14,7 @@ export const InputPhoneSignupWpp: React.FC<{
 				label="Celular: (WhatsApp)"
 				required={true}
 				id="additional-phone"
-				value={phone}
+				value={establishment.contatoCliente}
 				placeholder="(00) 00000-0000"
 				title="Digite o número de celular WhatsApp do estabelecimento"
 				type="tel"
@@ -24,7 +25,10 @@ export const InputPhoneSignupWpp: React.FC<{
 				onChange={ev => {
 					let str = ev.currentTarget.value;
 					let value = validator.format(str);
-					setPhone(value);
+					setEstablishment({
+						...establishment,
+						contatoCliente: value,
+					});
 
 					if (value.length > 0) {
 						console.log(value);
