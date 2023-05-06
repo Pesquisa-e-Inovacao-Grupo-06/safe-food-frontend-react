@@ -1,16 +1,16 @@
-import {
-	FC,
-	PropsWithChildren,
-	createContext,
-	useContext,
-	useState,
-} from "react";
+import { FC, PropsWithChildren, createContext, useContext } from "react";
 import { EmailValidator } from "../util/validations/email-validator";
 import { PasswordValidator } from "../util/validations/password-validator";
+import { PhoneValidator } from "../util/validations/phone-validator";
+import { CepValidator } from "../util/validations/cep-validator";
+import { CnpjValidator } from "../util/validations/cnpj-validator";
 
 export type InputsValidatorParams = {
 	getEmailValidator: (min: number, max: number) => EmailValidator;
 	getPasswordValidator: (min: number, max: number) => PasswordValidator;
+	getPhoneValidator: () => PhoneValidator;
+	getCepValidator: () => CepValidator;
+	getCnpjValidator: () => CnpjValidator;
 };
 export const inputsValidatorsContext = createContext<InputsValidatorParams>(
 	{} as InputsValidatorParams
@@ -30,6 +30,15 @@ export const InputsValidatorProvider: FC<
 				},
 				getPasswordValidator(min, max) {
 					return new PasswordValidator(min, max);
+				},
+				getCepValidator() {
+					return new CepValidator();
+				},
+				getCnpjValidator() {
+					return new CnpjValidator();
+				},
+				getPhoneValidator() {
+					return new PhoneValidator();
 				},
 			}}
 		>

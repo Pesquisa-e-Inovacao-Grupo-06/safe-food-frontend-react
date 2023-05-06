@@ -5,30 +5,35 @@ import { Text } from "../atoms/text";
 import { Modal } from "../molecules/modal";
 import { Button } from "../atoms/button";
 import { Box } from "../atoms/box";
-import { Alert } from "../atoms/alert";
+import { Alert, AlertType } from "../atoms/alert";
 import { TextField } from "../molecules/textfield";
 import { UnderlineLink } from "../atoms/underline-link";
+import { ButtonLoading } from "../molecules/button/button-loading";
 export type SignInTemplateProps = {
 	toggleModal(): void;
 	isModalVisible: boolean;
 	onChangeInputEmail(ev: FormEvent<HTMLInputElement>): void;
 	onChangeInputPassword(ev: FormEvent<HTMLInputElement>): void;
-	errorEmail: string;
-	errorPassword: string;
 	email: string;
 	password: string;
 	onClickLogin(): void;
+	isAlertVisible?: boolean;
+	typeAlert?: AlertType;
+	textAlert?: string;
+	loading: boolean;
 };
 export const SignInTemplate: React.FC<SignInTemplateProps> = ({
 	isModalVisible,
 	toggleModal,
 	email,
-	errorEmail,
-	errorPassword,
 	onChangeInputEmail,
 	onChangeInputPassword,
 	password,
 	onClickLogin,
+	isAlertVisible,
+	typeAlert,
+	textAlert,
+	loading,
 }) => {
 	const { colors } = useSafeFoodTheme().getTheme();
 
@@ -63,9 +68,7 @@ export const SignInTemplate: React.FC<SignInTemplateProps> = ({
 						src="/src/assets/svg-logo.svg"
 						alt="Logo-Safe-Food"
 					/>
-
 					<Subtitle large>Entrar</Subtitle>
-
 					<Text
 						typeText="text-md"
 						style={{
@@ -74,7 +77,9 @@ export const SignInTemplate: React.FC<SignInTemplateProps> = ({
 					>
 						Bem vindo de volta! Digite seu e-mail e senha abaixo para entrar.
 					</Text>
-					<Alert type="warning">Usuario nao encontrado</Alert>
+					{isAlertVisible ? (
+						<Alert type={typeAlert ?? "info"}>{textAlert}</Alert>
+					) : null}
 					<Box
 						margin="20px 0"
 						display="flex"
@@ -95,8 +100,8 @@ export const SignInTemplate: React.FC<SignInTemplateProps> = ({
 							inputMode="email"
 							max={100}
 							min={10}
+							disabled={loading}
 							onChange={onChangeInputEmail}
-							error={errorEmail}
 						/>
 
 						<TextField
@@ -104,6 +109,7 @@ export const SignInTemplate: React.FC<SignInTemplateProps> = ({
 							required
 							id="password"
 							value={password}
+							disabled={loading}
 							placeholder="********"
 							type="password"
 							name="general-password"
@@ -111,21 +117,23 @@ export const SignInTemplate: React.FC<SignInTemplateProps> = ({
 							max={20}
 							min={8}
 							onChange={onChangeInputPassword}
-							error={errorPassword}
 						/>
 
 						<UnderlineLink href="forget-password">Esqueceu a senha?</UnderlineLink>
 
-						<Button
-							style={{
-								width: "100%",
-							}}
-							onClick={onClickLogin}
-						>
-							Entrar
-						</Button>
+						{loading ? (
+							<ButtonLoading />
+						) : (
+							<Button
+								style={{
+									width: "100%",
+								}}
+								onClick={onClickLogin}
+							>
+								Entrar
+							</Button>
+						)}
 					</Box>
-
 					<Text>
 						Não possui uma conta?
 						<UnderlineLink
@@ -137,7 +145,6 @@ export const SignInTemplate: React.FC<SignInTemplateProps> = ({
 							Cadastre-se
 						</UnderlineLink>
 					</Text>
-
 					<Text
 						typeText="text-sm"
 						style={{

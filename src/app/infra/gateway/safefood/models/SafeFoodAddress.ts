@@ -7,7 +7,8 @@ export type SafeFoodCreateAddressRequest = {
     bairro: string,
     cidade: string,
     estado: string,
-    cep: string
+    cep: string,
+    complemento: string
 }
 
 export type SafeFoodAddressResponse = SafeFoodGenericDataResponse<SafeFoodAddressModel>

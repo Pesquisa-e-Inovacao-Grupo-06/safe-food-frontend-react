@@ -10,7 +10,10 @@ export const FinishedSignUpConsumer: React.FC = () => {
 				text="Agora com seu cadastro finalizado, você oficialmente faz parte da Safe Food! Entre na sua conta e tenha acesso completo aos recursos do site"
 			/>
 
-			<Box width="80%">
+			<Box
+				padding="2% 10%"
+				width="100%"
+			>
 				<img
 					src={FinishedSvg}
 					alt="Imagem de um cadastro preenchido"

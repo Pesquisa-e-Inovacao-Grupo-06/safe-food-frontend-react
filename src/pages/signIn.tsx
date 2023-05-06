@@ -1,67 +1,56 @@
 import React, { ChangeEvent, useCallback, useState } from "react";
 import { SafeFoodUserGateway } from "@/app/infra/gateway/safefood/SafeFoodUserGateway";
 import { SignInTemplate } from "@/components/templates/sign-in-template";
-import { useInputsValidator } from "@/app/contexts/InputValidatorsProvider";
-import { Cache } from "@/app/domain/protocols/Cache";
+import { AlertType } from "@/components/atoms/alert";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/app/contexts/AuthProvider";
+import { SafeFoodConsumerGateway } from "@/app/infra/gateway/safefood/SafeFoodConsumerGateway";
 
 type SignInProps = {
 	gateway: SafeFoodUserGateway;
-	cache: Cache;
+	consumerGateway: SafeFoodConsumerGateway;
+	establishmentGateway: SafeFoodConsumerGateway;
 };
-function SignIn({ gateway, cache }: SignInProps) {
-	const { getEmailValidator, getPasswordValidator } = useInputsValidator();
-	const emailValidator = getEmailValidator(8, 100);
-	const passwordValidator = getPasswordValidator(8, 20);
-
+function SignIn({
+	gateway,
+	consumerGateway,
+	establishmentGateway,
+}: SignInProps) {
+	const navigate = useNavigate();
+	const [loading, setLoading] = useState(false);
 	const [email, setEmail] = useState("");
-	const [errorEmail, setErrorEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const [errorPassword, setErrorPassword] = useState("");
-
 	const [isModalVisible, setModalVisible] = useState(true);
+	//TODO: MELHORAR LÓGICA DE ALERT (LINCOLN)
+	const [isVisibleAlert, setIsVisibleAlert] = useState<boolean>(false);
+	const [typeAlert, setTypeAlert] = useState<AlertType>();
+	const [textAlert, setTextAlert] = useState<string>();
+	const { setToken, setUser } = useAuth();
 
 	const changeEmail = useCallback(
 		(ev: ChangeEvent<HTMLInputElement>) => {
 			let str = ev.currentTarget.value;
-			let value = emailValidator.format(str);
-			setEmail(value);
-			const errors = emailValidator.validate(value);
-			if (errors.length > 0) {
-				setErrorEmail(errors.join(";"));
-			} else {
-				setErrorEmail("");
-			}
+			setEmail(str);
 		},
-		[email, errorEmail, setEmail, setErrorEmail]
+		[setEmail]
 	);
 
 	const changePassword = useCallback(
 		(ev: ChangeEvent<HTMLInputElement>) => {
 			const str = ev.currentTarget.value;
-			const value = passwordValidator.format(str);
-			setPassword(value);
-			const errors = passwordValidator.validate(value);
-			if (errors.length > 0) {
-				setErrorPassword(errors.join(";"));
-			} else {
-				setErrorPassword("");
-			}
+			setPassword(str);
 		},
-		[password, setPassword, errorPassword, setErrorPassword]
+		[setPassword]
 	);
 
 	const onClickLogin = useCallback(() => {
-		if (
-			errorEmail ||
-			errorPassword ||
-			email.length == 0 ||
-			password.length == 0
-		) {
-			console.log(errorEmail);
-			console.log(errorPassword);
-			console.log(email);
-			console.log(password);
-			console.log("preencha todos os campos corretamente");
+		setIsVisibleAlert(false);
+		setLoading(true);
+		if (email.length == 0 || password.length == 0) {
+			setIsVisibleAlert(true);
+			setTypeAlert("warning");
+			setTextAlert("Email ou senha incorretos");
+			setLoading(false);
 			return;
 		}
 		gateway
@@ -70,35 +59,46 @@ function SignIn({ gateway, cache }: SignInProps) {
 				senha: password,
 			})
 			.then(res => {
-				if (res?.status == 400) {
-					// tratamento dos campos
-					console.log("Verifique suas credenciais");
+				if (res?.status != 200) {
+					setIsVisibleAlert(true);
+					setTypeAlert("warning");
+					setTextAlert("Email ou senha incorretos");
 					return;
 				}
-				if (res?.status == 404) {
-					// mostrar alerta
-					console.log("email nao encontrado");
-					return;
+				setUser(res);
+				setToken(res.token);
+				setIsVisibleAlert(true);
+				setTypeAlert("success");
+				setTextAlert("Logado com sucesso!");
+
+				if (res.usuario.tipoUsuario === "CONSUMIDOR") {
+					consumerGateway.findConsumerById(res.usuario.id).then(data => {
+						// TODO: SETAR OS DADOS DO USUARIO AQUI? OU DENTRO DA PAGINA DE FATO? VAMOS CRIAR OUTRO PROVIDER PRA ELE?
+					});
+					navigate("/profile");
+				} else if (res.usuario.tipoUsuario === "ESTABELECIMENTO") {
+					navigate("/profile-establishment");
 				}
-				cache.setItem("token", res.token);
-				window.location.href = "/profile-consumer";
 			})
 			.catch(err => {
 				console.error(err);
-			});
+			})
+			.finally(() => setLoading(false));
 	}, [email, password]);
 
 	return (
 		<SignInTemplate
 			email={email}
-			errorEmail={errorEmail}
-			errorPassword={errorPassword}
 			isModalVisible={isModalVisible}
 			toggleModal={() => setModalVisible(!isModalVisible)}
 			password={password}
 			onChangeInputEmail={changeEmail}
+			loading={loading}
 			onClickLogin={onClickLogin}
 			onChangeInputPassword={changePassword}
+			isAlertVisible={isVisibleAlert}
+			typeAlert={typeAlert}
+			textAlert={textAlert}
 		/>
 	);
 }

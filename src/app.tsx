@@ -13,78 +13,99 @@ import PreferencesEstablishment from "./pages/preferences-establishment";
 import { SafeFoodUserGateway } from "./app/infra/gateway/safefood/SafeFoodUserGateway";
 import { SafeFoodConsumerGateway } from "./app/infra/gateway/safefood/SafeFoodConsumerGateway";
 import { SafeFoodRestrictionGateway } from "./app/infra/gateway/safefood/SafeFoodRestrictionGateway";
-import { AxiosHttpClient } from "./app/infra/protocols/AxiosHttpClient";
 import { Cache } from "./app/domain/protocols/Cache";
 import { InputsValidatorProvider } from "./app/contexts/InputValidatorsProvider";
+import { ViaCepGateway } from "./app/infra/gateway/viacep/ViaCepGateway";
+import { AuthRoute } from "./pages/auth/AuthRoute";
+import { AuthProvider } from "./app/contexts/AuthProvider";
 
 type AppProps = {
 	cache: Cache;
 	userGateway: SafeFoodUserGateway;
 	consumerGateway: SafeFoodConsumerGateway;
 	restrictionsGateway: SafeFoodRestrictionGateway;
+	viaCepGateway: ViaCepGateway;
 };
 export default function App({
 	cache,
 	consumerGateway,
 	restrictionsGateway,
 	userGateway,
+	viaCepGateway,
 }: AppProps) {
 	return (
 		<>
 			<InputsValidatorProvider>
-				<Router>
-					<Routes>
-						<Route
-							path="/"
-							element={<Home />}
-						/>
-						<Route
-							path="/about"
-							element={<About />}
-						/>
-						<Route
-							path="/faq"
-							element={<FAQ />}
-						/>
-						<Route
-							path="/signin"
-							element={
-								<SignIn
-									gateway={userGateway}
-									cache={cache}
-								/>
-							}
-						/>
-						<Route
-							path="/signup"
-							element={<SignUp />}
-						/>
-						<Route
-							path="/profile-consumer"
-							element={<Profile />}
-						/>
-						<Route
-							path="/profile-establishment"
-							element={<ProfileEstablishment />}
-						/>
-						<Route
-							path="/term-of-service"
-							element={<TermOfService />}
-						/>
-						<Route
-							path="/home-establishment"
-							element={<HomeEstablishment />}
-						/>
-						<Route
-							path="/product-consumer"
-							element={<ProductConsumer />}
-						/>
-						<Route
-							path="/preferences-establishment"
-							element={<PreferencesEstablishment />}
-						/>
-					</Routes>
-				</Router>
+				<AuthProvider cache={cache}>
+					<Router>
+						<Routes>
+							<Route
+								path="/"
+								element={<Home />}
+							/>
+							<Route
+								path="/about"
+								element={<About />}
+							/>
+							<Route
+								path="/faq"
+								element={<FAQ />}
+							/>
+							<Route
+								path="/signin"
+								element={
+									<SignIn
+										gateway={userGateway}
+										consumerGateway={consumerGateway}
+										establishmentGateway={consumerGateway}
+									/>
+								}
+							/>
+							<Route
+								path="/signup"
+								element={
+									<SignUp
+										cache={cache}
+										viaCepGateway={viaCepGateway}
+										gateway={consumerGateway}
+									/>
+								}
+							/>
+							<Route
+								path="/profile"
+								element={
+									<AuthRoute userAuth="CONSUMER">
+										<Profile />
+									</AuthRoute>
+								}
+							/>
+							<Route
+								path="/profile-establishment"
+								element={
+									<AuthRoute userAuth="ESTABLISHMENT">
+										<ProfileEstablishment />
+									</AuthRoute>
+								}
+							/>
+							<Route
+								path="/term-of-service"
+								element={<TermOfService />}
+							/>
+							<Route
+								path="/home-establishment"
+								element={<HomeEstablishment />}
+							/>
+							<Route
+								path="/product-consumer"
+								element={<ProductConsumer />}
+							/>
+							<Route
+								path="/preferences-establishment"
+								element={<PreferencesEstablishment />}
+							/>
+						</Routes>
+					</Router>
+				</AuthProvider>
 			</InputsValidatorProvider>
 		</>
 	);
