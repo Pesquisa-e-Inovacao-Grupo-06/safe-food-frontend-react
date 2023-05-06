@@ -21,7 +21,7 @@ export type ProfileProps = {
 	restrictions: Restriction[];
 	listOfAddress: Address[];
 	form: InputPropsComponent[];
-	urlDefault: string;
+	urlDefault: string | null | undefined;
 };
 
 export const ProfileTemplate: React.FC<ProfileProps> = ({

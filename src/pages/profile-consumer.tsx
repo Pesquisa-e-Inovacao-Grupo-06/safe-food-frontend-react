@@ -38,7 +38,7 @@ function ProfileConsumer({ gateway, consumerGateway }: ProfileConsumer) {
 		<ProfileTemplate
 			// TODO: precisa receber imagem de banner PRECISA CONVERSAR
 			// TODO: /consumidor/{id}
-			urlDefault={""}
+			urlDefault={urlImageProfile}
 			// TODO:  /consumidor/{id} & /estabelecimento/{id} - post : nome, email, senha n deve aparecer, telefone,
 			form={[
 				{ name: "Nome:", value: infoCompletedForm.name },
