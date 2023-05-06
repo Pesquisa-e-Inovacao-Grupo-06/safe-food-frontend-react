@@ -1,4 +1,4 @@
-import {SafeFoodResponse} from "./SafeFoodResponse";
+import { SafeFoodResponse } from "./SafeFoodResponse";
 
 export type SafeFoodCreateUserRequest = {
     senha: string,

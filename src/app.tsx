@@ -74,15 +74,18 @@ export default function App({
 							<Route
 								path="/profile"
 								element={
-									<AuthRoute userAuth="CONSUMER">
-										<Profile />
+									<AuthRoute userAuth="CONSUMIDOR">
+										<Profile
+											consumerGateway={consumerGateway}
+											cache={cache}
+										/>
 									</AuthRoute>
 								}
 							/>
 							<Route
 								path="/profile-establishment"
 								element={
-									<AuthRoute userAuth="ESTABLISHMENT">
+									<AuthRoute userAuth="ESTABELECIMENTO">
 										<ProfileEstablishment />
 									</AuthRoute>
 								}

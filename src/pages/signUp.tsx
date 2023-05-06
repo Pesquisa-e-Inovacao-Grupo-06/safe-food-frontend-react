@@ -22,7 +22,7 @@ function SignUp({
 			? JSON.parse(cache.getItem("restricoes")!)
 			: [];
 	const clickToCreate = useCallback((data: SafeFoodCreateConsumerRequest) => {
-		const res = gateway.createConsumer(data).then(val => val.data);
+		const res = gateway.create(data).then(val => val.data);
 		res;
 	}, []);
 

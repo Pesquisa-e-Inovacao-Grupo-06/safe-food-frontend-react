@@ -1,37 +1,47 @@
-import { Restriction } from "@/app/domain/entities/Restriction";
-import { ProfileTemplate } from "../components/templates/profile-consumer-template";
 import { SafeFoodConsumerGateway } from "@/app/infra/gateway/safefood/SafeFoodConsumerGateway";
-import { SafeFoodUserGateway } from "@/app/infra/gateway/safefood/SafeFoodUserGateway";
 import { useNavigate } from "react-router-dom";
-import { useCallback, useState } from "react";
-import { Address } from "@/app/domain/entities/Address";
+import { useCallback, useEffect, useState } from "react";
+import { Cache } from "@/app/domain/protocols/Cache";
+import { ProfileTemplate } from "@/components/templates/profile-consumer-template";
+import {
+	SafeFoodConsumerModel,
+	SafeFoodConsumerResponse,
+} from "@/app/infra/gateway/safefood/models/SafeFoodConsumer";
+import { SafeFoodUsuarioModel } from "@/app/infra/gateway/safefood/models/SafeFoodUser";
 
 type ProfileConsumer = {
-	gateway: SafeFoodUserGateway;
 	consumerGateway: SafeFoodConsumerGateway;
+	cache: Cache;
 };
 
-function ProfileConsumer({ gateway, consumerGateway }: ProfileConsumer) {
+function ProfileConsumer({ consumerGateway, cache }: ProfileConsumer) {
 	const navigate = useNavigate();
-	const [restrictions, setRestrictions] = useState<Restriction[]>([]);
-	const [address, setAddress] = useState<Address[]>([]);
-	const [infoCompletedForm, setInfoCompletedForm] = useState<any>([]);
+	// const [address, setAddress] = useState<Address[]>([]);
+
 	const [urlImageProfile, setUrlImageProfile] = useState<string | null>();
 	const [getIdUser] = useState<number>(1);
+	const [consumer, setConsumer] = useState<SafeFoodConsumerModel>();
+	const restrictions =
+		cache.getItem("restricoes") !== null
+			? JSON.parse(cache.getItem("restricoes")!)
+			: [];
+
+	const user: SafeFoodUsuarioModel =
+		cache.getItem("user") !== null ? JSON.parse(cache.getItem("user")!) : [];
+
+	useEffect(() => {
+		consumerGateway.findById(getIdUser).then(data => {
+			const consumer = data.data;
+			setConsumer(data.data);
+		});
+	}, []);
 
 	const getRestrictions = useCallback(async () => {
 		const responseConsumer = await consumerGateway.findById(getIdUser);
 
-		setRestrictions(responseConsumer.data.restricoes);
 		setUrlImageProfile(responseConsumer.data.imagem);
-		setAddress(responseConsumer.data.enderecos);
-		setInfoCompletedForm([
-			{ key: "email", value: responseConsumer.data.email },
-			{ key: "name", value: responseConsumer.data.nome },
-			{ key: "phone", value: responseConsumer.data.telefone },
-		]);
 
-		console.log(getRestrictions);
+		console.log(restrictions);
 	}, []);
 
 	return (
@@ -49,7 +59,7 @@ function ProfileConsumer({ gateway, consumerGateway }: ProfileConsumer) {
 				{ name: "Senha:", value: "**********" },
 			]}
 			// TODO: VERIFICAR SOBRE O /consumidor/{id} converter endereço completo para string
-			listOfAddress={address}
+			listOfAddress={[]}
 			// TODO: /consumidor/{id} - get
 			restrictions={restrictions}
 		/>

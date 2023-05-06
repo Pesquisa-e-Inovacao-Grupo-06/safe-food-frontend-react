@@ -23,15 +23,14 @@ export type SafeFoodUpdateEstablishmentRequest = {
     descricao: string,
     endereco: SafeFoodAddressModel
 }
-
 //created:
 // {
-//     "messages": [
-//         "[201 CREATED] - Usuário cadastrado com sucesso.."
+    //     "messages": [
+    //         "[201 CREATED] - Usuário cadastrado com sucesso.."
 //     ],
 //         "status": 201,
 //             "data": {
-//         "id": 1,
+    //         "id": 1,
 //             "imagem": null,
 //                 "nome": "João e Maria Padaria",
 //                     "email": "estabelecimento@exemplo.com",
@@ -43,7 +42,7 @@ export type SafeFoodUpdateEstablishmentRequest = {
 //                                             "contatoCliente": "(11) 90990-9999",
 //                                                 "descricao": "Restaurante com foco em carnes de soja...",
 //                                                     "endereco": {
-//             "id": 1,
+    //             "id": 1,
 //                 "apelido": "Casa",
 //                     "numero": "2000",
 //                         "logradouro": "Avenida Paulista",

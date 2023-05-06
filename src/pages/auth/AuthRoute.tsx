@@ -5,8 +5,10 @@ import { Route, RouteProps, useNavigate } from "react-router-dom";
 
 export type AuthRouteProps = {
 	redirect?: string;
-	userAuth: "CONSUMIDOR" | "ESTABELECIMENTO";
+	userAuth: UserAuthType;
 } & PropsWithChildren;
+
+export type UserAuthType = "CONSUMIDOR" | "ESTABELECIMENTO";
 export const AuthRoute: React.FC<AuthRouteProps> = ({
 	userAuth,
 	redirect = "/signin",
@@ -21,14 +23,14 @@ export const AuthRoute: React.FC<AuthRouteProps> = ({
 			!user ||
 			!token ||
 			!user.usuario.tipoUsuario ||
-			user.usuario.tipoUsuario == userAuth ||
+			user.usuario.tipoUsuario != userAuth ||
 			!isTokenValid(token)
 		) {
 			navigate(redirect);
 		} else {
-			console.log({ user, token, isTokenValid: isTokenValid(token) });
 			setLoading(false);
 		}
+		console.log({ user, token, isTokenValid: isTokenValid(token) });
 	}, [user, token]);
 
 	return loading ? (
