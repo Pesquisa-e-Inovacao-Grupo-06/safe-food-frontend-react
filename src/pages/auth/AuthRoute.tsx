@@ -5,7 +5,7 @@ import { Route, RouteProps, useNavigate } from "react-router-dom";
 
 export type AuthRouteProps = {
 	redirect?: string;
-	userAuth: "CONSUMER" | "ESTABLISHMENT" | "BOTH";
+	userAuth: "CONSUMIDOR" | "ESTABELECIMENTO";
 } & PropsWithChildren;
 export const AuthRoute: React.FC<AuthRouteProps> = ({
 	userAuth,
@@ -20,12 +20,13 @@ export const AuthRoute: React.FC<AuthRouteProps> = ({
 		if (
 			!user ||
 			!token ||
-			!user.usuario ||
+			!user.usuario.tipoUsuario ||
 			user.usuario.tipoUsuario == userAuth ||
 			!isTokenValid(token)
 		) {
 			navigate(redirect);
 		} else {
+			console.log({ user, token, isTokenValid: isTokenValid(token) });
 			setLoading(false);
 		}
 	}, [user, token]);

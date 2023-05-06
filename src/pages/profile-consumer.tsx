@@ -20,7 +20,7 @@ function ProfileConsumer({ gateway, consumerGateway }: ProfileConsumer) {
 	const [getIdUser] = useState<number>(1);
 
 	const getRestrictions = useCallback(async () => {
-		const responseConsumer = await consumerGateway.findConsumerById(getIdUser);
+		const responseConsumer = await consumerGateway.findById(getIdUser);
 
 		setRestrictions(responseConsumer.data.restricoes);
 		setUrlImageProfile(responseConsumer.data.imagem);

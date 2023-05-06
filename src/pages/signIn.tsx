@@ -72,7 +72,7 @@ function SignIn({
 				setTextAlert("Logado com sucesso!");
 
 				if (res.usuario.tipoUsuario === "CONSUMIDOR") {
-					consumerGateway.findConsumerById(res.usuario.id).then(data => {
+					consumerGateway.findById(res.usuario.id).then(data => {
 						// TODO: SETAR OS DADOS DO USUARIO AQUI? OU DENTRO DA PAGINA DE FATO? VAMOS CRIAR OUTRO PROVIDER PRA ELE?
 					});
 					navigate("/profile");

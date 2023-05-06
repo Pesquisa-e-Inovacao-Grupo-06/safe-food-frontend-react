@@ -2,19 +2,25 @@ import { HttpClient } from "@/app/domain/protocols/HttpClient";
 import { SafeFoodAddressResponse, SafeFoodCreateAddressRequest } from "./models/SafeFoodAddress";
 import { SafeFoodConsumerResponse, SafeFoodCreateConsumerRequest, SafeFoodUpdateConsumerRequest } from "./models/SafeFoodConsumer";
 import { SafeFoodResponse } from "./models/SafeFoodResponse";
+import { Cache } from '@/app/domain/protocols/Cache';
 
 
 export class SafeFoodConsumerGateway {
 
-    constructor(private readonly http: HttpClient) { }
+    private token: string = '';
+
+    constructor(private readonly http: HttpClient, private readonly cache: Cache) {
+        this.token = cache.getItem('token') || '';
+    }
 
     async findById(id: number): Promise<SafeFoodConsumerResponse> {
         const res = await this.http.execute<SafeFoodConsumerResponse>({
             url: `/consumidores/${id}`,
             method: 'GET',
+            jwt: this.token,
         })
         if (!res.data) {
-            throw new Error("Erro ao realizar requisicao de pegar por id")
+            throw new Error("Erro ao realizar requisicao de pegar por id");
         }
         return res.data;
     }
