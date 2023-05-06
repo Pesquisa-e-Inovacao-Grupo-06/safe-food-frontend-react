@@ -4,7 +4,7 @@ import { SafeFoodEstablishmentResponse, SafeFoodUpdateEstablishmentRequest } fro
 export class SafeFoodEstablishmentGateway {
     constructor(private readonly http: HttpClient) { }
 
-    async findEstablishmentById(id: number): Promise<SafeFoodEstablishmentResponse> {
+    async findById(id: number): Promise<SafeFoodEstablishmentResponse> {
         const res = await this.http.execute<SafeFoodEstablishmentResponse>({
             url: `/estabelecimento/${id}`,
             method: "GET"
@@ -15,7 +15,7 @@ export class SafeFoodEstablishmentGateway {
         return res.data;
     }
 
-    async updateEstablishment(id: number, data: SafeFoodUpdateEstablishmentRequest): Promise<SafeFoodEstablishmentResponse> {
+    async update(id: number, data: SafeFoodUpdateEstablishmentRequest): Promise<SafeFoodEstablishmentResponse> {
         const res = await this.http.execute<SafeFoodEstablishmentResponse>({
             url: `/estabelecimentos/${id}`,
             method: "PUT",

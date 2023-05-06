@@ -8,7 +8,7 @@ export class SafeFoodConsumerGateway {
 
     constructor(private readonly http: HttpClient) { }
 
-    async findConsumerById(id: number): Promise<SafeFoodConsumerResponse> {
+    async findById(id: number): Promise<SafeFoodConsumerResponse> {
         const res = await this.http.execute<SafeFoodConsumerResponse>({
             url: `/consumidores/${id}`,
             method: 'GET',
@@ -19,7 +19,7 @@ export class SafeFoodConsumerGateway {
         return res.data;
     }
 
-    async updateConsumer(id: number, data: SafeFoodUpdateConsumerRequest): Promise<SafeFoodConsumerResponse> {
+    async update(id: number, data: SafeFoodUpdateConsumerRequest): Promise<SafeFoodConsumerResponse> {
         const res = await this.http.execute<SafeFoodConsumerResponse>({
             url: `/consumidores/${id}`,
             method: 'PUT',
@@ -31,7 +31,7 @@ export class SafeFoodConsumerGateway {
         return res.data;
     }
 
-    async removeConsumer(id: number): Promise<SafeFoodResponse> {
+    async remove(id: number): Promise<SafeFoodResponse> {
         const res = await this.http.execute<SafeFoodResponse>({
             url: `/consumidores/${id}`,
             method: 'DELETE',
@@ -42,7 +42,7 @@ export class SafeFoodConsumerGateway {
         return res.data;
     }
 
-    async createConsumer(data: SafeFoodCreateConsumerRequest): Promise<SafeFoodConsumerResponse> {
+    async create(data: SafeFoodCreateConsumerRequest): Promise<SafeFoodConsumerResponse> {
         // TODO: Colocar data de nascimento apos backend arrumar
         // TODO: Salvar imagem
         let body: {
@@ -85,7 +85,7 @@ export class SafeFoodConsumerGateway {
         return res.data;
     }
 
-    async addAddressConsumer(id: number, address: SafeFoodCreateAddressRequest): Promise<SafeFoodAddressResponse> {
+    async addAddress(id: number, address: SafeFoodCreateAddressRequest): Promise<SafeFoodAddressResponse> {
         const res = await this.http.execute<SafeFoodAddressResponse>({
             url: `/consumidores/${id}/endereco`,
             method: 'POST',
@@ -97,7 +97,7 @@ export class SafeFoodConsumerGateway {
         return res.data;
     }
 
-    async updateAddressConsumer(id: number, idEndereco: number, address: SafeFoodCreateAddressRequest): Promise<SafeFoodAddressResponse> {
+    async updateAddress(id: number, idEndereco: number, address: SafeFoodCreateAddressRequest): Promise<SafeFoodAddressResponse> {
         const res = await this.http.execute<SafeFoodAddressResponse>({
             url: `/consumidores/${id}/endereco/${idEndereco}`,
             method: 'PUT',
@@ -109,7 +109,7 @@ export class SafeFoodConsumerGateway {
         return res.data;
     }
 
-    async removeAddressConsumer(id: number, idEndereco: number): Promise<SafeFoodResponse> {
+    async removeAddress(id: number, idEndereco: number): Promise<SafeFoodResponse> {
         const res = await this.http.execute<SafeFoodAddressResponse>({
             url: `/consumidores/${id}/endereco/${idEndereco}`,
             method: 'POST',
