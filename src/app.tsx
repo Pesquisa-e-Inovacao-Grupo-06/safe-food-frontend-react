@@ -10,6 +10,7 @@ import ProfileEstablishment from "./pages/profile-establishment";
 import HomeEstablishment from "./pages/home-establishment";
 import ProductConsumer from "./pages/product-consumer";
 import PreferencesEstablishment from "./pages/preferences-establishment";
+import HomeConsumer from "./pages/home-consumer";
 import { SafeFoodUserGateway } from "./app/infra/gateway/safefood/SafeFoodUserGateway";
 import { SafeFoodRestrictionGateway } from "./app/infra/gateway/safefood/SafeFoodRestrictionGateway";
 import { Cache } from "./app/domain/protocols/Cache";
@@ -104,6 +105,10 @@ export default function App({
 								path="/preferences-establishment"
 								element={<PreferencesEstablishment />}
 							/>
+              <Route
+						    path="/home-consumer"
+						    element={<HomeConsumer />}
+					    />
 						</Routes>
 					</Router>
 				</AuthProvider>
