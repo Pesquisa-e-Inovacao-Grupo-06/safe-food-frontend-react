@@ -3,11 +3,11 @@ import { ButtonStyle } from ".";
 
 export const StyledButton = styled.button<{
 	buttonStyle: ButtonStyle;
-	width?: string | number,
+	width?: string | number;
 	height?: string | number;
+	color?: string;
 }>`
-
-	width:  ${p => (typeof p.width === "number" ? p.width + "px" : p.width)};
+	width: ${p => (typeof p.width === "number" ? p.width + "px" : p.width)};
 	height: ${p => (typeof p.height === "number" ? p.height + "px" : p.height)};
 	min-width: 150px;
 	min-height: 35px;
@@ -39,7 +39,7 @@ export const StyledButton = styled.button<{
 	}
 	&:hover {
 		box-shadow: ${p =>
-		p.buttonStyle == "filled" ? p.theme.colors.shadow[400] : "none"};
+			p.buttonStyle == "filled" ? p.theme.colors.shadow[400] : "none"};
 	}
 	&:disabled {
 		opacity: 0.8;
@@ -62,11 +62,11 @@ export const StyledButton = styled.button<{
 						: p.theme.colors.primary[800]};
 				border: 2px solid
 					${p => {
-					if (p.theme.isLight) {
-						return p.theme.colors.primary[600];
-					}
-					return p.theme.colors.primary[1000];
-				}};
+						if (p.theme.isLight) {
+							return p.theme.colors.primary[600];
+						}
+						return p.theme.colors.primary[1000];
+					}};
 			`;
 		} else if (p.buttonStyle === `outline`) {
 			return css`

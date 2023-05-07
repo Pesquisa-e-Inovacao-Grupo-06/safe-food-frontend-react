@@ -11,13 +11,14 @@ import HomeEstablishment from "./pages/home-establishment";
 import ProductConsumer from "./pages/product-consumer";
 import PreferencesEstablishment from "./pages/preferences-establishment";
 import { SafeFoodUserGateway } from "./app/infra/gateway/safefood/SafeFoodUserGateway";
-import { SafeFoodConsumerGateway } from "./app/infra/gateway/safefood/SafeFoodConsumerGateway";
 import { SafeFoodRestrictionGateway } from "./app/infra/gateway/safefood/SafeFoodRestrictionGateway";
 import { Cache } from "./app/domain/protocols/Cache";
 import { InputsValidatorProvider } from "./app/contexts/InputValidatorsProvider";
 import { ViaCepGateway } from "./app/infra/gateway/viacep/ViaCepGateway";
 import { AuthRoute } from "./pages/auth/AuthRoute";
 import { AuthProvider } from "./app/contexts/AuthProvider";
+import { SafeFoodConsumerGateway } from "./app/infra/gateway/safefood/SafeFoodConsumerGateway";
+import { SafeFoodEstablishmentGateway } from "./app/infra/gateway/safefood/SafeFoodEstablishmentGateway";
 
 type AppProps = {
 	cache: Cache;
@@ -25,6 +26,7 @@ type AppProps = {
 	consumerGateway: SafeFoodConsumerGateway;
 	restrictionsGateway: SafeFoodRestrictionGateway;
 	viaCepGateway: ViaCepGateway;
+	establishmentGateway: SafeFoodEstablishmentGateway;
 };
 export default function App({
 	cache,
@@ -32,6 +34,7 @@ export default function App({
 	restrictionsGateway,
 	userGateway,
 	viaCepGateway,
+	establishmentGateway,
 }: AppProps) {
 	return (
 		<>
@@ -55,9 +58,10 @@ export default function App({
 								path="/signin"
 								element={
 									<SignIn
+										cache={cache}
 										gateway={userGateway}
 										consumerGateway={consumerGateway}
-										establishmentGateway={consumerGateway}
+										establishmentGateway={establishmentGateway}
 									/>
 								}
 							/>
@@ -74,16 +78,16 @@ export default function App({
 							<Route
 								path="/profile"
 								element={
-									<AuthRoute userAuth="CONSUMER">
-										<Profile />
+									<AuthRoute userAuth="CONSUMIDOR">
+										<Profile cache={cache} />
 									</AuthRoute>
 								}
 							/>
 							<Route
 								path="/profile-establishment"
 								element={
-									<AuthRoute userAuth="ESTABLISHMENT">
-										<ProfileEstablishment />
+									<AuthRoute userAuth="ESTABELECIMENTO">
+										<ProfileEstablishment cache={cache} />
 									</AuthRoute>
 								}
 							/>

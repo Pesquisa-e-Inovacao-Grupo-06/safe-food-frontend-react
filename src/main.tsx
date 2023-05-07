@@ -5,17 +5,16 @@ import { SafeFoodThemeProvider } from "./app/contexts/SafeFoodThemeProvider";
 import { LocalStorageCache } from "./app/infra/protocols/LocalStorageCache";
 import { AxiosHttpClient } from "./app/infra/protocols/AxiosHttpClient";
 import { SafeFoodUserGateway } from "./app/infra/gateway/safefood/SafeFoodUserGateway";
-import { SafeFoodConsumerGateway } from "./app/infra/gateway/safefood/SafeFoodConsumerGateway";
 import { SafeFoodRestrictionGateway } from "./app/infra/gateway/safefood/SafeFoodRestrictionGateway";
 import { ViaCepGateway } from "./app/infra/gateway/viacep/ViaCepGateway";
-import { Restriction } from "./app/domain/entities/Restriction";
 import { of } from "./app/infra/gateway/safefood/mappers/SafeFoodRestrictionMapper";
+import { SafeFoodConsumerGateway } from "./app/infra/gateway/safefood/SafeFoodConsumerGateway";
 
 const cache = new LocalStorageCache();
 const safeFoodClient = new AxiosHttpClient("http://localhost:8081");
 const defaultClient = new AxiosHttpClient();
 const userGateway = new SafeFoodUserGateway(safeFoodClient);
-const consumerGateway = new SafeFoodConsumerGateway(safeFoodClient);
+const consumerGateway = new SafeFoodConsumerGateway(safeFoodClient, cache);
 const restrictionsGateway = new SafeFoodRestrictionGateway(safeFoodClient);
 const viaCepGateway = new ViaCepGateway(defaultClient);
 
@@ -30,9 +29,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 			<App
 				cache={cache}
 				userGateway={userGateway}
-				consumerGateway={consumerGateway}
 				restrictionsGateway={restrictionsGateway}
 				viaCepGateway={viaCepGateway}
+				consumerGateway={consumerGateway}
 			/>
 		</SafeFoodThemeProvider>
 	</React.StrictMode>
