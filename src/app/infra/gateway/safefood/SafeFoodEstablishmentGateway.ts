@@ -13,7 +13,7 @@ export class SafeFoodEstablishmentGateway {
 
     async findById(id: number): Promise<SafeFoodEstablishmentResponse> {
         const res = await this.http.execute<SafeFoodEstablishmentResponse>({
-            url: `/estabelecimento/${id}`,
+            url: `/estabelecimentos/${id}`,
             method: "GET",
             jwt: this.token,
 
@@ -52,35 +52,14 @@ export class SafeFoodEstablishmentGateway {
     }
 
     async create(data: SafeFoodCreateEstablishmentRequest): Promise<SafeFoodEstablishmentResponse> {
-
-        let body: {
-            "nome": string,
-            "email": string,
-            "senha": string,
-            "nomeEmpresa": string,
-            "celular": string,
-            "contatoCliente": string,
-            "cnpj": string,
-            "descricao": string,
-            "endereco"?: SafeFoodCreateAddressRequest,
-        } = {
-            "nome": data.nome,
-            "email": data.email,
-            "senha": data.senha,
-            "nomeEmpresa": data.nomeEmpresa,
-            "celular": data.celular,
-            "contatoCliente": data.contatoCliente,
-            "cnpj": data.cnpj,
-            "descricao": data.descricao,
-            "endereco": data.endereco,
+        const body: Partial<SafeFoodCreateEstablishmentRequest> = {
+            ...data
         }
-        //TODO: acrescentar verificações depois de ver quais campos são opcionais
+        if(!body.celular) delete body.celular;
         const res = await this.http.execute<SafeFoodEstablishmentResponse>({
-            url: `/estabelecimento`,
-            method: "GET",
+            url: `/estabelecimentos`,
+            method: "POST",
             body: body,
-            jwt: this.token,
-
         })
         if (!res.data) {
             throw new Error("Erro ao tentar adicionar estabelecimento");
@@ -91,7 +70,7 @@ export class SafeFoodEstablishmentGateway {
     //TODO: AGUARDANDO RESPOSTA DE BACK-END
     async findByProductId(id: number): Promise<SafeFoodEstablishmentResponse> {
         const res = await this.http.execute<SafeFoodEstablishmentResponse>({
-            url: `/estabelecimento/${id}/produtos`,
+            url: `/estabelecimentos/${id}/produtos`,
             method: "GET"
         })
         if (!res.data) {
@@ -102,7 +81,7 @@ export class SafeFoodEstablishmentGateway {
 
     async findByLocationId(id: number): Promise<SafeFoodEstablishmentResponse> {
         const res = await this.http.execute<SafeFoodEstablishmentResponse>({
-            url: `/estabelecimento/${id}/location`,
+            url: `/estabelecimentos/${id}/location`,
             method: "GET"
         })
         if (!res.data) {

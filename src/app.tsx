@@ -71,7 +71,7 @@ export default function App({
 									<SignUp
 										cache={cache}
 										viaCepGateway={viaCepGateway}
-										gateway={consumerGateway}
+										gateway={establishmentGateway}
 									/>
 								}
 							/>
