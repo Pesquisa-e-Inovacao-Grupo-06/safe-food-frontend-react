@@ -43,8 +43,14 @@ export const AuthProvider: FC<AuthProviderProps> = props => {
 		<authConsumerContext.Provider
 			value={{
 				token,
-				setToken,
-				setUser,
+				setToken(token) {
+					props.cache.setItem("token", token);
+					setToken(token);
+				},
+				setUser(user) {
+					props.cache.setItem("user", JSON.stringify(user));
+					setUser(user);
+				},
 				user,
 				expiration: token ? getExpirationTimeFromToken(token) : moment(),
 				logout() {

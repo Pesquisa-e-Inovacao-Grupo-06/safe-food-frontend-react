@@ -1,27 +1,41 @@
-import { Restriction } from "@/app/domain/entities/Restriction";
-import { ProfileTemplate } from "../components/templates/profile-consumer-template";
+import { SafeFoodConsumerGateway } from "@/app/infra/gateway/safefood/SafeFoodConsumerGateway";
+import { Cache } from "@/app/domain/protocols/Cache";
+import { ProfileTemplate } from "@/components/templates/profile-consumer-template";
+import { SafeFoodAddressMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodAddressMapper";
+import { SafeFoodConsumerModel } from "@/app/infra/gateway/safefood/models/SafeFoodConsumer";
 
-export const ProfileConsumer = () => {
-	return (
-		<ProfileTemplate
-			// TODO: /consumidor/{id} - get
-			restrictions={[new Restriction(1, "rest", "")]}
-			// TODO: VERIFICAR SOBRE O /consumidor/{id} converter endereço completo para string
-			listOfAddress={[{ text: "asdas", subtitle: "bbbb" }]}
-			// TODO:  /consumidor/{id} & /estabelecimento/{id} - post : nome, email, senha n deve aparecer, telefone,
-			form={[
-				{ name: "Nome:", value: "" },
-				{ name: "Email:", value: "" },
-				// TODO: NUMERO NÃO FAZ SENTIDO
-				{ name: "Número:", value: "" },
-				{ name: "Número telefone:", value: "" },
-				{ name: "Senha:", value: "" },
-			]}
-			// TODO: precisa receber imagem de banner PRECISA CONVERSAR
-			// TODO: /consumidor/{id}
-			urlDefault={""}
-		></ProfileTemplate>
-	);
+type ProfileConsumer = {
+	cache: Cache;
 };
+
+function ProfileConsumer({ cache }: ProfileConsumer) {
+	const restrictions =
+		cache.getItem("restricoes") !== null
+			? JSON.parse(cache.getItem("restricoes")!)
+			: {};
+
+	const consumer: SafeFoodConsumerModel =
+		cache.getItem("consumer") !== null
+			? JSON.parse(cache.getItem("consumer")!)
+			: {};
+
+	return consumer ? (
+		<ProfileTemplate
+			urlDefault={consumer.imagem}
+			form={[
+				{ name: "Nome:", value: consumer.nome },
+				{ name: "Email:", value: consumer.email },
+				{ name: "Número:", value: consumer.telefone || "" },
+				{ name: "Senha:", value: "**********" },
+			]}
+			// TODO: CRIAR MAPPER DE ADDRESS MODEL TO ADDRESS ENTITY
+			listOfAddress={consumer.enderecos.map(SafeFoodAddressMapper.of)}
+			// TODO: saved restrictions
+			restrictions={restrictions}
+		/>
+	) : (
+		<h1>Carregando...</h1>
+	);
+}
 
 export default ProfileConsumer;

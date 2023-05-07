@@ -14,6 +14,7 @@ export type HttpClientMethodParams<T, H> = {
     method?: HTTP_METHOD,
     body?: T,
     headers?: H,
+    jwt?: string,
     url: string,
     basicAuth?: HttpBasicAuth,
     contentType?: ContentTypeDefaults

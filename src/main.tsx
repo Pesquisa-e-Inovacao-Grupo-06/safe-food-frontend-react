@@ -8,14 +8,13 @@ import { SafeFoodUserGateway } from "./app/infra/gateway/safefood/SafeFoodUserGa
 import { SafeFoodConsumerGateway } from "./app/infra/gateway/safefood/SafeFoodConsumerGateway";
 import { SafeFoodRestrictionGateway } from "./app/infra/gateway/safefood/SafeFoodRestrictionGateway";
 import { ViaCepGateway } from "./app/infra/gateway/viacep/ViaCepGateway";
-import { Restriction } from "./app/domain/entities/Restriction";
 import { of } from "./app/infra/gateway/safefood/mappers/SafeFoodRestrictionMapper";
 
 const cache = new LocalStorageCache();
 const safeFoodClient = new AxiosHttpClient("http://localhost:8081");
 const defaultClient = new AxiosHttpClient();
 const userGateway = new SafeFoodUserGateway(safeFoodClient);
-const consumerGateway = new SafeFoodConsumerGateway(safeFoodClient);
+const consumerGateway = new SafeFoodConsumerGateway(safeFoodClient, cache);
 const restrictionsGateway = new SafeFoodRestrictionGateway(safeFoodClient);
 const viaCepGateway = new ViaCepGateway(defaultClient);
 
