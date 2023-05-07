@@ -7,9 +7,14 @@ type Props = {
 	value: string;
 	type?: typeInput;
 	callback: (checked: boolean) => void;
+	messageAlert?: boolean;
 };
 
-const Checkbox: React.FC<Props> = ({ type = "checkbox", ...props }) => {
+const Checkbox: React.FC<Props> = ({
+	messageAlert = true,
+	type = "checkbox",
+	...props
+}) => {
 	const [alert, setAlert] = useState(false);
 
 	const handleChange = (e: any) => {
@@ -36,6 +41,7 @@ const Checkbox: React.FC<Props> = ({ type = "checkbox", ...props }) => {
 				htmlFor=""
 				alert={alert}
 				required={true}
+				messageAlert={messageAlert}
 			>
 				Terms must be checked
 			</CLabelAttention>

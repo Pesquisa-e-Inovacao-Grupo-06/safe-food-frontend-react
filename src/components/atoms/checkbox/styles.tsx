@@ -72,8 +72,11 @@ export const CheckboxContainer = styled.div`
 	}
 `;
 
-export const CLabelAttention = styled(Label)<{ alert: boolean }>`
-	display: flex;
+export const CLabelAttention = styled(Label)<{
+	alert: boolean;
+	messageAlert?: boolean;
+}>`
+	display: ${p => (p.messageAlert ? "flex" : "none")};
 	color: red;
 	font-size: 10px;
 	line-height: 15px;

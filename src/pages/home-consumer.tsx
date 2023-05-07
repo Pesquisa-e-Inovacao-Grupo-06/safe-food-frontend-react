@@ -1,17 +1,20 @@
+import Checkbox from "@/components/atoms/checkbox";
 import { SelectAtom } from "@/components/atoms/select";
 import { Text } from "@/components/atoms/text";
+import DropDown from "@/components/molecules/drop-down";
 import Header from "@/components/molecules/header";
 import { CardEstablishmentFoodOrganism } from "@/components/organisms/card-establishment-food/card-establishment-food-organism";
 import { BodyTemplate } from "@/components/templates/body-template";
 import { Subtitle } from "@/styles/components/text/Subtitle";
 import { useState } from "react";
-import { FaBars } from "react-icons/fa";
+import { FaBars, FaChevronDown } from "react-icons/fa";
 import { RxDashboard } from "react-icons/rx";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const HomeConsumer: React.FC = () => {
 	const [formCard, setFormcard] = useState<boolean>(false);
+	const [termAccepted, setTermAccepted] = useState(false);
 
 	const products = [
 		{
@@ -78,6 +81,8 @@ const HomeConsumer: React.FC = () => {
 		count++;
 	});
 
+	const [isDropDown, setDropDown] = useState(false);
+
 	return (
 		<>
 			<Header />
@@ -110,9 +115,40 @@ const HomeConsumer: React.FC = () => {
 					<div className="header-aside-filter-home-consumer">
 						<Subtitle>Filtrar por:</Subtitle>
 					</div>
+
 					<div className="main-aside-filter-home-consumer">
-						<div className="container-main-aside-filter-home-consumer"></div>
+						<div className="container-main-aside-filter-home-consumer">
+							<DropDown
+								titleDropDown="Restrição:"
+								activeCheckBox
+								alignTitleText={false}
+								alignSubText="start"
+								textSubMenuWithCheckBox={submenu}
+							/>
+							<DropDown
+								titleDropDown="Categoria do produto:"
+								activeCheckBox
+								alignTitleText={false}
+								alignSubText="start"
+								textSubMenuWithCheckBox={submenu}
+							/>
+							<DropDown
+								titleDropDown="Tipo de restrição:"
+								activeCheckBox
+								alignTitleText={false}
+								alignSubText="start"
+								textSubMenuWithCheckBox={submenu}
+							/>
+							<DropDown
+								titleDropDown="Outros:"
+								activeCheckBox
+								alignTitleText={false}
+								alignSubText="start"
+								textSubMenuWithCheckBox={submenu}
+							/>
+						</div>
 					</div>
+
 					<div className="main-home-consumer">
 						<div className="container-main-home-consumer">
 							{products.map(({ product }) => product)}
@@ -127,7 +163,11 @@ const HomeConsumer: React.FC = () => {
 
 export default HomeConsumer;
 
+//Para a input select, porém não está funcionando
 const teste = ["Todos", "Todos", "Todos"];
+
+//itens sub-menu
+const submenu = ["Vegano", "Glúten", "Vegano", "Glúten", "Glúten", "Glúten"];
 
 const CardProductHomeConsumer = styled.div<{
 	isActive?: boolean;
@@ -154,7 +194,7 @@ const CardProductHomeConsumer = styled.div<{
 		> div:nth-child(2) {
 			padding: 15px;
 			margin: 0px !important;
-			gap: ${p => (p.isActive ? "5px" : "10px")};
+			gap: ${p => (p.isActive ? "0px" : "10px")};
 
 			> h2 {
 				font-size: 14px;
@@ -189,11 +229,11 @@ const CardProductHomeConsumer = styled.div<{
 						? p.theme.colors.light_gray[600]
 						: p.theme.colors.dark_gray[800]};
 
-				border: ${p => (p.isActive ? "0.1px" : "0px")} solid
+				/* border: ${p => (p.isActive ? "0.1px" : "0px")} solid
 					${p =>
-						p.theme.name == "light"
-							? p.theme.colors.light_gray[600]
-							: p.theme.colors.dark_gray[800]};
+					p.theme.name == "light"
+						? p.theme.colors.light_gray[600]
+						: p.theme.colors.dark_gray[800]}; */
 			}
 
 			> div:nth-child(5) {
@@ -228,15 +268,13 @@ const ContainerHomeConsumer = styled.div<{
 	display: grid;
 	grid-template-columns: 0.3fr 1fr;
 	grid-template-rows: 0fr 1fr 0.1fr;
-	margin-top: 125px;
+	margin-top: 120px;
 
 	grid-template-areas:
 		"asideHeader header"
 		"aside main";
 
 	grid-column-gap: 30px;
-
-	/* background: red; */
 
 	//header
 	.header-home-consumer {
@@ -245,7 +283,6 @@ const ContainerHomeConsumer = styled.div<{
 		.container-header-home-consumer {
 			display: flex;
 			height: 100%;
-			background: blue;
 			padding: 10px 0 15px 0;
 			gap: 15px;
 			border-bottom: 1px solid
@@ -257,7 +294,6 @@ const ContainerHomeConsumer = styled.div<{
 			> ul {
 				width: 100%;
 				list-style: none;
-				/* background: red; */
 				display: grid;
 				grid-template-columns: 1fr 1fr 0.5fr;
 				column-gap: 15px;
@@ -265,7 +301,6 @@ const ContainerHomeConsumer = styled.div<{
 				> li {
 					display: flex;
 					align-items: center;
-					/* background: green; */
 					column-gap: 10px;
 
 					> div {
@@ -290,7 +325,6 @@ const ContainerHomeConsumer = styled.div<{
 					display: none;
 				}
 				.box-icon-header-home-consumer {
-					/* background: pink; */
 					display: flex;
 					align-items: center;
 					gap: 10px;
@@ -314,7 +348,6 @@ const ContainerHomeConsumer = styled.div<{
 	//aside header
 	.header-aside-filter-home-consumer {
 		grid-area: asideHeader;
-		background: green;
 		display: flex;
 		align-items: center;
 
@@ -327,27 +360,46 @@ const ContainerHomeConsumer = styled.div<{
 	//aside main
 	.main-aside-filter-home-consumer {
 		grid-area: aside;
-		/* padding: 0 0 0 5px; */
 
 		.container-main-aside-filter-home-consumer {
-			height: 100%;
 			border-radius: 8px;
+			padding: 1px 15px 15px 15px;
 			background: ${p =>
 				p.theme.name == "light"
 					? p.theme.colors.light_gray[200]
 					: p.theme.colors.dark_gray[1000]};
 			box-shadow: rgba(0, 0, 0, 0.133) 0px 4px 12px 2px;
+
+			> li {
+				transition: all 0.4s ease;
+			}
+
+			//aba filter
+			.dropdown-filter-aside {
+				user-select: none;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-bottom: 10px;
+
+				> p:nth-child(1) {
+					font-weight: 600;
+				}
+
+				> svg {
+					cursor: pointer;
+					fill: ${p => p.theme.colors.primary[600]};
+				}
+			}
 		}
 	}
 
 	//main
 	.main-home-consumer {
-		background: purple;
 		grid-area: main;
 		padding: 10px 0;
 
 		.container-main-home-consumer {
-			/* background: black; */
 			padding: 10px 0;
 			display: grid;
 			grid-template-columns: ${p =>
@@ -358,34 +410,41 @@ const ContainerHomeConsumer = styled.div<{
 
 	//footer
 	.footer-home-consumer {
-		background: yellow;
+		height: 100%;
 		grid-column: 2 / 3;
 		grid-row: 3;
 	}
 
 	@media (max-width: 770px) {
+		margin-top: 100px;
 		grid-template-columns: 1fr;
+		grid-template-rows: 0fr 0fr 0fr 0fr 0fr;
 		grid-template-areas:
+			"asideHeader"
+			"aside"
 			"header"
 			"main"
 			"footer";
 
-		.main-aside-filter-home-consumer,
-		.header-aside-filter-home-consumer {
-			display: none;
-		}
-
 		.footer-home-consumer {
-			background: gray;
 			grid-column: 1;
-			grid-row: 3;
+			grid-row: 5;
 		}
-	}
 
-	@media (max-width: 600px) {
+		.container-main-aside-filter-home-consumer {
+			margin-bottom: 30px;
+		}
+
 		.header-home-consumer {
 			.container-header-home-consumer {
 				flex-direction: column;
+
+				border-top: 1px solid
+					${p =>
+						p.theme.name == "light"
+							? p.theme.colors.light_gray[800]
+							: p.theme.colors.dark_gray[400]};
+
 				> ul {
 					grid-template-columns: 1fr;
 					gap: 10px;
