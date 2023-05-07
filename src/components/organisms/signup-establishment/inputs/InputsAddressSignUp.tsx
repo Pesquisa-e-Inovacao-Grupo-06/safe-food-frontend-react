@@ -2,20 +2,22 @@ import { useSignupEstablishment } from "@/app/contexts/SignupEstablishmentProvid
 import { HttpClient } from "@/app/domain/protocols/HttpClient";
 import { FindAddress } from "@/app/domain/usecases/FindAddress";
 import { SafeFoodCreateAddressRequest } from "@/app/infra/gateway/safefood/models/SafeFoodAddress";
+import { CepValidator } from "@/app/util/validations/cep-validator";
 import { InputValidator } from "@/app/util/validations/input-validator";
 import { Column } from "@/components/atoms/column";
 import { Row } from "@/components/molecules/row/styles";
 import { TextField } from "@/components/molecules/textfield";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 
 export const InputsAddressSignupEstablishment: React.FC<{
-	validator: InputValidator;
+	validator: CepValidator;
 	usecase: FindAddress;
 }> = ({ validator, usecase }) => {
 	const { setEstablishment, establishment } = useSignupEstablishment();
 	const [errorCep, setError] = useState("");
-	const [address, setAddress] = useState({
+	const [cep, setcep] = useState<string>("");
+	const [address, setAddress] = useState<SafeFoodCreateAddressRequest>({
 		apelido: "",
 		bairro: "",
 		cep: "",
@@ -49,19 +51,23 @@ export const InputsAddressSignupEstablishment: React.FC<{
 				});
 			})
 			.catch(err => {
-				clearAddress();
+				clearAddress(cep);
 				setError("CEP invalido");
 			});
 	};
-	const clearAddress = () => {
-		setAddress({
-			...address,
-			cidade: "",
-			estado: "",
-			logradouro: "",
-			bairro: "",
-		});
-	};
+	const clearAddress = useCallback(
+		(cep: string) => {
+			setAddress({
+				...address,
+				cep: cep,
+				cidade: "",
+				estado: "",
+				logradouro: "",
+				bairro: "",
+			});
+		},
+		[address.cep]
+	);
 
 	return (
 		<>
@@ -72,6 +78,8 @@ export const InputsAddressSignupEstablishment: React.FC<{
 						required={true}
 						id="address-cep"
 						value={address.cep}
+						min={8}
+						max={9}
 						renderEndIcon={() => <FaSearch />}
 						onChange={ev => {
 							const str = ev.currentTarget.value;
@@ -86,11 +94,10 @@ export const InputsAddressSignupEstablishment: React.FC<{
 									setError("");
 									findAddress(value);
 								} else {
-									clearAddress();
 									setError(errors.join(";"));
 								}
 							} else {
-								clearAddress();
+								clearAddress(value);
 								setError("");
 							}
 						}}

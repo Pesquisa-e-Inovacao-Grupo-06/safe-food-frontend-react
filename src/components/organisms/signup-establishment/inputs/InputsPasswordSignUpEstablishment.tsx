@@ -1,3 +1,4 @@
+import { useSignupEstablishment } from "@/app/contexts/SignupEstablishmentProvider";
 import { InputValidator } from "@/app/util/validations/input-validator";
 import { TextField } from "@/components/molecules/textfield";
 import React, { useState } from "react";
@@ -5,7 +6,7 @@ import React, { useState } from "react";
 export const InputsPasswordsSignUpEstablishment: React.FC<{
 	validator: InputValidator;
 }> = ({ validator }) => {
-	const [password, setPassword] = useState("");
+	const { establishment, setEstablishment } = useSignupEstablishment();
 	const [confPassword, setConfPassword] = useState("");
 	const [errorPassword, setErrorPassword] = useState("");
 	const [errorConfPassword, setErrorConfPassword] = useState("");
@@ -16,13 +17,16 @@ export const InputsPasswordsSignUpEstablishment: React.FC<{
 				label="Senha: "
 				required
 				id="password"
-				value={password}
+				value={establishment.senha}
 				name="general-password"
 				placeholder={"*".repeat(8)}
 				onChange={ev => {
 					const str = ev.currentTarget.value;
 					const value = validator.format(str);
-					setPassword(value);
+					setEstablishment({
+						...establishment,
+						senha: value,
+					});
 					const errors = validator.validate(value);
 					if (errors.length > 0) {
 						setErrorPassword(errors.join(";"));
@@ -50,7 +54,7 @@ export const InputsPasswordsSignUpEstablishment: React.FC<{
 					const value = validator.format(str);
 					setConfPassword(value);
 					const errors = validator.validate(value);
-					if (password != value) {
+					if (establishment.senha != value) {
 						errors.push("As senhas não coincidem");
 					} else {
 						errors.pop();

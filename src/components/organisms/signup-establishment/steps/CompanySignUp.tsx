@@ -8,8 +8,20 @@ import { InputCnpjSignUp } from "../inputs/InputCnpjSignUp";
 import { CnpjValidator } from "@/app/util/validations/cnpj-validator";
 import { InputNameSignUpEstablishment } from "../inputs/InputNameSignUpEstablishment";
 import { JustStringAndSpaceValidator } from "@/app/util/validations/just-string-and-space";
+import { useInputsValidator } from "@/app/contexts/InputValidatorsProvider";
+import TextArea from "@/components/atoms/textarea";
+import { useSignupEstablishment } from "@/app/contexts/SignupEstablishmentProvider";
+import { TextField } from "@/components/molecules/textfield";
 
 export const CompanySignUp: FC = () => {
+	const { getCnpjValidator, getPhoneValidator, getJustStringValidator } =
+		useInputsValidator();
+	const cnpjValidator = getCnpjValidator();
+	const phoneValidator = getPhoneValidator();
+	const stringValidator = getJustStringValidator(5, 100);
+
+	const { establishment, setEstablishment } = useSignupEstablishment();
+
 	return (
 		<>
 			<HeadingSignUpConsumer
@@ -21,12 +33,29 @@ export const CompanySignUp: FC = () => {
 				display="flex"
 				flexDiretion="column"
 			>
-				<InputNameSignUpEstablishment
-					validator={new JustStringAndSpaceValidator(5, 100)}
+				<InputNameSignUpEstablishment validator={stringValidator} />
+				<InputCnpjSignUp validator={cnpjValidator} />
+				<TextField
+					label="Descricao"
+					required={true}
+					id="additional-description"
+					value={establishment.descricao}
+					title="Faca um breve resumo do que seu estabelecimento fornece e uma descricao para os consumidores verem"
+					type="string"
+					name="additional-description"
+					inputMode="text"
+					max={100}
+					min={5}
+					onChange={ev => {
+						let str = ev.currentTarget.value;
+						setEstablishment({
+							...establishment,
+							descricao: str,
+						});
+					}}
 				/>
-				<InputCnpjSignUp validator={new CnpjValidator()} />
-				<InputPhoneSignupWpp validator={new PhoneValidator()} />
-				<InputPhoneSignupFixo validator={new PhoneValidator()} />
+				<InputPhoneSignupWpp validator={phoneValidator} />
+				<InputPhoneSignupFixo validator={phoneValidator} />
 			</Box>
 		</>
 	);

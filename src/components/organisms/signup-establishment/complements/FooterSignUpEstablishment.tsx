@@ -5,11 +5,14 @@ import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 import { useSignupConsumer } from "@/app/contexts/SignupConsumerProvider";
 import { StepsEstablishment } from "..";
 import { useSignupEstablishment } from "@/app/contexts/SignupEstablishmentProvider";
+import { SafeFoodCreateEstablishmentRequest } from "@/app/infra/gateway/safefood/models/SafeFoodEstablishment";
 
 export const FooterSignUpConsumer: React.FC<{
 	step: StepsEstablishment;
 	changeStep: (step: StepsEstablishment) => void;
-}> = ({ step, changeStep }) => {
+	onClickCreate(data: SafeFoodCreateEstablishmentRequest): void;
+}> = ({ step, changeStep, onClickCreate }) => {
+	const { establishment } = useSignupEstablishment();
 	let { errors, saveErrors } = useSignupEstablishment();
 
 	const getOnBackClick = () => {
@@ -37,6 +40,7 @@ export const FooterSignUpConsumer: React.FC<{
 			return changeStep("importation");
 		}
 		if (step === "importation") {
+			onClickCreate(establishment);
 			return changeStep("finished");
 		}
 		if (step === "finished") {
@@ -97,6 +101,7 @@ export const FooterSignUpConsumer: React.FC<{
 						if (formEl) {
 							let amountErrors = formEl.querySelectorAll("[aria-errormessage]").length;
 							document.querySelectorAll("input[required]").forEach(el => {
+								console.log(el);
 								if (!(el as HTMLInputElement).value) {
 									el.parentElement?.classList.toggle("shake");
 									setTimeout(() => {
