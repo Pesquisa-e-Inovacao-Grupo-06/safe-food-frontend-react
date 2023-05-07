@@ -11,13 +11,13 @@ import HomeEstablishment from "./pages/home-establishment";
 import ProductConsumer from "./pages/product-consumer";
 import PreferencesEstablishment from "./pages/preferences-establishment";
 import { SafeFoodUserGateway } from "./app/infra/gateway/safefood/SafeFoodUserGateway";
-import { SafeFoodConsumerGateway } from "./app/infra/gateway/safefood/SafeFoodConsumerGateway";
 import { SafeFoodRestrictionGateway } from "./app/infra/gateway/safefood/SafeFoodRestrictionGateway";
 import { Cache } from "./app/domain/protocols/Cache";
 import { InputsValidatorProvider } from "./app/contexts/InputValidatorsProvider";
 import { ViaCepGateway } from "./app/infra/gateway/viacep/ViaCepGateway";
 import { AuthRoute } from "./pages/auth/AuthRoute";
 import { AuthProvider } from "./app/contexts/AuthProvider";
+import { SafeFoodConsumerGateway } from "./app/infra/gateway/safefood/SafeFoodConsumerGateway";
 
 type AppProps = {
 	cache: Cache;

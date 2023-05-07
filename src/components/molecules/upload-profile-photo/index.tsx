@@ -8,7 +8,7 @@ export type ProfilePhotoUploadWithPreviewProps = {
 	id: string;
 	width: string;
 	justify?: BoxJustify;
-	urlDefault?: string;
+	urlDefault?: string | undefined | null;
 	onChangeFile?(file: File): void;
 } & HTMLAttributes<HTMLLabelElement>;
 export const ProfilePhotoUploadWithPreview: React.FC<

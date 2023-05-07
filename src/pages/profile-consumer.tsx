@@ -1,4 +1,3 @@
-import { SafeFoodConsumerGateway } from "@/app/infra/gateway/safefood/SafeFoodConsumerGateway";
 import { Cache } from "@/app/domain/protocols/Cache";
 import { ProfileTemplate } from "@/components/templates/profile-consumer-template";
 import { SafeFoodAddressMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodAddressMapper";
