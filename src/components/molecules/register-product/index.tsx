@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import {
 	ContainerRegisterProduct,
 	BtnRegisterProduct,
@@ -66,7 +65,7 @@ function RegisterProduct({ active, toggle, activeRegisterProduct }: Props) {
 							</Box>
 
 							{FormInputsRegisterProduct.map(({ span, input, classname }) => (
-								<ul>
+								<ul key={classname}>
 									<li className={classname}>
 										<span>
 											{span}
@@ -89,6 +88,8 @@ function RegisterProduct({ active, toggle, activeRegisterProduct }: Props) {
 										<Chips
 											key={r + i}
 											sizeChips="chips-md"
+											//TODO: RESOLVER O ONCLICK
+											onClick={() => {}}
 										>
 											{r}
 										</Chips>

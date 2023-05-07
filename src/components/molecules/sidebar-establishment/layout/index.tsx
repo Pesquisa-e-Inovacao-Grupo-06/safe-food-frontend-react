@@ -25,11 +25,12 @@ const Layout: React.FC<Props> = ({
 			>
 				{props.children}
 			</SMain>
-			<RegisterProduct
+			{/* TODO: RESOLVER O REGISTER PRODUCT */}
+			{/* <RegisterProduct
 				activeRegisterProduct={activeRegisterProduct}
 				active={props.active}
 				toggle={props.toggle}
-			/>
+			/> */}
 		</SLayout>
 	);
 };

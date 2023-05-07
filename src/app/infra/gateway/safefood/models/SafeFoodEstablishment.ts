@@ -24,6 +24,9 @@ export type SafeFoodCreateEstablishmentModel = {
 export type SafeFoodCreateEstablishmentResponse =
   SafeFoodGenericDataResponse<SafeFoodCreateEstablishmentModel>
 
+export type SafeFoodEstablishmentModel =
+  SafeFoodGenericDataResponse<SafeFoodCreateEstablishmentModel>
+
 
 export type SafeFoodEstablishmentResponse = SafeFoodGenericDataResponse<{
   nome: string,

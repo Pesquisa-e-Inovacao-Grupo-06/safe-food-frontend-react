@@ -1,14 +1,22 @@
 import { HttpClient } from "@/app/domain/protocols/HttpClient";
 import { SafeFoodCreateEstablishmentRequest, SafeFoodCreateEstablishmentResponse, SafeFoodEstablishmentResponse, SafeFoodUpdateEstablishmentRequest } from "./models/SafeFoodEstablishment";
 import { SafeFoodCreateAddressRequest } from "./models/SafeFoodAddress";
+import { Cache } from "@/app/domain/protocols/Cache";
 
 export class SafeFoodEstablishmentGateway {
-    constructor(private readonly http: HttpClient) { }
+    private token: string = '';
+    constructor(private readonly http: HttpClient, private readonly cache: Cache) {
+        this.token = cache.getItem('token') || '';
+    }
+
+
 
     async findById(id: number): Promise<SafeFoodEstablishmentResponse> {
         const res = await this.http.execute<SafeFoodEstablishmentResponse>({
             url: `/estabelecimento/${id}`,
-            method: "GET"
+            method: "GET",
+            jwt: this.token,
+
         })
         if (!res.data) {
             throw new Error("Erro ao tentar encontrar usuário")
@@ -20,6 +28,8 @@ export class SafeFoodEstablishmentGateway {
         const res = await this.http.execute<SafeFoodEstablishmentResponse>({
             url: `/estabelecimentos/${id}`,
             method: "PUT",
+            jwt: this.token,
+
             body: data,
         })
         if (!res.data) {
@@ -32,6 +42,7 @@ export class SafeFoodEstablishmentGateway {
         const res = await this.http.execute<SafeFoodEstablishmentResponse>({
             url: `/estabelecimentos/${id}`,
             method: "DELETE",
+            jwt: this.token,
 
         })
         if (!res.data) {
@@ -68,6 +79,7 @@ export class SafeFoodEstablishmentGateway {
             url: `/estabelecimento`,
             method: "GET",
             body: body,
+            jwt: this.token,
 
         })
         if (!res.data) {
