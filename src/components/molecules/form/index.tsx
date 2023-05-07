@@ -14,7 +14,10 @@ export const Form: React.FC<FormProps> = ({ listOfComponent }) => {
 				<ul>
 					<li>
 						<span>{item.name}</span>
-						<Input value={item.value} />
+						<Input
+							value={item.value}
+							key={`'input-'${item}`}
+						/>
 					</li>
 				</ul>
 			))}

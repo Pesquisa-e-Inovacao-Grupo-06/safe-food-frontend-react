@@ -24,6 +24,10 @@ export type SafeFoodCreateEstablishmentModel = {
 export type SafeFoodCreateEstablishmentResponse =
   SafeFoodGenericDataResponse<SafeFoodCreateEstablishmentModel>
 
+export type SafeFoodEstablishmentModel =
+  SafeFoodGenericDataResponse<SafeFoodCreateEstablishmentModel>
+
+
 export type SafeFoodEstablishmentResponse = SafeFoodGenericDataResponse<{
   nome: string,
   email: string,
@@ -44,5 +48,9 @@ export type SafeFoodUpdateEstablishmentRequest = {
   contatoCliente: string,
   descricao: string,
   endereco: SafeFoodAddressModel
+}
+
+export type SafeFoodGetProductEstablishmentRequest = {
+
 }
 

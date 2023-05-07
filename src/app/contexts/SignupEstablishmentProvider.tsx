@@ -1,14 +1,18 @@
 import {
+	Dispatch,
 	FC,
 	PropsWithChildren,
+	SetStateAction,
 	createContext,
 	useContext,
 	useState,
 } from "react";
+import { SafeFoodCreateEstablishmentRequest } from "../infra/gateway/safefood/models/SafeFoodEstablishment";
+import { SafeFoodCreateAddressRequest } from "../infra/gateway/safefood/models/SafeFoodAddress";
 
 export type SignupEstablishmentContextParams = {
-	saveFormData: (form: FormData) => void;
-	getFormData: FormData;
+	establishment: SafeFoodCreateEstablishmentRequest;
+	setEstablishment: Dispatch<SetStateAction<SafeFoodCreateEstablishmentRequest>>;
 	errors: string[];
 	saveErrors: (errors: string[]) => void;
 };
@@ -24,16 +28,36 @@ export type SignupEstablishmentProviderProps = {} & PropsWithChildren;
 export const SignupEstablishmentProvider: FC<
 	SignupEstablishmentProviderProps
 > = props => {
-	const [data, setData] = useState<FormData>(new FormData());
 	const [errors, setErrors] = useState<string[]>([]);
+	const [establishment, setEstablishment] =
+		useState<SafeFoodCreateEstablishmentRequest>({
+			celular: "",
+			cnpj: "",
+			contatoCliente: "",
+			descricao: "",
+			email: "",
+			endereco: {
+				apelido: "",
+				bairro: "",
+				cep: "",
+				cidade: "",
+				complemento: "",
+				estado: "",
+				logradouro: "",
+				numero: "",
+			} as SafeFoodCreateAddressRequest,
+			nome: "",
+			nomeEmpresa: "",
+			senha: "",
+		} as SafeFoodCreateEstablishmentRequest);
 
 	return (
 		<signupEstablishmentContext.Provider
 			value={{
-				saveFormData: setData,
-				getFormData: data,
 				errors,
 				saveErrors: setErrors,
+				establishment,
+				setEstablishment,
 			}}
 		>
 			{props.children}

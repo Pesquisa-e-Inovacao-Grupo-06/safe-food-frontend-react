@@ -1,3 +1,4 @@
+import { useSignupEstablishment } from "@/app/contexts/SignupEstablishmentProvider";
 import { InputValidator } from "@/app/util/validations/input-validator";
 import { TextField } from "@/components/molecules/textfield";
 import React, { useState } from "react";
@@ -5,7 +6,7 @@ import React, { useState } from "react";
 export const InputNameSignUpEstablishment: React.FC<{
 	validator: InputValidator;
 }> = ({ validator }) => {
-	const [name, setName] = useState("");
+	const { establishment, setEstablishment } = useSignupEstablishment();
 	const [error, setError] = useState("");
 	return (
 		<>
@@ -16,11 +17,15 @@ export const InputNameSignUpEstablishment: React.FC<{
 				name="general-name"
 				max={100}
 				min={10}
-				value={name}
+				value={establishment.nome}
 				onChange={ev => {
 					let str = ev.currentTarget.value;
 					let value = validator.format(str);
-					setName(value);
+					setEstablishment({
+						...establishment,
+						nome: value,
+						nomeEmpresa: value,
+					});
 					const errors = validator.validate(value);
 					if (errors.length > 0) {
 						setError(errors.join(";"));

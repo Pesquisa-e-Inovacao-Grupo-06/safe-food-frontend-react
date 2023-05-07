@@ -1,11 +1,15 @@
 import React, { FC } from "react";
 import { HeadingSignUpConsumer } from "../complements/HeadingSignUpConsumer";
 import { InputsAddressSignupEstablishment } from "../inputs/InputsAddressSignUp";
-import { makeFindAddress } from "@/app/factories/makeFindAddressViaCep";
-import { CepValidator } from "@/app/util/validations/cep-validator";
 import { Box } from "@/components/atoms/box";
+import { FindAddress } from "@/app/domain/usecases/FindAddress";
+import { useInputsValidator } from "@/app/contexts/InputValidatorsProvider";
 
-export const LocationSignUpEstablishment: FC = () => {
+export const LocationSignUpEstablishment: FC<{
+	useCase: FindAddress;
+}> = ({ useCase }) => {
+	const { getCepValidator } = useInputsValidator();
+	const validator = getCepValidator();
 	return (
 		<>
 			<HeadingSignUpConsumer
@@ -18,8 +22,8 @@ export const LocationSignUpEstablishment: FC = () => {
 				flexDiretion="column"
 			>
 				<InputsAddressSignupEstablishment
-					usecase={makeFindAddress()}
-					validator={new CepValidator()}
+					usecase={useCase}
+					validator={validator}
 				/>
 			</Box>
 		</>

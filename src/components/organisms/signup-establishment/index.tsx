@@ -11,6 +11,8 @@ import { ImportationSignUp } from "./steps/ImportationSignup";
 import { FinishedSignUpConsumer } from "../signup-consumer/steps";
 import { CompanySignUp } from "./steps/CompanySignUp";
 import { SignupEstablishmentProvider } from "@/app/contexts/SignupEstablishmentProvider";
+import { FindAddress } from "@/app/domain/usecases/FindAddress";
+import { SafeFoodCreateEstablishmentRequest } from "@/app/infra/gateway/safefood/models/SafeFoodEstablishment";
 
 export type StepsEstablishment =
 	| "company"
@@ -18,14 +20,18 @@ export type StepsEstablishment =
 	| "location"
 	| "importation"
 	| "finished";
-export const SignUpEstablishment: React.FC = () => {
-	const [step, setStep] = useState<StepsEstablishment>("importation");
+export const SignUpEstablishment: React.FC<{
+	findAddress: FindAddress;
+	onClickCreate(data: SafeFoodCreateEstablishmentRequest): void;
+}> = ({ findAddress, onClickCreate }) => {
+	const [step, setStep] = useState<StepsEstablishment>("company");
 	const [isModalVisible, setModalVisible] = useState(true);
 
 	const StepScreen = () => {
 		if (step === "company") return <CompanySignUp />;
 		if (step === "finished") return <FinishedSignUpConsumer />;
-		if (step === "location") return <LocationSignUpEstablishment />;
+		if (step === "location")
+			return <LocationSignUpEstablishment useCase={findAddress} />;
 		if (step === "security") return <SecuritySignUp />;
 		return <ImportationSignUp />;
 	};
@@ -60,11 +66,12 @@ export const SignUpEstablishment: React.FC = () => {
 						</form>
 						<FooterSignUpConsumer
 							step={step}
+							onClickCreate={onClickCreate}
 							changeStep={setStep}
 						/>
 					</SignupEstablishmentProvider>
 					<Box width="100%">
-						<UnderlineLink href="http://localhost:5173/signup-consumer">
+						<UnderlineLink href="http://localhost:5173/signup">
 							Sou um consumidor
 						</UnderlineLink>
 					</Box>

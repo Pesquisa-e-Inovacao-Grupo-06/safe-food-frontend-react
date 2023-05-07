@@ -6,11 +6,12 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/app/contexts/AuthProvider";
 import { Cache } from "@/app/domain/protocols/Cache";
 import { SafeFoodConsumerGateway } from "@/app/infra/gateway/safefood/SafeFoodConsumerGateway";
+import { SafeFoodEstablishmentGateway } from "@/app/infra/gateway/safefood/SafeFoodEstablishmentGateway";
 
 type SignInProps = {
 	gateway: SafeFoodUserGateway;
 	consumerGateway: SafeFoodConsumerGateway;
-	establishmentGateway: SafeFoodConsumerGateway;
+	establishmentGateway: SafeFoodEstablishmentGateway;
 	cache: Cache;
 };
 function SignIn({
@@ -81,14 +82,19 @@ function SignIn({
 							cache.setItem("consumer", JSON.stringify(data.data));
 						})
 						.finally(() => {
-							navigate("/profile");
+							// navigate("/profile");
 						});
 				} else if (res.usuario.tipoUsuario === "ESTABELECIMENTO") {
 					// TODO: setar cache do estabelecimento
-					//consumerGateway.findById(res.usuario.id).then(data => {
-					//	cache.setItem("consumer", JSON.stringify(data.data));
-					//});
-					navigate("/profile-establishment");
+					establishmentGateway
+						.findById(res.usuario.id)
+						.then(data => {
+							console.log("FIND");
+							cache.setItem("establishment", JSON.stringify(data.data));
+						})
+						.finally(() => {
+							// navigate("/profile-establishment");
+						});
 				}
 			})
 			.catch(err => {

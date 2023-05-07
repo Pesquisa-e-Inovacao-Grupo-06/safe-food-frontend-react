@@ -5,13 +5,15 @@ import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 import { useSignupConsumer } from "@/app/contexts/SignupConsumerProvider";
 import { StepsEstablishment } from "..";
 import { useSignupEstablishment } from "@/app/contexts/SignupEstablishmentProvider";
+import { SafeFoodCreateEstablishmentRequest } from "@/app/infra/gateway/safefood/models/SafeFoodEstablishment";
 
 export const FooterSignUpConsumer: React.FC<{
 	step: StepsEstablishment;
 	changeStep: (step: StepsEstablishment) => void;
-}> = ({ step, changeStep }) => {
-	let { saveFormData, getFormData, errors, saveErrors } =
-		useSignupEstablishment();
+	onClickCreate(data: SafeFoodCreateEstablishmentRequest): void;
+}> = ({ step, changeStep, onClickCreate }) => {
+	const { establishment } = useSignupEstablishment();
+	let { errors, saveErrors } = useSignupEstablishment();
 
 	const getOnBackClick = () => {
 		if (step === "finished") {
@@ -38,6 +40,7 @@ export const FooterSignUpConsumer: React.FC<{
 			return changeStep("importation");
 		}
 		if (step === "importation") {
+			onClickCreate(establishment);
 			return changeStep("finished");
 		}
 		if (step === "finished") {
@@ -81,17 +84,6 @@ export const FooterSignUpConsumer: React.FC<{
 		return <></>;
 	};
 
-	const salvarFormDataNoContexto = (formEl: HTMLFormElement) => {
-		const data = new FormData(formEl);
-		data.forEach((v, k) => {
-			if (getFormData.get(k)) {
-				getFormData.set(k, v);
-			} else {
-				getFormData.append(k, v);
-			}
-		});
-		saveFormData(getFormData);
-	};
 	return (
 		<>
 			<Box
@@ -109,6 +101,7 @@ export const FooterSignUpConsumer: React.FC<{
 						if (formEl) {
 							let amountErrors = formEl.querySelectorAll("[aria-errormessage]").length;
 							document.querySelectorAll("input[required]").forEach(el => {
+								console.log(el);
 								if (!(el as HTMLInputElement).value) {
 									el.parentElement?.classList.toggle("shake");
 									setTimeout(() => {
@@ -126,8 +119,6 @@ export const FooterSignUpConsumer: React.FC<{
 								// todo message error global context
 							} else {
 								getOnClickAhead();
-								salvarFormDataNoContexto(formEl);
-								console.log(getFormData);
 							}
 						}
 					}}
