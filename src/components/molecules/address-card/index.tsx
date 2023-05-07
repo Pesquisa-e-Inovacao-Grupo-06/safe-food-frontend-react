@@ -6,7 +6,7 @@ import { IconType } from "react-icons/lib";
 import { MdEdit } from "react-icons/md";
 import { Box } from "@/components/atoms/box";
 
-type AddresCardProps = {
+export type AddresCardProps = {
 	Icon?: IconType;
 	subtitle?: string;
 	text?: string;
@@ -21,14 +21,14 @@ const AddresCard: React.FC<AddresCardProps> = ({
 		<>
 			<AddresCardContainer>
 				<div className="address-card-header">
-					<Subtitle className="address-card-subtitle">{subtitle}</Subtitle>
+					<Subtitle className="address-card-subtitle">{text}</Subtitle>
 					<ButtonIcon
 						className="address-card-btn-icon"
 						icon={<MdEdit />}
 					/>
 				</div>
 				<Box className="address-car-container-text">
-					<span>{text}</span>
+					<span>{subtitle}</span>
 				</Box>
 			</AddresCardContainer>
 		</>

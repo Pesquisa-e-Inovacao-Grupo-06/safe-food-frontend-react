@@ -1,15 +1,20 @@
 import { Box } from "@/components/atoms/box";
 import { ButtonIcon } from "@/components/molecules/button/button-icon";
-import React from "react";
+import React, { Dispatch } from "react";
 import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 import { Steps } from "..";
 import { useSignupConsumer } from "@/app/contexts/SignupConsumerProvider";
+import { SafeFoodCreateUserRequest } from "@/app/infra/gateway/safefood/models/SafeFoodUser";
+import { SafeFoodCreateConsumerRequest } from "@/app/infra/gateway/safefood/models/SafeFoodConsumer";
+import { SafeFoodCreateAddressRequest } from "@/app/infra/gateway/safefood/models/SafeFoodAddress";
+import { create } from "@mui/material/styles/createTransitions";
 
 export const FooterSignUpConsumer: React.FC<{
 	step: Steps;
+	create(data: SafeFoodCreateConsumerRequest): void;
 	changeStep: (step: Steps) => void;
-}> = ({ step, changeStep }) => {
-	let { saveFormData, getFormData, errors, saveErrors } = useSignupConsumer();
+}> = ({ step, changeStep, create }) => {
+	let { errors, saveErrors, consumer, setConsumer } = useSignupConsumer();
 
 	const getOnBackClick = () => {
 		if (step === "additional") {
@@ -24,6 +29,8 @@ export const FooterSignUpConsumer: React.FC<{
 	};
 	const getOnClickAhead = () => {
 		if (step === "additional") {
+			create({ ...consumer });
+			setConsumer({} as SafeFoodCreateConsumerRequest);
 			return changeStep("finished");
 		}
 		if (step === "restrictions") {
@@ -51,7 +58,7 @@ export const FooterSignUpConsumer: React.FC<{
 		}
 	};
 	const renderGoBackButton = () => {
-		if (step !== "general-info") {
+		if (step !== "general-info" && step !== "finished") {
 			const backClick = getOnBackClick();
 			return (
 				<ButtonIcon
@@ -70,17 +77,6 @@ export const FooterSignUpConsumer: React.FC<{
 		return <></>;
 	};
 
-	const salvarFormDataNoContexto = (formEl: HTMLFormElement) => {
-		const data = new FormData(formEl);
-		data.forEach((v, k) => {
-			if (getFormData.get(k)) {
-				getFormData.set(k, v);
-			} else {
-				getFormData.append(k, v);
-			}
-		});
-		saveFormData(getFormData);
-	};
 	return (
 		<>
 			<Box
@@ -115,8 +111,6 @@ export const FooterSignUpConsumer: React.FC<{
 								// todo message error global context
 							} else {
 								getOnClickAhead();
-								salvarFormDataNoContexto(formEl);
-								console.log(getFormData);
 							}
 						}
 					}}

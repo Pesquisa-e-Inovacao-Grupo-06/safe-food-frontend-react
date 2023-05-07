@@ -1,4 +1,4 @@
-import { HttpClient } from "@/app/domain/services/HttpClient";
+import { HttpClient } from "@/app/domain/protocols/HttpClient";
 import { FindAddress } from "@/app/domain/usecases/FindAddress";
 import { InputValidator } from "@/app/util/validations/input-validator";
 import { Column } from "@/components/atoms/column";

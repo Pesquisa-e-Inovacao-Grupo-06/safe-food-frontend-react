@@ -1,5 +1,5 @@
 import { Modal } from "@/components/molecules/modal";
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, useEffect, useState } from "react";
 import { Box } from "@/components/atoms/box";
 import { Button } from "@/components/atoms/button";
 import { UnderlineLink } from "@/components/atoms/underline-link";
@@ -11,30 +11,28 @@ import {
 } from "./steps";
 import { FooterSignUpConsumer } from "./complements/FooterSignUpConsumer";
 import { SignupConsumerProvider } from "@/app/contexts/SignupConsumerProvider";
-import { RestrictionService } from "@/app/domain/services/RestrictionService";
 import { Restriction } from "@/app/domain/entities/Restriction";
+import { SafeFoodCreateConsumerRequest } from "@/app/infra/gateway/safefood/models/SafeFoodConsumer";
+import { FindAddress } from "@/app/domain/usecases/FindAddress";
 
 export type Steps = "general-info" | "restrictions" | "additional" | "finished";
 
 export type SignUpConsumerProps = {
-	restrictionService: RestrictionService;
+	restrictions: Restriction[];
+	findAddress: FindAddress;
+	onClickCreate(data: SafeFoodCreateConsumerRequest): void;
 };
-export const SignUpConsumer: React.FC<SignUpConsumerProps> = ({
-	restrictionService,
+export const SignUpConsumerTemplate: React.FC<SignUpConsumerProps> = ({
+	restrictions,
+	onClickCreate,
+	findAddress,
 }) => {
-	const [step, setStep] = useState<Steps>("additional");
+	const [step, setStep] = useState<Steps>("general-info");
 	const [isModalVisible, setModalVisible] = useState(true);
-	const [restrictions, setRestrictions] = useState<Restriction[]>([]);
-
-	useEffect(() => {
-		(async () => {
-			const result = await restrictionService.findAllRestriction();
-			setRestrictions(result);
-		})();
-	}, []);
 
 	const StepScreen = () => {
-		if (step === "additional") return <AdditionalSignUpConsumer />;
+		if (step === "additional")
+			return <AdditionalSignUpConsumer useCase={findAddress} />;
 		if (step === "finished") return <FinishedSignUpConsumer />;
 		if (step === "restrictions")
 			return <RestrictionSignUpConsumer restrictions={restrictions} />;
@@ -62,18 +60,17 @@ export const SignUpConsumer: React.FC<SignUpConsumerProps> = ({
 					maxWidth={"600px"}
 					alignSelf="center"
 				>
-					<SignupConsumerProvider>
-						<form
-							encType="multipart/form-data"
-							id="signup-consumer-form"
-						>
-							<StepScreen />
-						</form>
-						<FooterSignUpConsumer
-							step={step}
-							changeStep={setStep}
-						/>
-					</SignupConsumerProvider>
+					<form
+						encType="multipart/form-data"
+						id="signup-consumer-form"
+					>
+						<StepScreen />
+					</form>
+					<FooterSignUpConsumer
+						create={onClickCreate}
+						step={step}
+						changeStep={setStep}
+					/>
 					<Box width="100%">
 						<UnderlineLink href="http://localhost:5173/signup-establishment">
 							Sou um estabelecimento

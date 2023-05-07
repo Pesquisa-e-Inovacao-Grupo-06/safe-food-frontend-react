@@ -8,7 +8,10 @@ import { Button } from "@/components/atoms/button";
 import { ImageAtom } from "../components/atoms/img/index";
 import preferencesLight from "../assets/preferences-light.svg";
 import preferencesDark from "../assets/preferences-dark.svg";
+import { RadioButton } from "@/components/atoms/radio-button";
+import { useState } from "react";
 const PreferencesEstablishment: React.FC = () => {
+	const [themeRadioButton, setThemeRadioButton] = useState();
 	const marksFont = [
 		{
 			value: 14,
@@ -89,13 +92,7 @@ const PreferencesEstablishment: React.FC = () => {
 									cursor={false}
 								/>
 								<Text>Claro</Text>
-								{/* TODO: IMPLEMENTAR RADIO BUTTON */}
-								<input
-									type="radio"
-									name=""
-									id=""
-									style={{ accentColor: "orange" }}
-								/>
+								<RadioButton name="theme" />
 							</Box>
 							<Box
 								display="flex"
@@ -109,12 +106,7 @@ const PreferencesEstablishment: React.FC = () => {
 									cursor={false}
 								/>
 								<Text>Escuro</Text>
-								<input
-									type="radio"
-									name=""
-									id=""
-									style={{ accentColor: "orange" }}
-								/>
+								<RadioButton name="theme" />
 							</Box>
 						</Box>
 					</Box>
