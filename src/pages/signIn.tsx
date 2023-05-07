@@ -4,8 +4,8 @@ import { SignInTemplate } from "@/components/templates/sign-in-template";
 import { AlertType } from "@/components/atoms/alert";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/app/contexts/AuthProvider";
-import { SafeFoodConsumerGateway } from "@/app/infra/gateway/safefood/SafeFoodConsumerGateway";
 import { Cache } from "@/app/domain/protocols/Cache";
+import { SafeFoodConsumerGateway } from "@/app/infra/gateway/safefood/SafeFoodConsumerGateway";
 
 type SignInProps = {
 	gateway: SafeFoodUserGateway;
