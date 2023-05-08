@@ -8,16 +8,18 @@ type PropsChips = {
 	Icon?: IconType | any;
 	sizeChips?: SizeChips;
 	onClick(state: boolean): void;
+	isActive?: boolean;
 } & PropsWithChildren &
 	HtmlHTMLAttributes<HTMLDivElement>;
 
 export const Chips: React.FC<PropsChips> = ({
 	sizeChips = "chips-md",
 	children,
+	isActive,
 	onClick,
 	...props
 }) => {
-	const [state, setState] = useState<boolean>(false);
+	const [state, setState] = useState<boolean>(isActive ?? false);
 	return (
 		<ContainerChips
 			{...props}
