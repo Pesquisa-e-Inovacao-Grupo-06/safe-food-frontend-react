@@ -13,7 +13,7 @@ export class SafeFoodEstablishmentGateway {
 
     async findById(id: number): Promise<SafeFoodEstablishmentResponse> {
         const res = await this.http.execute<SafeFoodEstablishmentResponse>({
-            url: `/estabelecimento/${id}`,
+            url: `/estabelecimentos/${id}`,
             method: "GET",
             jwt: this.token,
 
@@ -76,8 +76,8 @@ export class SafeFoodEstablishmentGateway {
         }
         //TODO: acrescentar verificações depois de ver quais campos são opcionais
         const res = await this.http.execute<SafeFoodEstablishmentResponse>({
-            url: `/estabelecimento`,
-            method: "GET",
+            url: `/estabelecimentos`,
+            method: "POST",
             body: body,
             jwt: this.token,
 
@@ -91,7 +91,7 @@ export class SafeFoodEstablishmentGateway {
     //TODO: AGUARDANDO RESPOSTA DE BACK-END
     async findByProductId(id: number): Promise<SafeFoodEstablishmentResponse> {
         const res = await this.http.execute<SafeFoodEstablishmentResponse>({
-            url: `/estabelecimento/${id}/produtos`,
+            url: `/estabelecimentos/${id}/produtos`,
             method: "GET"
         })
         if (!res.data) {
@@ -102,7 +102,7 @@ export class SafeFoodEstablishmentGateway {
 
     async findByLocationId(id: number): Promise<SafeFoodEstablishmentResponse> {
         const res = await this.http.execute<SafeFoodEstablishmentResponse>({
-            url: `/estabelecimento/${id}/location`,
+            url: `/estabelecimentos/${id}/location`,
             method: "GET"
         })
         if (!res.data) {

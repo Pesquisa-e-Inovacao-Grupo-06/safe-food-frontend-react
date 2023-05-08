@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, useEffect, useRef, useState } from "react";
+import React, { HTMLAttributes, useState } from "react";
 import Camera from "../../../assets/form/camera.svg";
 import { StyledLabelForImage } from "./styles";
 import { Box, BoxJustify } from "@/components/atoms/box";
@@ -8,7 +8,7 @@ export type ProfilePhotoUploadWithPreviewProps = {
 	id: string;
 	width: string;
 	justify?: BoxJustify;
-	urlDefault?: string;
+	urlDefault?: string | null;
 	onChangeFile?(file: File): void;
 } & HTMLAttributes<HTMLLabelElement>;
 export const ProfilePhotoUploadWithPreview: React.FC<

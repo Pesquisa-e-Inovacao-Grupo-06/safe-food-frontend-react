@@ -8,27 +8,27 @@ import { Subtitle } from "@/styles/components/text/Subtitle";
 import { ButtonIcon } from "@/components/molecules/button/button-icon";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { Chips } from "@/components/atoms/chips/chips-atom";
-import AddresCard, {
-	AddresCardProps,
-} from "@/components/molecules/address-card";
-import { Form, FormProps } from "@/components/molecules/form";
+import AddresCard from "@/components/molecules/address-card";
+import { Form } from "@/components/molecules/form";
 import { Button } from "@/components/atoms/button";
 import { Restriction } from "@/app/domain/entities/Restriction";
 import { InputPropsComponent } from "../atoms/input";
 import { Address } from "@/app/domain/entities/Address";
 
 export type ProfileProps = {
-	restrictions: Restriction[];
+	restrictionsDefault: Restriction[];
+	restrictionsUser: any;
 	listOfAddress: Address[];
 	form: InputPropsComponent[];
 	urlDefault: string | null | undefined;
 };
 
 export const ProfileTemplate: React.FC<ProfileProps> = ({
-	restrictions,
+	restrictionsDefault,
 	listOfAddress,
 	form,
 	urlDefault,
+	restrictionsUser,
 }) => {
 	return (
 		<>
@@ -77,20 +77,19 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 										text={adress.params.apelido}
 										subtitle={
 											adress.params.bairro +
-											"," +
+											", " +
 											adress.params.numero +
-											"," +
+											", " +
 											adress.params.cidade +
-											"," +
+											" - " +
 											adress.params.estado +
-											"," +
-											adress.params.cep +
-											","
+											", " +
+											adress.params.cep
 										}
 										//VERIFICAR SOBRE ESSE ICONE
 										// Icon={adress.Icon}
 										key={i}
-									></AddresCard>
+									/>
 								))}
 							</PContainerAddressCard>
 						</PContainerInfo2>
@@ -106,7 +105,7 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 									flexWrap: "wrap",
 								}}
 							>
-								{restrictions.map((restriction, i) => (
+								{restrictionsDefault.map((restriction, i) => (
 									<Chips
 										key={restriction.name + "item"}
 										sizeChips="chips-lg"

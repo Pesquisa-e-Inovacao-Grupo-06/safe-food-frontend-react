@@ -16,23 +16,23 @@ function ProfileEstablishment({ cache }: ProfileEstablishment) {
 	return establishment ? (
 		<ProfileEstablishmentTemplate
 			listOfComponentAdministration={[
-				{ name: "Nome: ", value: establishment.data.nome },
-				{ name: "Email: ", value: establishment.data.email },
-				{ name: "Número telefone: ", value: establishment.data.celular },
+				{ name: "Nome: ", value: establishment.nome },
+				{ name: "Email: ", value: establishment.email },
+				{ name: "Número telefone: ", value: establishment.celular },
 				{ name: "Senha: ", value: "*********" },
 			]}
 			listOfComponentEstablishment={[
-				{ name: "Nome da empresa: ", value: establishment.data.nomeEmpresa },
-				{ name: "Cnpj: ", value: establishment.data.cnpj },
+				{ name: "Nome da empresa: ", value: establishment.nomeEmpresa },
+				{ name: "Cnpj: ", value: establishment.cnpj },
 				{
 					name: "Celular (responsável): ",
-					value: establishment.data.celular || "",
+					value: establishment.celular || "",
 				},
 				{
 					name: "Contato (Whatsaap para clientes): ",
-					value: establishment.data.contatoCliente,
+					value: establishment.contatoCliente,
 				},
-				{ name: "Descrição: ", value: establishment.data.descricao },
+				{ name: "Descrição: ", value: establishment.descricao },
 			]}
 			urlDefault={""}
 		/>

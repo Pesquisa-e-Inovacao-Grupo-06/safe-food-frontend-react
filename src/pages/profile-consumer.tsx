@@ -30,7 +30,8 @@ function ProfileConsumer({ cache }: ProfileConsumer) {
 			// TODO: CRIAR MAPPER DE ADDRESS MODEL TO ADDRESS ENTITY
 			listOfAddress={consumer.enderecos.map(SafeFoodAddressMapper.of)}
 			// TODO: saved restrictions
-			restrictions={restrictions}
+			restrictionsDefault={restrictions}
+			restrictionsUser={consumer.restricoes}
 		/>
 	) : (
 		<h1>Carregando...</h1>
