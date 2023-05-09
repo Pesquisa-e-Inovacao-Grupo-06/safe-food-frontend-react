@@ -20,6 +20,7 @@ import { AuthRoute } from "./pages/auth/AuthRoute";
 import { AuthProvider } from "./app/contexts/AuthProvider";
 import { SafeFoodConsumerGateway } from "./app/infra/gateway/safefood/SafeFoodConsumerGateway";
 import { SafeFoodEstablishmentGateway } from "./app/infra/gateway/safefood/SafeFoodEstablishmentGateway";
+import NotFound from "./pages/not-found";
 
 type AppProps = {
 	cache: Cache;
@@ -108,10 +109,14 @@ export default function App({
 								path="/preferences-establishment"
 								element={<PreferencesEstablishment />}
 							/>
-              <Route
-						    path="/home-consumer"
-						    element={<HomeConsumer />}
-					    />
+							<Route
+								path="/home-consumer"
+								element={<HomeConsumer />}
+							/>
+							<Route
+								path="/*"
+								element={<NotFound />}
+							/>
 						</Routes>
 					</Router>
 				</AuthProvider>

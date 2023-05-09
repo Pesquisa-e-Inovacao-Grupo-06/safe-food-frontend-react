@@ -17,6 +17,8 @@ export type BoxProps = {
 	width?: string;
 	maxHeight?: string;
 	maxWidth?: string;
+	minHeight?: string;
+	minWidth?: string;
 	display?: BoxDisplay;
 	justify?: BoxJustify;
 	alignItems?: "center" | "baseline" | "start" | "end" | "unset";
@@ -35,6 +37,8 @@ export const Box = styled(motion.div)<BoxProps>`
 	width: ${p => p.width || "100%"};
 	max-height: ${p => p.maxHeight || "auto"};
 	max-width: ${p => p.maxWidth || "100%"};
+	min-height: ${p => p.minHeight || null};
+	min-width: ${p => p.minWidth || null};
 	display: ${p => p.display || "block"};
 	justify-content: ${p => p.justify || "center"};
 	align-items: ${p => p.alignItems || "center"};
