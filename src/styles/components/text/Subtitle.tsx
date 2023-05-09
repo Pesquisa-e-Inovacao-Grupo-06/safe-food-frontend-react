@@ -4,6 +4,7 @@ export const Subtitle = styled.h2<{
 	margin?: string;
 	center?: boolean;
 	large?: boolean;
+	cursor?: boolean;
 }>`
 	font-family: ${p => p.theme.font.family.title};
 	font-weight: 700;
@@ -25,7 +26,10 @@ export const Subtitle = styled.h2<{
 	}}
 
 	color: ${p =>
-		p.theme.isLight
+		p.color != null
+			? p.color
+			: p.theme.isLight
 			? p.theme.colors.dark_gray[400]
-			: p.theme.colors.light_gray[400]}
+			: p.theme.colors.light_gray[400]};
+	cursor: ${p => (p.cursor ? "pointer" : "unset")};
 `;
