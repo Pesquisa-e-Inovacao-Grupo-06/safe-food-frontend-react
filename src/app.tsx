@@ -10,6 +10,7 @@ import ProfileEstablishment from "./pages/profile-establishment";
 import HomeEstablishment from "./pages/home-establishment";
 import ProductConsumer from "./pages/product-consumer";
 import PreferencesEstablishment from "./pages/preferences-establishment";
+import HomeConsumer from "./pages/home-consumer";
 import { SafeFoodUserGateway } from "./app/infra/gateway/safefood/SafeFoodUserGateway";
 import { SafeFoodRestrictionGateway } from "./app/infra/gateway/safefood/SafeFoodRestrictionGateway";
 import { Cache } from "./app/domain/protocols/Cache";
@@ -19,6 +20,8 @@ import { AuthRoute } from "./pages/auth/AuthRoute";
 import { AuthProvider } from "./app/contexts/AuthProvider";
 import { SafeFoodConsumerGateway } from "./app/infra/gateway/safefood/SafeFoodConsumerGateway";
 import { SafeFoodEstablishmentGateway } from "./app/infra/gateway/safefood/SafeFoodEstablishmentGateway";
+import NotFound from "./pages/not-found";
+import { GlobalStyles } from "./styles/theme/global-style";
 
 type AppProps = {
 	cache: Cache;
@@ -71,7 +74,7 @@ export default function App({
 									<SignUp
 										cache={cache}
 										viaCepGateway={viaCepGateway}
-										gateway={consumerGateway}
+										gateway={establishmentGateway}
 									/>
 								}
 							/>
@@ -106,6 +109,14 @@ export default function App({
 							<Route
 								path="/preferences-establishment"
 								element={<PreferencesEstablishment />}
+							/>
+							<Route
+								path="/home-consumer"
+								element={<HomeConsumer />}
+							/>
+							<Route
+								path="/*"
+								element={<NotFound />}
 							/>
 						</Routes>
 					</Router>

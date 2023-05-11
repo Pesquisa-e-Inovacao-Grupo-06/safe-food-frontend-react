@@ -1,14 +1,16 @@
 import { Box } from "@/components/atoms/box";
 import React from "react";
 import { HeadingSignUpConsumer } from "../complements/HeadingSignUpConsumer";
-import { JustStringAndSpaceValidator } from "@/app/util/validations/just-string-and-space";
-import { InputNameSignUpEstablishment } from "../inputs/InputNameSignUpConsumer";
-import { InputEmailSignUp } from "../inputs/InputEmailSignUpConsumer";
+import { InputEmailSignUp } from "../inputs/InputEmailSignUpEstablishment";
 import { EmailValidator } from "@/app/util/validations/email-validator";
-import { InputsPasswordsSignUpConsumer } from "../inputs/InputsPasswordSignUpConsumer";
 import { PasswordValidator } from "@/app/util/validations/password-validator";
+import { InputsPasswordsSignUpEstablishment } from "../inputs/InputsPasswordSignUpEstablishment";
+import { useInputsValidator } from "@/app/contexts/InputValidatorsProvider";
 
 export const SecuritySignUp: React.FC = () => {
+	const { getEmailValidator, getPasswordValidator } = useInputsValidator();
+	const emailValidator = getEmailValidator(10, 100);
+	const passwordValidator = getPasswordValidator(8, 20);
 	return (
 		<>
 			<HeadingSignUpConsumer
@@ -20,8 +22,8 @@ export const SecuritySignUp: React.FC = () => {
 				display="flex"
 				flexDiretion="column"
 			>
-				<InputEmailSignUp validator={new EmailValidator(5, 100)} />
-				<InputsPasswordsSignUpConsumer validator={new PasswordValidator(8, 20)} />
+				<InputEmailSignUp validator={emailValidator} />
+				<InputsPasswordsSignUpEstablishment validator={passwordValidator} />
 			</Box>
 		</>
 	);

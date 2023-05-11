@@ -20,6 +20,10 @@ export type SafeFoodTheme = {
 	getTheme(): DefaultTheme;
 	getBreakpoint(): BreakpointObject;
 	getBreakpointSizes(): Map<Sizes, number>;
+	zoom: number;
+	font: number;
+	setZoom(zoom: number | number[]): void;
+	setFont(font: number | number[]): void;
 };
 
 export const safeFoodContext = createContext<SafeFoodTheme>(
@@ -34,6 +38,8 @@ export const SafeFoodThemeProvider = ({
 	children,
 }: SafeFoodThemeProviderProps) => {
 	const themeCachedString = cache.getItem("theme");
+	const zoomCachedString = cache.getItem("zoom");
+	const fontCachedString = cache.getItem("font");
 	const themeCached = themeCachedString
 		? (JSON.parse(themeCachedString) as DefaultTheme)
 		: null;
@@ -41,7 +47,11 @@ export const SafeFoodThemeProvider = ({
 	const [theme, setTheme] = useState<DefaultTheme>(
 		themeCached ? themeCached : isDarkMedia ? darkTheme : lightTheme
 	);
+	const [zoom, setZoom] = useState<number>(Number(zoomCachedString));
+	const [font, setFont] = useState<number>(Number(fontCachedString));
 	const getTheme = useCallback(() => theme, []);
+	const getZoom = useCallback(() => zoom, []);
+	const getFont = useCallback(() => font, []);
 
 	useEffect(() => {
 		if (!themeCachedString) {
@@ -91,6 +101,37 @@ export const SafeFoodThemeProvider = ({
 					toggleTheme,
 					getBreakpoint,
 					getBreakpointSizes,
+					setFont(font: number) {
+						if (font == 14) {
+							setFont(font);
+							cache.setItem("font", 90 + "");
+						}
+						if (font == 16) {
+							setFont(font);
+							cache.setItem("font", 100 + "");
+						}
+						if (font == 18) {
+							setFont(font);
+							cache.setItem("font", 110 + "");
+						}
+					},
+					// cache.setItem("font", font + "");
+					setZoom(zoom: number) {
+						if (zoom == 80) {
+							setZoom(zoom);
+							cache.setItem("zoom", 98 + "");
+						}
+						if (zoom == 100) {
+							setZoom(zoom);
+							cache.setItem("zoom", 100 + "");
+						}
+						if (zoom == 120) {
+							setZoom(zoom);
+							cache.setItem("zoom", 102 + "");
+						}
+					},
+					font,
+					zoom,
 				}}
 			>
 				{children}

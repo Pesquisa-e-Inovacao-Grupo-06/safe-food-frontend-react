@@ -10,6 +10,7 @@ import { ViaCepGateway } from "./app/infra/gateway/viacep/ViaCepGateway";
 import { SafeFoodConsumerGateway } from "./app/infra/gateway/safefood/SafeFoodConsumerGateway";
 import { SafeFoodEstablishmentGateway } from "./app/infra/gateway/safefood/SafeFoodEstablishmentGateway";
 import { SafeFoodRestrictionModel } from "./app/infra/gateway/safefood/models/SafeFoodRestriction";
+import { GlobalStyles } from "./styles/theme/global-style";
 
 const cache = new LocalStorageCache();
 const safeFoodClient = new AxiosHttpClient("http://localhost:8081");
@@ -36,8 +37,8 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 				userGateway={userGateway}
 				restrictionsGateway={restrictionsGateway}
 				viaCepGateway={viaCepGateway}
-				consumerGateway={consumerGateway}
 				establishmentGateway={establishmentGateway}
+				consumerGateway={consumerGateway}
 			/>
 		</SafeFoodThemeProvider>
 	</React.StrictMode>

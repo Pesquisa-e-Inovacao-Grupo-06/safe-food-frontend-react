@@ -4,6 +4,7 @@ import { PasswordValidator } from "../util/validations/password-validator";
 import { PhoneValidator } from "../util/validations/phone-validator";
 import { CepValidator } from "../util/validations/cep-validator";
 import { CnpjValidator } from "../util/validations/cnpj-validator";
+import { JustStringAndSpaceValidator } from "../util/validations/just-string-and-space";
 
 export type InputsValidatorParams = {
 	getEmailValidator: (min: number, max: number) => EmailValidator;
@@ -11,6 +12,10 @@ export type InputsValidatorParams = {
 	getPhoneValidator: () => PhoneValidator;
 	getCepValidator: () => CepValidator;
 	getCnpjValidator: () => CnpjValidator;
+	getJustStringValidator: (
+		min: number,
+		max: number
+	) => JustStringAndSpaceValidator;
 };
 export const inputsValidatorsContext = createContext<InputsValidatorParams>(
 	{} as InputsValidatorParams
@@ -39,6 +44,9 @@ export const InputsValidatorProvider: FC<
 				},
 				getPhoneValidator() {
 					return new PhoneValidator();
+				},
+				getJustStringValidator(min: number, max: number) {
+					return new JustStringAndSpaceValidator(min, max);
 				},
 			}}
 		>

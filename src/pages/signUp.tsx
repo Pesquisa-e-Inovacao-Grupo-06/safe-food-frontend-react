@@ -1,11 +1,15 @@
 import { SignupConsumerProvider } from "@/app/contexts/SignupConsumerProvider";
+import { SignupEstablishmentProvider } from "@/app/contexts/SignupEstablishmentProvider";
 import { Restriction } from "@/app/domain/entities/Restriction";
 import { Cache } from "@/app/domain/protocols/Cache";
 import { SafeFoodConsumerGateway } from "@/app/infra/gateway/safefood/SafeFoodConsumerGateway";
+import { SafeFoodEstablishmentGateway } from "@/app/infra/gateway/safefood/SafeFoodEstablishmentGateway";
 import { SafeFoodRestrictionGateway } from "@/app/infra/gateway/safefood/SafeFoodRestrictionGateway";
 import { SafeFoodCreateConsumerRequest } from "@/app/infra/gateway/safefood/models/SafeFoodConsumer";
+import { SafeFoodCreateEstablishmentRequest } from "@/app/infra/gateway/safefood/models/SafeFoodEstablishment";
 import { ViaCepGateway } from "@/app/infra/gateway/viacep/ViaCepGateway";
 import { SignUpConsumerTemplate } from "@/components/organisms/signup-consumer";
+import { SignUpEstablishment } from "@/components/organisms/signup-establishment";
 import { useCallback } from "react";
 
 function SignUp({
@@ -14,7 +18,7 @@ function SignUp({
 	viaCepGateway,
 }: {
 	cache: Cache;
-	gateway: SafeFoodConsumerGateway;
+	gateway: SafeFoodEstablishmentGateway;
 	viaCepGateway: ViaCepGateway;
 }) {
 	const restrictions =
@@ -22,22 +26,26 @@ function SignUp({
 			? JSON.parse(cache.getItem("restricoes")!)
 			: [];
 	const clickToCreate = useCallback((data: SafeFoodCreateConsumerRequest) => {
-		const res = gateway.create(data).then(val => val.data);
-		res;
+		//const res = gateway.create(data).then(val => val.data);
+		//res;
 	}, []);
 
+	const clickToCreateEstablishment = async (
+		data: SafeFoodCreateEstablishmentRequest
+	) => {
+		const res = await gateway.create(data);
+		console.log(res);
+	};
 	if (restrictions.length > 0) {
 		return (
 			<div style={{ paddingTop: "75px" }}>
 				<h1>SignUp</h1>
-				<SignupConsumerProvider>
-					<SignUpConsumerTemplate
-						restrictions={restrictions}
-						onClickCreate={clickToCreate}
+				<SignupEstablishmentProvider>
+					<SignUpEstablishment
 						findAddress={viaCepGateway}
+						onClickCreate={clickToCreateEstablishment}
 					/>
-				</SignupConsumerProvider>
-				{/* <SignUpEstablishment /> */}
+				</SignupEstablishmentProvider>
 			</div>
 		);
 	}

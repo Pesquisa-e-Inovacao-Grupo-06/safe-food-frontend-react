@@ -1,3 +1,4 @@
+import { useSignupEstablishment } from "@/app/contexts/SignupEstablishmentProvider";
 import { InputValidator } from "@/app/util/validations/input-validator";
 import { TextField } from "@/components/molecules/textfield";
 import React, { useState } from "react";
@@ -5,7 +6,7 @@ import React, { useState } from "react";
 export const InputEmailSignUp: React.FC<{
 	validator: InputValidator;
 }> = ({ validator }) => {
-	const [email, setEmail] = useState("");
+	const { establishment, setEstablishment } = useSignupEstablishment();
 	const [error, setError] = useState("");
 	return (
 		<>
@@ -13,7 +14,7 @@ export const InputEmailSignUp: React.FC<{
 				label="Email: "
 				required
 				id="email"
-				value={email}
+				value={establishment.email}
 				placeholder="nome@exemplo.com"
 				title="Digite seu e-mail completo"
 				type="email"
@@ -24,7 +25,10 @@ export const InputEmailSignUp: React.FC<{
 				onChange={ev => {
 					let str = ev.currentTarget.value;
 					let value = validator.format(str);
-					setEmail(value);
+					setEstablishment({
+						...establishment,
+						email: value,
+					});
 					const errors = validator.validate(value);
 					if (errors.length > 0) {
 						setError(errors.join(";"));

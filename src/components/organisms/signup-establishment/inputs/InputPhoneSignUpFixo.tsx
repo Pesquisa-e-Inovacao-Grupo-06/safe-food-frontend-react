@@ -1,3 +1,4 @@
+import { useSignupEstablishment } from "@/app/contexts/SignupEstablishmentProvider";
 import { InputValidator } from "@/app/util/validations/input-validator";
 import { TextField } from "@/components/molecules/textfield";
 import React, { useState } from "react";
@@ -5,7 +6,7 @@ import React, { useState } from "react";
 export const InputPhoneSignupFixo: React.FC<{
 	validator: InputValidator;
 }> = ({ validator }) => {
-	const [phone, setPhone] = useState("");
+	const { establishment, setEstablishment } = useSignupEstablishment();
 	const [error, setError] = useState("");
 	return (
 		<>
@@ -13,7 +14,7 @@ export const InputPhoneSignupFixo: React.FC<{
 				label="Telefone fixo: "
 				required={false}
 				id="additional-phone-fix"
-				value={phone}
+				value={establishment.celular}
 				placeholder="(00) 0000-0000"
 				title="Digite o número do telefone fixo do estabelecimento"
 				type="tel"
@@ -24,7 +25,10 @@ export const InputPhoneSignupFixo: React.FC<{
 				onChange={ev => {
 					let str = ev.currentTarget.value;
 					let value = validator.format(str);
-					setPhone(value);
+					setEstablishment({
+						...establishment,
+						celular: value,
+					});
 
 					if (value.length > 0) {
 						console.log(value);

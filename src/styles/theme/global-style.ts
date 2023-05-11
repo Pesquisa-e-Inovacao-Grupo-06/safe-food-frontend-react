@@ -1,5 +1,9 @@
 import { createGlobalStyle, keyframes } from "styled-components";
 import { rotate, shake } from "./animations";
+
+
+const zoom = localStorage.getItem("zoom") ? Number(localStorage.getItem("zoom")) : 100;
+const font = localStorage.getItem("font") ? Number(localStorage.getItem("font")) : 100;
 const GlobalStyles = createGlobalStyle`
   *{
     border: 0;
@@ -8,6 +12,8 @@ const GlobalStyles = createGlobalStyle`
     padding: 0;
     text-decoration: none;
     box-sizing: border-box;
+    font-size: ${font + "%"};
+    zoom: ${zoom + "%"};
     color: inherit;
     fill: inherit;
   }
