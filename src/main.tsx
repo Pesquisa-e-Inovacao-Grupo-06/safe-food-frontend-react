@@ -10,6 +10,7 @@ import { ViaCepGateway } from "./app/infra/gateway/viacep/ViaCepGateway";
 import { of } from "./app/infra/gateway/safefood/mappers/SafeFoodRestrictionMapper";
 import { SafeFoodConsumerGateway } from "./app/infra/gateway/safefood/SafeFoodConsumerGateway";
 import { SafeFoodEstablishmentGateway } from "./app/infra/gateway/safefood/SafeFoodEstablishmentGateway";
+import { GlobalStyles } from "./styles/theme/global-style";
 
 const cache = new LocalStorageCache();
 const safeFoodClient = new AxiosHttpClient("http://localhost:8081");

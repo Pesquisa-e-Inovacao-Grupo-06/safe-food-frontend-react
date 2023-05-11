@@ -82,7 +82,7 @@ function SignIn({
 							cache.setItem("consumer", JSON.stringify(data.data));
 						})
 						.finally(() => {
-							// navigate("/profile");
+							navigate("/profile");
 						});
 				} else if (res.usuario.tipoUsuario === "ESTABELECIMENTO") {
 					// TODO: setar cache do estabelecimento
@@ -93,7 +93,7 @@ function SignIn({
 							cache.setItem("establishment", JSON.stringify(data.data));
 						})
 						.finally(() => {
-							// navigate("/profile-establishment");
+							navigate("/profile-establishment");
 						});
 				}
 			})

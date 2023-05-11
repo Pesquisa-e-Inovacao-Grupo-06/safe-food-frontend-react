@@ -37,7 +37,10 @@ const SidebarEstab: React.FC = () => {
 			<SHeader>
 				<Header />
 			</SHeader>
-			<SSidebar className="transition" isOpen={sidebarOpen}>
+			<SSidebar
+				className="transition"
+				isOpen={sidebarOpen}
+			>
 				<>
 					<SSidebarButton
 						isOpen={sidebarOpen}

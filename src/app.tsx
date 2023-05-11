@@ -21,6 +21,7 @@ import { AuthProvider } from "./app/contexts/AuthProvider";
 import { SafeFoodConsumerGateway } from "./app/infra/gateway/safefood/SafeFoodConsumerGateway";
 import { SafeFoodEstablishmentGateway } from "./app/infra/gateway/safefood/SafeFoodEstablishmentGateway";
 import NotFound from "./pages/not-found";
+import { GlobalStyles } from "./styles/theme/global-style";
 
 type AppProps = {
 	cache: Cache;
