@@ -79,6 +79,7 @@ function SignIn({
 					consumerGateway
 						.findById(res.usuario.id)
 						.then(data => {
+							console.log("CONSUMER", { data });
 							cache.setItem("consumer", JSON.stringify(data.data));
 						})
 						.finally(() => {

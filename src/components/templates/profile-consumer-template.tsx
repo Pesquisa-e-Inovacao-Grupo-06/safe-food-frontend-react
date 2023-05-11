@@ -16,18 +16,29 @@ import { InputPropsComponent } from "../atoms/input";
 import { Address } from "@/app/domain/entities/Address";
 
 export type ProfileProps = {
-	restrictions: Restriction[];
+	restrictionsDefault: Restriction[];
+	restrictionsUser: Restriction[];
 	listOfAddress: Address[];
 	form: InputPropsComponent[];
 	urlDefault: string | null | undefined;
 };
 
 export const ProfileTemplate: React.FC<ProfileProps> = ({
-	restrictions,
+	restrictionsDefault,
 	listOfAddress,
 	form,
 	urlDefault,
+	restrictionsUser,
 }) => {
+	//TODO: IMPLEMENTAR UPDATE no restrictions
+	const idsMapsUsers = restrictionsUser.map(item => item.id);
+	const restrictionsCommunUser = restrictionsDefault.filter(({ id }) =>
+		idsMapsUsers.includes(id)
+	);
+	const restrictionsOtherUser = restrictionsDefault.filter(
+		({ id }) => !idsMapsUsers.includes(id)
+	);
+
 	return (
 		<>
 			<Header />
@@ -103,7 +114,18 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 									flexWrap: "wrap",
 								}}
 							>
-								{restrictions.map((restriction, i) => (
+								{restrictionsCommunUser.map((restriction, i) => (
+									<Chips
+										key={restriction.name + "item"}
+										sizeChips="chips-lg"
+										//TODO: verificar com o guilherme
+										onClick={() => {}}
+										isActive
+									>
+										{restriction.name}
+									</Chips>
+								))}
+								{restrictionsOtherUser.map((restriction, i) => (
 									<Chips
 										key={restriction.name + "item"}
 										sizeChips="chips-lg"

@@ -7,9 +7,9 @@ import { AxiosHttpClient } from "./app/infra/protocols/AxiosHttpClient";
 import { SafeFoodUserGateway } from "./app/infra/gateway/safefood/SafeFoodUserGateway";
 import { SafeFoodRestrictionGateway } from "./app/infra/gateway/safefood/SafeFoodRestrictionGateway";
 import { ViaCepGateway } from "./app/infra/gateway/viacep/ViaCepGateway";
-import { of } from "./app/infra/gateway/safefood/mappers/SafeFoodRestrictionMapper";
 import { SafeFoodConsumerGateway } from "./app/infra/gateway/safefood/SafeFoodConsumerGateway";
 import { SafeFoodEstablishmentGateway } from "./app/infra/gateway/safefood/SafeFoodEstablishmentGateway";
+import { SafeFoodRestrictionModel } from "./app/infra/gateway/safefood/models/SafeFoodRestriction";
 import { GlobalStyles } from "./styles/theme/global-style";
 
 const cache = new LocalStorageCache();
@@ -23,6 +23,7 @@ const establishmentGateway = new SafeFoodEstablishmentGateway(
 	safeFoodClient,
 	cache
 );
+
 if (!cache.getItem("restricoes")) {
 	restrictionsGateway.getAll().then(data => {
 		cache.setItem("restricoes", JSON.stringify(data.map(of)));
@@ -42,3 +43,10 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 		</SafeFoodThemeProvider>
 	</React.StrictMode>
 );
+function of(
+	value: SafeFoodRestrictionModel,
+	index: number,
+	array: SafeFoodRestrictionModel[]
+): unknown {
+	throw new Error("Function not implemented.");
+}

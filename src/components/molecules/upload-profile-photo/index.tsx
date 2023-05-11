@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, useEffect, useRef, useState } from "react";
+import React, { HTMLAttributes, useState } from "react";
 import Camera from "../../../assets/form/camera.svg";
 import { StyledLabelForImage } from "./styles";
 import { Box, BoxJustify } from "@/components/atoms/box";
