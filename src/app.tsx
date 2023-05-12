@@ -107,7 +107,7 @@ export default function App({
 							/>
 							<Route
 								path="/product-consumer"
-								element={<ProductConsumer />}
+								element={<ProductConsumer cache={cache} />}
 							/>
 							<Route
 								path="/preferences-establishment"

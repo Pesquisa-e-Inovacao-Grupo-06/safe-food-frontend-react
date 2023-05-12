@@ -23,6 +23,7 @@ function ProfileEstablishment({
 	const [name, setName] = useState(establishment.nome);
 	const [email, setEmail] = useState(establishment.email);
 	const [numberphone, setNumberPhone] = useState(establishment.celular);
+	//TODO: verificar sobre o campo de senha
 	// const [password, setPassword] = useState("********");
 	const [nameEstablishment, setNameEstablishment] = useState(
 		establishment.nomeEmpresa
@@ -38,6 +39,7 @@ function ProfileEstablishment({
 	const [isAlertVisible, setIsVisibleAlert] = useState<boolean>(false);
 	const [typeAlert, setTypeAlert] = useState<AlertType>();
 	const [textAlert, setTextAlert] = useState<string>();
+	//TODO: VERIFICAR SOBRE VALIDAÇÃO
 	// if (
 	// 	establishment.nome != name ||
 	// 	establishment.nome != email ||
