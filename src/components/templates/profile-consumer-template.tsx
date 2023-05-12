@@ -14,6 +14,7 @@ import { Button } from "@/components/atoms/button";
 import { Restriction } from "@/app/domain/entities/Restriction";
 import { InputPropsComponent } from "../atoms/input";
 import { Address } from "@/app/domain/entities/Address";
+import { Alert, AlertType } from "../atoms/alert";
 
 export type ProfileProps = {
 	restrictionsDefault: Restriction[];
@@ -21,6 +22,12 @@ export type ProfileProps = {
 	listOfAddress: Address[];
 	form: InputPropsComponent[];
 	urlDefault: string | null | undefined;
+	onClickSave(): void;
+	isSaveButtonActive: boolean;
+	isLoading: boolean;
+	typeAlert?: AlertType;
+	textAlert?: string;
+	isAlertVisible: boolean;
 };
 
 export const ProfileTemplate: React.FC<ProfileProps> = ({
@@ -29,6 +36,12 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 	form,
 	urlDefault,
 	restrictionsUser,
+	onClickSave,
+	isSaveButtonActive,
+	isLoading,
+	isAlertVisible,
+	textAlert,
+	typeAlert,
 }) => {
 	//TODO: IMPLEMENTAR UPDATE no restrictions
 	const idsMapsUsers = restrictionsUser.map(item => item.id);
@@ -58,11 +71,16 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 						id="p1"
 						width="125px"
 						justify="start"
-						urlDefault={urlDefault}
+						// urlDefault={urlDefault}
 					/>
 				</PContainerProfilePhoto>
 				<PContainerSub>
 					<PContainerInfo>
+						<Box width="fit-content">
+							{isAlertVisible ? (
+								<Alert type={typeAlert ?? "info"}>{textAlert}</Alert>
+							) : null}
+						</Box>
 						<PDivider />
 						<Form listOfComponent={form}></Form>
 						<PDivider />
@@ -81,20 +99,16 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 								</PBtnAdicionarEndereco>
 							</div>
 							<PContainerAddressCard>
-								{listOfAddress.map((adress, i) => (
+								{listOfAddress.map((address, i) => (
 									<AddresCard
-										bodyText={adress.params.apelido}
-										headerText={
-											adress.params.bairro +
-											", " +
-											adress.params.numero +
-											", " +
-											adress.params.cidade +
-											" - " +
-											adress.params.estado +
-											", " +
-											adress.params.cep
-										}
+										bodyText={`
+										${address.params.bairro},
+										${address.params.numero},
+										${address.params.cidade} -
+										${address.params.estado},
+										${address.params.cep}
+										`}
+										headerText={address.params.apelido}
 										//VERIFICAR SOBRE ESSE ICONE
 										// Icon={adress.Icon}
 										key={i}
@@ -149,6 +163,9 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 						<Button
 							height={"35px"}
 							color="green"
+							disabled={isSaveButtonActive}
+							onClick={onClickSave}
+							loading={isLoading}
 						>
 							Salvar
 						</Button>
