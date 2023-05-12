@@ -35,7 +35,7 @@ const Header: React.FC = () => {
 			</ContainerLogo>
 			<ul>
 				{itemLinkArray.map(({ text, to }) => (
-					<li>
+					<li key={text}>
 						<NavbarItem
 							to={to}
 							text={text}

@@ -11,13 +11,12 @@ export const Form: React.FC<FormProps> = ({ listOfComponent }) => {
 		<>
 			<Subtitle>Informações de cadastro</Subtitle>
 			{listOfComponent.map(item => (
-				<ul>
+				<ul key={`${item.name}`}>
 					<li>
 						<span>{item.name}</span>
 						<Input
 							value={item.value}
 							setUseState={item.setUseState}
-							key={`'input-'${item}`}
 						/>
 					</li>
 				</ul>
