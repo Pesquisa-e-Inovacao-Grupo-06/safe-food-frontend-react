@@ -8,27 +8,27 @@ import { Box } from "@/components/atoms/box";
 
 export type AddresCardProps = {
 	Icon?: IconType;
-	subtitle?: string;
-	text?: string;
+	headerText?: string;
+	bodyText?: string;
 };
 
 const AddresCard: React.FC<AddresCardProps> = ({
-	subtitle = "Casa",
-	text = "Avenida Itaquera, 8266 ,Vila Carmosina, São Paulo - SP, 08295-000",
+	headerText,
+	bodyText,
 	...props
 }) => {
 	return (
 		<>
 			<AddresCardContainer>
 				<div className="address-card-header">
-					<Subtitle className="address-card-subtitle">{text}</Subtitle>
+					<Subtitle className="address-card-subtitle">{headerText}</Subtitle>
 					<ButtonIcon
 						className="address-card-btn-icon"
 						icon={<MdEdit />}
 					/>
 				</div>
 				<Box className="address-car-container-text">
-					<span>{subtitle}</span>
+					<span>{bodyText}</span>
 				</Box>
 			</AddresCardContainer>
 		</>

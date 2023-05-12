@@ -9,7 +9,6 @@ import TermOfService from "./pages/term-of-service";
 import ProfileEstablishment from "./pages/profile-establishment";
 import HomeEstablishment from "./pages/home-establishment";
 import ProductConsumer from "./pages/product-consumer";
-import PreferencesEstablishment from "./pages/preferences-establishment";
 import HomeConsumer from "./pages/home-consumer";
 import { SafeFoodUserGateway } from "./app/infra/gateway/safefood/SafeFoodUserGateway";
 import { SafeFoodRestrictionGateway } from "./app/infra/gateway/safefood/SafeFoodRestrictionGateway";
@@ -22,6 +21,7 @@ import { SafeFoodConsumerGateway } from "./app/infra/gateway/safefood/SafeFoodCo
 import { SafeFoodEstablishmentGateway } from "./app/infra/gateway/safefood/SafeFoodEstablishmentGateway";
 import NotFound from "./pages/not-found";
 import { GlobalStyles } from "./styles/theme/global-style";
+import PreferencesEstablishment from "./pages/preferences-establishment";
 
 type AppProps = {
 	cache: Cache;
@@ -90,7 +90,10 @@ export default function App({
 								path="/profile-establishment"
 								element={
 									<AuthRoute userAuth="ESTABELECIMENTO">
-										<ProfileEstablishment cache={cache} />
+										<ProfileEstablishment
+											cache={cache}
+											establishmentGateway={establishmentGateway}
+										/>
 									</AuthRoute>
 								}
 							/>

@@ -83,8 +83,8 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 							<PContainerAddressCard>
 								{listOfAddress.map((adress, i) => (
 									<AddresCard
-										text={adress.params.apelido}
-										subtitle={
+										bodyText={adress.params.apelido}
+										headerText={
 											adress.params.bairro +
 											", " +
 											adress.params.numero +

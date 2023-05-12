@@ -1,6 +1,5 @@
 import { HttpClient } from "@/app/domain/protocols/HttpClient";
-import { SafeFoodCreateEstablishmentRequest, SafeFoodCreateEstablishmentResponse, SafeFoodEstablishmentResponse, SafeFoodUpdateEstablishmentRequest } from "./models/SafeFoodEstablishment";
-import { SafeFoodCreateAddressRequest } from "./models/SafeFoodAddress";
+import { SafeFoodCreateEstablishmentRequest, SafeFoodEstablishmentResponse, SafeFoodUpdateEstablishmentRequest } from "./models/SafeFoodEstablishment";
 import { Cache } from "@/app/domain/protocols/Cache";
 
 export class SafeFoodEstablishmentGateway {
@@ -55,7 +54,7 @@ export class SafeFoodEstablishmentGateway {
         const body: Partial<SafeFoodCreateEstablishmentRequest> = {
             ...data
         }
-        if(!body.celular) delete body.celular;
+        if (!body.celular) delete body.celular;
         const res = await this.http.execute<SafeFoodEstablishmentResponse>({
             url: `/estabelecimentos`,
             method: "POST",
