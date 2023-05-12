@@ -4,6 +4,8 @@ import { SafeFoodEstablishmentModel } from "@/app/infra/gateway/safefood/models/
 import { useState } from "react";
 import { SafeFoodEstablishmentGateway } from "../app/infra/gateway/safefood/SafeFoodEstablishmentGateway";
 import { AlertType } from "@/components/atoms/alert";
+import { SafeFoodAddressMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodAddressMapper";
+import { Address } from "@/app/domain/entities/Address";
 
 type ProfileEstablishment = {
 	cache: Cache;
@@ -124,6 +126,7 @@ function ProfileEstablishment({
 					setUseState: setDescription,
 				},
 			]}
+			address={establishment.endereco}
 			urlDefault={""}
 			onClickSave={onClickLogin}
 			isSaveButtonActive={isActiveButton}

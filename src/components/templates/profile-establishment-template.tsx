@@ -12,6 +12,8 @@ import { Form } from "../molecules/form";
 import { InputPropsComponent } from "../atoms/input";
 import { Button } from "../atoms/button";
 import { Alert, AlertType } from "../atoms/alert";
+import { Address } from "@/app/domain/entities/Address";
+import { SafeFoodAddressModel } from "@/app/infra/gateway/safefood/models/SafeFoodAddress";
 
 export type ProfileEstablishmentTemplateProps = {
 	urlDefault: string;
@@ -23,6 +25,7 @@ export type ProfileEstablishmentTemplateProps = {
 	typeAlert?: AlertType;
 	textAlert?: string;
 	isAlertVisible: boolean;
+	address: SafeFoodAddressModel;
 };
 export const ProfileEstablishmentTemplate: React.FC<
 	ProfileEstablishmentTemplateProps
@@ -36,6 +39,7 @@ export const ProfileEstablishmentTemplate: React.FC<
 	isAlertVisible,
 	textAlert,
 	typeAlert,
+	address,
 }) => {
 	return (
 		<>
@@ -80,7 +84,18 @@ export const ProfileEstablishmentTemplate: React.FC<
 							<PContainerInfo3>
 								<PTitle>Endereço do estabelecimento</PTitle>
 								<PContainerAddressCard>
-									<AddresCard headerText="Açogue Vegano" />
+									<AddresCard
+										bodyText={`
+										${address.bairro},
+										${address.numero},
+										${address.cidade} -
+										${address.estado},
+										${address.cep}
+										`}
+										headerText={address.apelido}
+										//VERIFICAR SOBRE ESSE ICONE
+										// Icon={adress.Icon}
+									/>
 								</PContainerAddressCard>
 							</PContainerInfo3>
 							<PDivider />

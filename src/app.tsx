@@ -82,7 +82,10 @@ export default function App({
 								path="/profile"
 								element={
 									<AuthRoute userAuth="CONSUMIDOR">
-										<Profile cache={cache} />
+										<Profile
+											cache={cache}
+											consumerGateway={consumerGateway}
+										/>
 									</AuthRoute>
 								}
 							/>
