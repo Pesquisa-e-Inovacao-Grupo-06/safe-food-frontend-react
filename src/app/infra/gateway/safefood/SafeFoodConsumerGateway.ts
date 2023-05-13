@@ -1,7 +1,7 @@
 import { HttpClient } from "@/app/domain/protocols/HttpClient";
 import { SafeFoodAddressResponse, SafeFoodCreateAddressRequest } from "./models/SafeFoodAddress";
 import { SafeFoodConsumerResponse, SafeFoodCreateConsumerRequest, SafeFoodUpdateConsumerRequest } from "./models/SafeFoodConsumer";
-import { SafeFoodResponse } from "./models/SafeFoodResponse";
+import { SafeFoodGenericDataResponse, SafeFoodResponse } from "./models/SafeFoodResponse";
 import { Cache } from '@/app/domain/protocols/Cache';
 
 
@@ -87,6 +87,22 @@ export class SafeFoodConsumerGateway {
         })
         if (!res.data) {
             throw new Error("Erro ao realizar requisicao de adicionar consumidor")
+        }
+
+        if(data.file && res.data.data.id){
+            let requestImage = new FormData();
+            requestImage.append("image", data.file);
+            const responseImage = await this.http.execute<SafeFoodGenericDataResponse<string>>({
+                url: `/consumidores/${res.data.data.id}/foto-perfil`,
+                method: 'POST',
+                contentType: "multipart/form-data",
+                body: requestImage
+            })
+            if(responseImage.data){
+                res.data.data.imagem = responseImage.data.data;
+            }else{
+                throw new Error("Erro ao realizar requisicao de adicionar foto do consumidor")
+            }
         }
         return res.data;
     }
