@@ -106,7 +106,7 @@ export const CardEstablishmentFoodOrganism: React.FC<InfoProduct> = ({
 		>
 			<div style={{ width: "100%" }}>
 				<img
-					src={product.imagem}
+					src={product.imagem ?? "https://via.placeholder.com/400"}
 					alt=""
 					style={{
 						maxHeight: "200px",
@@ -118,10 +118,8 @@ export const CardEstablishmentFoodOrganism: React.FC<InfoProduct> = ({
 			</div>
 			<StyledColumn style={{ margin: "14px", alignItems: "start" }}>
 				<Subtitle>{product.titulo}</Subtitle>
-				<Text style={{ height: "fit-content" }}>
-					{product.descricao}
-				</Text>
-				<StyledCost typeText="text-mdb">{product.preco}</StyledCost>
+				<Text style={{ height: "fit-content" }}>{product.descricao}</Text>
+				<StyledCost typeText="text-mdb">{formatReal(product.preco)}</StyledCost>
 
 				<Divider />
 				<StyledRow>

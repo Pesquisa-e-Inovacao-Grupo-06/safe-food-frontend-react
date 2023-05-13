@@ -9,6 +9,7 @@ import { Subtitle } from "@/styles/components/text/Subtitle";
 import { useState } from "react";
 import { FaBars, FaChevronDown } from "react-icons/fa";
 import { RxDashboard } from "react-icons/rx";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export type HomeConsumerProps = {
@@ -19,9 +20,7 @@ const HomeConsumerTemplate: React.FC<HomeConsumerProps> = ({ products }) => {
 	const [formCard, setFormcard] = useState<boolean>(false);
 	const [termAccepted, setTermAccepted] = useState(false);
 
-
-	
-
+	const parameters = (produto: Product) => {};
 
 	var count = 0;
 
@@ -100,9 +99,13 @@ const HomeConsumerTemplate: React.FC<HomeConsumerProps> = ({ products }) => {
 					<div className="main-home-consumer">
 						<div className="container-main-home-consumer">
 							{products.map(item => (
-								<CardProductHomeConsumer isActive={formCard}>
-									<CardEstablishmentFoodOrganism product={item} />
-								</CardProductHomeConsumer>
+								<Link to="/product-consumer">
+									<CardProductHomeConsumer isActive={formCard}>
+										<CardEstablishmentFoodOrganism
+											product={item}
+										/>
+									</CardProductHomeConsumer>
+								</Link>
 							))}
 						</div>
 					</div>

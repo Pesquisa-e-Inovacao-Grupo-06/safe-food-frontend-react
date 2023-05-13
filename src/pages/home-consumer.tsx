@@ -9,22 +9,22 @@ type HomeConsumer = {
 	productGateway: SafeFoodProductGateway;
 };
 
-function HomeConsumer({ cache, productGateway} : HomeConsumer) {
-
-	const [product, setProduct] = useState<Product[]>([])
+function HomeConsumer({ cache, productGateway }: HomeConsumer) {
+	const [product, setProduct] = useState<Product[]>([]);
 
 	async function fetchProduct() {
 		try {
-			const res = (await productGateway.findByAll());
+			const res = await productGateway.findByAll();
+			setProduct(res.content);
 			console.log(res);
 		} catch (error) {
 			// faça algo com o erro
 		}
 	}
 
-	return (
-		<HomeConsumerTemplate products={product}/>
-	)
-};
+	fetchProduct();
+
+	return <HomeConsumerTemplate products={product} />;
+}
 
 export default HomeConsumer;
