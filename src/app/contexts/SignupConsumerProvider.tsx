@@ -8,7 +8,6 @@ import {
 	useState,
 } from "react";
 import { SafeFoodCreateConsumerRequest } from "../infra/gateway/safefood/models/SafeFoodConsumer";
-import { SafeFoodCreateAddressRequest } from "../infra/gateway/safefood/models/SafeFoodAddress";
 
 export type SignupConsumerContextParams = {
 	consumer: SafeFoodCreateConsumerRequest;

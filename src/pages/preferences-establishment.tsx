@@ -1,7 +1,7 @@
 import { Preferences } from "@/components/templates/preferences-template";
 
 function PreferencesPage() {
-	<Preferences />;
+	return <Preferences />;
 }
 
 export default PreferencesPage;

@@ -9,7 +9,7 @@ export type ImageProps = {
 	maxHeight?: string | number;
 	minWidth?: string | number;
 	minHeight?: string | number;
-	cursor: boolean;
+	cursor?: boolean;
 	borderRadius?: "sm" | "md" | "lg" | "none";
 	objectFit?: "fill" | "contain" | "cover" | "none" | "scale-down";
 } & ImgHTMLAttributes<HTMLImageElement>;

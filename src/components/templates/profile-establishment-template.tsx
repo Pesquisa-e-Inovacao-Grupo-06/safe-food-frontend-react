@@ -10,11 +10,22 @@ import { Box } from "../atoms/box";
 import banner from "../../assets/food-favorite.png";
 import { Form } from "../molecules/form";
 import { InputPropsComponent } from "../atoms/input";
+import { Button } from "../atoms/button";
+import { Alert, AlertType } from "../atoms/alert";
+import { Address } from "@/app/domain/entities/Address";
+import { SafeFoodAddressModel } from "@/app/infra/gateway/safefood/models/SafeFoodAddress";
 
 export type ProfileEstablishmentTemplateProps = {
 	urlDefault: string;
 	listOfComponentAdministration: InputPropsComponent[];
 	listOfComponentEstablishment: InputPropsComponent[];
+	onClickSave(): void;
+	isSaveButtonActive: boolean;
+	isLoading: boolean;
+	typeAlert?: AlertType;
+	textAlert?: string;
+	isAlertVisible: boolean;
+	address: SafeFoodAddressModel;
 };
 export const ProfileEstablishmentTemplate: React.FC<
 	ProfileEstablishmentTemplateProps
@@ -22,6 +33,13 @@ export const ProfileEstablishmentTemplate: React.FC<
 	urlDefault,
 	listOfComponentAdministration,
 	listOfComponentEstablishment,
+	onClickSave,
+	isSaveButtonActive,
+	isLoading,
+	isAlertVisible,
+	textAlert,
+	typeAlert,
+	address,
 }) => {
 	return (
 		<>
@@ -47,6 +65,11 @@ export const ProfileEstablishmentTemplate: React.FC<
 					</PContainerProfilePhoto>
 					<PContainerSub>
 						<PContainerInfo>
+							<Box width="fit-content">
+								{isAlertVisible ? (
+									<Alert type={typeAlert ?? "info"}>{textAlert}</Alert>
+								) : null}
+							</Box>
 							<PDivider />
 							<PTitle>Administrador</PTitle>
 							<div className="form-inputs-adm">
@@ -61,7 +84,18 @@ export const ProfileEstablishmentTemplate: React.FC<
 							<PContainerInfo3>
 								<PTitle>Endereço do estabelecimento</PTitle>
 								<PContainerAddressCard>
-									<AddresCard subtitle="Açogue Vegano" />
+									<AddresCard
+										bodyText={`
+										${address.bairro},
+										${address.numero},
+										${address.cidade} -
+										${address.estado},
+										${address.cep}
+										`}
+										headerText={address.apelido}
+										//VERIFICAR SOBRE ESSE ICONE
+										// Icon={adress.Icon}
+									/>
 								</PContainerAddressCard>
 							</PContainerInfo3>
 							<PDivider />
@@ -119,16 +153,20 @@ export const ProfileEstablishmentTemplate: React.FC<
 								height="fit-content"
 								width="fit-content"
 								buttonStyle="outline"
+								disabled={isSaveButtonActive}
 							>
 								Cancelar
 							</PBtnCancelar>
-							<PBtnSalvar
+							<Button
 								height="fit-content"
 								width="fit-content"
 								buttonStyle="filled"
+								disabled={isSaveButtonActive}
+								onClick={onClickSave}
+								loading={isLoading}
 							>
 								Salvar
-							</PBtnSalvar>
+							</Button>
 						</PContainerBtn>
 					</PContainerSub>
 				</PContainer>
@@ -159,7 +197,6 @@ const PBtnEditar = styled(StyledButton)`
 	color: white;
 	border: 2px solid white;
 	opacity: 100% !important;
-
 	@media (max-width: 800px) {
 		width: auto;
 	}
@@ -386,3 +423,6 @@ const PBtnCancelar = styled(StyledButton)`
 			? p.theme.colors.dark_gray[800]
 			: p.theme.colors.light_gray[200]};
 `;
+function setState(): [any, any] {
+	throw new Error("Function not implemented.");
+}
