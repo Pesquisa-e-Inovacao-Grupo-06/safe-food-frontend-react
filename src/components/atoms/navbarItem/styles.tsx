@@ -7,13 +7,20 @@ export const ContainerItem = styled.div<{
 	padding: 0;
 	width: fit-content;
 
-	border-bottom: 3px solid ${({ theme, isActive }) =>
-		!isActive
-			? `transparent`
-			: `${theme.name == "light" ? "#0a4908" : "#fe8e27"}`};
+	border-bottom: 3px solid
+		${({ theme, isActive }) =>
+			!isActive
+				? `transparent`
+				: `${theme.name == "light" ? "#0a4908" : "#fe8e27"}`};
 	border-top: 3px solid
-		${props => (props.theme.name === "dark" ? "#252525" : "#fcfcfc")};
-	background: ${props => (props.theme.name === "dark" ? "#252525" : "#fcfcfc")};
+		${p =>
+			p.theme.name == "light"
+				? p.theme.colors.light_gray[200]
+				: p.theme.colors.dark_gray[1000]};
+	background: ${p =>
+		p.theme.name == "light"
+			? p.theme.colors.light_gray[200]
+			: p.theme.colors.dark_gray[1000]};
 	display: flex;
 	justify-content: center;
 

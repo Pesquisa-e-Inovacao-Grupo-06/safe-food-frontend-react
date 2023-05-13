@@ -9,9 +9,14 @@ import { TextIcon } from "@/components/molecules/text-icon/text-icon-molecule";
 import { EstablishmentFoodType } from "@/app/domain/entities/FoodEstablishment";
 import { Divider } from "@/components/atoms/divider";
 import { formatReal } from "@/app/util/convertions/price-br";
+import { Product } from "@/app/domain/entities/Product";
 
 export type EstablishmentFoodProps = {
 	establishemntFood: EstablishmentFoodType;
+};
+
+export type InfoProduct = {
+	product: Product;
 };
 
 export const CardCarrouselFoodOrganism: React.FC<EstablishmentFoodProps> = ({
@@ -87,7 +92,9 @@ export const CardCarrouselFoodOrganism: React.FC<EstablishmentFoodProps> = ({
 	);
 };
 
-export const CardEstablishmentFoodOrganism = ({}) => {
+export const CardEstablishmentFoodOrganism: React.FC<InfoProduct> = ({
+	product,
+}) => {
 	return (
 		<Box
 			display="flex"
@@ -99,7 +106,7 @@ export const CardEstablishmentFoodOrganism = ({}) => {
 		>
 			<div style={{ width: "100%" }}>
 				<img
-					src="https://midias.agazeta.com.br/2022/05/25/hamburguer-da-101-brasa-burger-em-vila-velha-769174-article.jpg"
+					src={product.imagem}
 					alt=""
 					style={{
 						maxHeight: "200px",
@@ -110,17 +117,11 @@ export const CardEstablishmentFoodOrganism = ({}) => {
 				/>
 			</div>
 			<StyledColumn style={{ margin: "14px", alignItems: "start" }}>
-				<Subtitle>Hamburguer Vegan 2.0</Subtitle>
+				<Subtitle>{product.titulo}</Subtitle>
 				<Text style={{ height: "fit-content" }}>
-					Aproveite todo o sabor de um clássico hambúrguer sem sacrificar seus
-					princípios veganos com o nosso revolucionário Hambúrguer 2.0 Vegan. Feito
-					com ingredientes de origem vegetal de alta qualidade, este hambúrguer é uma
-					deliciosa opção para quem busca uma alimentação mais saudável e
-					sustentável. Com sua textura suculenta e sabor inigualável, é perfeito para
-					qualquer refeição, desde um lanche rápido até um jantar sofisticado.
-					Experimente agora e descubra o futuro do hambúrguer vegano!
+					{product.descricao}
 				</Text>
-				<StyledCost typeText="text-mdb">R$ 45,00</StyledCost>
+				<StyledCost typeText="text-mdb">{product.preco}</StyledCost>
 
 				<Divider />
 				<StyledRow>

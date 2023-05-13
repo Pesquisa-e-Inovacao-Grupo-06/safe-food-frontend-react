@@ -125,7 +125,12 @@ export default function App({
 							/>
 							<Route
 								path="/home-consumer"
-								element={<HomeConsumer />}
+								element={
+									<HomeConsumer
+										cache={cache}
+										productGateway={productGateway}
+									/>
+								}
 							/>
 							<Route
 								path="/*"

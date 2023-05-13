@@ -2,12 +2,12 @@ import styled from "styled-components";
 
 export const Container = styled.div`
 	position: fixed;
-	z-index: 300;
+	z-index: 1000;
 	width: 100%;
 	height: 75px;
 	background: ${p =>
 		p.theme.name == "dark"
-			? p.theme.colors.dark_gray[600]
+			? p.theme.colors.dark_gray[1000]
 			: p.theme.colors.light_gray[200]};
 	align-items: center;
 	justify-content: space-between;
@@ -16,11 +16,7 @@ export const Container = styled.div`
 	grid-template-columns: 0fr 2fr 1.2fr 0fr;
 	justify-items: center;
 	grid-gap: 10px;
-	box-shadow: 0px 0px 5px 1px
-		${p =>
-			p.theme.name == "dark"
-				? p.theme.colors.dark_gray[800]
-				: p.theme.colors.light_gray[600]};
+	box-shadow: 0px 1px 12px 0px #00000022;
 
 	> svg {
 		color: ${props => props.theme.name};
