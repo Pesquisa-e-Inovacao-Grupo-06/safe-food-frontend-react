@@ -1,8 +1,8 @@
 import { HttpClient } from "@/app/domain/protocols/HttpClient";
-import { SafeFoodProductResponse, SafeFoodProductRequest } from "./models/SafeFoodProduct";
+import { SafeFoodProductResponse, SafeFoodProductRequest, SafeFoodProductsResponse } from "./models/SafeFoodProduct";
 
 export class SafeFoodProductGateway {
-    constructor(private readonly http: HttpClient, private readonly cache: Cache) {
+    constructor(private readonly http: HttpClient) {
     }
 
 
@@ -16,8 +16,21 @@ export class SafeFoodProductGateway {
         if (!res.data) {
             throw new Error("Erro ao tentar buscar todos os produtos");
         }
-
         return res.data;
+    }
+
+    //
+    async findByAll(): Promise<SafeFoodProductsResponse> {
+        const res = await this.http.execute<SafeFoodProductsResponse>({
+            url: `/produtos`,
+            method: 'GET',
+        });
+
+        if (!res.data) {
+            throw new Error("Erro ao tentar buscar todos os produtos");
+        }
+        return res.data;
+
     }
 
 
@@ -69,19 +82,19 @@ export class SafeFoodProductGateway {
     }
 
     // POST /produtos/{id}/avaliacoes
-    async createProductRating(
-        id: string
-    ): Promise<SafeFoodProductRequest> {
-        const res = await this.http.execute<SafeFoodProductResponse>({
-            url: `/produtos/${id}/avaliacoes`,
-            method: 'POST',
-        });
-        if (!res.data) {
-            throw new Error("Erro ao tentar buscar todos os produtos");
-        }
+    // async createProductRating(
+    //     id: string
+    // ): Promise<SafeFoodProductRequest> {
+    //     const res = await this.http.execute<SafeFoodProductResponse>({
+    //         url: `/produtos/${id}/avaliacoes`,
+    //         method: 'POST',
+    //     });
+    //     if (!res.data) {
+    //         throw new Error("Erro ao tentar buscar todos os produtos");
+    //     }
 
-        return res.data;
-    }
+    //     return res.data;
+    // }
     // DELETE /produtos/{id}/avaliacoes
 
     async deleteProductRating(id: string): Promise<SafeFoodProductResponse> {

@@ -13,7 +13,7 @@ export const HomeTemplate = ({}) => {
 			<BodyTemplate footer>
 				<Landing></Landing>
 				<CardEstablishmentFoodOTemplate />
-				<MoreFavoritesTemplate />
+				<MoreFavoritesTemplate listOfFavorite={[]} />
 				<BannerMobilePlatform />
 			</BodyTemplate>
 		</>
