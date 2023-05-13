@@ -12,6 +12,8 @@ import { useInputsValidator } from "@/app/contexts/InputValidatorsProvider";
 import TextArea from "@/components/atoms/textarea";
 import { useSignupEstablishment } from "@/app/contexts/SignupEstablishmentProvider";
 import { TextField } from "@/components/molecules/textfield";
+import { ProfilePhotoUploadWithPreview } from "@/components/molecules/upload-profile-photo";
+import { Text } from "@/components/atoms/text";
 
 export const CompanySignUp: FC = () => {
 	const { getCnpjValidator, getPhoneValidator, getJustStringValidator } =
@@ -33,6 +35,18 @@ export const CompanySignUp: FC = () => {
 				display="flex"
 				flexDiretion="column"
 			>
+				<Text typeText="text-md">Foto de perfil: </Text>
+				<ProfilePhotoUploadWithPreview
+					width="120px"
+					name="additional-profile-photo-consumer"
+					id="additional-profile-photo-consumer"
+					onChangeFile={file =>
+						setEstablishment({
+							...establishment,
+							file,
+						})
+					}
+				/>
 				<InputNameSignUpEstablishment validator={stringValidator} />
 				<InputCnpjSignUp validator={cnpjValidator} />
 				<TextField

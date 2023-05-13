@@ -3,6 +3,9 @@ import { SafeFoodGenericDataResponse } from "./SafeFoodResponse";
 import { SafeFoodUsuarioModel } from "./SafeFoodUser";
 import { SafeFoodCreateUserRequest } from "./SafeFoodUser";
 
+export type SafeFoodSaveProfileImage = {
+  file?: File
+}
 export type SafeFoodCreateEstablishmentRequest = {
   "nomeEmpresa": string,
   "celular": string,
@@ -10,7 +13,7 @@ export type SafeFoodCreateEstablishmentRequest = {
   "cnpj": string,
   "descricao": string,
   "endereco": SafeFoodCreateAddressRequest
-} & SafeFoodCreateUserRequest
+} & SafeFoodCreateUserRequest & SafeFoodSaveProfileImage
 
 export type SafeFoodCreateEstablishmentModel = {
   "nomeEmpresa": string,
