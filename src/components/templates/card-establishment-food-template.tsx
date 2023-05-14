@@ -1,15 +1,15 @@
 import { Subtitle } from "@/styles/components/text/Subtitle";
-import { CardCarrouselFoodOrganism } from "../organisms/card-establishment-food/card-establishment-food-organism";
+import { NearbyFoodsCard } from "../organisms/card-establishment-food/card-establishment-food-organism";
 import { Carousel } from "../molecules/carousel";
 import { getFoodEstablishmentListMock } from "@/app/domain/entities/FoodEstablishment";
 import { Product } from "@/app/domain/entities/Product";
 
-export type NearbyFoodsCardParams = {
-	nearbyFoods: Product[];
+export type CardNearbyFoods = {
+	nearbyFoodsItems: Product[];
 };
 
-export const NearbyFoodsCard: React.FC<NearbyFoodsCardParams> = ({
-	nearbyFoods,
+export const CardEstablishmentFoodOTemplate: React.FC<CardNearbyFoods> = ({
+	nearbyFoodsItems,
 }) => {
 	return (
 		<>
@@ -24,13 +24,13 @@ export const NearbyFoodsCard: React.FC<NearbyFoodsCardParams> = ({
 				Pertos de Você
 			</Subtitle>
 			<Carousel
-				items={nearbyFoods.map((i, index) => (
-					<CardCarrouselFoodOrganism
-						nearbyFood={i}
-						key={i.params.titulo}
+				items={nearbyFoodsItems.map((nearbyFoodsItem, index) => (
+					<NearbyFoodsCard
+						NearbyFoodsItem={nearbyFoodsItem}
+						key={nearbyFoodsItem.params.titulo}
 					/>
 				))}
-				itemSize={4}
+				itemSize={nearbyFoodsItems.length}
 				itemHeight={258}
 			></Carousel>
 		</>

@@ -23,7 +23,7 @@ export const MoreFavoritesTemplate: React.FC<MoreFavoriteProps> = ({
 			</Subtitle>
 			{listOfFavorite.slice(0, 2).map((i, index) => (
 				<>
-					<MoreFavoriteOrganism moreFavoriteItems={i} />
+					<MoreFavoriteOrganism moreFavoriteType={i} />
 					<Divider marginAll="10px" />
 				</>
 			))}

@@ -14,11 +14,29 @@ export type ImageProps = {
 	objectFit?: "fill" | "contain" | "cover" | "none" | "scale-down";
 } & ImgHTMLAttributes<HTMLImageElement>;
 
-export const ImageAtom: React.FC<ImageProps> = props => {
+export const ImageAtom: React.FC<ImageProps> = ({
+	src,
+	width,
+	height,
+	maxWidth,
+	maxHeight,
+	minWidth,
+	minHeight,
+	cursor,
+	borderRadius,
+	objectFit,
+}) => {
 	return (
 		<StyledImage
 			alt=""
-			{...props}
+			width={width}
+			height={height}
+			maxWidth={maxWidth}
+			maxHeight={maxHeight}
+			minWidth={minWidth}
+			minHeight={minHeight}
+			cursor={cursor}
+			src={src ?? "https://via.placeholder.com/400"}
 		/>
 	);
 };

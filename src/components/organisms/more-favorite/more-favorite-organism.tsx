@@ -5,10 +5,8 @@ import { Button } from "@/components/atoms/button";
 import { TiMediaEjectOutline } from "react-icons/ti";
 import { StyledCost } from "./more-favorite-organism-style";
 import { TextIcon } from "@/components/molecules/text-icon/text-icon-molecule";
-import { MoreFavoriteType } from "@/app/domain/entities/MoreFavorite";
 import styled from "styled-components";
 import { formatReal } from "@/app/util/convertions/price-br";
-import { StyledColumn } from "../card-establishment-food/card-establishment-food-organism";
 import { Box } from "@/components/atoms/box";
 import { ImageAtom } from "@/components/atoms/img";
 import iconNoGluten from "../../../assets/icons8-no-gluten-50.png";
@@ -18,11 +16,11 @@ import { useSafeFoodTheme } from "@/app/contexts/SafeFoodThemeProvider";
 import { Product } from "@/app/domain/entities/Product";
 
 export type MoreFavoriteProps = {
-	moreFavoriteItems: Product;
+	moreFavoriteType: Product;
 };
 
 export const MoreFavoriteOrganism: React.FC<MoreFavoriteProps> = ({
-	moreFavoriteItems,
+	moreFavoriteType,
 }) => {
 	const colors = useSafeFoodTheme();
 	return (
@@ -38,7 +36,7 @@ export const MoreFavoriteOrganism: React.FC<MoreFavoriteProps> = ({
 		>
 			<div style={{ width: "500px", height: "300px" }}>
 				<ImageAtom
-					src={moreFavoriteItems.params.imagem ?? "https://via.placeholder.com/400"}
+					src={moreFavoriteType.params.imagem}
 					minWidth={500}
 					minHeight={320}
 					maxWidth={500}
@@ -71,7 +69,7 @@ export const MoreFavoriteOrganism: React.FC<MoreFavoriteProps> = ({
 							whiteSpace: "nowrap",
 						}}
 					>
-						{moreFavoriteItems.params.titulo}
+						{moreFavoriteType.params.titulo}
 					</Subtitle>
 					<AvaliationStars avegareRate={1} />
 					<div
@@ -108,7 +106,7 @@ export const MoreFavoriteOrganism: React.FC<MoreFavoriteProps> = ({
 					}}
 					color={"whitegray"}
 				>
-					{moreFavoriteItems.params.descricao}
+					{moreFavoriteType.params.descricao}
 				</Text>
 				<Box
 					display="flex"
@@ -122,11 +120,11 @@ export const MoreFavoriteOrganism: React.FC<MoreFavoriteProps> = ({
 						placeContent: "flex-start",
 					}}
 				>
-					{/* {IngredientsList(moreFavoriteItems.params.ingredientes)} */}
+					{IngredientsList(moreFavoriteType.params.ingredientes ?? [])}
 				</Box>
 
 				<StyledCost typeText="text-mdb">
-					{formatReal(moreFavoriteItems.params.preco)}
+					{formatReal(moreFavoriteType.params.preco)}
 				</StyledCost>
 				<Button width="fit-content">Ver produto</Button>
 
@@ -134,20 +132,21 @@ export const MoreFavoriteOrganism: React.FC<MoreFavoriteProps> = ({
 					icon={<TiMediaEjectOutline />}
 					iconAlign={"left"}
 				>
-					{/* {moreFavoriteItems.} */}
+					{/* TODO: PRECISA De informações do estabelecimento */}
+					{/* {moreFavoriteType.nameEstablishment} */}
 				</TextIcon>
 				<TextIcon
 					icon={<TiMediaEjectOutline />}
 					iconAlign={"left"}
 				>
-					{/* {moreFavoriteItems.params.} */}
+					{/* {moreFavoriteType.workingPlaceEstablishment} */}
 				</TextIcon>
 				<TextIcon
 					style={{}}
 					icon={<TiMediaEjectOutline />}
 					iconAlign="left"
 				>
-					{/* {moreFavoriteItems.} */}
+					{/* {moreFavoriteType.locationEstablishment} */}
 				</TextIcon>
 			</Box>
 		</BoxMoreFavorite>

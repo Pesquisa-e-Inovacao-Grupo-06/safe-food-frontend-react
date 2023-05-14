@@ -18,23 +18,26 @@ function Home({ cache, productGateway }: HomeProps) {
 		SafeFoodProductModel[]
 	>([]);
 
-	async function fetchProduct() {
-		try {
-			const res = (await productGateway.findAll()).content;
-			console.log(res);
-			setNearbyProducts(res);
-			setListOfFavoriteProducts(res);
-		} catch (error) {
-			// faça algo com o erro
+	useEffect(() => {
+		async function fetchProduct() {
+			try {
+				const res = (await productGateway.findAll()).content;
+				console.log(res);
+				setNearbyProducts(res);
+				setListOfFavoriteProducts(res);
+			} catch (error) {
+				// faça algo com o erro
+			}
 		}
-	}
-	fetchProduct();
+
+		fetchProduct();
+	}, []);
 
 	return (
 		<HomeTemplate
-			nearbyProducts={nearbyProducts.map(SafeFoodProductMapper.of)}
+			nearbyFoodsCardItems={nearbyProducts.map(SafeFoodProductMapper.of)}
 			listOfFavoriteProducts={listOfFavoriteProducts.map(SafeFoodProductMapper.of)}
-		></HomeTemplate>
+		/>
 	);
 }
 
