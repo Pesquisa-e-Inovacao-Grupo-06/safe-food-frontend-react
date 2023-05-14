@@ -1,19 +1,43 @@
+import { Cache } from "@/app/domain/protocols/Cache";
+import { SafeFoodProductGateway } from "@/app/infra/gateway/safefood/SafeFoodProductGateway";
+import { SafeFoodProductMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodProductMapper";
+import { SafeFoodProductModel } from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
 import { HomeTemplate } from "@/components/templates/home-template";
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useEffect, useState } from "react";
 
-type ResponseLoginExample = {
-	name: string;
-	token: string;
+export type HomeProps = {
+	cache: Cache;
+	productGateway: SafeFoodProductGateway;
 };
-type RequestLoginExample = {
-	email: string;
-	senha: string;
-};
-function Home() {
+
+function Home({ cache, productGateway }: HomeProps) {
+	const [nearbyProducts, setNearbyProducts] = useState<SafeFoodProductModel[]>(
+		[]
+	);
+	const [listOfFavoriteProducts, setListOfFavoriteProducts] = useState<
+		SafeFoodProductModel[]
+	>([]);
+
+	useEffect(() => {
+		async function fetchProduct() {
+			try {
+				const res = (await productGateway.findAll()).content;
+				console.log(res);
+				setNearbyProducts(res);
+				setListOfFavoriteProducts(res);
+			} catch (error) {
+				// faça algo com o erro
+			}
+		}
+
+		fetchProduct();
+	}, []);
+
 	return (
-		<div>
-			<HomeTemplate></HomeTemplate>
-		</div>
+		<HomeTemplate
+			nearbyFoodsCardItems={nearbyProducts.map(SafeFoodProductMapper.of)}
+			listOfFavoriteProducts={listOfFavoriteProducts.map(SafeFoodProductMapper.of)}
+		/>
 	);
 }
 

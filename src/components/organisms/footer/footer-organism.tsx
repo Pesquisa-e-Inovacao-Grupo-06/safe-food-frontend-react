@@ -59,7 +59,7 @@ const FooterOrganism = () => {
 				</FooterColumnMolecule>
 				<FooterColumnMolecule title="Baixe o Aplicativo">
 					<ImageAtom
-						height="auto"
+						height={"auto"}
 						maxWidth={186}
 						cursor={true}
 						src={GoogleLogo}
@@ -70,7 +70,7 @@ const FooterOrganism = () => {
 				<Text typeText="text-sm">
 					© Safe Food 2023 - Todos os Direitos Reservados.
 				</Text>
-				<img
+				<ImageAtom
 					src={Logo}
 					alt="Safe Food Logo"
 				/>

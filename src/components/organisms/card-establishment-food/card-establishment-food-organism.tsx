@@ -9,13 +9,15 @@ import { TextIcon } from "@/components/molecules/text-icon/text-icon-molecule";
 import { EstablishmentFoodType } from "@/app/domain/entities/FoodEstablishment";
 import { Divider } from "@/components/atoms/divider";
 import { formatReal } from "@/app/util/convertions/price-br";
+import { Product } from "@/app/domain/entities/Product";
+import { ImageAtom } from "@/components/atoms/img";
 
 export type EstablishmentFoodProps = {
-	establishemntFood: EstablishmentFoodType;
+	NearbyFoodsItem: Product;
 };
 
-export const CardCarrouselFoodOrganism: React.FC<EstablishmentFoodProps> = ({
-	establishemntFood,
+export const NearbyFoodsCard: React.FC<EstablishmentFoodProps> = ({
+	NearbyFoodsItem,
 }) => {
 	return (
 		<>
@@ -30,7 +32,7 @@ export const CardCarrouselFoodOrganism: React.FC<EstablishmentFoodProps> = ({
 			>
 				<div style={{ height: "46%", width: "100%" }}>
 					<img
-						src={establishemntFood.img}
+						src={NearbyFoodsItem.params.imagem ?? "https://via.placeholder.com/400"}
 						style={{ objectFit: "cover", borderRadius: "4px", pointerEvents: "none" }}
 						height={"100%"}
 						width={"100%"}
@@ -59,25 +61,25 @@ export const CardCarrouselFoodOrganism: React.FC<EstablishmentFoodProps> = ({
 								flexBasis: "79.4%",
 							}}
 						>
-							{establishemntFood.name}
+							{NearbyFoodsItem.params.titulo}
 						</Subtitle>
 						<AvaliationStars
-							avegareRate={establishemntFood.avegareRate}
+							avegareRate={1}
 							style={{ flexBasis: "20.6%" }}
 						/>
 						<div style={{ flexBasis: "10%" }}></div>
 					</StyledRow>
-					<Text typeText="text-md">{establishemntFood.description}</Text>
+					<Text typeText="text-md">{NearbyFoodsItem.params.descricao}</Text>
 					<StyledRow style={{ alignItems: "flex-start" }}>
 						<StyledCost typeText="text-mdb">
-							{formatReal(establishemntFood.price)}
+							{formatReal(NearbyFoodsItem.params.preco)}
 						</StyledCost>
 						<TextIcon
 							icon={<IoLocationSharp />}
 							iconAlign="left"
 							typeText="text-md"
 						>
-							{establishemntFood.currentDistance + "m"}
+							{"m" ?? "distancia indefinida"}
 						</TextIcon>
 						<div></div>
 					</StyledRow>

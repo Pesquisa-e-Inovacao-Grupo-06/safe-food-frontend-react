@@ -1,13 +1,10 @@
 import { MoreFavoriteOrganism } from "../organisms/more-favorite/more-favorite-organism";
 import { Subtitle } from "@/styles/components/text/Subtitle";
-import {
-	MoreFavorite,
-	getMoreFavoriteListMock,
-} from "@/app/domain/entities/MoreFavorite";
 import { Divider } from "../atoms/divider";
+import { Product } from "@/app/domain/entities/Product";
 
 interface MoreFavoriteProps {
-	listOfFavorite: MoreFavorite[];
+	listOfFavorite: Product[];
 }
 export const MoreFavoritesTemplate: React.FC<MoreFavoriteProps> = ({
 	listOfFavorite,
@@ -24,9 +21,9 @@ export const MoreFavoritesTemplate: React.FC<MoreFavoriteProps> = ({
 			>
 				Mais favoritados
 			</Subtitle>
-			{listOfFavorite.map((i, index) => (
+			{listOfFavorite.slice(0, 2).map((i, index) => (
 				<>
-					<MoreFavoriteOrganism moreFavoriteType={i.params} />
+					<MoreFavoriteOrganism moreFavoriteType={i} />
 					<Divider marginAll="10px" />
 				</>
 			))}
