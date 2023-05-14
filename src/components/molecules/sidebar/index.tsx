@@ -4,21 +4,34 @@ import {
 	ContainerBack,
 	HeaderSidebar,
 } from "./styles";
-import { FaTimes } from "react-icons/fa";
-import { BsInfoCircle, BsQuestionCircle } from "react-icons/bs";
+import {
+	FaHome,
+	FaInfoCircle,
+	FaQuestionCircle,
+	FaSignInAlt,
+	FaSignOutAlt,
+} from "react-icons/fa";
 import SidebarItem from "../../atoms/sidebarItem";
 import { LogoAtom } from "@/components/atoms/logo";
-import { AiOutlineHome } from "react-icons/ai";
-import { MdLogout, MdPersonAddAlt } from "react-icons/md";
-import { RxEnter } from "react-icons/rx";
+import { MdPersonAddAlt1 } from "react-icons/md";
+
 import { useLocation } from "react-router-dom";
+import { IoCloseSharp } from "react-icons/io5";
+import { IconType } from "react-icons/lib";
+
+export type itemLinkArray = {
+	icon: IconType;
+	text: string;
+	to: string;
+}[];
 
 type Props = {
 	active: boolean;
 	toggle: () => void;
+	itemLinkArray: itemLinkArray;
 };
 
-function Sidebar({ active, toggle }: Props) {
+function Sidebar({ active, toggle, itemLinkArray }: Props) {
 	const { pathname } = useLocation();
 
 	return (
@@ -28,7 +41,7 @@ function Sidebar({ active, toggle }: Props) {
 			onClick={toggle}
 		>
 			<ContainerSidebar sidebar={active}>
-				<FaTimes onClick={toggle} />
+				<IoCloseSharp onClick={toggle} />
 				<HeaderSidebar height={75}>
 					<LogoAtom sizeLogo="logo-sm" />
 				</HeaderSidebar>
@@ -52,35 +65,35 @@ function Sidebar({ active, toggle }: Props) {
 
 export default Sidebar;
 
-const itemLinkArray = [
-	{
-		icon: AiOutlineHome,
-		text: "Início",
-		to: "/",
-	},
-	{
-		icon: BsInfoCircle,
-		text: "Safe Food",
-		to: "/about",
-	},
-	{
-		icon: BsQuestionCircle,
-		text: "FAQ",
-		to: "/faq",
-	},
-	{
-		icon: RxEnter,
-		text: "Entrar",
-		to: "/signin",
-	},
-	{
-		icon: MdPersonAddAlt,
-		text: "Cadastrar",
-		to: "/signup",
-	},
-	{
-		icon: MdLogout,
-		text: "Sair",
-		to: "#",
-	},
-];
+// const itemLinkArray = [
+// 	{
+// 		icon: FaHome,
+// 		text: "Início",
+// 		to: "/",
+// 	},
+// 	{
+// 		icon: FaInfoCircle,
+// 		text: "Safe Food",
+// 		to: "/about",
+// 	},
+// 	{
+// 		icon: FaQuestionCircle,
+// 		text: "FAQ",
+// 		to: "/faq",
+// 	},
+// 	{
+// 		icon: FaSignInAlt,
+// 		text: "Entrar",
+// 		to: "/signin",
+// 	},
+// 	{
+// 		icon: MdPersonAddAlt1,
+// 		text: "Cadastrar",
+// 		to: "/signup",
+// 	},
+// 	{
+// 		icon: FaSignOutAlt,
+// 		text: "Sair",
+// 		to: "#",
+// 	},
+// ];

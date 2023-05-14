@@ -20,8 +20,6 @@ const HomeConsumerTemplate: React.FC<HomeConsumerProps> = ({ products }) => {
 	const [formCard, setFormcard] = useState<boolean>(false);
 	const [termAccepted, setTermAccepted] = useState(false);
 
-	const parameters = (produto: Product) => {};
-
 	var count = 0;
 
 	products.forEach(() => {

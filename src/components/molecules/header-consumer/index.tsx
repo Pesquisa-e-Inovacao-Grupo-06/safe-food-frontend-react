@@ -8,23 +8,40 @@ import DropDownSubMenu from "../drop-down-sub-menu";
 import Switch from "@/components/atoms/toggle-switch";
 import { useSafeFoodTheme } from "@/app/contexts/SafeFoodThemeProvider";
 import { useState } from "react";
+import DropDownLocalInfo from "../drop-down-local-info";
+import SearchBar from "../search-bar";
+import { ContainerHeaderConsumer } from "./styles";
+import { FaBars, FaHome, FaSignOutAlt, FaUserAlt } from "react-icons/fa";
+import Sidebar from "../sidebar";
 
 const HeaderConsumer: React.FC = () => {
 	const { toggleTheme, getTheme } = useSafeFoodTheme();
+	const [sidebar, setSidebar] = useState(false);
+
+	function toggleSidebar() {
+		setSidebar(!sidebar);
+	}
 
 	return (
 		<>
 			<ContainerHeader>
 				<ContainerHeaderConsumer>
+					<FaBars onClick={toggleSidebar} />
+					<Sidebar
+						itemLinkArray={itemLinkArraySideConsumer}
+						active={sidebar}
+						toggle={toggleSidebar}
+					/>
 					<LogoAtom />
-					<div></div>
+					<DropDownLocalInfo />
+					<SearchBar />
 					<Box className="container-user-info-header-consumer">
+						<Text>
+							<span>Lincoln Ferreira</span>
+						</Text>
 						<DropDownSubMenu>
 							<img src={imgTeste} />
 						</DropDownSubMenu>
-						<Text>
-							<span>Lincoln Ferrira</span>
-						</Text>
 					</Box>
 					<Switch onClick={toggleTheme} />
 				</ContainerHeaderConsumer>
@@ -35,35 +52,20 @@ const HeaderConsumer: React.FC = () => {
 
 export default HeaderConsumer;
 
-const ContainerHeaderConsumer = styled.div`
-	display: grid;
-	grid-template-columns: 0fr 1fr 0fr 0fr;
-	align-items: center;
-	padding: 0 50px;
-	grid-column-gap: 10px;
-	width: -webkit-fill-available;
-
-	.container-user-info-header-consumer {
-		display: flex;
-		justify-content: flex-start;
-		gap: 10px;
-		align-items: center;
-		justify-content: center;
-		padding-right: 50px;
-
-		> p {
-			width: max-content;
-		}
-
-		img {
-			height: 46px;
-			width: 46px;
-			cursor: pointer;
-			border-radius: 50px;
-		}
-
-		@media (max-width: 600px) {
-			display: none;
-		}
-	}
-`;
+const itemLinkArraySideConsumer = [
+	{
+		icon: FaHome,
+		text: "Início",
+		to: "/home-consumer",
+	},
+	{
+		icon: FaUserAlt,
+		text: "Meu Perdil",
+		to: "/profile",
+	},
+	{
+		icon: FaSignOutAlt,
+		text: "Sair",
+		to: "#",
+	},
+];

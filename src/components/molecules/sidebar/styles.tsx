@@ -8,6 +8,7 @@ export const ContainerBack = styled.div<{ sidebar: boolean }>`
 	width: ${({ sidebar }) => (sidebar ? "100%" : "0")};
 	top: 0px;
 	left: ${({ sidebar }) => (sidebar ? "0" : "-100%")};
+	visibility: ${p => (p.sidebar ? "visible" : "hidden")};
 	z-index: 1;
 `;
 
@@ -18,8 +19,10 @@ export const HeaderSidebar = styled(ContainerFluid)`
 	margin: 0px 20px 0px 0px;
 	height: 75px;
 	width: auto;
-	background-color: ${props =>
-		props.theme.name === "dark" ? "#272727" : "#f0f0f0"};
+	background-color: ${p =>
+		p.theme.name === "light"
+			? p.theme.colors.light_gray[200]
+			: p.theme.colors.dark_gray[1000]};
 	> svg {
 		color: ${props => props.theme.colors.text};
 		width: 25px;
@@ -41,8 +44,10 @@ export const HeaderSidebar = styled(ContainerFluid)`
 `;
 
 export const ContainerSidebar = styled.div<{ sidebar: boolean }>`
-	background-color: ${props =>
-		props.theme.name === "dark" ? "#272727" : "#f0f0f0"};
+	background-color: ${p =>
+		p.theme.name === "light"
+			? p.theme.colors.light_gray[200]
+			: p.theme.colors.dark_gray[1000]};
 	position: fixed;
 	padding: 0px 10px 10px 10px;
 	height: 100%;

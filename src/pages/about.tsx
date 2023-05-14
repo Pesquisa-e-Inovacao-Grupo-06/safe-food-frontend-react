@@ -1,6 +1,4 @@
-import { Dots } from "@/components/atoms/dots";
 import HeaderConsumer from "@/components/molecules/header-consumer";
-import React from "react";
 
 function About() {
 	return (
