@@ -12,8 +12,8 @@ import { Form } from "../molecules/form";
 import { InputPropsComponent } from "../atoms/input";
 import { Button } from "../atoms/button";
 import { Alert, AlertType } from "../atoms/alert";
-import { Address } from "@/app/domain/entities/Address";
 import { SafeFoodAddressModel } from "@/app/infra/gateway/safefood/models/SafeFoodAddress";
+import { useState } from "react";
 
 export type ProfileEstablishmentTemplateProps = {
 	urlDefault: string;
@@ -41,6 +41,7 @@ export const ProfileEstablishmentTemplate: React.FC<
 	typeAlert,
 	address,
 }) => {
+	const [isEditable, setIsEditable] = useState<boolean>(false);
 	return (
 		<>
 			<Layout>
@@ -149,24 +150,43 @@ export const ProfileEstablishmentTemplate: React.FC<
 						</PContainerInfo>
 						{/* TODO: CHANGE BUTTON TO COMPONENT ATOM AND EXPORT FUNCTION ONCLICK */}
 						<PContainerBtn>
-							<PBtnCancelar
-								height="fit-content"
-								width="fit-content"
-								buttonStyle="outline"
-								disabled={isSaveButtonActive}
-							>
-								Cancelar
-							</PBtnCancelar>
-							<Button
-								height="fit-content"
-								width="fit-content"
-								buttonStyle="filled"
-								disabled={isSaveButtonActive}
-								onClick={onClickSave}
-								loading={isLoading}
-							>
-								Salvar
-							</Button>
+							{isEditable ? (
+								<>
+									<Button
+										height="45px"
+										width="fit-content"
+										buttonStyle="outline"
+										disabled={isSaveButtonActive}
+										onClick={() => setIsEditable(false)}
+									>
+										Cancelar
+									</Button>
+									<Button
+										height="45px"
+										width="fit-content"
+										buttonStyle="filled"
+										disabled={isSaveButtonActive}
+										onClick={onClickSave}
+										loading={isLoading}
+									>
+										Salvar
+									</Button>
+								</>
+							) : (
+								<Button
+									height="45px"
+									width="fit-content"
+									buttonStyle="filled"
+									color="green"
+									disabled={isEditable}
+									loading={isLoading}
+									onClick={() => {
+										setIsEditable(true);
+									}}
+								>
+									Editar
+								</Button>
+							)}
 						</PContainerBtn>
 					</PContainerSub>
 				</PContainer>

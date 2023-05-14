@@ -15,6 +15,7 @@ import { Restriction } from "@/app/domain/entities/Restriction";
 import { InputPropsComponent } from "../atoms/input";
 import { Address } from "@/app/domain/entities/Address";
 import { Alert, AlertType } from "../atoms/alert";
+import { useState } from "react";
 
 export type ProfileProps = {
 	restrictionsDefault: Restriction[];
@@ -51,6 +52,7 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 	const restrictionsOtherUser = restrictionsDefault.filter(
 		({ id }) => !idsMapsUsers.includes(id)
 	);
+	const [isEditable, setIsEditable] = useState<boolean>(false);
 
 	return (
 		<>
@@ -153,22 +155,43 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 						</PContainerInfo3>
 					</PContainerInfo>
 					<PContainerBtn>
-						<PBtnCancelar
-							height="fit-content"
-							width="fit-content"
-							buttonStyle="outline"
-						>
-							Cancelar
-						</PBtnCancelar>
-						<Button
-							height={"35px"}
-							color="green"
-							disabled={isSaveButtonActive}
-							onClick={onClickSave}
-							loading={isLoading}
-						>
-							Salvar
-						</Button>
+						{isEditable ? (
+							<>
+								<Button
+									height="45px"
+									width="fit-content"
+									buttonStyle="outline"
+									disabled={isSaveButtonActive}
+									onClick={() => setIsEditable(false)}
+								>
+									Cancelar
+								</Button>
+								<Button
+									height="45px"
+									width="fit-content"
+									buttonStyle="filled"
+									disabled={isSaveButtonActive}
+									onClick={onClickSave}
+									loading={isLoading}
+								>
+									Salvar
+								</Button>
+							</>
+						) : (
+							<Button
+								height="45px"
+								width="fit-content"
+								buttonStyle="filled"
+								color="green"
+								disabled={isEditable}
+								loading={isLoading}
+								onClick={() => {
+									setIsEditable(true);
+								}}
+							>
+								Editar
+							</Button>
+						)}
 					</PContainerBtn>
 				</PContainerSub>
 			</PContainer>
