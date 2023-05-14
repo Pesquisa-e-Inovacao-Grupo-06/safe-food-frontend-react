@@ -5,9 +5,10 @@ import {
 	getMoreFavoriteListMock,
 } from "@/app/domain/entities/MoreFavorite";
 import { Divider } from "../atoms/divider";
+import { Product } from "@/app/domain/entities/Product";
 
 interface MoreFavoriteProps {
-	listOfFavorite: MoreFavorite[];
+	listOfFavorite: Product[];
 }
 export const MoreFavoritesTemplate: React.FC<MoreFavoriteProps> = ({
 	listOfFavorite,
@@ -26,7 +27,7 @@ export const MoreFavoritesTemplate: React.FC<MoreFavoriteProps> = ({
 			</Subtitle>
 			{listOfFavorite.map((i, index) => (
 				<>
-					<MoreFavoriteOrganism moreFavoriteType={i.params} />
+					<MoreFavoriteOrganism moreFavoriteItems={i} />
 					<Divider marginAll="10px" />
 				</>
 			))}

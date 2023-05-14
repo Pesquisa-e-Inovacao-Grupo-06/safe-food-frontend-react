@@ -11,7 +11,7 @@ type ProductProps = {
 function ProductConsumer({ cache, productGateway }: ProductProps) {
 	async function fetchProduct() {
 		try {
-			const res = (await productGateway.findByAll()).content[0];
+			const res = (await productGateway.findAll()).content[0];
 			res.imagem ? setImageUrl(res.imagem) : null;
 			setProductName(res.titulo);
 			setProductDescription(res.descricao);

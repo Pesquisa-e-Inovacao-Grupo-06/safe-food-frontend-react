@@ -1,4 +1,4 @@
-export function formatReal(value: string | number) {
+export function formatReal(value: string | number | undefined) {
     const number = Number(value);
     if (isNaN(number)) {
         return '';

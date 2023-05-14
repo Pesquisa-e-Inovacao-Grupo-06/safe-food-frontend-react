@@ -49,7 +49,12 @@ export default function App({
 						<Routes>
 							<Route
 								path="/"
-								element={<Home />}
+								element={
+									<Home
+										cache={cache}
+										productGateway={productGateway}
+									/>
+								}
 							/>
 							<Route
 								path="/about"

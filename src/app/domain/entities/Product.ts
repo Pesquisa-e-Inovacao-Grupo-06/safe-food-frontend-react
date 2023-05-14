@@ -1,7 +1,7 @@
 import { CategoryProductModel } from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
 import { SafeFoodRestrictionModel } from "@/app/infra/gateway/safefood/models/SafeFoodRestriction";
 
-export type Product = {
+export type ProductParams = {
 	id: string;
 	titulo: string;
 	descricao: string;
@@ -13,3 +13,7 @@ export type Product = {
 	restricoes: SafeFoodRestrictionModel[];
 	categoria: CategoryProductModel;
 };
+
+export class Product {
+	constructor(public params: Partial<ProductParams>) { }
+}

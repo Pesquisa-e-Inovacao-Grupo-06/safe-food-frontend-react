@@ -20,7 +20,7 @@ export class SafeFoodProductGateway {
     }
 
     //
-    async findByAll(): Promise<SafeFoodProductsResponse> {
+    async findAll(): Promise<SafeFoodProductsResponse> {
         const res = await this.http.execute<SafeFoodProductsResponse>({
             url: `/produtos`,
             method: 'GET',

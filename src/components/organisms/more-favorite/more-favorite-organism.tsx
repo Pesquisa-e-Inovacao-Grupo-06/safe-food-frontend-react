@@ -15,13 +15,14 @@ import iconNoGluten from "../../../assets/icons8-no-gluten-50.png";
 import iconNoMeat from "../../../assets/icons8-no-meat-50.png";
 import iconNoSoy from "../../../assets/icons8-no-soy-30.png";
 import { useSafeFoodTheme } from "@/app/contexts/SafeFoodThemeProvider";
+import { Product } from "@/app/domain/entities/Product";
 
 export type MoreFavoriteProps = {
-	moreFavoriteType: MoreFavoriteType;
+	moreFavoriteItems: Product;
 };
 
 export const MoreFavoriteOrganism: React.FC<MoreFavoriteProps> = ({
-	moreFavoriteType,
+	moreFavoriteItems,
 }) => {
 	const colors = useSafeFoodTheme();
 	return (
@@ -37,7 +38,7 @@ export const MoreFavoriteOrganism: React.FC<MoreFavoriteProps> = ({
 		>
 			<div style={{ width: "500px", height: "300px" }}>
 				<ImageAtom
-					src={moreFavoriteType.img}
+					src={moreFavoriteItems.params.imagem ?? "https://via.placeholder.com/400"}
 					minWidth={500}
 					minHeight={320}
 					maxWidth={500}
@@ -70,7 +71,7 @@ export const MoreFavoriteOrganism: React.FC<MoreFavoriteProps> = ({
 							whiteSpace: "nowrap",
 						}}
 					>
-						{moreFavoriteType.name}
+						{moreFavoriteItems.params.titulo}
 					</Subtitle>
 					<AvaliationStars avegareRate={1} />
 					<div
@@ -107,7 +108,7 @@ export const MoreFavoriteOrganism: React.FC<MoreFavoriteProps> = ({
 					}}
 					color={"whitegray"}
 				>
-					{moreFavoriteType.description}
+					{moreFavoriteItems.params.descricao}
 				</Text>
 				<Box
 					display="flex"
@@ -121,11 +122,11 @@ export const MoreFavoriteOrganism: React.FC<MoreFavoriteProps> = ({
 						placeContent: "flex-start",
 					}}
 				>
-					{IngredientsList(moreFavoriteType.ingredients!)}
+					{/* {IngredientsList(moreFavoriteItems.params.ingredientes)} */}
 				</Box>
 
 				<StyledCost typeText="text-mdb">
-					{formatReal(moreFavoriteType.price)}
+					{formatReal(moreFavoriteItems.params.preco)}
 				</StyledCost>
 				<Button width="fit-content">Ver produto</Button>
 
@@ -133,20 +134,20 @@ export const MoreFavoriteOrganism: React.FC<MoreFavoriteProps> = ({
 					icon={<TiMediaEjectOutline />}
 					iconAlign={"left"}
 				>
-					{moreFavoriteType.nameEstablishment}
+					{/* {moreFavoriteItems.} */}
 				</TextIcon>
 				<TextIcon
 					icon={<TiMediaEjectOutline />}
 					iconAlign={"left"}
 				>
-					{moreFavoriteType.workingPlaceEstablishment}
+					{/* {moreFavoriteItems.params.} */}
 				</TextIcon>
 				<TextIcon
 					style={{}}
 					icon={<TiMediaEjectOutline />}
 					iconAlign="left"
 				>
-					{moreFavoriteType.locationEstablishment}
+					{/* {moreFavoriteItems.} */}
 				</TextIcon>
 			</Box>
 		</BoxMoreFavorite>

@@ -14,7 +14,7 @@ function HomeConsumer({ cache, productGateway }: HomeConsumer) {
 
 	async function fetchProduct() {
 		try {
-			const res = await productGateway.findByAll();
+			const res = await productGateway.findAll();
 			setProduct(res.content);
 			console.log(res);
 		} catch (error) {

@@ -6,13 +6,12 @@ import { Text } from "../../atoms/text";
 import { FaCommentAlt, IoLocationSharp } from "react-icons/all";
 import { Star } from "@/components/atoms/star";
 import { TextIcon } from "@/components/molecules/text-icon/text-icon-molecule";
-import { EstablishmentFoodType } from "@/app/domain/entities/FoodEstablishment";
 import { Divider } from "@/components/atoms/divider";
 import { formatReal } from "@/app/util/convertions/price-br";
 import { Product } from "@/app/domain/entities/Product";
 
 export type EstablishmentFoodProps = {
-	establishemntFood: EstablishmentFoodType;
+	nearbyFood: Product;
 };
 
 export type InfoProduct = {
@@ -20,7 +19,7 @@ export type InfoProduct = {
 };
 
 export const CardCarrouselFoodOrganism: React.FC<EstablishmentFoodProps> = ({
-	establishemntFood,
+	nearbyFood: establishemntFood,
 }) => {
 	return (
 		<>
@@ -35,7 +34,7 @@ export const CardCarrouselFoodOrganism: React.FC<EstablishmentFoodProps> = ({
 			>
 				<div style={{ height: "46%", width: "100%" }}>
 					<img
-						src={establishemntFood.img}
+						src={establishemntFood.params.imagem ?? "https://via.placeholder.com/400"}
 						style={{ objectFit: "cover", borderRadius: "4px", pointerEvents: "none" }}
 						height={"100%"}
 						width={"100%"}
@@ -64,25 +63,27 @@ export const CardCarrouselFoodOrganism: React.FC<EstablishmentFoodProps> = ({
 								flexBasis: "79.4%",
 							}}
 						>
-							{establishemntFood.name}
+							{establishemntFood.params.titulo}
 						</Subtitle>
+						{/* TODO: ARRUMAR AVEGARE */}
 						<AvaliationStars
-							avegareRate={establishemntFood.avegareRate}
+							avegareRate={0}
 							style={{ flexBasis: "20.6%" }}
 						/>
 						<div style={{ flexBasis: "10%" }}></div>
 					</StyledRow>
-					<Text typeText="text-md">{establishemntFood.description}</Text>
+					<Text typeText="text-md">{establishemntFood.params.descricao}</Text>
 					<StyledRow style={{ alignItems: "flex-start" }}>
 						<StyledCost typeText="text-mdb">
-							{formatReal(establishemntFood.price)}
+							{formatReal(establishemntFood.params.preco)}
 						</StyledCost>
 						<TextIcon
 							icon={<IoLocationSharp />}
 							iconAlign="left"
 							typeText="text-md"
 						>
-							{establishemntFood.currentDistance + "m"}
+							{/* //TODO: criar função para util de km */}
+							{0 + "m"}
 						</TextIcon>
 						<div></div>
 					</StyledRow>
@@ -106,7 +107,7 @@ export const CardEstablishmentFoodOrganism: React.FC<InfoProduct> = ({
 		>
 			<div style={{ width: "100%" }}>
 				<img
-					src={product.imagem ?? "https://via.placeholder.com/400"}
+					src={product.params.imagem ?? "https://via.placeholder.com/400"}
 					alt=""
 					style={{
 						maxHeight: "200px",
@@ -117,9 +118,11 @@ export const CardEstablishmentFoodOrganism: React.FC<InfoProduct> = ({
 				/>
 			</div>
 			<StyledColumn style={{ margin: "14px", alignItems: "start" }}>
-				<Subtitle>{product.titulo}</Subtitle>
-				<Text style={{ height: "fit-content" }}>{product.descricao}</Text>
-				<StyledCost typeText="text-mdb">{formatReal(product.preco)}</StyledCost>
+				<Subtitle>{product.params.titulo}</Subtitle>
+				<Text style={{ height: "fit-content" }}>{product.params.descricao}</Text>
+				<StyledCost typeText="text-mdb">
+					{formatReal(product.params.preco)}
+				</StyledCost>
 
 				<Divider />
 				<StyledRow>
