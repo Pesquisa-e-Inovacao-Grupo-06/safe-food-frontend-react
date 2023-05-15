@@ -58,6 +58,7 @@ export default function App({
 											gateway={userGateway}
 											consumerGateway={consumerGateway}
 											establishmentGateway={establishmentGateway}
+											productGateway={productGateway}
 										/>
 									</ModalHomeProvider>
 								}
