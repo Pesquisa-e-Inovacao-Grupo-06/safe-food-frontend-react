@@ -1,5 +1,5 @@
 import { Modal } from "@/components/molecules/modal";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box } from "@/components/atoms/box";
 import { Button } from "@/components/atoms/button";
 import { UnderlineLink } from "@/components/atoms/underline-link";
@@ -13,20 +13,23 @@ import { CompanySignUp } from "./steps/CompanySignUp";
 import { SignupEstablishmentProvider } from "@/app/contexts/SignupEstablishmentProvider";
 import { FindAddress } from "@/app/domain/usecases/FindAddress";
 import { SafeFoodCreateEstablishmentRequest } from "@/app/infra/gateway/safefood/models/SafeFoodEstablishment";
+import { useModalHome } from "@/app/contexts/ModalProvider";
 
-export type StepsEstablishment =
+export type StepsEstablishmentTemplate =
 	| "company"
 	| "security"
 	| "location"
 	| "importation"
 	| "finished";
-export const SignUpEstablishment: React.FC<{
+export const SignUpEstablishmentTemplate: React.FC<{
 	findAddress: FindAddress;
 	onClickCreate(data: SafeFoodCreateEstablishmentRequest): void;
-}> = ({ findAddress, onClickCreate }) => {
-	const [step, setStep] = useState<StepsEstablishment>("company");
-	const [isModalVisible, setModalVisible] = useState(true);
-
+	toggleModal(): void;
+	isModalVisible: boolean;
+}> = ({ findAddress, onClickCreate, isModalVisible, toggleModal }) => {
+	const [visible, setVisible] = useState(false);
+	const [step, setStep] = useState<StepsEstablishmentTemplate>("company");
+	const { setModal, modal } = useModalHome();
 	const StepScreen = () => {
 		if (step === "company") return <CompanySignUp />;
 		if (step === "finished") return <FinishedSignUpConsumer />;
@@ -35,16 +38,23 @@ export const SignUpEstablishment: React.FC<{
 		if (step === "security") return <SecuritySignUp />;
 		return <ImportationSignUp />;
 	};
+	useEffect(() => {
+		setVisible(isModalVisible);
+	}, []);
 	return (
 		<>
-			<Button onClick={() => setModalVisible(!isModalVisible)}>Abrir modal</Button>
 			<Modal
 				size="sm"
 				height="md"
 				padding="20px 20px 40px 20px"
 				responsive
-				isOpen={isModalVisible}
-				onClickForeground={() => setModalVisible(!isModalVisible)}
+				isOpen={visible}
+				onClickForeground={() => {
+					setVisible(false);
+					setTimeout(() => {
+						toggleModal();
+					}, 300);
+				}}
 			>
 				<Box
 					display="flex"
@@ -71,7 +81,7 @@ export const SignUpEstablishment: React.FC<{
 						/>
 					</SignupEstablishmentProvider>
 					<Box width="100%">
-						<UnderlineLink href="http://localhost:5173/signup">
+						<UnderlineLink onClick={() => setModal("consumer")}>
 							Sou um consumidor
 						</UnderlineLink>
 					</Box>

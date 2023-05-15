@@ -3,7 +3,7 @@ import Home from "./pages/home";
 import About from "./pages/about";
 import FAQ from "./pages/faq";
 import SignIn from "./pages/signIn";
-import SignUp from "./pages/signUp";
+import SignUp from "./pages/signUp-establishment";
 import Profile from "./pages/profile-consumer";
 import TermOfService from "./pages/term-of-service";
 import ProfileEstablishment from "./pages/profile-establishment";
@@ -20,6 +20,7 @@ import { SafeFoodConsumerGateway } from "./app/infra/gateway/safefood/SafeFoodCo
 import { SafeFoodEstablishmentGateway } from "./app/infra/gateway/safefood/SafeFoodEstablishmentGateway";
 import NotFound from "./pages/not-found";
 import PreferencesEstablishment from "./pages/preferences-establishment";
+import { ModalHomeProvider } from "./app/contexts/ModalProvider";
 import { SafeFoodProductGateway } from "./app/infra/gateway/safefood/SafeFoodProductGateway";
 import ProductConsumer from "./pages/product-consumer";
 
@@ -50,10 +51,16 @@ export default function App({
 							<Route
 								path="/"
 								element={
-									<Home
-										cache={cache}
-										productGateway={productGateway}
-									/>
+									<ModalHomeProvider>
+										<Home
+											viaCepGateway={viaCepGateway}
+											cache={cache}
+											gateway={userGateway}
+											consumerGateway={consumerGateway}
+											establishmentGateway={establishmentGateway}
+											productGateway={productGateway}
+										/>
+									</ModalHomeProvider>
 								}
 							/>
 							<Route
@@ -63,27 +70,6 @@ export default function App({
 							<Route
 								path="/faq"
 								element={<FAQ />}
-							/>
-							<Route
-								path="/signin"
-								element={
-									<SignIn
-										cache={cache}
-										gateway={userGateway}
-										consumerGateway={consumerGateway}
-										establishmentGateway={establishmentGateway}
-									/>
-								}
-							/>
-							<Route
-								path="/signup"
-								element={
-									<SignUp
-										cache={cache}
-										viaCepGateway={viaCepGateway}
-										gateway={establishmentGateway}
-									/>
-								}
 							/>
 							<Route
 								path="/profile"
