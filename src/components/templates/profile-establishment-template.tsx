@@ -16,7 +16,7 @@ import { SafeFoodAddressModel } from "@/app/infra/gateway/safefood/models/SafeFo
 import { useState } from "react";
 
 export type ProfileEstablishmentTemplateProps = {
-	urlDefault: string;
+	urlDefault: string | null | undefined;
 	listOfComponentAdministration: InputPropsComponent[];
 	listOfComponentEstablishment: InputPropsComponent[];
 	onClickSave(): void;
@@ -26,6 +26,7 @@ export type ProfileEstablishmentTemplateProps = {
 	textAlert?: string;
 	isAlertVisible: boolean;
 	address: SafeFoodAddressModel;
+	onClickChangePassowrd(): void;
 };
 export const ProfileEstablishmentTemplate: React.FC<
 	ProfileEstablishmentTemplateProps
@@ -40,6 +41,7 @@ export const ProfileEstablishmentTemplate: React.FC<
 	textAlert,
 	typeAlert,
 	address,
+	onClickChangePassowrd,
 }) => {
 	const [isEditable, setIsEditable] = useState<boolean>(false);
 	return (
@@ -75,6 +77,24 @@ export const ProfileEstablishmentTemplate: React.FC<
 							<PTitle>Administrador</PTitle>
 							<div className="form-inputs-adm">
 								<Form listOfComponent={listOfComponentAdministration} />
+								<ul>
+									<li>
+										<span>Senha:</span>
+										<StyledButton
+											height="fit-content"
+											width="fit-content"
+											buttonStyle="filled"
+											style={{
+												fontSize: "16px",
+												maxHeight: "32px",
+												width: "fit-content",
+											}}
+											onClick={onClickChangePassowrd}
+										>
+											Alterar Senha
+										</StyledButton>
+									</li>
+								</ul>
 							</div>
 							<PDivider />
 							<PTitle>Empresa</PTitle>

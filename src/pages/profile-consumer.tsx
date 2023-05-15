@@ -97,8 +97,6 @@ function ProfileConsumer({ cache, consumerGateway }: ProfileConsumer) {
 					value: numberphone,
 					setUseState: setNumberPhone,
 				},
-
-				{ name: "Senha:", value: "**********" },
 			]}
 			// TODO: CRIAR MAPPER DE ADDRESS MODEL TO ADDRESS ENTITY
 			listOfAddress={consumer.enderecos.map(SafeFoodAddressMapper.of)}
@@ -111,6 +109,9 @@ function ProfileConsumer({ cache, consumerGateway }: ProfileConsumer) {
 			isAlertVisible={isAlertVisible}
 			textAlert={textAlert}
 			typeAlert={typeAlert}
+			onClickChangePassowrd={function (): void {
+				throw new Error("Function not implemented.");
+			}}
 		/>
 	);
 }

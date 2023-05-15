@@ -12,7 +12,7 @@ import AddresCard from "@/components/molecules/address-card";
 import { Form } from "@/components/molecules/form";
 import { Button } from "@/components/atoms/button";
 import { Restriction } from "@/app/domain/entities/Restriction";
-import { InputPropsComponent } from "../atoms/input";
+import { Input, InputPropsComponent } from "../atoms/input";
 import { Address } from "@/app/domain/entities/Address";
 import { Alert, AlertType } from "../atoms/alert";
 import { useState } from "react";
@@ -29,6 +29,7 @@ export type ProfileProps = {
 	typeAlert?: AlertType;
 	textAlert?: string;
 	isAlertVisible: boolean;
+	onClickChangePassowrd(): void;
 };
 
 export const ProfileTemplate: React.FC<ProfileProps> = ({
@@ -43,6 +44,7 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 	isAlertVisible,
 	textAlert,
 	typeAlert,
+	onClickChangePassowrd,
 }) => {
 	//TODO: IMPLEMENTAR UPDATE no restrictions
 	const idsMapsUsers = restrictionsUser.map(item => item.id);
@@ -85,6 +87,25 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 						</Box>
 						<PDivider />
 						<Form listOfComponent={form}></Form>
+
+						<ul>
+							<li>
+								<span>Senha:</span>
+								<StyledButton
+									height="fit-content"
+									width="fit-content"
+									buttonStyle="filled"
+									style={{
+										fontSize: "16px",
+										maxHeight: "32px",
+										width: "fit-content",
+									}}
+									onClick={onClickChangePassowrd}
+								>
+									Alterar Senha
+								</StyledButton>
+							</li>
+						</ul>
 						<PDivider />
 						<PContainerInfo2>
 							<div className="pcontainerinfo2-sub">
