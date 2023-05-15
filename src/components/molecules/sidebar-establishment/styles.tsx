@@ -31,7 +31,7 @@ export const SSidebar = styled.div<{
 `;
 
 export const SHeader = styled.div`
-	width: fir-content;
+	width: fit-content;
 	height: fit-content;
 	position: fixed;
 	display: none;

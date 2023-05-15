@@ -14,11 +14,11 @@ import { Divider } from "@/components/atoms/divider";
 import { Box } from "@/components/atoms/box";
 
 export type BannerMobilePlatformProps = {
-	onClick?: () => void;
+	onClickDownloadApp?: () => void;
 };
 
 export const BannerMobilePlatform: React.FC<BannerMobilePlatformProps> = ({
-	onClick,
+	onClickDownloadApp,
 }) => {
 	return (
 		<StyledBannerDiv id="content">
@@ -35,7 +35,7 @@ export const BannerMobilePlatform: React.FC<BannerMobilePlatformProps> = ({
 						<Divider marginTop="39px" />
 						<Button
 							className="button-desktop-platform"
-							onClick={onClick}
+							onClick={onClickDownloadApp}
 							height={40}
 						>
 							Baixar agora
@@ -51,7 +51,12 @@ export const BannerMobilePlatform: React.FC<BannerMobilePlatformProps> = ({
 						/>
 					</StyledBannerMobilePlatformImage>
 
-					<Button className="button-mobile-platform">Baixar agora</Button>
+					<Button
+						className="button-mobile-platform"
+						onClick={onClickDownloadApp}
+					>
+						Baixar agora
+					</Button>
 				</StyledBannerMobilePlatformBody>
 			</StyledBannerMobilePlatformContainer>
 		</StyledBannerDiv>

@@ -12,11 +12,11 @@ import { Form } from "../molecules/form";
 import { InputPropsComponent } from "../atoms/input";
 import { Button } from "../atoms/button";
 import { Alert, AlertType } from "../atoms/alert";
-import { Address } from "@/app/domain/entities/Address";
 import { SafeFoodAddressModel } from "@/app/infra/gateway/safefood/models/SafeFoodAddress";
+import { useState } from "react";
 
 export type ProfileEstablishmentTemplateProps = {
-	urlDefault: string;
+	urlDefault: string | null | undefined;
 	listOfComponentAdministration: InputPropsComponent[];
 	listOfComponentEstablishment: InputPropsComponent[];
 	onClickSave(): void;
@@ -26,6 +26,7 @@ export type ProfileEstablishmentTemplateProps = {
 	textAlert?: string;
 	isAlertVisible: boolean;
 	address: SafeFoodAddressModel;
+	onClickChangePassowrd(): void;
 };
 export const ProfileEstablishmentTemplate: React.FC<
 	ProfileEstablishmentTemplateProps
@@ -40,7 +41,9 @@ export const ProfileEstablishmentTemplate: React.FC<
 	textAlert,
 	typeAlert,
 	address,
+	onClickChangePassowrd,
 }) => {
+	const [isEditable, setIsEditable] = useState<boolean>(false);
 	return (
 		<>
 			<Layout>
@@ -74,6 +77,24 @@ export const ProfileEstablishmentTemplate: React.FC<
 							<PTitle>Administrador</PTitle>
 							<div className="form-inputs-adm">
 								<Form listOfComponent={listOfComponentAdministration} />
+								<ul>
+									<li>
+										<span>Senha:</span>
+										<StyledButton
+											height="fit-content"
+											width="fit-content"
+											buttonStyle="filled"
+											style={{
+												fontSize: "16px",
+												maxHeight: "32px",
+												width: "fit-content",
+											}}
+											onClick={onClickChangePassowrd}
+										>
+											Alterar Senha
+										</StyledButton>
+									</li>
+								</ul>
 							</div>
 							<PDivider />
 							<PTitle>Empresa</PTitle>
@@ -149,24 +170,43 @@ export const ProfileEstablishmentTemplate: React.FC<
 						</PContainerInfo>
 						{/* TODO: CHANGE BUTTON TO COMPONENT ATOM AND EXPORT FUNCTION ONCLICK */}
 						<PContainerBtn>
-							<PBtnCancelar
-								height="fit-content"
-								width="fit-content"
-								buttonStyle="outline"
-								disabled={isSaveButtonActive}
-							>
-								Cancelar
-							</PBtnCancelar>
-							<Button
-								height="fit-content"
-								width="fit-content"
-								buttonStyle="filled"
-								disabled={isSaveButtonActive}
-								onClick={onClickSave}
-								loading={isLoading}
-							>
-								Salvar
-							</Button>
+							{isEditable ? (
+								<>
+									<Button
+										height="45px"
+										width="fit-content"
+										buttonStyle="outline"
+										disabled={isSaveButtonActive}
+										onClick={() => setIsEditable(false)}
+									>
+										Cancelar
+									</Button>
+									<Button
+										height="45px"
+										width="fit-content"
+										buttonStyle="filled"
+										disabled={isSaveButtonActive}
+										onClick={onClickSave}
+										loading={isLoading}
+									>
+										Salvar
+									</Button>
+								</>
+							) : (
+								<Button
+									height="45px"
+									width="fit-content"
+									buttonStyle="filled"
+									color="green"
+									disabled={isEditable}
+									loading={isLoading}
+									onClick={() => {
+										setIsEditable(true);
+									}}
+								>
+									Editar
+								</Button>
+							)}
 						</PContainerBtn>
 					</PContainerSub>
 				</PContainer>

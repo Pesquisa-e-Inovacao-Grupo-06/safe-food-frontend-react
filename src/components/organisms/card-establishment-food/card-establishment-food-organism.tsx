@@ -6,16 +6,20 @@ import { Text } from "../../atoms/text";
 import { FaCommentAlt, IoLocationSharp } from "react-icons/all";
 import { Star } from "@/components/atoms/star";
 import { TextIcon } from "@/components/molecules/text-icon/text-icon-molecule";
-import { EstablishmentFoodType } from "@/app/domain/entities/FoodEstablishment";
 import { Divider } from "@/components/atoms/divider";
 import { formatReal } from "@/app/util/convertions/price-br";
+import { Product } from "@/app/domain/entities/Product";
+import { ImageAtom } from "@/components/atoms/img";
 
 export type EstablishmentFoodProps = {
-	establishemntFood: EstablishmentFoodType;
+	NearbyFoodsItem: Product;
+};
+export type InfoProduct = {
+	product: Product;
 };
 
-export const CardCarrouselFoodOrganism: React.FC<EstablishmentFoodProps> = ({
-	establishemntFood,
+export const NearbyFoodsCard: React.FC<EstablishmentFoodProps> = ({
+	NearbyFoodsItem,
 }) => {
 	return (
 		<>
@@ -30,7 +34,7 @@ export const CardCarrouselFoodOrganism: React.FC<EstablishmentFoodProps> = ({
 			>
 				<div style={{ height: "46%", width: "100%" }}>
 					<img
-						src={establishemntFood.img}
+						src={NearbyFoodsItem.params.imagem ?? "https://via.placeholder.com/400"}
 						style={{ objectFit: "cover", borderRadius: "4px", pointerEvents: "none" }}
 						height={"100%"}
 						width={"100%"}
@@ -59,25 +63,26 @@ export const CardCarrouselFoodOrganism: React.FC<EstablishmentFoodProps> = ({
 								flexBasis: "79.4%",
 							}}
 						>
-							{establishemntFood.name}
+							{NearbyFoodsItem.params.titulo}
 						</Subtitle>
+						{/* TODO: ARRUMAR AVEGARE */}
 						<AvaliationStars
-							avegareRate={establishemntFood.avegareRate}
+							avegareRate={1}
 							style={{ flexBasis: "20.6%" }}
 						/>
 						<div style={{ flexBasis: "10%" }}></div>
 					</StyledRow>
-					<Text typeText="text-md">{establishemntFood.description}</Text>
+					<Text typeText="text-md">{NearbyFoodsItem.params.descricao}</Text>
 					<StyledRow style={{ alignItems: "flex-start" }}>
 						<StyledCost typeText="text-mdb">
-							{formatReal(establishemntFood.price)}
+							{formatReal(NearbyFoodsItem.params.preco)}
 						</StyledCost>
 						<TextIcon
 							icon={<IoLocationSharp />}
 							iconAlign="left"
 							typeText="text-md"
 						>
-							{establishemntFood.currentDistance + "m"}
+							{"m" ?? "distancia indefinida"}
 						</TextIcon>
 						<div></div>
 					</StyledRow>
@@ -87,7 +92,9 @@ export const CardCarrouselFoodOrganism: React.FC<EstablishmentFoodProps> = ({
 	);
 };
 
-export const CardEstablishmentFoodOrganism = ({}) => {
+export const CardEstablishmentFoodOrganism: React.FC<InfoProduct> = ({
+	product,
+}) => {
 	return (
 		<Box
 			display="flex"
@@ -99,7 +106,7 @@ export const CardEstablishmentFoodOrganism = ({}) => {
 		>
 			<div style={{ width: "100%" }}>
 				<img
-					src="https://midias.agazeta.com.br/2022/05/25/hamburguer-da-101-brasa-burger-em-vila-velha-769174-article.jpg"
+					src={product.params.imagem ?? "https://via.placeholder.com/400"}
 					alt=""
 					style={{
 						maxHeight: "200px",
@@ -110,17 +117,11 @@ export const CardEstablishmentFoodOrganism = ({}) => {
 				/>
 			</div>
 			<StyledColumn style={{ margin: "14px", alignItems: "start" }}>
-				<Subtitle>Hamburguer Vegan 2.0</Subtitle>
-				<Text style={{ height: "fit-content" }}>
-					Aproveite todo o sabor de um clássico hambúrguer sem sacrificar seus
-					princípios veganos com o nosso revolucionário Hambúrguer 2.0 Vegan. Feito
-					com ingredientes de origem vegetal de alta qualidade, este hambúrguer é uma
-					deliciosa opção para quem busca uma alimentação mais saudável e
-					sustentável. Com sua textura suculenta e sabor inigualável, é perfeito para
-					qualquer refeição, desde um lanche rápido até um jantar sofisticado.
-					Experimente agora e descubra o futuro do hambúrguer vegano!
-				</Text>
-				<StyledCost typeText="text-mdb">R$ 45,00</StyledCost>
+				<Subtitle>{product.params.titulo}</Subtitle>
+				<Text style={{ height: "fit-content" }}>{product.params.descricao}</Text>
+				<StyledCost typeText="text-mdb">
+					{formatReal(product.params.preco)}
+				</StyledCost>
 
 				<Divider />
 				<StyledRow>

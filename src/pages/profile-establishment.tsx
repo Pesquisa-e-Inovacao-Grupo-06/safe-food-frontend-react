@@ -22,6 +22,7 @@ function ProfileEstablishment({
 			: {};
 
 	//CAMPOS
+	const [imageProfile, setImageProfile] = useState(establishment.imagem);
 	const [name, setName] = useState(establishment.nome);
 	const [email, setEmail] = useState(establishment.email);
 	const [numberphone, setNumberPhone] = useState(establishment.celular);
@@ -103,7 +104,6 @@ function ProfileEstablishment({
 					value: numberphone,
 					setUseState: setNumberPhone,
 				},
-				{ name: "Senha: ", value: "*********" },
 			]}
 			listOfComponentEstablishment={[
 				{
@@ -129,13 +129,16 @@ function ProfileEstablishment({
 				},
 			]}
 			address={establishment.endereco}
-			urlDefault={""}
+			urlDefault={imageProfile}
 			onClickSave={onClickLogin}
 			isSaveButtonActive={isActiveButton}
 			isLoading={isLoading}
 			isAlertVisible={isAlertVisible}
 			textAlert={textAlert}
 			typeAlert={typeAlert}
+			onClickChangePassowrd={function (): void {
+				throw new Error("Function not implemented.");
+			}}
 		/>
 	) : (
 		<h1>Carregando...</h1>

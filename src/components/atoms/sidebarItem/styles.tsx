@@ -14,27 +14,31 @@ export const ItemSidebarContainer = styled.div<{
 				  }`};
 		display: flex;
 		align-items: center;
-		font-size: 20px;
+		font-size: 18px;
 		padding: 10px 7px;
 		cursor: pointer;
 		border-radius: 8px;
 		margin: 5px 0px;
+		transition: 0.3s;
 	}
 	& a svg {
+		font-size: 18px;
 		margin: 0 25px 0 5px;
 	}
 	& a:hover {
-		box-shadow: inset 0 0 0 1px
-			${p =>
-				p.theme.name == "light"
-					? p.theme.colors.light_gray[800]
-					: p.theme.colors.dark_gray[600]};
+		background: ${p =>
+			p.theme.name == "light"
+				? p.theme.colors.light_gray[800]
+				: p.theme.colors.dark_gray[600]};
 	}
 
 	@media (max-width: 600px) {
 		& a {
-			font-size: 30px;
-			margin: 20px 0;
+			font-size: 20px;
+		}
+
+		& a svg {
+			font-size: 20px;
 		}
 	}
 `;

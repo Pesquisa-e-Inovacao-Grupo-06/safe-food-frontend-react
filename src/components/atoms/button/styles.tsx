@@ -24,7 +24,6 @@ export const StyledButton = styled.button<{
 	font-family: ${p => p.theme.font.family.text};
 	border-radius: ${({ theme }) => theme.border.radius.md};
 	cursor: pointer;
-
 	font-weight: 600;
 	display: flex;
 	justify-content: center;

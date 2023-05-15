@@ -19,7 +19,7 @@ function establishmentListMock(): FoodEstablishment[] {
             price: 29.00,
             currentDistance: 500,
             avegareRate: 3,
-            img: "https://www.receiteria.com.br/wp-content/uploads/receitas-de-comida-vegana.jpg"
+            img: "https://via.placeholder.com/300"
 
         }), new FoodEstablishment({
             name: "Macarrão com cogumelos",
@@ -27,7 +27,7 @@ function establishmentListMock(): FoodEstablishment[] {
             price: 29.00,
             currentDistance: 500,
             avegareRate: 3,
-            img: "https://www.montarumnegocio.com/wp-content/uploads/2019/11/Receitas-de-comidas-veganas-para-vender.jpg"
+            img: "https://via.placeholder.com/300"
 
         }), new FoodEstablishment({
             name: "Macarrão com cogumelos",
@@ -35,7 +35,7 @@ function establishmentListMock(): FoodEstablishment[] {
             price: 29.00,
             currentDistance: 500,
             avegareRate: 3,
-            img: "https://s2.glbimg.com/hWW1b5fTDT59diIbBsaKZoiBSJE=/0x0:1177x1280/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_bc8228b6673f488aa253bbcb03c80ec5/internal_photos/bs/2021/c/l/ANT8n6S122VIhUrhCT9A/prato-de-comida-vegana-eu-atleta.jpg"
+            img: "https://via.placeholder.com/300"
 
         }), new FoodEstablishment({
             name: "Macarrão com cogumelos",
@@ -43,7 +43,7 @@ function establishmentListMock(): FoodEstablishment[] {
             price: 29.00,
             currentDistance: 500,
             avegareRate: 3,
-            img: "https://i.blogs.es/e78f73/recetas-vegans/1366_2000.jpg"
+            img: "https://via.placeholder.com/300"
 
         }),
     ]

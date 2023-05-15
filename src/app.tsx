@@ -8,7 +8,6 @@ import Profile from "./pages/profile-consumer";
 import TermOfService from "./pages/term-of-service";
 import ProfileEstablishment from "./pages/profile-establishment";
 import HomeEstablishment from "./pages/home-establishment";
-import ProductConsumer from "./pages/product-consumer";
 import HomeConsumer from "./pages/home-consumer";
 import { SafeFoodUserGateway } from "./app/infra/gateway/safefood/SafeFoodUserGateway";
 import { SafeFoodRestrictionGateway } from "./app/infra/gateway/safefood/SafeFoodRestrictionGateway";
@@ -20,9 +19,10 @@ import { AuthProvider } from "./app/contexts/AuthProvider";
 import { SafeFoodConsumerGateway } from "./app/infra/gateway/safefood/SafeFoodConsumerGateway";
 import { SafeFoodEstablishmentGateway } from "./app/infra/gateway/safefood/SafeFoodEstablishmentGateway";
 import NotFound from "./pages/not-found";
-import { GlobalStyles } from "./styles/theme/global-style";
 import PreferencesEstablishment from "./pages/preferences-establishment";
 import { ModalHomeProvider } from "./app/contexts/ModalProvider";
+import { SafeFoodProductGateway } from "./app/infra/gateway/safefood/SafeFoodProductGateway";
+import ProductConsumer from "./pages/product-consumer";
 
 type AppProps = {
 	cache: Cache;
@@ -31,6 +31,7 @@ type AppProps = {
 	restrictionsGateway: SafeFoodRestrictionGateway;
 	viaCepGateway: ViaCepGateway;
 	establishmentGateway: SafeFoodEstablishmentGateway;
+	productGateway: SafeFoodProductGateway;
 };
 export default function App({
 	cache,
@@ -39,6 +40,7 @@ export default function App({
 	userGateway,
 	viaCepGateway,
 	establishmentGateway,
+	productGateway,
 }: AppProps) {
 	return (
 		<>
@@ -100,7 +102,12 @@ export default function App({
 							/>
 							<Route
 								path="/product-consumer"
-								element={<ProductConsumer cache={cache} />}
+								element={
+									<ProductConsumer
+										cache={cache}
+										productGateway={productGateway}
+									/>
+								}
 							/>
 							<Route
 								path="/preferences-establishment"
@@ -108,7 +115,12 @@ export default function App({
 							/>
 							<Route
 								path="/home-consumer"
-								element={<HomeConsumer />}
+								element={
+									<HomeConsumer
+										cache={cache}
+										productGateway={productGateway}
+									/>
+								}
 							/>
 							<Route
 								path="/*"

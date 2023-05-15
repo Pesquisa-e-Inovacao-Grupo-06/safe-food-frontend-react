@@ -26,7 +26,7 @@ function moreFavoriteListMock(): MoreFavorite[] {
             nameEstablishment: "Restaurante Vegan Delight",
             locationEstablishment: "Rua das Flores, 123",
             workingPlaceEstablishment: true,
-            img: "https://biancazapatka.com/wp-content/uploads/2019/04/mushroom-pasta-spinach-best-recipe-easy-vegan-healthy-pasta-spinat-rezept-einfach-champignons-tasty.jpg",
+            img: "https://via.placeholder.com/400",
         }
         ),
         new MoreFavorite({
@@ -37,7 +37,7 @@ function moreFavoriteListMock(): MoreFavorite[] {
             nameEstablishment: "Lanchonete Veggie",
             locationEstablishment: "Avenida das Árvores, 456",
             workingPlaceEstablishment: true,
-            img: "https://www.iped.com.br/_upload/content/2015/05/18/dicas-culinaria-vegana.jpg"
+            img: "https://via.placeholder.com/400"
         })
     ];
 }

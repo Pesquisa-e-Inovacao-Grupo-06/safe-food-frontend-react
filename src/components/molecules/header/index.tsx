@@ -1,6 +1,13 @@
 import { Dispatch, useState } from "react";
 import { Container, ContainerLogo, ContainerBtn } from "./styles";
-import { FaBars } from "react-icons/fa";
+import {
+	FaBars,
+	FaHome,
+	FaInfoCircle,
+	FaQuestionCircle,
+	FaSignInAlt,
+	FaSignOutAlt,
+} from "react-icons/fa";
 import { useSafeFoodTheme } from "../../../app/contexts/SafeFoodThemeProvider";
 import { LogoAtom } from "@/components/atoms/logo";
 import NavbarItem from "@/components/atoms/navbarItem";
@@ -9,6 +16,11 @@ import Switch from "@/components/atoms/toggle-switch";
 import Sidebar from "../sidebar";
 import { useLocation } from "react-router-dom";
 import { useModalHome } from "@/app/contexts/ModalProvider";
+import { MdPersonAddAlt1 } from "react-icons/md";
+
+interface Props {
+	toggleTheme(): void;
+}
 
 const Header: React.FC = () => {
 	const { setModal } = useModalHome();
@@ -41,6 +53,7 @@ const Header: React.FC = () => {
 		<Container>
 			<FaBars onClick={toggleSidebar} />
 			<Sidebar
+				itemLinkArray={itemLinkArraySide}
 				active={sidebar}
 				toggle={toggleSidebar}
 			/>
@@ -74,3 +87,36 @@ const Header: React.FC = () => {
 };
 
 export default Header;
+
+const itemLinkArraySide = [
+	{
+		icon: FaHome,
+		text: "Início",
+		to: "/",
+	},
+	{
+		icon: FaInfoCircle,
+		text: "Safe Food",
+		to: "/about",
+	},
+	{
+		icon: FaQuestionCircle,
+		text: "FAQ",
+		to: "/faq",
+	},
+	{
+		icon: FaSignInAlt,
+		text: "Entrar",
+		to: "/signin",
+	},
+	{
+		icon: MdPersonAddAlt1,
+		text: "Cadastrar",
+		to: "/signup",
+	},
+	{
+		icon: FaSignOutAlt,
+		text: "Sair",
+		to: "#",
+	},
+];

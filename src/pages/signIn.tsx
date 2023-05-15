@@ -51,11 +51,17 @@ function SignIn({
 	const onClickLogin = () => {
 		setIsVisibleAlert(false);
 		setLoading(true);
+		cache.removeItem("token");
+		cache.removeItem("consumer");
+		cache.removeItem("establishment");
+		cache.removeItem("user");
+
 		if (email.length == 0 || password.length == 0) {
 			setIsVisibleAlert(true);
 			setTypeAlert("warning");
 			setTextAlert("Email ou senha incorretos");
 			setLoading(false);
+
 			return;
 		}
 		gateway
