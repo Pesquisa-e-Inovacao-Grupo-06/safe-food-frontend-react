@@ -2,14 +2,15 @@ import { Link } from "react-router-dom";
 import { Container } from "./styles";
 
 type Props = {
-	to: string;
+	to?: string;
 	text: string;
+	onclick?: () => void;
 };
 
-function SignUpButton({ to, text }: Props) {
+function SignUpButton({ to, text, onclick }: Props) {
 	return (
 		<Container>
-			<Link to={to}>{text}</Link>
+			{to ? <Link to={to}>{text}</Link> : <a onClick={onclick}>{text}</a>}{" "}
 		</Container>
 	);
 }

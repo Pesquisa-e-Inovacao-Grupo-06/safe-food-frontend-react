@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Dispatch, useState } from "react";
 import { Container, ContainerLogo, ContainerBtn } from "./styles";
 import { FaBars } from "react-icons/fa";
 import { useSafeFoodTheme } from "../../../app/contexts/SafeFoodThemeProvider";
@@ -8,12 +8,26 @@ import SignUpButton from "@/components/atoms/navbarItem/btnsignup";
 import Switch from "@/components/atoms/toggle-switch";
 import Sidebar from "../sidebar";
 import { useLocation } from "react-router-dom";
-
-interface Props {
-	toggleTheme(): void;
-}
+import { useModalHome } from "@/app/contexts/ModalProvider";
 
 const Header: React.FC = () => {
+	const { setModal } = useModalHome();
+
+	const itemLinkArray = [
+		{
+			text: "Início",
+			to: "/",
+			onclick: () => setModal(null),
+		},
+		{
+			text: "Safe Food",
+			to: "/about",
+		},
+		{
+			text: "FAQ",
+			to: "/faq",
+		},
+	];
 	const { pathname } = useLocation();
 	const [sidebar, setSidebar] = useState(false);
 
@@ -46,11 +60,11 @@ const Header: React.FC = () => {
 			</ul>
 			<ContainerBtn>
 				<NavbarItem
-					to="/signin"
+					onclick={() => setModal("login")}
 					text="Entrar"
 				/>
 				<SignUpButton
-					to="signup"
+					onclick={() => setModal("consumer")}
 					text="Cadastre-se"
 				/>
 			</ContainerBtn>
@@ -60,18 +74,3 @@ const Header: React.FC = () => {
 };
 
 export default Header;
-
-const itemLinkArray = [
-	{
-		text: "Início",
-		to: "/",
-	},
-	{
-		text: "Safe Food",
-		to: "/about",
-	},
-	{
-		text: "FAQ",
-		to: "/faq",
-	},
-];

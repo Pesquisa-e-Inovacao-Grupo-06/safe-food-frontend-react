@@ -1,17 +1,18 @@
-import React from "react";
+import React, { Dispatch } from "react";
 import { Link } from "react-router-dom";
 import { ContainerItem } from "./styles";
 
 type Props = {
-	to: string;
+	to?: string;
 	text: string;
+	onclick?: () => void;
 	isActive?: boolean;
 };
 
-function NavbarItem({ to, text, isActive }: Props) {
+function NavbarItem({ to, text, isActive, onclick }: Props) {
 	return (
 		<ContainerItem isActive={isActive}>
-			<Link to={to}>{text}</Link>
+			{to ? <Link to={to}>{text}</Link> : <a onClick={onclick}>{text}</a>}
 		</ContainerItem>
 	);
 }

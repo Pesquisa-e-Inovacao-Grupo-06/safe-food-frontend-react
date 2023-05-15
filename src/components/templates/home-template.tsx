@@ -6,7 +6,7 @@ import { MoreFavoritesTemplate } from "./more-favorites-template";
 import { BodyTemplate } from "./body-template";
 import { Landing } from "../organisms/landing/landing";
 
-export const HomeTemplate = ({}) => {
+export const HomeTemplate = () => {
 	return (
 		<>
 			<Header />

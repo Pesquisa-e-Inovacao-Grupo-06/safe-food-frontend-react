@@ -1,6 +1,6 @@
 import { useSafeFoodTheme } from "@/app/contexts/SafeFoodThemeProvider";
 import { Subtitle } from "@/styles/components/text/Subtitle";
-import React, { FormEvent } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { Text } from "../atoms/text";
 import { Modal } from "../molecules/modal";
 import { Button } from "../atoms/button";
@@ -9,6 +9,7 @@ import { Alert, AlertType } from "../atoms/alert";
 import { TextField } from "../molecules/textfield";
 import { UnderlineLink } from "../atoms/underline-link";
 import { ButtonLoading } from "../molecules/button/button-loading";
+import { useModalHome } from "@/app/contexts/ModalProvider";
 export type SignInTemplateProps = {
 	toggleModal(): void;
 	isModalVisible: boolean;
@@ -36,18 +37,25 @@ export const SignInTemplate: React.FC<SignInTemplateProps> = ({
 	loading,
 }) => {
 	const { colors } = useSafeFoodTheme().getTheme();
+	const [visible, setVisible] = useState(false);
+	useEffect(() => {
+		setVisible(isModalVisible);
+	}, []);
 
 	return (
 		<>
-			<Button onClick={toggleModal}>Abrir modal</Button>
-
 			<Modal
 				size="sm"
 				height="md"
 				padding="20px 20px 40px 20px"
 				responsive
-				isOpen={isModalVisible}
-				onClickForeground={toggleModal}
+				isOpen={visible}
+				onClickForeground={() => {
+					setVisible(false);
+					setTimeout(() => {
+						toggleModal();
+					}, 300);
+				}}
 			>
 				<Box
 					display="flex"

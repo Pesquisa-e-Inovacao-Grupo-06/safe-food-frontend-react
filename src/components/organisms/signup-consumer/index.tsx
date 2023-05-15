@@ -14,22 +14,30 @@ import { SignupConsumerProvider } from "@/app/contexts/SignupConsumerProvider";
 import { Restriction } from "@/app/domain/entities/Restriction";
 import { SafeFoodCreateConsumerRequest } from "@/app/infra/gateway/safefood/models/SafeFoodConsumer";
 import { FindAddress } from "@/app/domain/usecases/FindAddress";
+import { useModalHome } from "@/app/contexts/ModalProvider";
 
 export type Steps = "general-info" | "restrictions" | "additional" | "finished";
 
 export type SignUpConsumerProps = {
 	restrictions: Restriction[];
 	findAddress: FindAddress;
+	toggleModal(): void;
+	isModalVisible: boolean;
 	onClickCreate(data: SafeFoodCreateConsumerRequest): void;
 };
 export const SignUpConsumerTemplate: React.FC<SignUpConsumerProps> = ({
 	restrictions,
 	onClickCreate,
 	findAddress,
+	isModalVisible,
+	toggleModal,
 }) => {
 	const [step, setStep] = useState<Steps>("general-info");
-	const [isModalVisible, setModalVisible] = useState(true);
-
+	const { setModal, modal } = useModalHome();
+	const [visible, setVisible] = useState(false);
+	useEffect(() => {
+		setVisible(isModalVisible);
+	}, []);
 	const StepScreen = () => {
 		if (step === "additional")
 			return <AdditionalSignUpConsumer useCase={findAddress} />;
@@ -40,14 +48,18 @@ export const SignUpConsumerTemplate: React.FC<SignUpConsumerProps> = ({
 	};
 	return (
 		<>
-			<Button onClick={() => setModalVisible(!isModalVisible)}>Abrir modal</Button>
 			<Modal
 				size="sm"
 				height="md"
 				padding="20px 20px 40px 20px"
 				responsive
-				isOpen={isModalVisible}
-				onClickForeground={() => setModalVisible(!isModalVisible)}
+				onClickForeground={() => {
+					setVisible(false);
+					setTimeout(() => {
+						toggleModal();
+					}, 300);
+				}}
+				isOpen={visible}
 			>
 				<Box
 					display="flex"
@@ -72,7 +84,7 @@ export const SignUpConsumerTemplate: React.FC<SignUpConsumerProps> = ({
 						changeStep={setStep}
 					/>
 					<Box width="100%">
-						<UnderlineLink href="http://localhost:5173/signup-establishment">
+						<UnderlineLink onClick={() => setModal("establishment")}>
 							Sou um estabelecimento
 						</UnderlineLink>
 					</Box>

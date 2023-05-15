@@ -7,6 +7,7 @@ import { useAuth } from "@/app/contexts/AuthProvider";
 import { Cache } from "@/app/domain/protocols/Cache";
 import { SafeFoodConsumerGateway } from "@/app/infra/gateway/safefood/SafeFoodConsumerGateway";
 import { SafeFoodEstablishmentGateway } from "@/app/infra/gateway/safefood/SafeFoodEstablishmentGateway";
+import { useModalHome } from "@/app/contexts/ModalProvider";
 
 type SignInProps = {
 	gateway: SafeFoodUserGateway;
@@ -24,7 +25,7 @@ function SignIn({
 	const [loading, setLoading] = useState(false);
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const [isModalVisible, setModalVisible] = useState(true);
+	const { modal, setModal } = useModalHome();
 	//TODO: MELHORAR LÓGICA DE ALERT (LINCOLN)
 	const [isVisibleAlert, setIsVisibleAlert] = useState<boolean>(false);
 	const [typeAlert, setTypeAlert] = useState<AlertType>();
@@ -107,8 +108,8 @@ function SignIn({
 	return (
 		<SignInTemplate
 			email={email}
-			isModalVisible={isModalVisible}
-			toggleModal={() => setModalVisible(!isModalVisible)}
+			isModalVisible={modal === "login"}
+			toggleModal={() => setModal(null)}
 			password={password}
 			onChangeInputEmail={changeEmail}
 			loading={loading}
