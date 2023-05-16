@@ -107,7 +107,6 @@ export const FooterSignUpConsumer: React.FC<{
 							}
 							saveErrors(errors);
 							if (amountErrors > 0) {
-								console.log({ errors, amountErrors });
 								// todo message error global context
 							} else {
 								getOnClickAhead();

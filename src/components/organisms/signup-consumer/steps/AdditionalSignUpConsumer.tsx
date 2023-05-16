@@ -16,7 +16,6 @@ export const AdditionalSignUpConsumer: FC<{
 	useCase: FindAddress;
 }> = ({ useCase }) => {
 	const { consumer, setConsumer } = useSignupConsumer();
-	console.log(consumer);
 
 	const { getPhoneValidator, getCepValidator } = useInputsValidator();
 
@@ -50,9 +49,7 @@ export const AdditionalSignUpConsumer: FC<{
 	const changeBirthDateInput = useCallback((ev: FormEvent<HTMLInputElement>) => {
 		let str = ev.currentTarget.value;
 		let mdate = moment(str);
-		console.log(mdate.subtract(10, "years").format("L"));
 		// TODO AFTER
-		//console.log(consoledate > new Date());
 		//let value = validator.format(str);
 		setConsumer({
 			...consumer,

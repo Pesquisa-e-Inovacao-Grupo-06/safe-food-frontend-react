@@ -1,4 +1,4 @@
-import { CategoryProductModel } from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
+import { SafeFoodCategoryProductModel } from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
 import { SafeFoodRestrictionModel } from "@/app/infra/gateway/safefood/models/SafeFoodRestriction";
 
 export type SafeFoodProductParams = {
@@ -11,7 +11,7 @@ export type SafeFoodProductParams = {
     unidadeDeVenda: string,
     tipoProduto: string,
     restricoes: SafeFoodRestrictionModel[]
-    categoria: CategoryProductModel,
+    categoria: SafeFoodCategoryProductModel,
 };
 
 export class Product {

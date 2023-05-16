@@ -43,7 +43,6 @@ function Home({
 		async function fetchProduct() {
 			try {
 				const res = (await productGateway.findAll()).content;
-				console.log(res);
 				setNearbyProducts(res);
 				setListOfFavoriteProducts(res);
 			} catch (error) {

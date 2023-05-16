@@ -6,8 +6,13 @@ import { Box } from "@/components/atoms/box";
 import { Text } from "@/components/atoms/text";
 import imgTeste from "../assets/food-favorite.png";
 import { StyledButton } from "@/components/atoms/button/styles";
+import { Cache } from "@/app/domain/protocols/Cache";
 
-function HomeEstablishment() {
+type HomeEstablishmentProps = {
+	cache: Cache;
+};
+
+function HomeEstablishment({ cache }: HomeEstablishmentProps) {
 	const [modalRegister, setModalRegister] = useState(false);
 
 	function toggleModalResgiter() {
@@ -20,6 +25,7 @@ function HomeEstablishment() {
 			toggle={toggleModalResgiter}
 			activeRegisterProduct={true}
 			paddingMain={true}
+			cache={cache}
 		>
 			<ContainerHomeEstablishment>
 				<div className="header-home-establishment">
@@ -68,13 +74,13 @@ function HomeEstablishment() {
 				</div>
 				<div className="main-home-establishment">
 					<div className="container-main-home-establishment">
+						{/* <CardHomeEstablishment />
 						<CardHomeEstablishment />
 						<CardHomeEstablishment />
 						<CardHomeEstablishment />
 						<CardHomeEstablishment />
 						<CardHomeEstablishment />
-						<CardHomeEstablishment />
-						<CardHomeEstablishment />
+						<CardHomeEstablishment /> */}
 					</div>
 				</div>
 				<div className="footer-home-establishment"></div>

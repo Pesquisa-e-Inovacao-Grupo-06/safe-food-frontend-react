@@ -16,7 +16,6 @@ function HomeConsumer({ cache, productGateway }: HomeConsumer) {
 		try {
 			const res = await productGateway.findAll();
 			setProduct(res.content);
-			console.log(res);
 		} catch (error) {
 			// faça algo com o erro
 		}

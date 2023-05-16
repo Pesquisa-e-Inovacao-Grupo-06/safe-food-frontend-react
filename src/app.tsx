@@ -2,8 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/home";
 import About from "./pages/about";
 import FAQ from "./pages/faq";
-import SignIn from "./pages/signIn";
-import SignUp from "./pages/signUp-establishment";
 import Profile from "./pages/profile-consumer";
 import TermOfService from "./pages/term-of-service";
 import ProfileEstablishment from "./pages/profile-establishment";
@@ -99,7 +97,7 @@ export default function App({
 							/>
 							<Route
 								path="/home-establishment"
-								element={<HomeEstablishment />}
+								element={<HomeEstablishment cache={cache} />}
 							/>
 							<Route
 								path="/product-consumer"

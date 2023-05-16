@@ -18,7 +18,6 @@ function SignUpEstablishment({
 		data: SafeFoodCreateEstablishmentRequest
 	) => {
 		const res = await gateway.create(data);
-		console.log(res);
 	};
 	const { modal, setModal } = useModalHome();
 

@@ -18,7 +18,6 @@ import { Alert, AlertType } from "../atoms/alert";
 import { useState } from "react";
 
 export type ProfileProps = {
-	restrictionsDefault: Restriction[];
 	restrictionsUser: Restriction[];
 	listOfAddress: Address[];
 	form: InputPropsComponent[];
@@ -33,7 +32,6 @@ export type ProfileProps = {
 };
 
 export const ProfileTemplate: React.FC<ProfileProps> = ({
-	restrictionsDefault,
 	listOfAddress,
 	form,
 	urlDefault,
@@ -47,15 +45,7 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 	onClickChangePassowrd,
 }) => {
 	//TODO: IMPLEMENTAR UPDATE no restrictions
-	const idsMapsUsers = restrictionsUser.map(item => item.id);
-	const restrictionsCommunUser = restrictionsDefault.filter(({ id }) =>
-		idsMapsUsers.includes(id)
-	);
-	const restrictionsOtherUser = restrictionsDefault.filter(
-		({ id }) => !idsMapsUsers.includes(id)
-	);
 	const [isEditable, setIsEditable] = useState<boolean>(false);
-
 	return (
 		<>
 			<Header />
@@ -151,25 +141,17 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 									flexWrap: "wrap",
 								}}
 							>
-								{restrictionsCommunUser.map((restriction, i) => (
+								{restrictionsUser.map((restriction, i) => (
 									<Chips
-										key={restriction.name + "item"}
+										key={restriction.params.id + "item"}
 										sizeChips="chips-lg"
 										//TODO: verificar com o guilherme
-										onClick={() => {}}
-										isActive
+										onClick={() => {
+											restrictionsUser.slice(restriction.params.id, 1);
+										}}
+										isActive={restriction.params.isActive}
 									>
-										{restriction.name}
-									</Chips>
-								))}
-								{restrictionsOtherUser.map((restriction, i) => (
-									<Chips
-										key={restriction.name + "item"}
-										sizeChips="chips-lg"
-										//TODO: verificar com o guilherme
-										onClick={() => {}}
-									>
-										{restriction.name}
+										{restriction.params.restricao}
 									</Chips>
 								))}
 							</PContainerRestricao>

@@ -43,7 +43,6 @@ export const RestrictionSignUpConsumer: FC<{
 									data.splice(index, 1);
 								}
 							}
-							console.log(consumer);
 
 							setConsumer({
 								...consumer,

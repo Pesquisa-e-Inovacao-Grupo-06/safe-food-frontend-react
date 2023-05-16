@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, useState } from "react";
+import { ChangeEvent, useCallback, useState } from "react";
 import { SafeFoodUserGateway } from "@/app/infra/gateway/safefood/SafeFoodUserGateway";
 import { SignInTemplate } from "@/components/templates/sign-in-template";
 import { AlertType } from "@/components/atoms/alert";
@@ -51,10 +51,6 @@ function SignIn({
 	const onClickLogin = () => {
 		setIsVisibleAlert(false);
 		setLoading(true);
-		cache.removeItem("token");
-		cache.removeItem("consumer");
-		cache.removeItem("establishment");
-		cache.removeItem("user");
 
 		if (email.length == 0 || password.length == 0) {
 			setIsVisibleAlert(true);
@@ -86,7 +82,6 @@ function SignIn({
 					consumerGateway
 						.findById(res.usuario.id)
 						.then(data => {
-							console.log("CONSUMER", { data });
 							cache.setItem("consumer", JSON.stringify(data.data));
 						})
 						.finally(() => {
@@ -97,7 +92,6 @@ function SignIn({
 					establishmentGateway
 						.findById(res.usuario.id)
 						.then(data => {
-							console.log("FIND");
 							cache.setItem("establishment", JSON.stringify(data.data));
 						})
 						.finally(() => {

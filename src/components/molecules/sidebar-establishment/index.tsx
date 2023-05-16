@@ -26,12 +26,22 @@ import Toggle from "../../atoms/toggle-switch";
 import Header from "../header";
 
 import { useSafeFoodTheme } from "../../../app/contexts/SafeFoodThemeProvider";
+import { Cache } from "@/app/domain/protocols/Cache";
 
-const SidebarEstab: React.FC = () => {
+type SidebarEstabProps = {
+	cache: Cache;
+};
+
+const SidebarEstab: React.FC<SidebarEstabProps> = ({ cache }) => {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
 	const { pathname } = useLocation();
 	const { toggleTheme, getTheme } = useSafeFoodTheme();
-
+	function clearCache() {
+		cache.removeItem("token");
+		cache.removeItem("consumer");
+		cache.removeItem("establishment");
+		cache.removeItem("user");
+	}
 	return (
 		<>
 			<SHeader>
@@ -102,6 +112,7 @@ const SidebarEstab: React.FC = () => {
 						<SLink
 							to={to}
 							style={!sidebarOpen ? { width: `fit-content` } : {}}
+							onClick={() => clearCache()}
 						>
 							<SLinkIcon>{icon}</SLinkIcon>
 							{sidebarOpen && <SLinkLabel>{label}</SLinkLabel>}
