@@ -22,10 +22,6 @@ export class SafeFoodConsumerGateway {
         if (!res.data) {
             throw new Error("Erro ao realizar requisicao de pegar por id");
         }
-        res.data.data.restricoes.map(item => {
-            item.isActive = true
-
-        })
         return res.data;
     }
 

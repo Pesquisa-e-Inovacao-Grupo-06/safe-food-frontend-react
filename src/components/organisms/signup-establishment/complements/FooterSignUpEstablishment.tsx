@@ -2,14 +2,13 @@ import { Box } from "@/components/atoms/box";
 import { ButtonIcon } from "@/components/molecules/button/button-icon";
 import React from "react";
 import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
-import { useSignupConsumer } from "@/app/contexts/SignupConsumerProvider";
-import { StepsEstablishment } from "..";
+import { StepsEstablishmentTemplate } from "..";
 import { useSignupEstablishment } from "@/app/contexts/SignupEstablishmentProvider";
 import { SafeFoodCreateEstablishmentRequest } from "@/app/infra/gateway/safefood/models/SafeFoodEstablishment";
 
 export const FooterSignUpConsumer: React.FC<{
-	step: StepsEstablishment;
-	changeStep: (step: StepsEstablishment) => void;
+	step: StepsEstablishmentTemplate;
+	changeStep: (step: StepsEstablishmentTemplate) => void;
 	onClickCreate(data: SafeFoodCreateEstablishmentRequest): void;
 }> = ({ step, changeStep, onClickCreate }) => {
 	const { establishment } = useSignupEstablishment();

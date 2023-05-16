@@ -2,11 +2,11 @@ import { Box } from "@/components/atoms/box";
 import { Chips } from "@/components/atoms/chips/chips-atom";
 import { FC } from "react";
 import { HeadingSignUpConsumer } from "../complements/HeadingSignUpConsumer";
-import { Restriction } from "@/app/domain/entities/Restriction";
 import { useSignupConsumer } from "@/app/contexts/SignupConsumerProvider";
+import { SafeFoodRestrictionModel } from "@/app/infra/gateway/safefood/models/SafeFoodRestriction";
 
 export const RestrictionSignUpConsumer: FC<{
-	restrictions: Restriction[];
+	restrictions: SafeFoodRestrictionModel[];
 }> = ({ restrictions }) => {
 	const { consumer, setConsumer } = useSignupConsumer();
 	return (
@@ -51,7 +51,7 @@ export const RestrictionSignUpConsumer: FC<{
 						}}
 						title={r.descricao}
 					>
-						{r.name}
+						{r.restricao}
 					</Chips>
 				))}
 			</Box>

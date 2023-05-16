@@ -110,7 +110,7 @@ export default function App({
 							/>
 							<Route
 								path="/preferences-establishment"
-								element={<PreferencesEstablishment />}
+								element={<PreferencesEstablishment cache={cache} />}
 							/>
 							<Route
 								path="/home-consumer"

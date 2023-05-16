@@ -1,6 +1,7 @@
 import { Product } from "@/app/domain/entities/Product";
 import { Cache } from "@/app/domain/protocols/Cache";
 import { SafeFoodProductGateway } from "@/app/infra/gateway/safefood/SafeFoodProductGateway";
+import { SafeFoodProductMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodProductMapper";
 import HomeConsumerTemplate from "@/components/templates/home-consumer-template";
 import { useState } from "react";
 
@@ -15,7 +16,7 @@ function HomeConsumer({ cache, productGateway }: HomeConsumer) {
 	async function fetchProduct() {
 		try {
 			const res = await productGateway.findAll();
-			setProduct(res.content);
+			setProduct(res.content.map(SafeFoodProductMapper.of));
 		} catch (error) {
 			// faça algo com o erro
 		}

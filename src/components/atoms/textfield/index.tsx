@@ -32,7 +32,7 @@ export const TextField: React.FC<TextFieldProps> = ({
 			</Label>
 			<Input
 				id={id}
-				error={error.length > 0}
+				error={error.length > 0 ? "erro" : ""}
 				placeholder="place"
 				onChange={onChange}
 				{...props}
