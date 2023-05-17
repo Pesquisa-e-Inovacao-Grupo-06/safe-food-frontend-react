@@ -5,6 +5,7 @@ import { SafeFoodEstablishmentGateway } from "@/app/infra/gateway/safefood/SafeF
 import { SafeFoodCreateEstablishmentRequest } from "@/app/infra/gateway/safefood/models/SafeFoodEstablishment";
 import { ViaCepGateway } from "@/app/infra/gateway/viacep/ViaCepGateway";
 import { SignUpEstablishmentTemplate } from "@/components/organisms/signup-establishment";
+import { useState } from "react";
 
 function SignUpEstablishment({
 	gateway,
@@ -20,12 +21,15 @@ function SignUpEstablishment({
 		const res = await gateway.create(data);
 	};
 	const { modal, setModal } = useModalHome();
+	const [isVisibleModal, setIsVisibleModal] = useState<boolean>(false);
 
 	return (
 		<SignupEstablishmentProvider>
 			<SignUpEstablishmentTemplate
 				isModalVisible={modal === "establishment"}
-				toggleModal={() => setModal(null)}
+				toggleModal={() => {
+					setIsVisibleModal(!isVisibleModal);
+				}}
 				findAddress={viaCepGateway}
 				onClickCreate={clickToCreateEstablishment}
 			/>

@@ -3,7 +3,7 @@ import { ProfileTemplate } from "@/components/templates/profile-consumer-templat
 import { SafeFoodAddressMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodAddressMapper";
 import { SafeFoodConsumerModel } from "@/app/infra/gateway/safefood/models/SafeFoodConsumer";
 import { AlertType } from "@/components/atoms/alert";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { SafeFoodConsumerGateway } from "@/app/infra/gateway/safefood/SafeFoodConsumerGateway";
 import { Restriction } from "@/app/domain/entities/Restriction";
 import { SafeFoodRestrictionMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodRestrictionMapper";
@@ -15,6 +15,8 @@ type ProfileConsumer = {
 };
 
 function ProfileConsumer({ cache, consumerGateway }: ProfileConsumer) {
+	const [addressModal, setAddressModal] = useState(false);
+
 	const restrictions: SafeFoodRestrictionModel[] =
 		cache.getItem("restrictions") !== null
 			? JSON.parse(cache.getItem("restrictions")!)
@@ -36,6 +38,7 @@ function ProfileConsumer({ cache, consumerGateway }: ProfileConsumer) {
 	const [isAlertVisible, setIsVisibleAlert] = useState<boolean>(false);
 	const [typeAlert, setTypeAlert] = useState<AlertType>();
 	const [textAlert, setTextAlert] = useState<string>();
+	const [isEditable, setIsEditable] = useState<boolean>(false);
 
 	const consumerRestrictions = consumer.restricoes.map(item =>
 		SafeFoodRestrictionMapper.of(item, true)
@@ -50,7 +53,6 @@ function ProfileConsumer({ cache, consumerGateway }: ProfileConsumer) {
 		[...consumerRestrictions, ...total] ?? []
 	);
 
-	console.log(totalRestrictions);
 	const onClickLogin = async () => {
 		setIsLoading(true);
 		try {
@@ -58,7 +60,9 @@ function ProfileConsumer({ cache, consumerGateway }: ProfileConsumer) {
 				nome: name,
 				email: email,
 				telefone: numberphone,
-				restricoes: [],
+				restricoes: totalRestrictions
+					.map(item => item.params.id)
+					.filter((id): id is number => typeof id === "number"),
 			});
 
 			if (res?.status !== 200) {
@@ -90,28 +94,42 @@ function ProfileConsumer({ cache, consumerGateway }: ProfileConsumer) {
 					name: "Nome: ",
 					value: name,
 					setUseState: setName,
+					disabled: !isEditable,
+
 					onFocus: e => {},
 				},
-				{ name: "Email: ", value: email, setUseState: setEmail },
+				{
+					name: "Email: ",
+					value: email,
+					setUseState: setEmail,
+					disabled: !isEditable,
+				},
 				{
 					name: "Número telefone: ",
 					value: numberphone,
 					setUseState: setNumberPhone,
+					disabled: !isEditable,
 				},
 			]}
-			// TODO: CRIAR MAPPER DE ADDRESS MODEL TO ADDRESS ENTITY
 			listOfAddress={consumer.enderecos.map(SafeFoodAddressMapper.of)}
 			// TODO: saved restrictions
-			restrictionsUser={totalRestrictions ?? []}
+			restrictionsUser={totalRestrictions}
 			onClickSave={onClickLogin}
 			isSaveButtonActive={isActiveButton}
 			isLoading={isLoading}
 			isAlertVisible={isAlertVisible}
 			textAlert={textAlert}
 			typeAlert={typeAlert}
-			onClickChangePassowrd={function (): void {
+			onClickChangePassword={function (): void {
 				throw new Error("Function not implemented.");
 			}}
+			onClickSaveButton={function (): void {
+				setIsEditable(false);
+			}}
+			onClickEditable={function (): void {
+				setIsEditable(true);
+			}}
+			isEditable={isEditable}
 		/>
 	);
 }

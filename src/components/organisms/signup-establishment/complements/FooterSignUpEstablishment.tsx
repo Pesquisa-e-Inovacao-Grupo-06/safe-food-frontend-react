@@ -2,6 +2,7 @@ import { Box } from "@/components/atoms/box";
 import { ButtonIcon } from "@/components/molecules/button/button-icon";
 import React from "react";
 import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
+import { useSignupConsumer } from "@/app/contexts/SignupConsumerProvider";
 import { StepsEstablishmentTemplate } from "..";
 import { useSignupEstablishment } from "@/app/contexts/SignupEstablishmentProvider";
 import { SafeFoodCreateEstablishmentRequest } from "@/app/infra/gateway/safefood/models/SafeFoodEstablishment";
