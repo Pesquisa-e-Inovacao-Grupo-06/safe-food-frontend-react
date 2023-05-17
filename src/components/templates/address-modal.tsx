@@ -24,6 +24,37 @@ export const AddressModal: React.FC<AddressModalProps> = ({
 	toggleModal,
 }) => {
 	const [cep, setCep] = useState<string>("");
+	const [address, setAddress] = useState<SafeFoodCreateAddressRequest>({
+		apelido: "",
+		bairro: "",
+		cep: "",
+		cidade: "",
+		complemento: "",
+		estado: "",
+		logradouro: "",
+		numero: "",
+	} as SafeFoodCreateAddressRequest);
+
+	const findAddress = (cep: string) => {
+		usecase
+			.execute(cep)
+			.then(({ params }) => {
+				const { cep, complemento, logradouro, estado, bairro, cidade } = params;
+				setAddress({
+					...address,
+					cep: cep || "",
+					complemento: complemento || "",
+					logradouro: logradouro || "",
+					estado: estado || "",
+					bairro: bairro || "",
+					cidade: cidade || "",
+				});
+			})
+			.catch(err => {
+				// clearAddress(cep);
+				// setError("CEP invalido");
+			});
+	};
 
 	return (
 		<>
@@ -59,17 +90,19 @@ export const AddressModal: React.FC<AddressModalProps> = ({
 							const str = ev.currentTarget.value;
 							const value = validator.format(str);
 							setCep(value);
-							if (value.length == 9) {
-								const teste = await usecase.execute(cep);
-								console.log(teste);
+							if (value.length > 8) {
+								findAddress(value); // Use the updated value here
 							}
+							console.log(address);
 						}}
 						required={false}
 						max={9}
 						min={8}
 					/>
 
-					<Button>Adicionar novo endereço</Button>
+					<Button onClick={() => console.log(address)}>
+						Adicionar novo endereço
+					</Button>
 				</Box>
 			</Modal>
 		</>
