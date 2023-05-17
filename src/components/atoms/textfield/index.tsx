@@ -1,5 +1,5 @@
 import { useSafeFoodTheme } from "@/app/contexts/SafeFoodThemeProvider";
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, Dispatch, FormEvent } from "react";
 import { Input, InputPropsComponent } from "../input";
 import { Label } from "../label";
 
@@ -9,7 +9,9 @@ export type TextFieldProps = {
 	autoFocus?: boolean;
 	required: boolean;
 	error?: string;
-	onChange: (e: React.FormEvent) => void;
+	setUseState?: Dispatch<any>;
+	onChange: React.FormEventHandler<HTMLInputElement> &
+		((e: FormEvent<HTMLInputElement>) => void);
 } & React.HTMLAttributes<HTMLInputElement> &
 	InputPropsComponent;
 export const TextField: React.FC<TextFieldProps> = ({
@@ -18,7 +20,8 @@ export const TextField: React.FC<TextFieldProps> = ({
 	required,
 	autoFocus,
 	error = "",
-	onChange = (e: React.FormEvent<HTMLInputElement>) => {},
+	setUseState,
+	onChange,
 	...props
 }) => {
 	const { colors } = useSafeFoodTheme().getTheme();
@@ -31,10 +34,13 @@ export const TextField: React.FC<TextFieldProps> = ({
 				{label}
 			</Label>
 			<Input
+				setUseState={setUseState}
 				id={id}
 				error={error.length > 0 ? "erro" : ""}
 				placeholder="place"
-				onChange={onChange}
+				onChange={() => {
+					onChange;
+				}}
 				{...props}
 			/>
 			{error && (

@@ -8,15 +8,25 @@ import { SafeFoodConsumerGateway } from "@/app/infra/gateway/safefood/SafeFoodCo
 import { Restriction } from "@/app/domain/entities/Restriction";
 import { SafeFoodRestrictionMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodRestrictionMapper";
 import { SafeFoodRestrictionModel } from "@/app/infra/gateway/safefood/models/SafeFoodRestriction";
+import { FindAddress } from "@/app/domain/usecases/FindAddress";
+import { CepValidator } from "@/app/util/validations/cep-validator";
 
 type ProfileConsumer = {
 	cache: Cache;
 	consumerGateway: SafeFoodConsumerGateway;
+	cepValidator: CepValidator;
+	findAddressUsecase: FindAddress;
 };
 
-function ProfileConsumer({ cache, consumerGateway }: ProfileConsumer) {
+function ProfileConsumer({
+	cache,
+	consumerGateway,
+	cepValidator,
+	findAddressUsecase,
+}: ProfileConsumer) {
 	const [addressModal, setAddressModal] = useState(false);
 
+	//Cache
 	const restrictions: SafeFoodRestrictionModel[] =
 		cache.getItem("restrictions") !== null
 			? JSON.parse(cache.getItem("restrictions")!)
@@ -43,7 +53,6 @@ function ProfileConsumer({ cache, consumerGateway }: ProfileConsumer) {
 	const consumerRestrictions = consumer.restricoes.map(item =>
 		SafeFoodRestrictionMapper.of(item, true)
 	);
-
 	const IDSAtivos = consumer.restricoes.map(i => i.id);
 	const total = restrictions
 		.filter(item => !IDSAtivos.includes(item.id))
@@ -95,8 +104,6 @@ function ProfileConsumer({ cache, consumerGateway }: ProfileConsumer) {
 					value: name,
 					setUseState: setName,
 					disabled: !isEditable,
-
-					onFocus: e => {},
 				},
 				{
 					name: "Email: ",
@@ -123,13 +130,11 @@ function ProfileConsumer({ cache, consumerGateway }: ProfileConsumer) {
 			onClickChangePassword={function (): void {
 				throw new Error("Function not implemented.");
 			}}
-			onClickSaveButton={function (): void {
-				setIsEditable(false);
-			}}
-			onClickEditable={function (): void {
-				setIsEditable(true);
-			}}
+			onClickSaveButton={() => setIsEditable(false)}
+			onClickEditable={() => setIsEditable(true)}
 			isEditable={isEditable}
+			cepValidator={new CepValidator()}
+			findAddressUsecase={findAddressUsecase}
 		/>
 	);
 }

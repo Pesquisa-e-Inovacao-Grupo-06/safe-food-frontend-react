@@ -13,7 +13,7 @@ export const HeadingSignUpConsumer: React.FC<{
 		<Box
 			display="flex"
 			justify="center"
-			flexDiretion="column"
+			flexDirection="column"
 			margin="10px 20px"
 			gap="12px"
 			id="signup-heading"

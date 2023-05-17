@@ -17,6 +17,8 @@ import { Address } from "@/app/domain/entities/Address";
 import { Alert, AlertType } from "../atoms/alert";
 import { AddressModal } from "./address-modal";
 import { useState } from "react";
+import { CepValidator } from "@/app/util/validations/cep-validator";
+import { FindAddress } from "@/app/domain/usecases/FindAddress";
 
 export type ProfileProps = {
 	restrictionsUser: Restriction[];
@@ -33,6 +35,8 @@ export type ProfileProps = {
 	isEditable?: boolean;
 	onClickSaveButton(): void;
 	onClickEditable(): void;
+	cepValidator: CepValidator;
+	findAddressUsecase: FindAddress;
 };
 
 export const ProfileTemplate: React.FC<ProfileProps> = ({
@@ -50,17 +54,22 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 	isEditable,
 	onClickSaveButton,
 	onClickEditable,
+	cepValidator,
+	findAddressUsecase,
 }) => {
 	//TODO: IMPLEMENTAR UPDATE no restrictions
 	const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 	return (
 		<>
 			<Header />
+			{/* MODAL */}
 			<AddressModal
 				toggleModal={() => {
 					setIsModalVisible(!isModalVisible);
 				}}
 				isModalVisible={isModalVisible}
+				validator={new CepValidator()}
+				usecase={findAddressUsecase}
 			/>
 			<PBanner>
 				<PBtnEditar

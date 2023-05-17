@@ -110,7 +110,7 @@ export const Pagination: React.FC<{
 	return (
 		<Box
 			display="flex"
-			flexDiretion="row"
+			flexDirection="row"
 			width="min-content"
 			justify="center"
 		>

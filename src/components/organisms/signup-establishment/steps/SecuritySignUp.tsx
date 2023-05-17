@@ -20,7 +20,7 @@ export const SecuritySignUp: React.FC = () => {
 			<Box
 				gap="12px"
 				display="flex"
-				flexDiretion="column"
+				flexDirection="column"
 			>
 				<InputEmailSignUp validator={emailValidator} />
 				<InputsPasswordsSignUpEstablishment validator={passwordValidator} />

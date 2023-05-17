@@ -18,7 +18,7 @@ export const ImportationSignUp: React.FC = () => {
 				width="80%"
 				gap="12px"
 				display="flex"
-				flexDiretion="column"
+				flexDirection="column"
 				margin="24px auto"
 			>
 				<ButtonIcon

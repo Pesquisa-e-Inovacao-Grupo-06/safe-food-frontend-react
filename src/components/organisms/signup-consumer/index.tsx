@@ -65,7 +65,7 @@ export const SignUpConsumerTemplate: React.FC<SignUpConsumerProps> = ({
 				<Box
 					display="flex"
 					justify="center"
-					flexDiretion="column"
+					flexDirection="column"
 					padding="20px"
 					height="90%"
 					margin="auto"

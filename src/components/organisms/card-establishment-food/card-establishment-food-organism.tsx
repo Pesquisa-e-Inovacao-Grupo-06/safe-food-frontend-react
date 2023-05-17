@@ -25,7 +25,7 @@ export const NearbyFoodsCard: React.FC<EstablishmentFoodProps> = ({
 		<>
 			<Box
 				display="flex"
-				flexDiretion="column"
+				flexDirection="column"
 				borderRadius="md"
 				style={{
 					width: "480px",
@@ -98,7 +98,7 @@ export const CardEstablishmentFoodOrganism: React.FC<InfoProduct> = ({
 	return (
 		<Box
 			display="flex"
-			flexDiretion="column"
+			flexDirection="column"
 			borderRadius="md"
 			width="360px"
 			shadow="md"
@@ -139,7 +139,7 @@ export const CardExpansiveEstablishmentFoodOrganism = ({}) => {
 	return (
 		<Box
 			display="flex"
-			flexDiretion="row"
+			flexDirection="row"
 			borderRadius="md"
 			width="100%"
 			shadow="md"

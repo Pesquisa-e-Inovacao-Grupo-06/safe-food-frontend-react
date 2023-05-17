@@ -61,7 +61,7 @@ export const SignInTemplate: React.FC<SignInTemplateProps> = ({
 					display="flex"
 					justify="left"
 					alignItems="baseline"
-					flexDiretion="column"
+					flexDirection="column"
 					padding="20px"
 					height="90%"
 					margin="auto"
@@ -91,7 +91,7 @@ export const SignInTemplate: React.FC<SignInTemplateProps> = ({
 					<Box
 						margin="20px 0"
 						display="flex"
-						flexDiretion="column"
+						flexDirection="column"
 						gap="20px"
 						style={{
 							alignItems: "flex-end",

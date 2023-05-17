@@ -26,7 +26,7 @@ export const MoreFavoriteOrganism: React.FC<MoreFavoriteProps> = ({
 	return (
 		<BoxMoreFavorite
 			display="flex"
-			flexDiretion="row"
+			flexDirection="row"
 			gap="20px"
 			justify="flex-start"
 			alignItems="start"
@@ -48,7 +48,7 @@ export const MoreFavoriteOrganism: React.FC<MoreFavoriteProps> = ({
 			</div>
 			<Box
 				display="flex"
-				flexDiretion="column"
+				flexDirection="column"
 				alignItems="start"
 				justify="space-between"
 				// height="100%"
@@ -57,7 +57,7 @@ export const MoreFavoriteOrganism: React.FC<MoreFavoriteProps> = ({
 			>
 				<Box
 					display="flex"
-					flexDiretion="row"
+					flexDirection="row"
 					gap="10px"
 					justify="flex-start"
 				>
@@ -110,7 +110,7 @@ export const MoreFavoriteOrganism: React.FC<MoreFavoriteProps> = ({
 				</Text>
 				<Box
 					display="flex"
-					flexDiretion="row"
+					flexDirection="row"
 					style={{
 						gap: "10px",
 						overflow: "hidden",

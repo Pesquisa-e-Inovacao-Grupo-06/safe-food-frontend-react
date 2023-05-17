@@ -77,7 +77,7 @@ export const Preferences: React.FC<PreferencesProps> = ({ cache }) => {
 			>
 				<Box
 					display="flex"
-					flexDiretion="column"
+					flexDirection="column"
 					alignItems="start"
 					justify="space-between"
 					height="110%"
@@ -96,7 +96,7 @@ export const Preferences: React.FC<PreferencesProps> = ({ cache }) => {
 
 					<Box
 						display="flex"
-						flexDiretion="column"
+						flexDirection="column"
 						alignItems="start"
 						justify="space-between"
 						width="100%"
@@ -106,7 +106,7 @@ export const Preferences: React.FC<PreferencesProps> = ({ cache }) => {
 						<Divider marginAll="10px" />
 						<Box
 							display="flex"
-							flexDiretion="row"
+							flexDirection="row"
 							alignItems="start"
 							justify="unset"
 							width="100%"
@@ -114,7 +114,7 @@ export const Preferences: React.FC<PreferencesProps> = ({ cache }) => {
 						>
 							<Box
 								display="flex"
-								flexDiretion="column"
+								flexDirection="column"
 								alignItems="start"
 								width="fit-content"
 								style={{ cursor: "pointer" }}
@@ -129,7 +129,7 @@ export const Preferences: React.FC<PreferencesProps> = ({ cache }) => {
 							</Box>
 							<Box
 								display="flex"
-								flexDiretion="column"
+								flexDirection="column"
 								alignItems="start"
 								width="fit-content"
 								style={{ cursor: "pointer" }}
@@ -151,7 +151,7 @@ export const Preferences: React.FC<PreferencesProps> = ({ cache }) => {
 					/>
 					<Box
 						display="flex"
-						flexDiretion="column"
+						flexDirection="column"
 						alignItems="start"
 						justify="space-between"
 					>
@@ -181,7 +181,7 @@ export const Preferences: React.FC<PreferencesProps> = ({ cache }) => {
 					/>
 					<Box
 						display="flex"
-						flexDiretion="column"
+						flexDirection="column"
 						alignItems="start"
 						justify="space-between"
 					>
@@ -207,7 +207,7 @@ export const Preferences: React.FC<PreferencesProps> = ({ cache }) => {
 					</Box>
 					<Box
 						display="flex"
-						flexDiretion="row"
+						flexDirection="row"
 						alignItems="end"
 						width="100%"
 					>

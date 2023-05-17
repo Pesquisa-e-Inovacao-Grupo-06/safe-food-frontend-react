@@ -104,7 +104,7 @@ export const AdditionalSignUpConsumer: FC<{
 			<Box
 				gap="12px"
 				display="flex"
-				flexDiretion="column"
+				flexDirection="column"
 			>
 				<Text typeText="text-md">Foto de perfil: </Text>
 				<ProfilePhotoUploadWithPreview

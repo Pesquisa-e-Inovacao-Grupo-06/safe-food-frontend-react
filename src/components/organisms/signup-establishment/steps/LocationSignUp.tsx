@@ -19,7 +19,7 @@ export const LocationSignUpEstablishment: FC<{
 			<Box
 				gap="12px"
 				display="flex"
-				flexDiretion="column"
+				flexDirection="column"
 			>
 				<InputsAddressSignupEstablishment
 					usecase={useCase}

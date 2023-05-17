@@ -21,6 +21,8 @@ import PreferencesEstablishment from "./pages/preferences-establishment";
 import { ModalHomeProvider } from "./app/contexts/ModalProvider";
 import { SafeFoodProductGateway } from "./app/infra/gateway/safefood/SafeFoodProductGateway";
 import ProductConsumer from "./pages/product-consumer";
+import { FindAddress } from "./app/domain/usecases/FindAddress";
+import { CepValidator } from "./app/util/validations/cep-validator";
 
 type AppProps = {
 	cache: Cache;
@@ -30,6 +32,7 @@ type AppProps = {
 	viaCepGateway: ViaCepGateway;
 	establishmentGateway: SafeFoodEstablishmentGateway;
 	productGateway: SafeFoodProductGateway;
+	findAddressUsecase: FindAddress;
 };
 export default function App({
 	cache,
@@ -39,6 +42,7 @@ export default function App({
 	viaCepGateway,
 	establishmentGateway,
 	productGateway,
+	findAddressUsecase,
 }: AppProps) {
 	return (
 		<>
@@ -76,6 +80,8 @@ export default function App({
 										<Profile
 											cache={cache}
 											consumerGateway={consumerGateway}
+											cepValidator={new CepValidator()}
+											findAddressUsecase={findAddressUsecase}
 										/>
 									</AuthRoute>
 								}

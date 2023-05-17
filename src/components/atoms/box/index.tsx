@@ -25,7 +25,7 @@ export type BoxProps = {
 	margin?: string;
 	padding?: string;
 	overflow?: BoxOverflow;
-	flexDiretion?: "column" | "row";
+	flexDirection?: "column" | "row";
 	shadow?: "xsm" | "sm" | "md" | "lg" | "xlg" | "none";
 	borderRadius?: "sm" | "md" | "lg" | "none";
 	background?: string;
@@ -46,7 +46,7 @@ export const Box = styled(motion.div)<BoxProps>`
 	padding: ${p => p.padding || "0px"};
 	overflow: ${p => p.overflow ?? "none"};
 	align-self: ${p => p.alignSelf || "initial"};
-	flex-direction: ${p => p.flexDiretion || "row"};
+	flex-direction: ${p => p.flexDirection || "row"};
 	background: ${p => p.background || "none"};
 	box-shadow: ${p => {
 		if (p.shadow === "xsm") return p.theme.colors.shadow[200];

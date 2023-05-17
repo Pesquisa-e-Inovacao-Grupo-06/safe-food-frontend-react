@@ -18,7 +18,7 @@ export const GeneralInfoSignUpConsumer: React.FC = () => {
 			<Box
 				gap="12px"
 				display="flex"
-				flexDiretion="column"
+				flexDirection="column"
 			>
 				<InputNameSignUp validator={new JustStringAndSpaceValidator(5, 100)} />
 				<InputEmailSignUp validator={new EmailValidator(5, 100)} />

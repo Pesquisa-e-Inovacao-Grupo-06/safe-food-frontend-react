@@ -24,7 +24,7 @@ export const FooterColumnMolecule: React.FC<Props> = ({ title, children }) => {
 			</StyledFooterColumnContainer>
 			<Box
 				display="flex"
-				flexDiretion="column"
+				flexDirection="column"
 				alignItems="start"
 				gap="12px"
 			>
