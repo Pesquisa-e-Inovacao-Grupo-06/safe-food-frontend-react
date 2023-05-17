@@ -41,6 +41,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 				establishmentGateway={establishmentGateway}
 				consumerGateway={consumerGateway}
 				productGateway={productGateway}
+				findAddressUsecase={viaCepGateway}
 			/>
 		</SafeFoodThemeProvider>
 	</React.StrictMode>
