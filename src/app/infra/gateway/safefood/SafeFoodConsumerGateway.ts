@@ -22,6 +22,7 @@ export class SafeFoodConsumerGateway {
         if (!res.data) {
             throw new Error("Erro ao realizar requisicao de pegar por id");
         }
+        console.log("RESPOSTA", res.data);
         return res.data;
     }
 

@@ -41,6 +41,15 @@ export type ProfileProps = {
 	onChange: React.FormEventHandler<HTMLInputElement> &
 		((e: React.FormEvent<HTMLInputElement>) => void);
 	cep: string;
+	numero: string;
+	onChangeNumero: React.FormEventHandler<HTMLInputElement> &
+		((e: React.FormEvent<HTMLInputElement>) => void);
+	apelido: string;
+	onChangeApelido: React.FormEventHandler<HTMLInputElement> &
+		((e: React.FormEvent<HTMLInputElement>) => void);
+	toggleModal(): void;
+	isModalVisible: boolean;
+	onClickOpenModalAddress(): void;
 };
 
 export const ProfileTemplate: React.FC<ProfileProps> = ({
@@ -62,23 +71,31 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 	address,
 	onChange,
 	cep,
+	numero,
+	onChangeNumero,
+	apelido,
+	onChangeApelido,
+	toggleModal,
+	isModalVisible,
+	onClickOpenModalAddress,
 }) => {
 	//TODO: IMPLEMENTAR UPDATE no restrictions
-	const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
 	return (
 		<>
 			<Header />
 			{/* MODAL */}
 			<AddressModal
-				toggleModal={() => {
-					setIsModalVisible(!isModalVisible);
-				}}
+				toggleModal={toggleModal}
 				isModalVisible={isModalVisible}
 				onClickSaveNewAddress={onClickSaveNewAddress}
 				address={address}
 				onChange={onChange}
 				cep={cep}
+				numero={numero}
+				onChangeNumero={onChangeNumero}
+				apelido={apelido}
+				onChangeApelido={onChangeApelido}
 			/>
 			<PBanner>
 				<PBtnEditar
@@ -140,10 +157,7 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 										height: 45,
 									}}
 									disabled={!isEditable}
-									onClick={() => {
-										console.log(isModalVisible);
-										setIsModalVisible(true);
-									}}
+									onClick={onClickOpenModalAddress}
 								>
 									<span>adicionar endereço</span>
 								</PBtnAdicionarEndereco>

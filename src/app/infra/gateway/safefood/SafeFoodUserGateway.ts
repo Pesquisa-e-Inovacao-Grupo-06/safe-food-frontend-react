@@ -18,6 +18,7 @@ export class SafeFoodUserGateway {
                 statusMessage: res.statusMessage,
             } as SafeFoodLoginResponse
         }
+        console.log("resposta:", res.data.usuario)
         return res.data;
     }
     //sendMailToRecoveryPassword(email: string): void,

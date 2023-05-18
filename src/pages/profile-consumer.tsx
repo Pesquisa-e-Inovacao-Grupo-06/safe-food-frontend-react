@@ -56,18 +56,20 @@ function ProfileConsumer({
 	const [typeAlert, setTypeAlert] = useState<AlertType>();
 	const [textAlert, setTextAlert] = useState<string>();
 	const [totalRestrictions, setTotalRestrictions] = useState<Restriction[]>([]);
-
+	const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 	const [modalCep, setModalCep] = useState<string>("");
+	const [modalNumero, setModalNumero] = useState<string>("");
+	const [modalApelido, setModalApelido] = useState<string>("");
 	const [editableAddress, setEditableAddress] =
 		useState<SafeFoodCreateAddressRequest>({
-			apelido: "",
+			apelido: modalApelido,
 			bairro: "",
 			cep: modalCep,
 			cidade: "",
 			complemento: "",
 			estado: "",
 			logradouro: "",
-			numero: "",
+			numero: modalNumero,
 		});
 
 	// useEffect(() => {
@@ -80,13 +82,22 @@ function ProfileConsumer({
 		if (modalCep.length > 8) {
 			findAddress(modalCep);
 		}
-	}, [modalCep]);
+	}, [modalCep, modalApelido, modalNumero]);
 
 	const findAddress = (cep: string) => {
 		findAddressUsecase
 			.execute(cep)
 			.then(({ params }) => {
-				const { cep, complemento, logradouro, estado, bairro, cidade } = params;
+				const {
+					cep,
+					complemento,
+					logradouro,
+					estado,
+					bairro,
+					cidade,
+					numero,
+					apelido,
+				} = params;
 				console.log("cep:", cep);
 				setEditableAddress({
 					...editableAddress,
@@ -96,6 +107,8 @@ function ProfileConsumer({
 					estado: estado || "",
 					bairro: bairro || "",
 					cidade: cidade || "",
+					numero: modalNumero || "",
+					apelido: modalApelido || "",
 				});
 				console.log(editableAddress);
 			})
@@ -106,21 +119,29 @@ function ProfileConsumer({
 	};
 
 	const onClickSaveNewAddress = async () => {
+		console.log(editableAddress);
 		if (!editableAddress) {
 			return;
 		}
+		console.log("id", consumer.id);
 		try {
 			const addNewAddress = await consumerGateway.addAddress(
 				consumer.id,
 				editableAddress
 			);
-			setTypeAlert("success");
-			setTextAlert("Endereço cadastrado com sucesso");
+			if (addNewAddress.status != 200) {
+				setTypeAlert("warning");
+				setTextAlert("Erro ao cadastrar o endereço");
+			} else {
+				setTypeAlert("success");
+				setTextAlert("Endereço cadastrado com sucesso");
+			}
 		} catch (e) {
 			setTypeAlert("warning");
 			setTextAlert("Erro ao cadastrar o endereço");
 		} finally {
 			setIsVisibleAlert(true);
+			setIsModalVisible(false);
 		}
 	};
 
@@ -207,6 +228,19 @@ function ProfileConsumer({
 				}
 			}}
 			cep={modalCep}
+			numero={modalNumero}
+			onChangeNumero={e => {
+				setModalNumero(e.currentTarget.value);
+			}}
+			apelido={modalApelido}
+			onChangeApelido={e => {
+				setModalApelido(e.currentTarget.value);
+			}}
+			toggleModal={() => {
+				setIsModalVisible(!isModalVisible);
+			}}
+			isModalVisible={isModalVisible}
+			onClickOpenModalAddress={() => setIsModalVisible(true)}
 		/>
 	);
 }

@@ -9,6 +9,12 @@ export type AddressModalProps = {
 	isModalVisible: boolean;
 	address: SafeFoodCreateAddressRequest;
 	cep: string;
+	numero: string;
+	apelido: string;
+	onChangeNumero: React.FormEventHandler<HTMLInputElement> &
+		((e: React.FormEvent<HTMLInputElement>) => void);
+	onChangeApelido: React.FormEventHandler<HTMLInputElement> &
+		((e: React.FormEvent<HTMLInputElement>) => void);
 	onClickSaveNewAddress(): void;
 	onChange: React.FormEventHandler<HTMLInputElement> &
 		((e: React.FormEvent<HTMLInputElement>) => void);
@@ -21,6 +27,10 @@ export const AddressModal: React.FC<AddressModalProps> = ({
 	address,
 	onChange,
 	cep,
+	numero,
+	onChangeNumero,
+	apelido,
+	onChangeApelido,
 }) => {
 	return (
 		<>
@@ -49,13 +59,19 @@ export const AddressModal: React.FC<AddressModalProps> = ({
 					alignSelf="center"
 				>
 					<TextField
+						id={"apelido"}
+						label={"Apelido:"}
+						value={apelido}
+						onChange={onChangeApelido}
+						required={false}
+					/>
+					<TextField
 						id={"cep"}
 						label={"Cep:"}
 						value={cep}
 						onChange={onChange}
 						required={false}
 					/>
-
 					<TextField
 						id={"logradouro"}
 						label={"Logradouro:"}
@@ -87,8 +103,8 @@ export const AddressModal: React.FC<AddressModalProps> = ({
 					<TextField
 						id={"numero"}
 						label={"Número:"}
-						value={address.numero}
-						onChange={() => {}}
+						value={numero}
+						onChange={onChangeNumero}
 						required={false}
 					/>
 					<TextField
