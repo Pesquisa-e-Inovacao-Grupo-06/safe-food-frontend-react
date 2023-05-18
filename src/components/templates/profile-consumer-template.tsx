@@ -17,26 +17,30 @@ import { Address } from "@/app/domain/entities/Address";
 import { Alert, AlertType } from "../atoms/alert";
 import { AddressModal } from "./address-modal";
 import { useState } from "react";
-import { CepValidator } from "@/app/util/validations/cep-validator";
-import { FindAddress } from "@/app/domain/usecases/FindAddress";
+import {} from "@/app/util/validations/cep-validator";
+import { SafeFoodCreateAddressRequest } from "@/app/infra/gateway/safefood/models/SafeFoodAddress";
 
 export type ProfileProps = {
 	restrictionsUser: Restriction[];
 	listOfAddress: Address[];
 	form: InputPropsComponent[];
 	urlDefault: string | null | undefined;
-	onClickSave(): void;
-	isSaveButtonActive: boolean;
-	isLoading: boolean;
 	typeAlert?: AlertType;
 	textAlert?: string;
 	isAlertVisible: boolean;
-	onClickChangePassword(): void;
+	isSaveButtonActive: boolean;
+	isLoading: boolean;
 	isEditable?: boolean;
+
+	address: SafeFoodCreateAddressRequest;
+	onClickChangePassword(): void;
+	onClickSave(): void;
 	onClickSaveButton(): void;
 	onClickEditable(): void;
-	cepValidator: CepValidator;
-	findAddressUsecase: FindAddress;
+	onClickSaveNewAddress(): void;
+	onChange: React.FormEventHandler<HTMLInputElement> &
+		((e: React.FormEvent<HTMLInputElement>) => void);
+	cep: string;
 };
 
 export const ProfileTemplate: React.FC<ProfileProps> = ({
@@ -54,11 +58,14 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 	isEditable,
 	onClickSaveButton,
 	onClickEditable,
-	cepValidator,
-	findAddressUsecase,
+	onClickSaveNewAddress,
+	address,
+	onChange,
+	cep,
 }) => {
 	//TODO: IMPLEMENTAR UPDATE no restrictions
 	const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+
 	return (
 		<>
 			<Header />
@@ -68,8 +75,10 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 					setIsModalVisible(!isModalVisible);
 				}}
 				isModalVisible={isModalVisible}
-				validator={new CepValidator()}
-				usecase={findAddressUsecase}
+				onClickSaveNewAddress={onClickSaveNewAddress}
+				address={address}
+				onChange={onChange}
+				cep={cep}
 			/>
 			<PBanner>
 				<PBtnEditar

@@ -14,8 +14,22 @@ import { Cache } from "@/app/domain/protocols/Cache";
 
 type PreferencesProps = {
 	cache: Cache;
+	isSaveButtonActive: boolean;
+	isLoading: boolean;
+	isEditable?: boolean;
+	onClickSaveButton(): void;
+	onClickEditable(): void;
+	onClickSave(): void;
 };
-export const Preferences: React.FC<PreferencesProps> = ({ cache }) => {
+export const Preferences: React.FC<PreferencesProps> = ({
+	cache,
+	isLoading,
+	isSaveButtonActive,
+	onClickEditable,
+	onClickSaveButton,
+	isEditable,
+	onClickSave,
+}) => {
 	const { setZoom, setFont, font, zoom, toggleTheme } = useSafeFoodTheme();
 	function fontChange(fontChange: number) {
 		if (fontChange == 90) {
@@ -212,8 +226,41 @@ export const Preferences: React.FC<PreferencesProps> = ({ cache }) => {
 						width="100%"
 					>
 						<div style={{ width: "100px", display: "flex" }}>
-							<Button buttonStyle="outline">Cancelar</Button>
-							<Button>Salvar</Button>
+							{isEditable ? (
+								<>
+									<Button
+										height="45px"
+										width="fit-content"
+										buttonStyle="outline"
+										disabled={isSaveButtonActive}
+										onClick={onClickSaveButton}
+									>
+										Cancelar
+									</Button>
+									<Button
+										height="45px"
+										width="fit-content"
+										buttonStyle="filled"
+										disabled={isSaveButtonActive}
+										onClick={onClickSave}
+										loading={isLoading}
+									>
+										Salvar
+									</Button>
+								</>
+							) : (
+								<Button
+									height="45px"
+									width="fit-content"
+									buttonStyle="filled"
+									color="green"
+									disabled={isEditable}
+									loading={isLoading}
+									onClick={onClickEditable}
+								>
+									Editar
+								</Button>
+							)}{" "}
 						</div>
 					</Box>
 				</Box>
