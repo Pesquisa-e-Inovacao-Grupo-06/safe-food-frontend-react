@@ -132,6 +132,7 @@ function ProfileConsumer({
 			if (addNewAddress.status != 200) {
 				setTypeAlert("warning");
 				setTextAlert("Erro ao cadastrar o endereço");
+				consumer.enderecos.push(addNewAddress.data);
 			} else {
 				setTypeAlert("success");
 				setTextAlert("Endereço cadastrado com sucesso");
