@@ -1,5 +1,6 @@
 import { HttpClient } from "@/app/domain/protocols/HttpClient";
 import { SafeFoodProductResponse, SafeFoodProductsResponse, SafeFoodProductRequest, SafeFoodProductFilterRequest, SafeFoodProductFilterResponse } from "./models/SafeFoodProduct";
+import queryString from '../../../../../node_modules/query-string/index.d';
 
 export class SafeFoodProductGateway {
     constructor(private readonly http: HttpClient) {
@@ -81,9 +82,13 @@ export class SafeFoodProductGateway {
         return res.data;
     }
 
-    async productFilter(safeFoodProductFilterRequest: SafeFoodProductFilterRequest): Promise<SafeFoodProductFilterResponse> {
+    async productFilter(safeFoodProductFilterRequest?: SafeFoodProductFilterRequest): Promise<SafeFoodProductFilterResponse> {
+        console.log("filter");
+        const queryStringParams = queryString.stringify(safeFoodProductFilterRequest ?? {} as SafeFoodProductFilterRequest);
+
+
         const res = await this.http.execute<SafeFoodProductFilterResponse>({
-            url: `/produtos/filtrar`,
+            url: `/produtos/filtrar?${queryStringParams}`,
             method: 'GET',
         });
 

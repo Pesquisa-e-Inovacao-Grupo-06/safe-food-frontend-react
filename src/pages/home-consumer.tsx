@@ -8,6 +8,7 @@ import { SafeFoodProductMapper } from "@/app/infra/gateway/safefood/mappers/Safe
 import { SafeFoodRestrictionMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodRestrictionMapper";
 import { SafeFoodTypeProductMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodTypeProductMapper";
 import { SafeFoodConsumerModel } from "@/app/infra/gateway/safefood/models/SafeFoodConsumer";
+import { SafeFoodProductFilterRequest } from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
 import { SafeFoodRestrictionModel } from "@/app/infra/gateway/safefood/models/SafeFoodRestriction";
 import { SafeFoodLoginResponse } from "@/app/infra/gateway/safefood/models/SafeFoodUser";
 import { CheckBoxEntity } from "@/components/molecules/checkbox-chain";
@@ -59,21 +60,32 @@ function HomeConsumer({
 
 	const [products, setProducts] = useState<Product[]>([]);
 	const [typeProducts, setTypeProducts] = useState<TypeProduct[]>([]);
-
+	const [filterProducts, setFilterProducts] =
+		useState<SafeFoodProductFilterRequest>();
+	const [productsFilter, setProductsFilter] = useState<any>();
 	useEffect(() => {
-		async function fetchProducts() {
+		// async function fetchProducts() {
+		// 	try {
+		// 		const fetchedProducts = await productGateway.findAll();
+		// 		const fetchedTypeProducts = await typeProductGateway.findAll();
+		// 		setProducts(fetchedProducts.content.map(SafeFoodProductMapper.of));
+		// 		setTypeProducts(fetchedTypeProducts.map(SafeFoodTypeProductMapper.of));
+		// 	} catch (error) {}
+		// }
+		// fetchProducts();
+		async function fetchChangeProducts() {
 			try {
-				const fetchedProducts = await productGateway.findAll();
-				const fetchedTypeProducts = await typeProductGateway.findAll();
-				setProducts(fetchedProducts.content.map(SafeFoodProductMapper.of));
-				setTypeProducts(fetchedTypeProducts.map(SafeFoodTypeProductMapper.of));
-			} catch (error) {}
+				const fetchedProductsFilter = await productGateway.productFilter(
+					filterProducts
+				);
+				setProductsFilter(fetchedProductsFilter);
+				console.log("RESPOSTA DE FILTRO:", fetchedProductsFilter);
+			} finally {
+			}
 		}
-
-		fetchProducts();
-
-		async function fetchChangeProducts() {}
-	}, []); // Array de dependências vazio para executar apenas uma vez
+		fetchChangeProducts();
+	}, [filterProducts]); // Array de dependências vazio para executar apenas uma vez
+	console.log(productsFilter);
 
 	const [checkedRestrictions, setCheckedRestrictions] = useState<string[]>([]);
 
