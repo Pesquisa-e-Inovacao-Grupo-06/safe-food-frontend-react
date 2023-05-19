@@ -11,6 +11,7 @@ import { SafeFoodConsumerGateway } from "./app/infra/gateway/safefood/SafeFoodCo
 import { SafeFoodEstablishmentGateway } from "./app/infra/gateway/safefood/SafeFoodEstablishmentGateway";
 import { SafeFoodRestrictionModel } from "./app/infra/gateway/safefood/models/SafeFoodRestriction";
 import { SafeFoodProductGateway } from "./app/infra/gateway/safefood/SafeFoodProductGateway";
+import { SafeFoodTypeProductGateway } from "./app/infra/gateway/safefood/SafeFoodTypeProductGateway";
 
 const cache = new LocalStorageCache();
 const safeFoodClient = new AxiosHttpClient("http://localhost:8081");
@@ -24,6 +25,7 @@ const establishmentGateway = new SafeFoodEstablishmentGateway(
 	cache
 );
 const productGateway = new SafeFoodProductGateway(safeFoodClient);
+const typeProductGateway = new SafeFoodTypeProductGateway(safeFoodClient);
 
 if (!cache.getItem("restrictions")) {
 	restrictionsGateway.getAll().then(data => {
@@ -42,6 +44,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 				consumerGateway={consumerGateway}
 				productGateway={productGateway}
 				findAddressUsecase={viaCepGateway}
+				typeProductGateway={typeProductGateway}
 			/>
 		</SafeFoodThemeProvider>
 	</React.StrictMode>

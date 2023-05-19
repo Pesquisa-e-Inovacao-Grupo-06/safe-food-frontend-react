@@ -1,7 +1,7 @@
 import { Product } from "@/app/domain/entities/Product";
 import { SelectAtom } from "@/components/atoms/select";
 import { Text } from "@/components/atoms/text";
-import DropDown from "@/components/molecules/drop-down";
+import DropDown, { DropDownProps } from "@/components/molecules/drop-down";
 import HeaderConsumer from "@/components/molecules/header-consumer";
 import { CardEstablishmentFoodOrganism } from "@/components/organisms/card-establishment-food/card-establishment-food-organism";
 import { BodyTemplate } from "@/components/templates/body-template";
@@ -14,9 +14,13 @@ import styled from "styled-components";
 
 export type HomeConsumerProps = {
 	products: Product[];
+	dropDownList: DropDownProps[];
 };
 
-const HomeConsumerTemplate: React.FC<HomeConsumerProps> = ({ products }) => {
+const HomeConsumerTemplate: React.FC<HomeConsumerProps> = ({
+	products,
+	dropDownList,
+}) => {
 	const [formCard, setFormcard] = useState<boolean>(false);
 	const [termAccepted, setTermAccepted] = useState(false);
 
@@ -63,14 +67,18 @@ const HomeConsumerTemplate: React.FC<HomeConsumerProps> = ({ products }) => {
 
 					<div className="main-aside-filter-home-consumer">
 						<div className="container-main-aside-filter-home-consumer">
-							<DropDown
-								titleDropDown="Restrição:"
-								activeCheckBox
-								alignTitleText={false}
-								alignSubText="start"
-								textSubMenuWithCheckBox={submenu}
-							/>
-							<DropDown
+							{dropDownList.map(dropDownItem => {
+								return (
+									<DropDown
+										titleDropDown={dropDownItem.titleDropDown}
+										activeCheckBox={dropDownItem.activeCheckBox}
+										alignTitleText={dropDownItem.alignTitleText}
+										alignSubText={dropDownItem.alignSubText}
+										textSubMenuWithCheckBox={dropDownItem.textSubMenuWithCheckBox}
+									/>
+								);
+							})}
+							{/* <DropDown
 								titleDropDown="Categoria do produto:"
 								activeCheckBox
 								alignTitleText={false}
@@ -90,7 +98,7 @@ const HomeConsumerTemplate: React.FC<HomeConsumerProps> = ({ products }) => {
 								alignTitleText={false}
 								alignSubText="start"
 								textSubMenuWithCheckBox={submenu}
-							/>
+							/> */}
 						</div>
 					</div>
 

@@ -7,17 +7,17 @@ import { ContainerDropDown } from "./styles";
 
 export type alignSubMenu = "center" | "start" | "end";
 
-type Props = {
+export type DropDownProps = {
 	titleDropDown?: string;
 	activeCheckBox?: boolean;
 	checkBoxWithAlertMessage?: boolean;
 	textSubMenuWithoutCheckBox?: { to: string; textSubMenu: string }[];
-	textSubMenuWithCheckBox?: Array<string>;
+	textSubMenuWithCheckBox: Array<string>;
 	alignTitleText?: boolean;
 	alignSubText?: alignSubMenu;
 };
 
-const DropDown: React.FC<Props> = ({
+const DropDown: React.FC<DropDownProps> = ({
 	titleDropDown = "Title",
 	activeCheckBox = false,
 	checkBoxWithAlertMessage = false,
@@ -27,7 +27,7 @@ const DropDown: React.FC<Props> = ({
 			textSubMenu: "textsubmenu",
 		},
 	],
-	textSubMenuWithCheckBox = ["textsubmenu"],
+	textSubMenuWithCheckBox = [],
 	alignTitleText = true,
 	alignSubText = "center",
 }) => {

@@ -23,6 +23,7 @@ import { SafeFoodProductGateway } from "./app/infra/gateway/safefood/SafeFoodPro
 import ProductConsumer from "./pages/product-consumer";
 import { FindAddress } from "./app/domain/usecases/FindAddress";
 import { CepValidator } from "./app/util/validations/cep-validator";
+import { SafeFoodTypeProductGateway } from "./app/infra/gateway/safefood/SafeFoodTypeProductGateway";
 
 type AppProps = {
 	cache: Cache;
@@ -33,6 +34,7 @@ type AppProps = {
 	establishmentGateway: SafeFoodEstablishmentGateway;
 	productGateway: SafeFoodProductGateway;
 	findAddressUsecase: FindAddress;
+	typeProductGateway: SafeFoodTypeProductGateway;
 };
 export default function App({
 	cache,
@@ -43,6 +45,7 @@ export default function App({
 	establishmentGateway,
 	productGateway,
 	findAddressUsecase,
+	typeProductGateway,
 }: AppProps) {
 	return (
 		<>
@@ -124,6 +127,7 @@ export default function App({
 									<HomeConsumer
 										cache={cache}
 										productGateway={productGateway}
+										typeProductGateway={typeProductGateway}
 									/>
 								}
 							/>
