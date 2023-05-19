@@ -4,6 +4,7 @@ import { useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { ContainerDropDown } from "./styles";
+import CheckboxChain, { CheckBoxEntity } from "../checkbox-chain";
 
 export type alignSubMenu = "center" | "start" | "end";
 
@@ -15,6 +16,7 @@ export type DropDownProps = {
 	textSubMenuWithCheckBox: Array<string>;
 	alignTitleText?: boolean;
 	alignSubText?: alignSubMenu;
+	checkList: CheckBoxEntity[];
 };
 
 const DropDown: React.FC<DropDownProps> = ({
@@ -30,6 +32,7 @@ const DropDown: React.FC<DropDownProps> = ({
 	textSubMenuWithCheckBox = [],
 	alignTitleText = true,
 	alignSubText = "center",
+	checkList,
 }) => {
 	const [termAccepted, setTermAccepted] = useState(false);
 	const [isDropDown, setDropDown] = useState(false);
@@ -48,18 +51,19 @@ const DropDown: React.FC<DropDownProps> = ({
 					</div>
 					{isDropDown && (
 						<ul>
-							{activeCheckBox &&
-								textSubMenuWithCheckBox.map(p => (
-									<li>
-										<Checkbox
+							{activeCheckBox && (
+								<li>
+									<CheckboxChain checkboxes={checkList} />
+
+									{/* <Checkbox
 											messageAlert={checkBoxWithAlertMessage}
 											callback={checked => {
 												setTermAccepted(checked);
 											}}
 											value={p}
-										></Checkbox>
-									</li>
-								))}
+										></Checkbox> */}
+								</li>
+							)}
 							{!activeCheckBox &&
 								textSubMenuWithoutCheckBox.map(({ to, textSubMenu }) => (
 									<li>

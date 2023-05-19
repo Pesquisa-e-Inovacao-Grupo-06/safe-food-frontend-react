@@ -11,6 +11,10 @@ import { FaBars, FaChevronDown } from "react-icons/fa";
 import { RxDashboard } from "react-icons/rx";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import CheckboxChain, {
+	CheckBoxAuxProps,
+	CheckBoxEntity,
+} from "../molecules/checkbox-chain";
 
 export type HomeConsumerProps = {
 	products: Product[];
@@ -75,6 +79,7 @@ const HomeConsumerTemplate: React.FC<HomeConsumerProps> = ({
 										alignTitleText={dropDownItem.alignTitleText}
 										alignSubText={dropDownItem.alignSubText}
 										textSubMenuWithCheckBox={dropDownItem.textSubMenuWithCheckBox}
+										checkList={dropDownItem.checkList}
 									/>
 								);
 							})}
@@ -101,7 +106,6 @@ const HomeConsumerTemplate: React.FC<HomeConsumerProps> = ({
 							/> */}
 						</div>
 					</div>
-
 					<div className="main-home-consumer">
 						<div className="container-main-home-consumer">
 							{products.map(item => (
