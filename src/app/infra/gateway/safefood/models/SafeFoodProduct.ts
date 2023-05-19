@@ -61,6 +61,29 @@ export type SafeFoodPage<T> = {
     empty: boolean;
     content: T[];
 }
+export type SafeFoodProductFilterRequest = {
+    IDSRestrictions?: string[];
+    IDSCategories?: string[];
+    IDSTypeRestrictions?: string[];
+    search?: string[];
+    pageable: string;
+    itensForPage?: string[];
+    sort: SafeFoodSort;
+    direction?: string[];
+    cep?: string[];
+    number: number;
+    distanceRadio?: string[];
+    // totalPages: number;
+    // totalElements: number;
+    // last: boolean;
+    // size: number;
+    // numberOfElements: number;
+    // first: boolean;
+    // empty: boolean;
+    // content: T[];
+}
+
+export type SafeFoodProductFilterResponse = & SafeFoodProductsResponse;
 
 export type SafeFoodProductRequest = {
     id: string,
@@ -73,3 +96,17 @@ export type SafeFoodProductRequest = {
     tipoProduto: string,
     restricoes: Restriction[]
 }
+
+// export type SafeFoodProductFilterRequest = {
+//     IDSRestrictions?: string[];
+//     IDSCategories?: string[];
+//     IDSTypeRestrictions?: string[];
+//     search?: string[];
+//     page?: string[];
+//     itensForPage?: string[];
+//     sort?: string[];
+//     direction?: string[];
+//     cep?: string[];
+//     Number?: string[];
+//     distanceRadio?: string[];
+// }

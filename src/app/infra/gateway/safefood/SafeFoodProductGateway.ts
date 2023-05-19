@@ -1,5 +1,5 @@
 import { HttpClient } from "@/app/domain/protocols/HttpClient";
-import { SafeFoodProductResponse, SafeFoodProductRequest, SafeFoodProductsResponse } from "./models/SafeFoodProduct";
+import { SafeFoodProductResponse, SafeFoodProductsResponse, SafeFoodProductRequest, SafeFoodProductFilterRequest, SafeFoodProductFilterResponse } from "./models/SafeFoodProduct";
 
 export class SafeFoodProductGateway {
     constructor(private readonly http: HttpClient) {
@@ -77,6 +77,19 @@ export class SafeFoodProductGateway {
             throw new Error("Erro ao tentar buscar todos os produtos");
         }
 
+
+        return res.data;
+    }
+
+    async productFilter(safeFoodProductFilterRequest: SafeFoodProductFilterRequest): Promise<SafeFoodProductFilterResponse> {
+        const res = await this.http.execute<SafeFoodProductFilterResponse>({
+            url: `/produtos/filtrar`,
+            method: 'GET',
+        });
+
+        if (!res.data) {
+            throw new Error("Erro ao tentar filtrar os produtos");
+        }
 
         return res.data;
     }

@@ -17,6 +17,7 @@ export type DropDownProps = {
 	alignTitleText?: boolean;
 	alignSubText?: alignSubMenu;
 	checkList: CheckBoxEntity[];
+	onCheckboxChainChange: (checkedCheckboxes: string[]) => void;
 };
 
 const DropDown: React.FC<DropDownProps> = ({
@@ -33,6 +34,7 @@ const DropDown: React.FC<DropDownProps> = ({
 	alignTitleText = true,
 	alignSubText = "center",
 	checkList,
+	onCheckboxChainChange,
 }) => {
 	const [termAccepted, setTermAccepted] = useState(false);
 	const [isDropDown, setDropDown] = useState(false);
@@ -53,7 +55,10 @@ const DropDown: React.FC<DropDownProps> = ({
 						<ul>
 							{activeCheckBox && (
 								<li>
-									<CheckboxChain checkboxes={checkList} />
+									<CheckboxChain
+										checkboxes={checkList}
+										onCheckboxChainChange={onCheckboxChainChange}
+									/>
 
 									{/* <Checkbox
 											messageAlert={checkBoxWithAlertMessage}

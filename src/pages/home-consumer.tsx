@@ -48,95 +48,103 @@ function HomeConsumer({
 	const consumerRestrictions = consumer.restricoes.map(item =>
 		SafeFoodRestrictionMapper.of(item, true)
 	);
-	const IDSAtivos = consumer.restricoes.map(i => i.id);
-	const total = restrictions
-		.filter(item => !IDSAtivos.includes(item.id))
+	const activeRestrictionIds = consumer.restricoes.map(i => i.id);
+	const inactiveRestrictions = restrictions
+		.filter(item => !activeRestrictionIds.includes(item.id))
 		.map(item => SafeFoodRestrictionMapper.of(item));
 
 	const [totalRestrictions, setTotalRestrictions] = useState<Restriction[]>(
-		[...consumerRestrictions, ...total] ?? []
+		[...consumerRestrictions, ...inactiveRestrictions] ?? []
 	);
 
-	//TODO: ver com o grupo
-	// console.log("Outros:", restrictions);
+	const [products, setProducts] = useState<Product[]>([]);
+	const [typeProducts, setTypeProducts] = useState<TypeProduct[]>([]);
 
-	const [product, setProduct] = useState<Product[]>([]);
-	const [typeProduct, setTypeProduct] = useState<TypeProduct[]>([]);
-	//TODO: TEMPLATE PRECISA RECEBER UMA LISTA DE RESTRIÇÕES PARA MONTAR OS CHECK'S
-	// console.log(
-	// 	"restrições da plataforma e do usuário:",
-	// 	totalRestrictions.map(item => item.params.restricao)
-	// );
-	//TODO: TEMPLATE PRECISA RECEBER UMA LISTA DE CATEGORIAS PARA MONTAR OS CHECK'S
-	// console.log(
-	// 	"categoria dos produtos:",
-	// 	typeProduct.map(item => item.params.nome)
-	// );
-	//TODO: TEMPLATE PRECISA RECEBER UMA LISTA DE TIPOS DE RESTRIÇÕES PARA MONTAR OS CHECK'S
-	// console.log(
-	// 	"tipo de restrições:",
-	// 	restrictions.map(item => item.tipoRestricao.tipoRestricao)
-	// );
 	useEffect(() => {
-		async function fetchProduct() {
+		async function fetchProducts() {
 			try {
-				const resProduct = await productGateway.findAll();
-				const resTypeProduct = await typeProductGateway.findAll();
-				setProduct(resProduct.content.map(SafeFoodProductMapper.of));
-				setTypeProduct(resTypeProduct.map(SafeFoodTypeProductMapper.of));
-			} catch (error) {
-				// Faça algo com o erro
-			}
+				const fetchedProducts = await productGateway.findAll();
+				const fetchedTypeProducts = await typeProductGateway.findAll();
+				setProducts(fetchedProducts.content.map(SafeFoodProductMapper.of));
+				setTypeProducts(fetchedTypeProducts.map(SafeFoodTypeProductMapper.of));
+			} catch (error) {}
 		}
 
-		fetchProduct();
+		fetchProducts();
+
+		async function fetchChangeProducts() {}
 	}, []); // Array de dependências vazio para executar apenas uma vez
 
-	const listRestrictions = restrictions
-		.map(item => ({ nome: item.restricao, id: item.id }))
-		.filter(item => item.nome !== undefined)
-		.map(item => ({ nome: item.nome as string, id: item.id }));
+	const [checkedRestrictions, setCheckedRestrictions] = useState<string[]>([]);
 
-	const listTypeProduct = typeProduct
-		.map(item => ({ nome: item.params.nome, id: item.params.id }))
-		.filter(item => item.nome !== undefined)
-		.map(item => ({ nome: item.nome as string, id: item.id }));
-	const listTypeRestrictions = restrictions
+	const dropdownRestrictions = restrictions
+		.map(item => ({ name: item.restricao, id: item.id }))
+		.filter(item => item.name !== undefined)
+		.map(item => ({ name: item.name as string, id: item.id }));
+
+	const dropdownTypeProducts = typeProducts
+		.map(item => ({ name: item.params.nome, id: item.params.id }))
+		.filter(item => item.name !== undefined)
+		.map(item => ({ name: item.name as string, id: item.id }));
+
+	const dropdownTypeRestrictions = restrictions
 		.map(item => ({
-			nome: item.tipoRestricao.tipoRestricao,
+			name: item.tipoRestricao.tipoRestricao,
 			id: item.tipoRestricao.id,
 		}))
-		.filter(item => item.nome !== undefined)
-		.map(item => ({ nome: item.nome as string, id: item.id }));
+		.filter(item => item.name !== undefined)
+		.map(item => ({ name: item.name as string, id: item.id }));
 
 	function createCheckBoxEntity(
-		nome: string,
+		name: string,
 		id: number | string
 	): CheckBoxEntity {
 		return {
 			params: {
-				value: nome,
+				value: name,
 				id: id.toString(), // Converter o id para string
 				key: id.toString(),
 			},
 		};
 	}
 
-	const checkListRestrictions: CheckBoxEntity[] = listRestrictions.map(item =>
-		createCheckBoxEntity(item.nome, item.id)
+	const checkboxListRestrictions: CheckBoxEntity[] = dropdownRestrictions.map(
+		item => createCheckBoxEntity(item.name, item.id)
 	);
 
-	const checkListTypeProducts: CheckBoxEntity[] = listTypeProduct.map(item =>
-		createCheckBoxEntity(item.nome, item.id?.toString()!)
+	const checkboxListTypeProducts: CheckBoxEntity[] = dropdownTypeProducts.map(
+		item => createCheckBoxEntity(item.name, item.id?.toString()!)
 	);
 
-	const checkListTypeRestrictions: CheckBoxEntity[] = listTypeRestrictions.map(
-		item => createCheckBoxEntity(item.nome, item.id)
-	);
+	const checkboxListTypeRestrictions: CheckBoxEntity[] =
+		dropdownTypeRestrictions.map(item =>
+			createCheckBoxEntity(item.name, item.id)
+		);
+
+	const handleCheckboxChainChangeRestrictions = (
+		checkedCheckboxes: string[]
+	) => {
+		console.log("Restrições:", checkedCheckboxes);
+		setCheckedRestrictions(checkedCheckboxes);
+	};
+
+	const handleCheckboxChainChangeTypeProducts = (
+		checkedCheckboxes: string[]
+	) => {
+		console.log("Tipo de produto:", checkedCheckboxes);
+		setCheckedRestrictions(checkedCheckboxes);
+	};
+
+	const handleCheckboxChainChangeTypeRestrictions = (
+		checkedCheckboxes: string[]
+	) => {
+		console.log("Restrição tipo:", checkedCheckboxes);
+		setCheckedRestrictions(checkedCheckboxes);
+	};
 
 	return (
 		<HomeConsumerTemplate
-			products={product}
+			products={products}
 			dropDownList={[
 				{
 					titleDropDown: "Restrições:",
@@ -147,18 +155,20 @@ function HomeConsumer({
 					activeCheckBox: true,
 					alignSubText: "start",
 					alignTitleText: false,
-					checkList: checkListRestrictions,
+					checkList: checkboxListRestrictions,
+					onCheckboxChainChange: handleCheckboxChainChangeRestrictions,
 				},
 				{
 					titleDropDown: "Categoria do produto:",
-					textSubMenuWithCheckBox: typeProduct
+					textSubMenuWithCheckBox: typeProducts
 						.map(item => item.params.nome)
 						.filter(text => text !== undefined)
 						.map(text => text as string),
 					activeCheckBox: true,
 					alignSubText: "start",
 					alignTitleText: false,
-					checkList: checkListTypeProducts,
+					checkList: checkboxListTypeProducts,
+					onCheckboxChainChange: handleCheckboxChainChangeTypeProducts,
 				},
 				{
 					titleDropDown: "Tipo de restrição:",
@@ -169,7 +179,8 @@ function HomeConsumer({
 					activeCheckBox: true,
 					alignSubText: "start",
 					alignTitleText: false,
-					checkList: checkListTypeRestrictions,
+					checkList: checkboxListTypeRestrictions,
+					onCheckboxChainChange: handleCheckboxChainChangeTypeRestrictions,
 				},
 			]}
 		/>
