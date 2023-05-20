@@ -3,14 +3,14 @@ import { CLabelAttention, CheckboxContainer } from "./styles";
 
 export type typeInput = "checkbox" | "radio";
 
-type Props = {
+export type CheckBoxProps = {
 	value: string;
 	type?: typeInput;
 	callback: (checked: boolean) => void;
 	messageAlert?: boolean;
 };
 
-const Checkbox: React.FC<Props> = ({
+const Checkbox: React.FC<CheckBoxProps> = ({
 	messageAlert = true,
 	type = "checkbox",
 	...props

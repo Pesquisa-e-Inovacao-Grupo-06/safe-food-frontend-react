@@ -4,20 +4,23 @@ import { useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { ContainerDropDown } from "./styles";
+import CheckboxChain, { CheckBoxEntity } from "../checkbox-chain";
 
 export type alignSubMenu = "center" | "start" | "end";
 
-type Props = {
+export type DropDownProps = {
 	titleDropDown?: string;
 	activeCheckBox?: boolean;
 	checkBoxWithAlertMessage?: boolean;
 	textSubMenuWithoutCheckBox?: { to: string; textSubMenu: string }[];
-	textSubMenuWithCheckBox?: Array<string>;
+	textSubMenuWithCheckBox: Array<string>;
 	alignTitleText?: boolean;
 	alignSubText?: alignSubMenu;
+	checkList: CheckBoxEntity[];
+	onCheckboxChainChange: (checkedCheckboxes: string[]) => void;
 };
 
-const DropDown: React.FC<Props> = ({
+const DropDown: React.FC<DropDownProps> = ({
 	titleDropDown = "Title",
 	activeCheckBox = false,
 	checkBoxWithAlertMessage = false,
@@ -27,9 +30,11 @@ const DropDown: React.FC<Props> = ({
 			textSubMenu: "textsubmenu",
 		},
 	],
-	textSubMenuWithCheckBox = ["textsubmenu"],
+	textSubMenuWithCheckBox = [],
 	alignTitleText = true,
 	alignSubText = "center",
+	checkList,
+	onCheckboxChainChange,
 }) => {
 	const [termAccepted, setTermAccepted] = useState(false);
 	const [isDropDown, setDropDown] = useState(false);
@@ -48,18 +53,22 @@ const DropDown: React.FC<Props> = ({
 					</div>
 					{isDropDown && (
 						<ul>
-							{activeCheckBox &&
-								textSubMenuWithCheckBox.map(p => (
-									<li>
-										<Checkbox
+							{activeCheckBox && (
+								<li>
+									<CheckboxChain
+										checkboxes={checkList}
+										onCheckboxChainChange={onCheckboxChainChange}
+									/>
+
+									{/* <Checkbox
 											messageAlert={checkBoxWithAlertMessage}
 											callback={checked => {
 												setTermAccepted(checked);
 											}}
 											value={p}
-										></Checkbox>
-									</li>
-								))}
+										></Checkbox> */}
+								</li>
+							)}
 							{!activeCheckBox &&
 								textSubMenuWithoutCheckBox.map(({ to, textSubMenu }) => (
 									<li>
