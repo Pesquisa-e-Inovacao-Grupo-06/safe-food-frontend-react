@@ -1,8 +1,9 @@
-import { FC } from "react";
+import { FC, HTMLAttributes } from "react";
 import styled from "styled-components";
 
 type RadioProps = {
 	name: string;
+	disabled?: boolean;
 };
 export const RadioButton: FC<RadioProps> = ({ name, ...props }) => {
 	return (
@@ -11,6 +12,7 @@ export const RadioButton: FC<RadioProps> = ({ name, ...props }) => {
 			type="radio"
 			name={name}
 			id=""
+			disabled={props.disabled || false}
 		/>
 	);
 };

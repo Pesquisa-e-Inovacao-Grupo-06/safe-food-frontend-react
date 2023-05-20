@@ -13,107 +13,95 @@ import { Box } from "@/components/atoms/box";
 import { MdLocationOn, MdPhoneEnabled } from "react-icons/md";
 import { AiFillClockCircle } from "react-icons/ai";
 import { SiHomeassistantcommunitystore } from "react-icons/si";
-import imgTeste from "../../assets/food-favorite.png";
 import { ButtonIcon } from "@/components/molecules/button/button-icon";
 import { FaMapMarkedAlt } from "react-icons/fa";
-import ProgressBar from "@/components/molecules/progress-bar";
-import { StyledButton } from "@/components/atoms/button/styles";
 import TextArea from "@/components/atoms/textarea";
-import BoxComment, { CommentProps } from "@/components/molecules/box-coment";
+import BoxComment from "@/components/molecules/box-coment";
 import { AvaliationProgressBar } from "../molecules/avaliation-progress-bar";
+import { Product } from "@/app/domain/entities/Product";
+import { Establishment } from "@/app/domain/entities/Establishment";
 
 interface ProductParams {
-	imageUrl?: string;
-	productName?: string;
-	productDescription?: string;
-	averageRating?: number;
-	totalRatings?: number;
-	category?: string[];
-	price?: number;
-	address?: string;
-	waitTime?: string;
-	operationHours?: string;
-	phone?: string;
-	storeImage?: string;
-	storeName?: string;
-	storeProducts?: number;
-	listOfComments?: CommentProps[];
+	establishment: Establishment;
+	product: Product;
+	// listOfComments?: CommentProps[];
 }
 
 export const ProductConsumerTemplate: React.FC<ProductParams> = ({
-	imageUrl = "https://via.placeholder.com/400",
-	productName = "Hamburger",
-	productDescription = "Delicious hamburger made with high quality ingredients.",
-	averageRating = 4.5,
-	totalRatings = 100,
-	category = ["Fast Food", "Burgers"],
-	price = 9.99,
-	address = "123 Main Street",
-	waitTime = "10-15 minutes",
-	operationHours = "Mon-Sun 10am-10pm",
-	phone = "555-555-5555",
-	storeImage = "https://via.placeholder.com/150",
-	storeName = "Burger Joint",
-	storeProducts = 50,
-	listOfComments,
+	establishment,
+	product,
 }) => {
 	return (
 		<>
 			<Header />
 			<BodyTemplate footer>
+				asdas
 				<ContainerProductConsumer>
 					<div className="header-product-consumer"></div>
 					<div className="main-product-consumer">
 						<div className="img-product-consumer">
-							<img src={imageUrl} />
+							<img
+								src={establishment.params.imagem || "https://via.placeholder.com/400"}
+							/>
 						</div>
 						<div className="info-product-consumer">
 							<StyledColumn style={{ margin: "14px", alignItems: "start" }}>
-								<Subtitle>{productName}</Subtitle>
-								<Text style={{ height: "fit-content" }}>{productDescription}</Text>
+								<Subtitle>{product.params.titulo}</Subtitle>
+								<Text style={{ height: "fit-content" }}>
+									{product.params.descricao || ""}
+								</Text>
 								<StyledRow>
 									<AvaliationStars
 										color="orange"
-										avegareRate={averageRating}
+										avegareRate={0}
 									/>
-									<Text>({totalRatings} avaliações)</Text>
+									<Text>({0} avaliações)</Text>
 								</StyledRow>
-								<Box className="container-ingredientes-product-info">
-									{category.map((r, i) => (
-										<span
-											className="ingredientes-product-info"
-											key={i}
-										>
-											{r}
-										</span>
-									))}
-								</Box>
+								{/* <Box className="container-ingredientes-product-info">
+									{product.params.categoria
+										? product.params.categoria.map((r, i) => (
+												<span
+													className="ingredientes-product-info"
+													key={i}
+												>
+													{r.nome}
+												</span>
+										  ))
+										: "indefinido"}
+								</Box> */}
 								<StyledCost typeText="text-mdb">
-									R$ {price}
-									<span>Unidade</span>
+									{/* R$ {product.params.preco || ""}
+									<span>Unidade</span> */}
 								</StyledCost>
 							</StyledColumn>
 							<div className="info-local">
 								<MdLocationOn className="icon-one-info-local" />
-								<Text>{address}</Text>
+								<Text>{establishment.params.endereco?.cidade || ""}</Text>
 							</div>
 							<div className="info-local">
 								<AiFillClockCircle className="icon-two-info-local" />
-								<Text>Tempo de espera: {waitTime}</Text>
+								<Text>
+									Tempo de espera: {establishment.params.tempoEsperaMedio || ""}
+								</Text>
 							</div>
 							<div className="info-local">
 								<SiHomeassistantcommunitystore className="icon-three-info-local" />
-								<Text>{operationHours}</Text>
+								<Text>
+									{establishment.params.horarioFuncionamentoFimDeSemana! +
+										establishment.params.horarioFuncionamentoSemana! || ""}
+								</Text>
 							</div>
 							<div className="info-local">
 								<MdPhoneEnabled className="icon-four-info-local" />
-								<Text>Telefone: {phone}</Text>
+								<Text>Telefone: {establishment.params.contatoCliente || ""}</Text>
 							</div>
 							<Box className="container-store-info-local">
-								<img src={storeImage} />
+								<img
+									src={establishment.params.imagem ?? "https://via.placeholder.com/400"}
+								/>
 								<Text>
-									<h3>{storeName}</h3>
-									<span>{storeProducts} Produtos</span>
+									<h3>{establishment.params.nome || ""}</h3>
+									<span>{} Produtos</span>
 								</Text>
 							</Box>
 							<ButtonIcon icon={<FaMapMarkedAlt />}>VISUALIZAR</ButtonIcon>
@@ -147,7 +135,6 @@ export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 							<Box className="container-comentario-product-consumer-second-row">
 								<Subtitle>Comentários</Subtitle>
 								<div className="container-comentario-product-text">
-									{/* TODO: RETIRAR APÓS INTEGRAÇÃO */}
 									<BoxComment
 										name="Denise Oliveira"
 										date="09/09/2022"
@@ -160,7 +147,7 @@ export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 											saudável e sustentável para o meio ambiente. Com certeza vou voltar
 											para experimentar mais opções do menu."
 									/>
-									{listOfComments?.map(item => (
+									{/* {listOfComments?.map(item => (
 										<BoxComment
 											key={item.name}
 											comentario={item.comentario}
@@ -169,7 +156,7 @@ export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 											qtdComentario={item.qtdComentario}
 											date={item.date}
 										/>
-									))}
+									))} */}
 								</div>
 							</Box>
 						</div>

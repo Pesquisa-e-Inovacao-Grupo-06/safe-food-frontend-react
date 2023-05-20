@@ -16,8 +16,8 @@ function PreferencesPage({ cache }: PreferencesProps) {
 			cache={cache}
 			isSaveButtonActive={false}
 			isLoading={false}
-			onClickSaveButton={() => setIsEditable(false)}
-			onClickEditable={() => setIsEditable(true)}
+			onClickSaveButton={() => setIsEditable(true)}
+			onClickEditable={() => setIsEditable(false)}
 			isEditable={isEditable}
 			onClickSave={onClickSave}
 		/>

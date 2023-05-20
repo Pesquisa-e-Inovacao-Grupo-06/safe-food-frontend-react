@@ -3,7 +3,7 @@ import { SafeFoodProductGateway } from "@/app/infra/gateway/safefood/SafeFoodPro
 import { SafeFoodProductMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodProductMapper";
 import { SafeFoodProductModel } from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
 import { HomeTemplate } from "@/components/templates/home-template";
-import { ReactNode, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import SignIn from "./signIn";
 import { SafeFoodUserGateway } from "@/app/infra/gateway/safefood/SafeFoodUserGateway";
 import { SafeFoodConsumerGateway } from "@/app/infra/gateway/safefood/SafeFoodConsumerGateway";

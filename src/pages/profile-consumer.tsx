@@ -131,10 +131,10 @@ function ProfileConsumer({
 		if (!editableAddress) {
 			return;
 		}
-		console.log("id", consumer.id);
+		console.log("id", user.usuario.id);
 		try {
 			const addNewAddress = await consumerGateway.addAddress(
-				consumer.id,
+				user.usuario.id,
 				editableAddress
 			);
 			if (addNewAddress.status != 200) {
@@ -188,6 +188,9 @@ function ProfileConsumer({
 		}
 	};
 
+	{
+		// console.log(consumer.enderecos.map(SafeFoodAddressMapper.of));
+	}
 	return (
 		<ProfileTemplate
 			urlDefault={consumer.imagem}

@@ -139,7 +139,10 @@ export const Preferences: React.FC<PreferencesProps> = ({
 									cursor={false}
 								/>
 								<Text>Claro</Text>
-								<RadioButton name="theme" />
+								<RadioButton
+									name="theme"
+									disabled={isEditable}
+								/>
 							</Box>
 							<Box
 								display="flex"
@@ -154,7 +157,10 @@ export const Preferences: React.FC<PreferencesProps> = ({
 									onClick={() => toggleTheme()}
 								/>
 								<Text>Escuro</Text>
-								<RadioButton name="theme" />
+								<RadioButton
+									name="theme"
+									disabled={isEditable}
+								/>
 							</Box>
 						</Box>
 					</Box>
@@ -186,6 +192,7 @@ export const Preferences: React.FC<PreferencesProps> = ({
 							onChange={(_, e) => {
 								setFont(e);
 							}}
+							disabled={isEditable}
 						/>
 					</Box>
 					<Divider
@@ -217,6 +224,7 @@ export const Preferences: React.FC<PreferencesProps> = ({
 							onChange={(_, e) => {
 								setZoom(e);
 							}}
+							disabled={isEditable}
 						/>
 					</Box>
 					<Box
@@ -226,7 +234,7 @@ export const Preferences: React.FC<PreferencesProps> = ({
 						width="100%"
 					>
 						<div style={{ width: "100px", display: "flex" }}>
-							{isEditable ? (
+							{!isEditable ? (
 								<>
 									<Button
 										height="45px"
@@ -254,7 +262,7 @@ export const Preferences: React.FC<PreferencesProps> = ({
 									width="fit-content"
 									buttonStyle="filled"
 									color="green"
-									disabled={isEditable}
+									disabled={!isEditable}
 									loading={isLoading}
 									onClick={onClickEditable}
 								>
