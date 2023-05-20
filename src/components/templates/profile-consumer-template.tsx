@@ -17,26 +17,40 @@ import { Address } from "@/app/domain/entities/Address";
 import { Alert, AlertType } from "../atoms/alert";
 import { AddressModal } from "./address-modal";
 import { useState } from "react";
-import { CepValidator } from "@/app/util/validations/cep-validator";
-import { FindAddress } from "@/app/domain/usecases/FindAddress";
+import {} from "@/app/util/validations/cep-validator";
+import { SafeFoodCreateAddressRequest } from "@/app/infra/gateway/safefood/models/SafeFoodAddress";
 
 export type ProfileProps = {
 	restrictionsUser: Restriction[];
 	listOfAddress: Address[];
 	form: InputPropsComponent[];
 	urlDefault: string | null | undefined;
-	onClickSave(): void;
-	isSaveButtonActive: boolean;
-	isLoading: boolean;
 	typeAlert?: AlertType;
 	textAlert?: string;
 	isAlertVisible: boolean;
-	onClickChangePassword(): void;
+	isSaveButtonActive: boolean;
+	isLoading: boolean;
 	isEditable?: boolean;
+
+	address: SafeFoodCreateAddressRequest;
+	onClickChangePassword(): void;
+	onClickSave(): void;
 	onClickSaveButton(): void;
 	onClickEditable(): void;
-	cepValidator: CepValidator;
-	findAddressUsecase: FindAddress;
+	onClickSaveNewAddress(): void;
+	onChange: React.FormEventHandler<HTMLInputElement> &
+		((e: React.FormEvent<HTMLInputElement>) => void);
+	cep: string;
+	numero: string;
+	onChangeNumero: React.FormEventHandler<HTMLInputElement> &
+		((e: React.FormEvent<HTMLInputElement>) => void);
+	apelido: string;
+	onChangeApelido: React.FormEventHandler<HTMLInputElement> &
+		((e: React.FormEvent<HTMLInputElement>) => void);
+	toggleModal(): void;
+	isModalVisible: boolean;
+	onClickOpenModalAddress(): void;
+	onChangeFile(file: File): void;
 };
 
 export const ProfileTemplate: React.FC<ProfileProps> = ({
@@ -54,22 +68,36 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 	isEditable,
 	onClickSaveButton,
 	onClickEditable,
-	cepValidator,
-	findAddressUsecase,
+	onClickSaveNewAddress,
+	address,
+	onChange,
+	cep,
+	numero,
+	onChangeNumero,
+	apelido,
+	onChangeApelido,
+	toggleModal,
+	isModalVisible,
+	onClickOpenModalAddress,
+	onChangeFile,
 }) => {
 	//TODO: IMPLEMENTAR UPDATE no restrictions
-	const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+
 	return (
 		<>
 			<Header />
 			{/* MODAL */}
 			<AddressModal
-				toggleModal={() => {
-					setIsModalVisible(!isModalVisible);
-				}}
+				toggleModal={toggleModal}
 				isModalVisible={isModalVisible}
-				validator={new CepValidator()}
-				usecase={findAddressUsecase}
+				onClickSaveNewAddress={onClickSaveNewAddress}
+				address={address}
+				onChange={onChange}
+				cep={cep}
+				numero={numero}
+				onChangeNumero={onChangeNumero}
+				apelido={apelido}
+				onChangeApelido={onChangeApelido}
 			/>
 			<PBanner>
 				<PBtnEditar
@@ -87,7 +115,8 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 						id="p1"
 						width="125px"
 						justify="start"
-						// urlDefault={urlDefault}
+						urlDefault={urlDefault}
+						onChangeFile={onChangeFile}
 					/>
 				</PContainerProfilePhoto>
 				<PContainerSub>
@@ -131,10 +160,7 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 										height: 45,
 									}}
 									disabled={!isEditable}
-									onClick={() => {
-										console.log(isModalVisible);
-										setIsModalVisible(true);
-									}}
+									onClick={onClickOpenModalAddress}
 								>
 									<span>adicionar endereço</span>
 								</PBtnAdicionarEndereco>
@@ -283,7 +309,9 @@ const PContainerProfilePhoto = styled.div`
 `;
 
 const PProfilePhoto = styled(ProfilePhotoUploadWithPreview)`
-	background: #c2c2c2;
+	background: #333
+		url("https://safefood.blob.core.windows.net/profile/consumer-2.svg");
+	background-size: cover;
 	opacity: 100%;
 	border: 5px solid
 		${p =>

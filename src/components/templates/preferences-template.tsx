@@ -14,8 +14,22 @@ import { Cache } from "@/app/domain/protocols/Cache";
 
 type PreferencesProps = {
 	cache: Cache;
+	isSaveButtonActive: boolean;
+	isLoading: boolean;
+	isEditable?: boolean;
+	onClickSaveButton(): void;
+	onClickEditable(): void;
+	onClickSave(): void;
 };
-export const Preferences: React.FC<PreferencesProps> = ({ cache }) => {
+export const Preferences: React.FC<PreferencesProps> = ({
+	cache,
+	isLoading,
+	isSaveButtonActive,
+	onClickEditable,
+	onClickSaveButton,
+	isEditable,
+	onClickSave,
+}) => {
 	const { setZoom, setFont, font, zoom, toggleTheme } = useSafeFoodTheme();
 	function fontChange(fontChange: number) {
 		if (fontChange == 90) {
@@ -125,7 +139,10 @@ export const Preferences: React.FC<PreferencesProps> = ({ cache }) => {
 									cursor={false}
 								/>
 								<Text>Claro</Text>
-								<RadioButton name="theme" />
+								<RadioButton
+									name="theme"
+									disabled={isEditable}
+								/>
 							</Box>
 							<Box
 								display="flex"
@@ -140,7 +157,10 @@ export const Preferences: React.FC<PreferencesProps> = ({ cache }) => {
 									onClick={() => toggleTheme()}
 								/>
 								<Text>Escuro</Text>
-								<RadioButton name="theme" />
+								<RadioButton
+									name="theme"
+									disabled={isEditable}
+								/>
 							</Box>
 						</Box>
 					</Box>
@@ -172,6 +192,7 @@ export const Preferences: React.FC<PreferencesProps> = ({ cache }) => {
 							onChange={(_, e) => {
 								setFont(e);
 							}}
+							disabled={isEditable}
 						/>
 					</Box>
 					<Divider
@@ -203,6 +224,7 @@ export const Preferences: React.FC<PreferencesProps> = ({ cache }) => {
 							onChange={(_, e) => {
 								setZoom(e);
 							}}
+							disabled={isEditable}
 						/>
 					</Box>
 					<Box
@@ -212,8 +234,41 @@ export const Preferences: React.FC<PreferencesProps> = ({ cache }) => {
 						width="100%"
 					>
 						<div style={{ width: "100px", display: "flex" }}>
-							<Button buttonStyle="outline">Cancelar</Button>
-							<Button>Salvar</Button>
+							{!isEditable ? (
+								<>
+									<Button
+										height="45px"
+										width="fit-content"
+										buttonStyle="outline"
+										disabled={isSaveButtonActive}
+										onClick={onClickSaveButton}
+									>
+										Cancelar
+									</Button>
+									<Button
+										height="45px"
+										width="fit-content"
+										buttonStyle="filled"
+										disabled={isSaveButtonActive}
+										onClick={onClickSave}
+										loading={isLoading}
+									>
+										Salvar
+									</Button>
+								</>
+							) : (
+								<Button
+									height="45px"
+									width="fit-content"
+									buttonStyle="filled"
+									color="green"
+									disabled={!isEditable}
+									loading={isLoading}
+									onClick={onClickEditable}
+								>
+									Editar
+								</Button>
+							)}{" "}
 						</div>
 					</Box>
 				</Box>

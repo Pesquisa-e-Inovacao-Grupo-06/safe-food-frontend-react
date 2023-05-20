@@ -1,61 +1,37 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React from "react";
 import { Modal } from "../molecules/modal";
 import { Box } from "../atoms/box";
-import { AlertType } from "../atoms/alert";
 import { Button } from "@/components/atoms/button";
-import { CepValidator } from "@/app/util/validations/cep-validator";
-import { FindAddress } from "@/app/domain/usecases/FindAddress";
 import { SafeFoodCreateAddressRequest } from "@/app/infra/gateway/safefood/models/SafeFoodAddress";
 import { TextField } from "@/components/molecules/textfield";
 export type AddressModalProps = {
 	toggleModal(): void;
 	isModalVisible: boolean;
-	isAlertVisible?: boolean;
-	typeAlert?: AlertType;
-	textAlert?: string;
-	validator: CepValidator;
-	usecase: FindAddress;
+	address: SafeFoodCreateAddressRequest;
+	cep: string;
+	numero: string;
+	apelido: string;
+	onChangeNumero: React.FormEventHandler<HTMLInputElement> &
+		((e: React.FormEvent<HTMLInputElement>) => void);
+	onChangeApelido: React.FormEventHandler<HTMLInputElement> &
+		((e: React.FormEvent<HTMLInputElement>) => void);
+	onClickSaveNewAddress(): void;
+	onChange: React.FormEventHandler<HTMLInputElement> &
+		((e: React.FormEvent<HTMLInputElement>) => void);
 };
 
 export const AddressModal: React.FC<AddressModalProps> = ({
 	isModalVisible,
-	validator,
-	usecase,
 	toggleModal,
+	onClickSaveNewAddress,
+	address,
+	onChange,
+	cep,
+	numero,
+	onChangeNumero,
+	apelido,
+	onChangeApelido,
 }) => {
-	const [cep, setCep] = useState<string>("");
-	const [address, setAddress] = useState<SafeFoodCreateAddressRequest>({
-		apelido: "",
-		bairro: "",
-		cep: "",
-		cidade: "",
-		complemento: "",
-		estado: "",
-		logradouro: "",
-		numero: "",
-	} as SafeFoodCreateAddressRequest);
-
-	const findAddress = (cep: string) => {
-		usecase
-			.execute(cep)
-			.then(({ params }) => {
-				const { cep, complemento, logradouro, estado, bairro, cidade } = params;
-				setAddress({
-					...address,
-					cep: cep || "",
-					complemento: complemento || "",
-					logradouro: logradouro || "",
-					estado: estado || "",
-					bairro: bairro || "",
-					cidade: cidade || "",
-				});
-			})
-			.catch(err => {
-				// clearAddress(cep);
-				// setError("CEP invalido");
-			});
-	};
-
 	return (
 		<>
 			<Modal
@@ -83,26 +59,62 @@ export const AddressModal: React.FC<AddressModalProps> = ({
 					alignSelf="center"
 				>
 					<TextField
-						id={""}
-						label={""}
-						value={cep}
-						onChange={async ev => {
-							const str = ev.currentTarget.value;
-							const value = validator.format(str);
-							setCep(value);
-							if (value.length > 8) {
-								findAddress(value); // Use the updated value here
-							}
-							console.log(address);
-						}}
+						id={"apelido"}
+						label={"Apelido:"}
+						value={apelido}
+						onChange={onChangeApelido}
 						required={false}
-						max={9}
-						min={8}
 					/>
-
-					<Button onClick={() => console.log(address)}>
-						Adicionar novo endereço
-					</Button>
+					<TextField
+						id={"cep"}
+						label={"Cep:"}
+						value={cep}
+						onChange={onChange}
+						required={false}
+					/>
+					<TextField
+						id={"logradouro"}
+						label={"Logradouro:"}
+						value={address.logradouro}
+						onChange={() => {}}
+						required={false}
+					/>
+					<TextField
+						id={"estado"}
+						label={"Estado:"}
+						value={address.estado}
+						onChange={() => {}}
+						required={false}
+					/>
+					<TextField
+						id={"bairro"}
+						label={"Bairro:"}
+						value={address.bairro}
+						onChange={() => {}}
+						required={false}
+					/>
+					<TextField
+						id={"cidade"}
+						label={"Cidade:"}
+						value={address.cidade}
+						onChange={() => {}}
+						required={false}
+					/>
+					<TextField
+						id={"numero"}
+						label={"Número:"}
+						value={numero}
+						onChange={onChangeNumero}
+						required={false}
+					/>
+					<TextField
+						id={"complemento"}
+						label={"Complemento:"}
+						value={address.complemento}
+						onChange={() => {}}
+						required={false}
+					/>
+					<Button onClick={onClickSaveNewAddress}>Adicionar novo endereço</Button>
 				</Box>
 			</Modal>
 		</>

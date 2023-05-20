@@ -13,11 +13,18 @@ export type SafeFoodProductModel = {
     imagem?: string,
     ingredientes: string[],
     unidadeDeVenda: string,
-    tipoProduto: string,
-    estabelecimento: SafeFoodEstablishmentModel[],
+    dataCadastro: string,
+    estabelecimento: SafeFoodEstablishmentModel,
+    horarioFuncionamentoSemana: string,
+    horarioFuncionamentoFimDeSemana: string,
+    isDelivery: boolean,
+    isRetireNoLocal: boolean,
+    isFreteGratis: boolean,
+    tempoEsperaMedio: string,
     categoria: SafeFoodCategoryProductModel,
-    restricoes: SafeFoodRestrictionModel[]
-    avaliacoes: SafeFoodAvaliationModel[]
+    restricoes: SafeFoodRestrictionModel[],
+    avaliacoes: SafeFoodAvaliationModel,
+    tipoProduto: string,
 
 };
 

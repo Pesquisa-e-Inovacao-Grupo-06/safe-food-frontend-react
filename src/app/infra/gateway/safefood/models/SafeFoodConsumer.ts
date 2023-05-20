@@ -7,7 +7,7 @@ import { SafeFoodRestrictionModel } from "./SafeFoodRestriction";
 export type SafeFoodUpdateConsumerRequest = {
   telefone: string,
   restricoes: number[]
-} & SafeFoodUpdateUserRequest;
+} & SafeFoodUpdateUserRequest & SafeFoodSaveProfileImage;
 
 export type SafeFoodSaveProfileImage = {
   file?: File

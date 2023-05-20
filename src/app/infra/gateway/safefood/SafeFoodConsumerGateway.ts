@@ -22,6 +22,7 @@ export class SafeFoodConsumerGateway {
         if (!res.data) {
             throw new Error("Erro ao realizar requisicao de pegar por id");
         }
+        console.log("RESPOSTA", res.data);
         return res.data;
     }
 
@@ -33,6 +34,21 @@ export class SafeFoodConsumerGateway {
         })
         if (!res.data) {
             throw new Error("Erro ao realizar requisicao de atualizar")
+        }
+        if (data.file && res.data.data.id) {
+            let requestImage = new FormData();
+            requestImage.append("image", data.file);
+            const responseImage = await this.http.execute<SafeFoodGenericDataResponse<string>>({
+                url: `/consumidores/${id}/foto-perfil`,
+                method: 'POST',
+                contentType: "multipart/form-data",
+                body: requestImage
+            })
+            if (responseImage.data) {
+                res.data.data.imagem = responseImage.data.data;
+            } else {
+                throw new Error("Erro ao realizar requisicao de adicionar foto do consumidor")
+            }
         }
         return res.data;
     }
