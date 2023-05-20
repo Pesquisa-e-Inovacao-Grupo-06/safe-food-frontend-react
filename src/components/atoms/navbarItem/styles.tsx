@@ -6,6 +6,8 @@ export const ContainerItem = styled.div<{
 	height: 75px;
 	padding: 0;
 	width: fit-content;
+	cursor: pointer;
+	user-select: none;
 
 	border-bottom: 3px solid
 		${({ theme, isActive }) =>
@@ -31,6 +33,8 @@ export const ContainerItem = styled.div<{
 	}
 
 	a {
-		align-self: center;
+		height: 100%;
+		display: flex;
+		align-items: center;
 	}
 `;

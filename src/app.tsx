@@ -21,6 +21,7 @@ import PreferencesEstablishment from "./pages/preferences-establishment";
 import { ModalHomeProvider } from "./app/contexts/ModalProvider";
 import { SafeFoodProductGateway } from "./app/infra/gateway/safefood/SafeFoodProductGateway";
 import ProductConsumer from "./pages/product-consumer";
+import ForgetPassWord from "./pages/forget-password";
 import { FindAddress } from "./app/domain/usecases/FindAddress";
 import { CepValidator } from "./app/util/validations/cep-validator";
 
@@ -130,6 +131,10 @@ export default function App({
 							<Route
 								path="/*"
 								element={<NotFound />}
+							/>
+							<Route
+								path="/change-password"
+								element={<ForgetPassWord />}
 							/>
 						</Routes>
 					</Router>
