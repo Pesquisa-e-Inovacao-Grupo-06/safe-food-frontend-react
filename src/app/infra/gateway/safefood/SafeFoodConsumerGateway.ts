@@ -89,7 +89,7 @@ export class SafeFoodConsumerGateway {
             throw new Error("Erro ao realizar requisicao de adicionar consumidor")
         }
 
-        if(data.file && res.data.data.id){
+        if (data.file && res.data.data.id) {
             let requestImage = new FormData();
             requestImage.append("image", data.file);
             const responseImage = await this.http.execute<SafeFoodGenericDataResponse<string>>({
@@ -98,9 +98,9 @@ export class SafeFoodConsumerGateway {
                 contentType: "multipart/form-data",
                 body: requestImage
             })
-            if(responseImage.data){
+            if (responseImage.data) {
                 res.data.data.imagem = responseImage.data.data;
-            }else{
+            } else {
                 throw new Error("Erro ao realizar requisicao de adicionar foto do consumidor")
             }
         }

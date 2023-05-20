@@ -35,7 +35,7 @@ function FAQ() {
 					<Box
 						display="flex"
 						justify="center"
-						flexDiretion="column"
+						flexDirection="column"
 						gap="30px"
 					>
 						<Divider marginAll="30px" />

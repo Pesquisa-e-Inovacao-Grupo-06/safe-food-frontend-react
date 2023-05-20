@@ -1,8 +1,8 @@
 export type SafeFoodRestrictionModel = {
+    id: number
     tipoRestricao: SafeFoodTipoRestricaoModel,
     restricao: string,
     descricao: string,
-    id: number
 }
 
 export type SafeFoodTipoRestricaoModel = {

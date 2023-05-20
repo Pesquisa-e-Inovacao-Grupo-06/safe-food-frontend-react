@@ -17,6 +17,7 @@ export const Form: React.FC<FormProps> = ({ listOfComponent }) => {
 						<Input
 							value={item.value}
 							setUseState={item.setUseState}
+							disabled={item.disabled}
 						/>
 					</li>
 				</ul>

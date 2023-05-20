@@ -25,9 +25,9 @@ const establishmentGateway = new SafeFoodEstablishmentGateway(
 );
 const productGateway = new SafeFoodProductGateway(safeFoodClient);
 
-if (!cache.getItem("restricoes")) {
+if (!cache.getItem("restrictions")) {
 	restrictionsGateway.getAll().then(data => {
-		cache.setItem("restricoes", JSON.stringify(data.map(of)));
+		cache.setItem("restrictions", JSON.stringify(data));
 	});
 }
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
@@ -41,14 +41,8 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 				establishmentGateway={establishmentGateway}
 				consumerGateway={consumerGateway}
 				productGateway={productGateway}
+				findAddressUsecase={viaCepGateway}
 			/>
 		</SafeFoodThemeProvider>
 	</React.StrictMode>
 );
-function of(
-	value: SafeFoodRestrictionModel,
-	index: number,
-	array: SafeFoodRestrictionModel[]
-): unknown {
-	throw new Error("Function not implemented.");
-}

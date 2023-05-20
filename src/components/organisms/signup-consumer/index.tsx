@@ -15,11 +15,12 @@ import { Restriction } from "@/app/domain/entities/Restriction";
 import { SafeFoodCreateConsumerRequest } from "@/app/infra/gateway/safefood/models/SafeFoodConsumer";
 import { FindAddress } from "@/app/domain/usecases/FindAddress";
 import { useModalHome } from "@/app/contexts/ModalProvider";
+import { SafeFoodRestrictionModel } from "@/app/infra/gateway/safefood/models/SafeFoodRestriction";
 
 export type Steps = "general-info" | "restrictions" | "additional" | "finished";
 
 export type SignUpConsumerProps = {
-	restrictions: Restriction[];
+	restrictions: SafeFoodRestrictionModel[];
 	findAddress: FindAddress;
 	toggleModal(): void;
 	isModalVisible: boolean;
@@ -64,7 +65,7 @@ export const SignUpConsumerTemplate: React.FC<SignUpConsumerProps> = ({
 				<Box
 					display="flex"
 					justify="center"
-					flexDiretion="column"
+					flexDirection="column"
 					padding="20px"
 					height="90%"
 					margin="auto"

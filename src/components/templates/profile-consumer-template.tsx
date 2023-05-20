@@ -12,13 +12,15 @@ import AddresCard from "@/components/molecules/address-card";
 import { Form } from "@/components/molecules/form";
 import { Button } from "@/components/atoms/button";
 import { Restriction } from "@/app/domain/entities/Restriction";
-import { Input, InputPropsComponent } from "../atoms/input";
+import { InputPropsComponent } from "../atoms/input";
 import { Address } from "@/app/domain/entities/Address";
 import { Alert, AlertType } from "../atoms/alert";
+import { AddressModal } from "./address-modal";
 import { useState } from "react";
+import { CepValidator } from "@/app/util/validations/cep-validator";
+import { FindAddress } from "@/app/domain/usecases/FindAddress";
 
 export type ProfileProps = {
-	restrictionsDefault: Restriction[];
 	restrictionsUser: Restriction[];
 	listOfAddress: Address[];
 	form: InputPropsComponent[];
@@ -29,11 +31,15 @@ export type ProfileProps = {
 	typeAlert?: AlertType;
 	textAlert?: string;
 	isAlertVisible: boolean;
-	onClickChangePassowrd(): void;
+	onClickChangePassword(): void;
+	isEditable?: boolean;
+	onClickSaveButton(): void;
+	onClickEditable(): void;
+	cepValidator: CepValidator;
+	findAddressUsecase: FindAddress;
 };
 
 export const ProfileTemplate: React.FC<ProfileProps> = ({
-	restrictionsDefault,
 	listOfAddress,
 	form,
 	urlDefault,
@@ -44,21 +50,27 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 	isAlertVisible,
 	textAlert,
 	typeAlert,
-	onClickChangePassowrd,
+	onClickChangePassword: onClickChangePassowrd,
+	isEditable,
+	onClickSaveButton,
+	onClickEditable,
+	cepValidator,
+	findAddressUsecase,
 }) => {
 	//TODO: IMPLEMENTAR UPDATE no restrictions
-	const idsMapsUsers = restrictionsUser.map(item => item.id);
-	const restrictionsCommunUser = restrictionsDefault.filter(({ id }) =>
-		idsMapsUsers.includes(id)
-	);
-	const restrictionsOtherUser = restrictionsDefault.filter(
-		({ id }) => !idsMapsUsers.includes(id)
-	);
-	const [isEditable, setIsEditable] = useState<boolean>(false);
-
+	const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 	return (
 		<>
 			<Header />
+			{/* MODAL */}
+			<AddressModal
+				toggleModal={() => {
+					setIsModalVisible(!isModalVisible);
+				}}
+				isModalVisible={isModalVisible}
+				validator={new CepValidator()}
+				usecase={findAddressUsecase}
+			/>
 			<PBanner>
 				<PBtnEditar
 					height="fit-content"
@@ -101,6 +113,7 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 										width: "fit-content",
 									}}
 									onClick={onClickChangePassowrd}
+									disabled={!isEditable}
 								>
 									Alterar Senha
 								</StyledButton>
@@ -116,6 +129,11 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 									buttonStyle="outline"
 									style={{
 										height: 45,
+									}}
+									disabled={!isEditable}
+									onClick={() => {
+										console.log(isModalVisible);
+										setIsModalVisible(true);
 									}}
 								>
 									<span>adicionar endereço</span>
@@ -151,25 +169,18 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 									flexWrap: "wrap",
 								}}
 							>
-								{restrictionsCommunUser.map((restriction, i) => (
+								{restrictionsUser.map((restriction, i) => (
 									<Chips
-										key={restriction.name + "item"}
+										key={restriction.params.id + "item"}
 										sizeChips="chips-lg"
 										//TODO: verificar com o guilherme
-										onClick={() => {}}
-										isActive
+										onClick={() => {
+											restriction.params.isActive = !restriction.params.isActive;
+											console.log(restrictionsUser);
+										}}
+										isActive={restriction.params.isActive}
 									>
-										{restriction.name}
-									</Chips>
-								))}
-								{restrictionsOtherUser.map((restriction, i) => (
-									<Chips
-										key={restriction.name + "item"}
-										sizeChips="chips-lg"
-										//TODO: verificar com o guilherme
-										onClick={() => {}}
-									>
-										{restriction.name}
+										{restriction.params.restricao}
 									</Chips>
 								))}
 							</PContainerRestricao>
@@ -183,7 +194,7 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 									width="fit-content"
 									buttonStyle="outline"
 									disabled={isSaveButtonActive}
-									onClick={() => setIsEditable(false)}
+									onClick={onClickSaveButton}
 								>
 									Cancelar
 								</Button>
@@ -206,9 +217,7 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 								color="green"
 								disabled={isEditable}
 								loading={isLoading}
-								onClick={() => {
-									setIsEditable(true);
-								}}
+								onClick={onClickEditable}
 							>
 								Editar
 							</Button>

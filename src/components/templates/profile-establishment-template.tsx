@@ -14,6 +14,7 @@ import { Button } from "../atoms/button";
 import { Alert, AlertType } from "../atoms/alert";
 import { SafeFoodAddressModel } from "@/app/infra/gateway/safefood/models/SafeFoodAddress";
 import { useState } from "react";
+import { Cache } from "@/app/domain/protocols/Cache";
 
 export type ProfileEstablishmentTemplateProps = {
 	urlDefault: string | null | undefined;
@@ -27,6 +28,7 @@ export type ProfileEstablishmentTemplateProps = {
 	isAlertVisible: boolean;
 	address: SafeFoodAddressModel;
 	onClickChangePassowrd(): void;
+	cache: Cache;
 };
 export const ProfileEstablishmentTemplate: React.FC<
 	ProfileEstablishmentTemplateProps
@@ -42,11 +44,12 @@ export const ProfileEstablishmentTemplate: React.FC<
 	typeAlert,
 	address,
 	onClickChangePassowrd,
+	cache,
 }) => {
 	const [isEditable, setIsEditable] = useState<boolean>(false);
 	return (
 		<>
-			<Layout>
+			<Layout cache={cache}>
 				<PBanner>
 					<PBtnEditar
 						height="fit-content"

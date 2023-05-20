@@ -31,8 +31,6 @@ export const InputPhoneSignupWpp: React.FC<{
 					});
 
 					if (value.length > 0) {
-						console.log(value);
-
 						const errors = validator.validate(value);
 						if (errors.length > 0) {
 							setError(errors.join(";"));

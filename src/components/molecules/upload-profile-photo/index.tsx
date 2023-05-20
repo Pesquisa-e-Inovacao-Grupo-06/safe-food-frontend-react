@@ -50,7 +50,6 @@ export const ProfilePhotoUploadWithPreview: React.FC<
 				onChange={({ target }) => {
 					if (target.files) {
 						const [file] = target.files;
-						console.log(file);
 						if (file) {
 							const img = URL.createObjectURL(file);
 							setPreview(img);

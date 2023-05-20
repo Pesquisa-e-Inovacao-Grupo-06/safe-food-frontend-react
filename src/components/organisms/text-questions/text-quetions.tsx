@@ -26,12 +26,12 @@ export const TextQuestionsOrganism = ({}) => {
 				justify="center"
 				alignItems="center"
 				padding="100px 0"
-				flexDiretion="column"
+				flexDirection="column"
 			>
 				<Box
 					alignItems="center"
 					display="flex"
-					flexDiretion="column"
+					flexDirection="column"
 					alignSelf="center"
 					justify="center"
 					style={{ textAlign: "center", gap: "30px" }}

@@ -16,6 +16,7 @@ export const Chips: React.FC<PropsChips> = ({
 	sizeChips = "chips-md",
 	children,
 	isActive,
+
 	onClick,
 	...props
 }) => {

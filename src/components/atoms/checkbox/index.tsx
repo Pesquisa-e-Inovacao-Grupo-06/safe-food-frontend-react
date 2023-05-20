@@ -21,7 +21,6 @@ const Checkbox: React.FC<Props> = ({
 		const value = e.target.value;
 		const checked = e.target.checked;
 		setAlert(!alert);
-		console.log(value, checked);
 	};
 	return (
 		<CheckboxContainer>

@@ -9,13 +9,16 @@ import { SafeFoodLoginResponse } from "../infra/gateway/safefood/models/SafeFood
 import { Cache } from "../domain/protocols/Cache";
 import { getExpirationTimeFromToken } from "../util/jwt";
 import moment, { Moment } from "moment";
+import { SafeFoodRestrictionModel } from "../infra/gateway/safefood/models/SafeFoodRestriction";
 
 export type AuthContextParams = {
 	token: string;
-	setToken(token: string): void;
 	user: SafeFoodLoginResponse;
-	setUser(user: SafeFoodLoginResponse): void;
 	expiration: Moment | Date;
+	restrictions: SafeFoodRestrictionModel;
+	setRestrictions(restrictions: SafeFoodRestrictionModel): void;
+	setToken(token: string): void;
+	setUser(user: SafeFoodLoginResponse): void;
 	logout(): void;
 };
 export const authConsumerContext = createContext<AuthContextParams>(
@@ -33,6 +36,15 @@ export const AuthProvider: FC<AuthProviderProps> = props => {
 		? (JSON.parse(userCacheString) as SafeFoodLoginResponse)
 		: ({} as SafeFoodLoginResponse);
 
+	const restrictionsCacheString = props.cache.getItem("restrictions");
+	const restrictionsCacheParsed = restrictionsCacheString
+		? (JSON.parse(restrictionsCacheString) as SafeFoodRestrictionModel)
+		: ({} as SafeFoodRestrictionModel);
+
+	const [restrictions, setRestrictions] = useState<SafeFoodRestrictionModel>(
+		restrictionsCacheParsed
+	);
+
 	const [user, setUser] = useState<SafeFoodLoginResponse>(userCacheParsed);
 
 	const tokenCacheString = props.cache.getItem("token");
@@ -42,6 +54,12 @@ export const AuthProvider: FC<AuthProviderProps> = props => {
 	return (
 		<authConsumerContext.Provider
 			value={{
+				restrictions,
+				setRestrictions(restrictions) {
+					const restrictionsString = JSON.stringify(restrictions);
+					props.cache.setItem("restrictions", restrictionsString);
+					setRestrictions(restrictions);
+				},
 				token,
 				setToken(token) {
 					props.cache.setItem("token", token);

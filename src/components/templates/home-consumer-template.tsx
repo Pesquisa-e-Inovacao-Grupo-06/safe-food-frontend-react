@@ -31,7 +31,7 @@ const HomeConsumerTemplate: React.FC<HomeConsumerProps> = ({ products }) => {
 	return (
 		<>
 			<HeaderConsumer />
-			<BodyTemplate footer>
+			<BodyTemplate footer={true}>
 				<ContainerHomeConsumer isFormCardActive={formCard}>
 					<div className="header-home-consumer">
 						<div className="container-header-home-consumer">
@@ -99,9 +99,7 @@ const HomeConsumerTemplate: React.FC<HomeConsumerProps> = ({ products }) => {
 							{products.map(item => (
 								<Link to="/product-consumer">
 									<CardProductHomeConsumer isActive={formCard}>
-										<CardEstablishmentFoodOrganism
-											product={item}
-										/>
+										<CardEstablishmentFoodOrganism product={item} />
 									</CardProductHomeConsumer>
 								</Link>
 							))}

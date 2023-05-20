@@ -10,7 +10,12 @@ import preferencesLight from "../../assets/preferences-light.svg";
 import preferencesDark from "../../assets/preferences-dark.svg";
 import { RadioButton } from "@/components/atoms/radio-button";
 import { useSafeFoodTheme } from "@/app/contexts/SafeFoodThemeProvider";
-export const Preferences: React.FC = () => {
+import { Cache } from "@/app/domain/protocols/Cache";
+
+type PreferencesProps = {
+	cache: Cache;
+};
+export const Preferences: React.FC<PreferencesProps> = ({ cache }) => {
 	const { setZoom, setFont, font, zoom, toggleTheme } = useSafeFoodTheme();
 	function fontChange(fontChange: number) {
 		if (fontChange == 90) {
@@ -66,10 +71,13 @@ export const Preferences: React.FC = () => {
 	];
 	return (
 		<>
-			<Layout paddingMain={true}>
+			<Layout
+				paddingMain={true}
+				cache={cache}
+			>
 				<Box
 					display="flex"
-					flexDiretion="column"
+					flexDirection="column"
 					alignItems="start"
 					justify="space-between"
 					height="110%"
@@ -88,7 +96,7 @@ export const Preferences: React.FC = () => {
 
 					<Box
 						display="flex"
-						flexDiretion="column"
+						flexDirection="column"
 						alignItems="start"
 						justify="space-between"
 						width="100%"
@@ -98,7 +106,7 @@ export const Preferences: React.FC = () => {
 						<Divider marginAll="10px" />
 						<Box
 							display="flex"
-							flexDiretion="row"
+							flexDirection="row"
 							alignItems="start"
 							justify="unset"
 							width="100%"
@@ -106,7 +114,7 @@ export const Preferences: React.FC = () => {
 						>
 							<Box
 								display="flex"
-								flexDiretion="column"
+								flexDirection="column"
 								alignItems="start"
 								width="fit-content"
 								style={{ cursor: "pointer" }}
@@ -121,7 +129,7 @@ export const Preferences: React.FC = () => {
 							</Box>
 							<Box
 								display="flex"
-								flexDiretion="column"
+								flexDirection="column"
 								alignItems="start"
 								width="fit-content"
 								style={{ cursor: "pointer" }}
@@ -143,7 +151,7 @@ export const Preferences: React.FC = () => {
 					/>
 					<Box
 						display="flex"
-						flexDiretion="column"
+						flexDirection="column"
 						alignItems="start"
 						justify="space-between"
 					>
@@ -163,7 +171,6 @@ export const Preferences: React.FC = () => {
 							max={18}
 							onChange={(_, e) => {
 								setFont(e);
-								console.log("change" + e);
 							}}
 						/>
 					</Box>
@@ -174,7 +181,7 @@ export const Preferences: React.FC = () => {
 					/>
 					<Box
 						display="flex"
-						flexDiretion="column"
+						flexDirection="column"
 						alignItems="start"
 						justify="space-between"
 					>
@@ -195,13 +202,12 @@ export const Preferences: React.FC = () => {
 							max={120}
 							onChange={(_, e) => {
 								setZoom(e);
-								console.log("change" + e);
 							}}
 						/>
 					</Box>
 					<Box
 						display="flex"
-						flexDiretion="row"
+						flexDirection="row"
 						alignItems="end"
 						width="100%"
 					>

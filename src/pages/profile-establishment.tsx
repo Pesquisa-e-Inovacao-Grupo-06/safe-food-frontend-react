@@ -4,8 +4,6 @@ import { SafeFoodEstablishmentModel } from "@/app/infra/gateway/safefood/models/
 import { useState } from "react";
 import { SafeFoodEstablishmentGateway } from "../app/infra/gateway/safefood/SafeFoodEstablishmentGateway";
 import { AlertType } from "@/components/atoms/alert";
-import { SafeFoodAddressMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodAddressMapper";
-import { Address } from "@/app/domain/entities/Address";
 
 type ProfileEstablishment = {
 	cache: Cache;
@@ -26,8 +24,6 @@ function ProfileEstablishment({
 	const [name, setName] = useState(establishment.nome);
 	const [email, setEmail] = useState(establishment.email);
 	const [numberphone, setNumberPhone] = useState(establishment.celular);
-	//TODO: verificar sobre o campo de senha
-	// const [password, setPassword] = useState("********");
 	const [nameEstablishment, setNameEstablishment] = useState(
 		establishment.nomeEmpresa
 	);
@@ -42,21 +38,7 @@ function ProfileEstablishment({
 	const [isAlertVisible, setIsVisibleAlert] = useState<boolean>(false);
 	const [typeAlert, setTypeAlert] = useState<AlertType>();
 	const [textAlert, setTextAlert] = useState<string>();
-	//TODO: VERIFICAR SOBRE VALIDAÇÃO
-	// if (
-	// 	establishment.nome != name ||
-	// 	establishment.nome != email ||
-	// 	establishment.nome != numberphone ||
-	// 	establishment.nome != nameEstablishment ||
-	// 	establishment.nome != cnpj ||
-	// 	establishment.nome != cellphone ||
-	// 	establishment.nome != contact ||
-	// 	establishment.nome != description
-	// ) {
-	// 	setIsActiveButton(true);
-	// } else {
-	// 	setIsActiveButton(false);
-	// }
+
 	const onClickLogin = async () => {
 		setIsLoading(true);
 		try {
@@ -139,6 +121,7 @@ function ProfileEstablishment({
 			onClickChangePassowrd={function (): void {
 				throw new Error("Function not implemented.");
 			}}
+			cache={cache}
 		/>
 	) : (
 		<h1>Carregando...</h1>

@@ -2,8 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/home";
 import About from "./pages/about";
 import FAQ from "./pages/faq";
-import SignIn from "./pages/signIn";
-import SignUp from "./pages/signUp-establishment";
 import Profile from "./pages/profile-consumer";
 import TermOfService from "./pages/term-of-service";
 import ProfileEstablishment from "./pages/profile-establishment";
@@ -24,6 +22,8 @@ import { ModalHomeProvider } from "./app/contexts/ModalProvider";
 import { SafeFoodProductGateway } from "./app/infra/gateway/safefood/SafeFoodProductGateway";
 import ProductConsumer from "./pages/product-consumer";
 import ForgetPassWord from "./pages/forget-password";
+import { FindAddress } from "./app/domain/usecases/FindAddress";
+import { CepValidator } from "./app/util/validations/cep-validator";
 
 type AppProps = {
 	cache: Cache;
@@ -33,6 +33,7 @@ type AppProps = {
 	viaCepGateway: ViaCepGateway;
 	establishmentGateway: SafeFoodEstablishmentGateway;
 	productGateway: SafeFoodProductGateway;
+	findAddressUsecase: FindAddress;
 };
 export default function App({
 	cache,
@@ -42,6 +43,7 @@ export default function App({
 	viaCepGateway,
 	establishmentGateway,
 	productGateway,
+	findAddressUsecase,
 }: AppProps) {
 	return (
 		<>
@@ -79,6 +81,8 @@ export default function App({
 										<Profile
 											cache={cache}
 											consumerGateway={consumerGateway}
+											cepValidator={new CepValidator()}
+											findAddressUsecase={findAddressUsecase}
 										/>
 									</AuthRoute>
 								}
@@ -100,7 +104,7 @@ export default function App({
 							/>
 							<Route
 								path="/home-establishment"
-								element={<HomeEstablishment />}
+								element={<HomeEstablishment cache={cache} />}
 							/>
 							<Route
 								path="/product-consumer"
@@ -113,7 +117,7 @@ export default function App({
 							/>
 							<Route
 								path="/preferences-establishment"
-								element={<PreferencesEstablishment />}
+								element={<PreferencesEstablishment cache={cache} />}
 							/>
 							<Route
 								path="/home-consumer"

@@ -2,6 +2,7 @@ import React from "react";
 import { SLayout, SMain } from "./styles";
 import SidebarEstab from "..";
 import RegisterProduct from "../../register-product";
+import { Cache } from "@/app/domain/protocols/Cache";
 
 type Props = {
 	children?: any;
@@ -9,16 +10,18 @@ type Props = {
 	toggle?: () => void;
 	activeRegisterProduct?: boolean;
 	paddingMain?: boolean;
+	cache: Cache;
 };
 
 const Layout: React.FC<Props> = ({
 	activeRegisterProduct = false,
 	paddingMain = false,
+	cache,
 	...props
 }) => {
 	return (
 		<SLayout>
-			<SidebarEstab />
+			<SidebarEstab cache={cache} />
 			<SMain
 				padding={paddingMain}
 				active={props.active}
