@@ -62,17 +62,17 @@ export type SafeFoodPage<T> = {
     content: T[];
 }
 export type SafeFoodProductFilterRequest = {
-    IDSRestrictions?: string[];
-    IDSCategories?: string[];
-    IDSTypeRestrictions?: string[];
-    search?: string[];
-    pageable: string;
-    itensForPage?: string[];
-    sort: SafeFoodSort;
-    direction?: string[];
-    cep?: string[];
-    number: number;
-    distanceRadio?: string[];
+    ids_restricoes?: string[];
+    ids_categorias?: string[];
+    ids_tipos_restricao?: string[];
+    pesquisa?: string;
+    page?: number;
+    itensPorPagina?: number;
+    sort?: SafeFoodSort;
+    direction?: string;
+    cep?: string;
+    numero?: string;
+    distanceRadio?: number;
     // totalPages: number;
     // totalElements: number;
     // last: boolean;

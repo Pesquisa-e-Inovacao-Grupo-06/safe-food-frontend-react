@@ -11,15 +11,19 @@ import { FaBars, FaChevronDown } from "react-icons/fa";
 import { RxDashboard } from "react-icons/rx";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { Button } from "../atoms/button/index";
+import { Divider } from "@/components/atoms/divider";
 
 export type HomeConsumerProps = {
 	products: Product[];
 	dropDownList: DropDownProps[];
+	onClickApplication(): void;
 };
 
 const HomeConsumerTemplate: React.FC<HomeConsumerProps> = ({
 	products,
 	dropDownList,
+	onClickApplication,
 }) => {
 	const [formCard, setFormcard] = useState<boolean>(false);
 	const [termAccepted, setTermAccepted] = useState(false);
@@ -80,6 +84,7 @@ const HomeConsumerTemplate: React.FC<HomeConsumerProps> = ({
 									/>
 								);
 							})}
+
 							{/* <DropDown
 								titleDropDown="Categoria do produto:"
 								activeCheckBox
@@ -88,20 +93,22 @@ const HomeConsumerTemplate: React.FC<HomeConsumerProps> = ({
 								textSubMenuWithCheckBox={submenu}
 							/>
 							<DropDown
-								titleDropDown="Tipo de restrição:"
-								activeCheckBox
-								alignTitleText={false}
-								alignSubText="start"
-								textSubMenuWithCheckBox={submenu}
+							titleDropDown="Tipo de restrição:"
+							activeCheckBox
+							alignTitleText={false}
+							alignSubText="start"
+							textSubMenuWithCheckBox={submenu}
 							/>
 							<DropDown
-								titleDropDown="Outros:"
-								activeCheckBox
-								alignTitleText={false}
-								alignSubText="start"
-								textSubMenuWithCheckBox={submenu}
-							/> */}
+							titleDropDown="Outros:"
+							activeCheckBox
+							alignTitleText={false}
+							alignSubText="start"
+							textSubMenuWithCheckBox={submenu}
+						/> */}
 						</div>
+						<Divider marginAll="10px" />
+						<Button onClick={onClickApplication}>Aplicar</Button>
 					</div>
 					<div className="main-home-consumer">
 						<div className="container-main-home-consumer">

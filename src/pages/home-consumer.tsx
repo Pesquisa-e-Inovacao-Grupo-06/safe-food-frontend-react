@@ -61,33 +61,69 @@ function HomeConsumer({
 	const [products, setProducts] = useState<Product[]>([]);
 	const [typeProducts, setTypeProducts] = useState<TypeProduct[]>([]);
 	const [filterProducts, setFilterProducts] =
-		useState<SafeFoodProductFilterRequest>();
+		useState<SafeFoodProductFilterRequest>({});
+
 	const [productsFilter, setProductsFilter] = useState<any>();
+
 	useEffect(() => {
-		// async function fetchProducts() {
-		// 	try {
-		// 		const fetchedProducts = await productGateway.findAll();
-		// 		const fetchedTypeProducts = await typeProductGateway.findAll();
-		// 		setProducts(fetchedProducts.content.map(SafeFoodProductMapper.of));
-		// 		setTypeProducts(fetchedTypeProducts.map(SafeFoodTypeProductMapper.of));
-		// 	} catch (error) {}
-		// }
-		// fetchProducts();
-		async function fetchChangeProducts() {
+		async function fetchProducts() {
 			try {
-				const fetchedProductsFilter = await productGateway.productFilter(
-					filterProducts
-				);
-				setProductsFilter(fetchedProductsFilter);
-				console.log("RESPOSTA DE FILTRO:", fetchedProductsFilter);
-			} finally {
-			}
+				const fetchedProducts = await productGateway.findAll();
+				const fetchedTypeProducts = await typeProductGateway.findAll();
+				setProducts(fetchedProducts.content.map(SafeFoodProductMapper.of));
+				setTypeProducts(fetchedTypeProducts.map(SafeFoodTypeProductMapper.of));
+				console.log("fetch" + JSON.stringify(fetchedProducts));
+			} catch (error) {}
 		}
-		fetchChangeProducts();
-	}, [filterProducts]); // Array de dependências vazio para executar apenas uma vez
-	console.log(productsFilter);
+		fetchProducts();
+	}, []);
 
 	const [checkedRestrictions, setCheckedRestrictions] = useState<string[]>([]);
+	const [checkedTypeProducts, setCheckedTypeProducts] = useState<string[]>([]);
+	const [checkedTypeRestrictions, setCheckedTypeRestrictions] = useState<
+		string[]
+	>([]);
+
+	// ...
+
+	const handleCheckboxChainChangeRestrictions = (
+		checkedCheckboxes: string[]
+	) => {
+		setCheckedRestrictions(checkedCheckboxes);
+	};
+
+	const handleCheckboxChainChangeTypeProducts = (
+		checkedCheckboxes: string[]
+	) => {
+		setCheckedTypeProducts(checkedCheckboxes);
+	};
+
+	const handleCheckboxChainChangeTypeRestrictions = (
+		checkedCheckboxes: string[]
+	) => {
+		setCheckedTypeRestrictions(checkedCheckboxes);
+	};
+
+	const onClickApplication = async () => {
+		try {
+			const filterProducts = {
+				ids_restricoes: checkedRestrictions,
+				ids_categorias: checkedTypeProducts,
+				ids_tipos_restricoes: checkedTypeRestrictions,
+			};
+
+			console.log("Filtro aplicado:", filterProducts);
+
+			const fetchedProductsFilter = await productGateway.productFilter(
+				filterProducts
+			);
+			setProductsFilter(fetchedProductsFilter);
+			setProducts(fetchedProductsFilter.content.map(SafeFoodProductMapper.of));
+			console.log("RESPOSTA DE FILTRO:", fetchedProductsFilter);
+		} catch (error) {
+			// Tratar erros
+		}
+	};
 
 	const dropdownRestrictions = restrictions
 		.map(item => ({ name: item.restricao, id: item.id }))
@@ -133,27 +169,6 @@ function HomeConsumer({
 			createCheckBoxEntity(item.name, item.id)
 		);
 
-	const handleCheckboxChainChangeRestrictions = (
-		checkedCheckboxes: string[]
-	) => {
-		console.log("Restrições:", checkedCheckboxes);
-		setCheckedRestrictions(checkedCheckboxes);
-	};
-
-	const handleCheckboxChainChangeTypeProducts = (
-		checkedCheckboxes: string[]
-	) => {
-		console.log("Tipo de produto:", checkedCheckboxes);
-		setCheckedRestrictions(checkedCheckboxes);
-	};
-
-	const handleCheckboxChainChangeTypeRestrictions = (
-		checkedCheckboxes: string[]
-	) => {
-		console.log("Restrição tipo:", checkedCheckboxes);
-		setCheckedRestrictions(checkedCheckboxes);
-	};
-
 	return (
 		<HomeConsumerTemplate
 			products={products}
@@ -195,6 +210,7 @@ function HomeConsumer({
 					onCheckboxChainChange: handleCheckboxChainChangeTypeRestrictions,
 				},
 			]}
+			onClickApplication={onClickApplication}
 		/>
 	);
 }
