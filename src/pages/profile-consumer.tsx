@@ -11,6 +11,10 @@ import { SafeFoodRestrictionModel } from "@/app/infra/gateway/safefood/models/Sa
 import { FindAddress } from "@/app/domain/usecases/FindAddress";
 import { CepValidator } from "@/app/util/validations/cep-validator";
 import { SafeFoodCreateAddressRequest } from "@/app/infra/gateway/safefood/models/SafeFoodAddress";
+import {
+	SafeFoodLoginResponse,
+	SafeFoodLoginUserRequest,
+} from "@/app/infra/gateway/safefood/models/SafeFoodUser";
 
 type ProfileConsumerProps = {
 	cache: Cache;
@@ -36,6 +40,9 @@ function ProfileConsumer({
 			? JSON.parse(cache.getItem("consumer")!)
 			: {};
 
+	const user: SafeFoodLoginResponse =
+		cache.getItem("user") !== null ? JSON.parse(cache.getItem("user")!) : {};
+
 	//CAMPOS
 	const consumerRestrictions = consumer.restricoes.map(item =>
 		SafeFoodRestrictionMapper.of(item, true)
@@ -48,14 +55,15 @@ function ProfileConsumer({
 	const [name, setName] = useState(consumer.nome);
 	const [email, setEmail] = useState(consumer.email);
 	const [numberphone, setNumberPhone] = useState(consumer.telefone);
-
+	const [imageProfile, setImageProfile] = useState<File>();
 	const [isActiveButton, setIsActiveButton] = useState<boolean>(false);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [isEditable, setIsEditable] = useState<boolean>(false);
 	const [isAlertVisible, setIsVisibleAlert] = useState<boolean>(false);
 	const [typeAlert, setTypeAlert] = useState<AlertType>();
 	const [textAlert, setTextAlert] = useState<string>();
-	const [totalRestrictions, setTotalRestrictions] = useState<Restriction[]>([]);
+	const [totalRestrictions, setTotalRestrictions] =
+		useState<Restriction[]>(total);
 	const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 	const [modalCep, setModalCep] = useState<string>("");
 	const [modalNumero, setModalNumero] = useState<string>("");
@@ -72,9 +80,9 @@ function ProfileConsumer({
 			numero: modalNumero,
 		});
 
-	// useEffect(() => {
-	// 	setTotalRestrictions([...consumerRestrictions, ...total] ?? []);
-	// }, [consumerRestrictions, total]);
+	useEffect(() => {
+		setTotalRestrictions([...consumerRestrictions, ...total] ?? []);
+	}, [consumerRestrictions, total]);
 
 	//Actions
 
@@ -149,13 +157,14 @@ function ProfileConsumer({
 	const onClickLogin = async () => {
 		setIsLoading(true);
 		try {
-			const res = await consumerGateway.update(consumer.id, {
+			const res = await consumerGateway.update(user.usuario.id, {
 				nome: name,
 				email: email,
 				telefone: numberphone,
 				restricoes: totalRestrictions
 					.map(item => item.params.id)
 					.filter((id): id is number => typeof id === "number"),
+				file: imageProfile,
 			});
 
 			if (res?.status !== 200) {
@@ -242,6 +251,9 @@ function ProfileConsumer({
 			}}
 			isModalVisible={isModalVisible}
 			onClickOpenModalAddress={() => setIsModalVisible(true)}
+			onChangeFile={file => {
+				setImageProfile(file);
+			}}
 		/>
 	);
 }

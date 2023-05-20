@@ -50,6 +50,7 @@ export type ProfileProps = {
 	toggleModal(): void;
 	isModalVisible: boolean;
 	onClickOpenModalAddress(): void;
+	onChangeFile(file: File): void;
 };
 
 export const ProfileTemplate: React.FC<ProfileProps> = ({
@@ -78,6 +79,7 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 	toggleModal,
 	isModalVisible,
 	onClickOpenModalAddress,
+	onChangeFile,
 }) => {
 	//TODO: IMPLEMENTAR UPDATE no restrictions
 
@@ -113,7 +115,8 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 						id="p1"
 						width="125px"
 						justify="start"
-						// urlDefault={urlDefault}
+						urlDefault={urlDefault}
+						onChangeFile={onChangeFile}
 					/>
 				</PContainerProfilePhoto>
 				<PContainerSub>
@@ -306,7 +309,9 @@ const PContainerProfilePhoto = styled.div`
 `;
 
 const PProfilePhoto = styled(ProfilePhotoUploadWithPreview)`
-	background: #c2c2c2;
+	background: #333
+		url("https://safefood.blob.core.windows.net/profile/consumer-2.svg");
+	background-size: cover;
 	opacity: 100%;
 	border: 5px solid
 		${p =>
