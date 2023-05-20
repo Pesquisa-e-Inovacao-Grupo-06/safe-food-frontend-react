@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+	cursor: pointer;
+	user-select: none;
 	& a {
 		color: #fcfcfc;
 		background-color: #fe8e27;

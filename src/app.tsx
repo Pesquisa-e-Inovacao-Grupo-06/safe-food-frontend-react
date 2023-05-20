@@ -23,7 +23,7 @@ import PreferencesEstablishment from "./pages/preferences-establishment";
 import { ModalHomeProvider } from "./app/contexts/ModalProvider";
 import { SafeFoodProductGateway } from "./app/infra/gateway/safefood/SafeFoodProductGateway";
 import ProductConsumer from "./pages/product-consumer";
-import ChangePassWord from "./pages/change-password";
+import ForgetPassWord from "./pages/forget-password";
 
 type AppProps = {
 	cache: Cache;
@@ -128,9 +128,10 @@ export default function App({
 								path="/*"
 								element={<NotFound />}
 							/>
-							<Route 
+							<Route
 								path="/change-password"
-								element={<ChangePassWord />}/>
+								element={<ForgetPassWord />}
+							/>
 						</Routes>
 					</Router>
 				</AuthProvider>
