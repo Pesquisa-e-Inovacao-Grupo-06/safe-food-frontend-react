@@ -35,20 +35,23 @@ export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 		<>
 			<Header />
 			<BodyTemplate footer>
-				asdas
 				<ContainerProductConsumer>
 					<div className="header-product-consumer"></div>
 					<div className="main-product-consumer">
 						<div className="img-product-consumer">
 							<img
-								src={establishment.params.imagem || "https://via.placeholder.com/400"}
+								src={
+									establishment.params.imagem
+										? establishment.params.imagem
+										: "https://via.placeholder.com/400"
+								}
 							/>
 						</div>
 						<div className="info-product-consumer">
 							<StyledColumn style={{ margin: "14px", alignItems: "start" }}>
 								<Subtitle>{product.params.titulo}</Subtitle>
 								<Text style={{ height: "fit-content" }}>
-									{product.params.descricao || ""}
+									{product.params.descricao ? product.params.descricao : ""}
 								</Text>
 								<StyledRow>
 									<AvaliationStars
@@ -57,50 +60,66 @@ export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 									/>
 									<Text>({0} avaliações)</Text>
 								</StyledRow>
-								{/* <Box className="container-ingredientes-product-info">
-									{product.params.categoria
-										? product.params.categoria.map((r, i) => (
-												<span
-													className="ingredientes-product-info"
-													key={i}
-												>
-													{r.nome}
-												</span>
-										  ))
-										: "indefinido"}
-								</Box> */}
+								<Box className="container-ingredientes-product-info">
+									{/* {categorias.map(item => (
+										<span
+											className="ingredientes-product-info"
+											key={item.nome}
+										>
+											{item.nome}
+										</span>
+									))} */}
+								</Box>
 								<StyledCost typeText="text-mdb">
-									{/* R$ {product.params.preco || ""}
-									<span>Unidade</span> */}
+									R$ {product.params.preco ? product.params.preco : ""}
+									<span> Unidade</span>
 								</StyledCost>
 							</StyledColumn>
 							<div className="info-local">
 								<MdLocationOn className="icon-one-info-local" />
-								<Text>{establishment.params.endereco?.cidade || ""}</Text>
+								<Text>
+									{`${establishment?.params?.endereco?.bairro},
+										${establishment?.params?.endereco?.numero},
+										${establishment?.params?.endereco?.cidade} -
+										${establishment?.params?.endereco?.estado},
+										${establishment?.params?.endereco?.cep}
+										`}
+								</Text>
 							</div>
 							<div className="info-local">
 								<AiFillClockCircle className="icon-two-info-local" />
 								<Text>
-									Tempo de espera: {establishment.params.tempoEsperaMedio || ""}
+									Tempo de espera:
+									{establishment.params.tempoEsperaMedio
+										? establishment.params.tempoEsperaMedio
+										: ""}
 								</Text>
 							</div>
 							<div className="info-local">
 								<SiHomeassistantcommunitystore className="icon-three-info-local" />
 								<Text>
-									{establishment.params.horarioFuncionamentoFimDeSemana! +
-										establishment.params.horarioFuncionamentoSemana! || ""}
+									{establishment.params.horarioFuncionamentoFimDeSemana &&
+									establishment.params.horarioFuncionamentoSemana
+										? establishment.params.horarioFuncionamentoFimDeSemana +
+										  establishment.params.horarioFuncionamentoSemana
+										: ""}
 								</Text>
 							</div>
 							<div className="info-local">
 								<MdPhoneEnabled className="icon-four-info-local" />
-								<Text>Telefone: {establishment.params.contatoCliente || ""}</Text>
+								<Text>
+									Telefone:{" "}
+									{establishment.params.contatoCliente
+										? establishment.params.contatoCliente
+										: ""}
+								</Text>
 							</div>
 							<Box className="container-store-info-local">
 								<img
 									src={establishment.params.imagem ?? "https://via.placeholder.com/400"}
 								/>
 								<Text>
-									<h3>{establishment.params.nome || ""}</h3>
+									<h3>{establishment.params.nome ? establishment.params.nome : ""}</h3>
 									<span>{} Produtos</span>
 								</Text>
 							</Box>
@@ -140,23 +159,23 @@ export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 										date="09/09/2022"
 										qtdComentario={4}
 										comentario="Eu sou vegetariana há alguns anos e já experimentei muitos
-											hambúrgueres vegetarianos e veganos, mas devo dizer que o Hambúrguer
-											2.0 Vegan do GreenBite é realmente impressionante! A textura é
-											perfeita e o sabor é incrível, eu não conseguia acreditar que não era
-											carne de verdade! Além disso, adorei a ideia de que é uma opção mais
-											saudável e sustentável para o meio ambiente. Com certeza vou voltar
-											para experimentar mais opções do menu."
+                      hambúrgueres vegetarianos e veganos, mas devo dizer que o Hambúrguer
+                      2.0 Vegan do GreenBite é realmente impressionante! A textura é
+                      perfeita e o sabor é incrível, eu não conseguia acreditar que não era
+                      carne de verdade! Além disso, adorei a ideia de que é uma opção mais
+                      saudável e sustentável para o meio ambiente. Com certeza vou voltar
+                      para experimentar mais opções do menu."
 									/>
 									{/* {listOfComments?.map(item => (
-										<BoxComment
-											key={item.name}
-											comentario={item.comentario}
-											img={item.img}
-											name={item.name}
-											qtdComentario={item.qtdComentario}
-											date={item.date}
-										/>
-									))} */}
+                    <BoxComment
+                      key={item.name}
+                      comentario={item.comentario}
+                      img={item.img}
+                      name={item.name}
+                      qtdComentario={item.qtdComentario}
+                      date={item.date}
+                    />
+                  ))} */}
 								</div>
 							</Box>
 						</div>

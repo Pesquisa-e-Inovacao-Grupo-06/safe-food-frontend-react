@@ -13,29 +13,87 @@ type ProductProps = {
 };
 
 function ProductConsumer({ cache, productGateway }: ProductProps) {
-	const [establishment, setEstablishment] = useState<Establishment>();
-	const [product, setProduct] = useState<Product>();
+	const [establishment, setEstablishment] = useState<Establishment>(
+		new Establishment({
+			id: 0,
+			imagem: undefined,
+			nome: "",
+			email: "",
+			tipoUsuario: "",
+			dataCriacao: null,
+			cnpj: "",
+			nomeEmpresa: "",
+			celular: "",
+			contatoCliente: "",
+			descricao: "",
+			endereco: {
+				apelido: "",
+				bairro: "",
+				cep: "",
+				cidade: "",
+				complemento: "",
+				estado: "",
+				formatado: "",
+				id: 0,
+				logradouro: "",
+				numero: "",
+			},
+			horarioFuncionamentoSemana: "",
+			horarioFuncionamentoFimDeSemana: "",
+			isDelivery: false,
+			isRetireNoLocal: false,
+			isFreteGratis: false,
+			tempoEsperaMedio: "",
+		})
+	);
+
+	const [product, setProduct] = useState<Product>(
+		new Product({
+			categoria: [{ id: "1", descricao: "", nome: "" }],
+			descricao: "",
+			id: "",
+			imagem: "",
+			ingredientes: [],
+			preco: 0,
+			restricoes: [],
+			tipoProduto: "",
+			titulo: "",
+			unidadeDeVenda: "",
+		})
+	);
 	useEffect(() => {
 		async function fetchProduct() {
 			try {
-				const res = await productGateway.findById("1");
-				if (res.data.estabelecimento) {
-					setEstablishment(SafeFoodEstablishmentMapper.of(res.data.estabelecimento));
+				const res = await productGateway.findById("6");
+				if (!res.data.estabelecimento) {
+					return;
 				}
-				if (res.data) {
-					setProduct(SafeFoodProductMapper.of(res.data));
+				if (!res.data) {
+					return;
 				}
+				console.log("TESTE", res.data);
+				setEstablishment(SafeFoodEstablishmentMapper.of(res.data.estabelecimento));
+				setProduct(SafeFoodProductMapper.of(res.data));
 			} catch (error) {
 				// faça algo com o erro
 			}
 		}
 		fetchProduct();
-	}, [establishment, product]);
+	}, []);
+
+	useEffect(() => {
+		console.log("establishment", establishment);
+	}, [establishment]);
+
+	useEffect(() => {
+		console.log("product", product);
+		console.log("product", product.params.categoria);
+	}, [product]);
 
 	return (
 		<ProductConsumerTemplate
-			establishment={establishment!}
-			product={product!}
+			establishment={establishment}
+			product={product}
 		/>
 	);
 }
