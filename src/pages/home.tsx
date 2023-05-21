@@ -65,6 +65,7 @@ function Home({
 			)}
 			{modal === "consumer" && (
 				<SignUpConsumer
+					userGateway={gateway}
 					cache={cache}
 					viaCepGateway={viaCepGateway}
 					gateway={consumerGateway}
@@ -72,6 +73,7 @@ function Home({
 			)}
 			{modal === "establishment" && (
 				<SignUpEstablishment
+					userGateway={gateway}
 					cache={cache}
 					gateway={establishmentGateway}
 					viaCepGateway={viaCepGateway}
