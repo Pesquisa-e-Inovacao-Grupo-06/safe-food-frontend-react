@@ -6,6 +6,7 @@ import { SafeFoodEstablishmentMapper } from "@/app/infra/gateway/safefood/mapper
 import { Establishment } from "@/app/domain/entities/Establishment";
 import { SafeFoodProductMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodProductMapper";
 import { Product } from "@/app/domain/entities/Product";
+import { useParams } from "react-router-dom";
 
 type ProductProps = {
 	cache: Cache;
@@ -13,6 +14,7 @@ type ProductProps = {
 };
 
 function ProductConsumer({ cache, productGateway }: ProductProps) {
+	const { id } = useParams();
 	const [establishment, setEstablishment] = useState<Establishment>(
 		new Establishment({
 			id: 0,
@@ -64,7 +66,7 @@ function ProductConsumer({ cache, productGateway }: ProductProps) {
 	useEffect(() => {
 		async function fetchProduct() {
 			try {
-				const res = await productGateway.findById("6");
+				const res = await productGateway.findById(id ?? "1");
 				if (!res.data.estabelecimento) {
 					return;
 				}
@@ -79,7 +81,7 @@ function ProductConsumer({ cache, productGateway }: ProductProps) {
 			}
 		}
 		fetchProduct();
-	}, []);
+	}, [id]);
 
 	useEffect(() => {
 		console.log("establishment", establishment);
