@@ -1,4 +1,6 @@
 import { useSafeFoodTheme } from "@/app/contexts/SafeFoodThemeProvider";
+import { useSignupConsumer } from "@/app/contexts/SignupConsumerProvider";
+import { Alert } from "@/components/atoms/alert";
 import { Box } from "@/components/atoms/box";
 import { Text } from "@/components/atoms/text";
 import { Subtitle } from "@/styles/components/text/Subtitle";
@@ -9,12 +11,13 @@ export const HeadingSignUpConsumer: React.FC<{
 	text: string;
 }> = ({ text, title }) => {
 	const { colors } = useSafeFoodTheme().getTheme();
+	const { errors } = useSignupConsumer();
 	return (
 		<Box
 			display="flex"
 			justify="center"
 			flexDirection="column"
-			margin="10px 20px"
+			margin="10px 0"
 			gap="12px"
 			id="signup-heading"
 		>
@@ -33,6 +36,23 @@ export const HeadingSignUpConsumer: React.FC<{
 			>
 				{text}
 			</Text>
+			{errors.length > 0 ? (
+				<Alert
+					type="warning"
+					title="Ops... Encontramos alguns problemas"
+				>
+					{errors.map(item => (
+						<li
+							key={item}
+							style={{ marginLeft: 16 }}
+						>
+							{item}
+						</li>
+					))}
+				</Alert>
+			) : (
+				<></>
+			)}
 		</Box>
 	);
 };
