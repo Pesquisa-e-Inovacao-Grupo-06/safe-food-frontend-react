@@ -55,4 +55,5 @@ export const AlertDivider = styled.div<{
 export const TitleAlert = styled.h3`
 	font-family: ${p => p.theme.font.family.title};
 	font-weight: 700;
+	margin-bottom: 8px;
 `;

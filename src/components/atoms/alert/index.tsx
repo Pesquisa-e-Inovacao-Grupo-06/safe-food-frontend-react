@@ -22,7 +22,7 @@ export const Alert: React.FC<AlertPropsComponent> = ({
 				{title && (
 					<>
 						<TitleAlert>{title}</TitleAlert>
-						<AlertDivider />
+						{/*<AlertDivider />*/}
 					</>
 				)}
 				{children}
