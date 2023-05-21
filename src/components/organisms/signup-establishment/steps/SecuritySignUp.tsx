@@ -2,8 +2,6 @@ import { Box } from "@/components/atoms/box";
 import React from "react";
 import { HeadingSignUpConsumer } from "../complements/HeadingSignUpConsumer";
 import { InputEmailSignUp } from "../inputs/InputEmailSignUpEstablishment";
-import { EmailValidator } from "@/app/util/validations/email-validator";
-import { PasswordValidator } from "@/app/util/validations/password-validator";
 import { InputsPasswordsSignUpEstablishment } from "../inputs/InputsPasswordSignUpEstablishment";
 import { useInputsValidator } from "@/app/contexts/InputValidatorsProvider";
 
