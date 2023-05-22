@@ -257,14 +257,6 @@ export const ContainerRegisterProduct = styled.div<{
 				div {
 					opacity: 100%;
 				}
-
-				.input-descricao-home-establishment {
-					> div {
-						> div {
-							height: 80px;
-						}
-					}
-				}
 			}
 
 			.container-restricao-register-product {

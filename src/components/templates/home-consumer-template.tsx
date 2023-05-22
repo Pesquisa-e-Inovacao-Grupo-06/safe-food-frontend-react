@@ -7,7 +7,7 @@ import { CardEstablishmentFoodOrganism } from "@/components/organisms/card-estab
 import { BodyTemplate } from "@/components/templates/body-template";
 import { Subtitle } from "@/styles/components/text/Subtitle";
 import { useState } from "react";
-import { FaBars, FaChevronDown } from "react-icons/fa";
+import { FaBars } from "react-icons/fa";
 import { RxDashboard } from "react-icons/rx";
 import { Link } from "react-router-dom";
 import styled from "styled-components";

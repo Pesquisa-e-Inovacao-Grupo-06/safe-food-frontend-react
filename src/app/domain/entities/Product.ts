@@ -11,7 +11,7 @@ export type SafeFoodProductParams = {
     unidadeDeVenda: string,
     tipoProduto: string,
     restricoes: SafeFoodRestrictionModel[]
-    categoria: SafeFoodCategoryProductModel[],
+    categoria: SafeFoodCategoryProductModel,
 };
 
 export class Product {
