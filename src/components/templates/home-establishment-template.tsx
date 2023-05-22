@@ -12,7 +12,7 @@ import { Product } from "@/app/domain/entities/Product";
 import { Link } from "react-router-dom";
 import { TypeProduct } from "@/app/domain/entities/TypeProduct";
 import { SafeFoodUsuarioModel } from "@/app/infra/gateway/safefood/models/SafeFoodUser";
-import { SafeFoodProductRequest } from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
+import { SafeFoodCreateProductRequest } from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
 import { SafeFoodProductGateway } from "@/app/infra/gateway/safefood/SafeFoodProductGateway";
 import { SafeFoodProductMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodProductMapper";
 import { SafeFoodTypeProductRequest } from "@/app/infra/gateway/safefood/models/SafeFoodTypeProduct";
@@ -24,7 +24,7 @@ type HomeEstablishmentProps = {
 	cache: Cache;
 	user: SafeFoodUsuarioModel;
 	productGateway: SafeFoodProductGateway;
-	onClickCreate(data: SafeFoodProductRequest): void;
+	onClickCreate(data: SafeFoodCreateProductRequest): void;
 };
 
 function HomeEstablishmentTemplate({
@@ -89,6 +89,7 @@ function HomeEstablishmentTemplate({
 			typeProduct={typeProduct}
 			onClickCreate={onClickCreate}
 			productEdit={objEdit}
+			user={user}
 		>
 			<ContainerHomeEstablishment>
 				<div className="header-home-establishment">

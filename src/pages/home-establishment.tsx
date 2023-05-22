@@ -8,8 +8,7 @@ import { SafeFoodLoginResponse } from "@/app/infra/gateway/safefood/models/SafeF
 import { SafeFoodRestrictionMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodRestrictionMapper";
 import HomeEstablishmentTemplate from "@/components/templates/home-establishment-template";
 import {
-	SafeFoodProductFilterRequest,
-	SafeFoodProductRequest,
+	SafeFoodCreateProductRequest,
 } from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
 import { TypeProduct } from "@/app/domain/entities/TypeProduct";
 import { Product } from "@/app/domain/entities/Product";
@@ -29,8 +28,8 @@ function HomeEstablishment({
 	typeProductGateway,
 	gateway,
 }: HomeEstablishmentProps) {
-	const clickToCreateProduct = async (data: SafeFoodProductRequest) => {
-		const res = await gateway.create(data);
+	const clickToCreateProduct = async (data: SafeFoodCreateProductRequest ) => {
+		const res = await gateway.create(user.usuario.id, data);
 	};
 
 	const restrictions: SafeFoodRestrictionModel[] =

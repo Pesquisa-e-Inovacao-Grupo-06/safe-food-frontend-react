@@ -5,8 +5,9 @@ import RegisterProduct from "../../register-product";
 import { Cache } from "@/app/domain/protocols/Cache";
 import { Restriction } from "@/app/domain/entities/Restriction";
 import { TypeProduct } from "@/app/domain/entities/TypeProduct";
-import { SafeFoodProductRequest } from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
+import { SafeFoodCreateProductRequest } from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
 import { Product } from "@/app/domain/entities/Product";
+import { SafeFoodUsuarioModel } from "@/app/infra/gateway/safefood/models/SafeFoodUser";
 
 type Props = {
 	children?: any;
@@ -17,8 +18,9 @@ type Props = {
 	cache: Cache;
 	productRestrictions?: Restriction[];
 	typeProduct?: TypeProduct[];
-	onClickCreate(data: SafeFoodProductRequest): void;
+	onClickCreate(data: SafeFoodCreateProductRequest): void;
 	productEdit?: Product;
+	user: SafeFoodUsuarioModel
 };
 
 const Layout: React.FC<Props> = ({
@@ -29,6 +31,7 @@ const Layout: React.FC<Props> = ({
 	typeProduct,
 	onClickCreate,
 	productEdit,
+	user,
 	...props
 }) => {
 	return (
@@ -48,6 +51,7 @@ const Layout: React.FC<Props> = ({
 				typeProduct={typeProduct}
 				onClickCreate={onClickCreate}
 				productEdit={productEdit}
+				user={user}
 			/>
 		</SLayout>
 	);

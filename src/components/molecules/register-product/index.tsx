@@ -11,9 +11,10 @@ import { Chips } from "@/components/atoms/chips/chips-atom";
 import { Input } from "@/components/atoms/input";
 import { Restriction } from "@/app/domain/entities/Restriction";
 import { TypeProduct } from "@/app/domain/entities/TypeProduct";
-import { SafeFoodProductRequest } from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
+import { SafeFoodCreateProductRequest } from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
 import { useState, useEffect } from "react";
 import { Product } from "@/app/domain/entities/Product";
+import { SafeFoodUsuarioModel } from "@/app/infra/gateway/safefood/models/SafeFoodUser";
 
 type Props = {
 	active?: boolean;
@@ -21,8 +22,9 @@ type Props = {
 	activeRegisterProduct?: boolean;
 	restrictionProduct?: Restriction[];
 	typeProduct?: TypeProduct[];
-	onClickCreate(data: SafeFoodProductRequest): void;
+	onClickCreate(data: SafeFoodCreateProductRequest): void;
 	productEdit?: Product;
+	user: SafeFoodUsuarioModel
 };
 
 function RegisterProduct({
@@ -33,8 +35,9 @@ function RegisterProduct({
 	typeProduct,
 	onClickCreate,
 	productEdit,
+	user,
 }: Props) {
-	const [objProduct, setObjProduct] = useState<SafeFoodProductRequest>();
+	const [objProduct, setObjProduct] = useState<SafeFoodCreateProductRequest>();
 	const [pId, setId] = useState<string>("");
 	const [pNome, setNome] = useState<string>("");
 	const [pPreco, setPreco] = useState<number>(0);
@@ -58,11 +61,11 @@ function RegisterProduct({
 	const objEditRestrictions = () => {
 		productEdit?.params.restricoes != undefined
 			? productEdit?.params.restricoes.map(item => {
-					var aux = item.restricao;
-					restrictionProduct?.filter(item => {
-						item.params.restricao == aux ? (item.params.isActive = true) : "";
-					});
-			  })
+				var aux = item.restricao;
+				restrictionProduct?.filter(item => {
+					item.params.restricao == aux ? (item.params.isActive = true) : "";
+				});
+			})
 			: [];
 	};
 
@@ -139,6 +142,7 @@ function RegisterProduct({
 
 	//create product e limpa as inputs
 	useEffect(() => {
+		debugger;
 		objProduct != undefined ? onClickCreate(objProduct) : setProduct();
 		clear();
 		clearRestriction();
@@ -156,35 +160,36 @@ function RegisterProduct({
 
 	//verificar os valores e mandar para o objeto que será criado
 	const setProduct = () => {
+		debugger;
 		if (pNome.length <= 0) {
 			return;
 		}
-		if (pPreco <= 0) {
-			return;
-		}
-		if (pDescricao.length <= 0) {
-			return;
-		}
-		if (pIngredientes.length <= 0) {
-			return;
-		}
-		if (pRestrictions.length <= 0) {
-			return;
-		}
-		if (pType.length <= 0) {
-			return;
-		}
+		// if (pPreco <= 0) {
+		// 	return;
+		// }
+		// if (pDescricao.length <= 0) {
+		// 	return;
+		// }
+		// if (pIngredientes.length <= 0) {
+		// 	return;
+		// }
+		// if (pRestrictions.length <= 0) {
+		// 	return;
+		// }
+		// if (pType.length <= 0) {
+		// 	return;
+		// }
 
 		setObjProduct({
-			id: "10", //teste, pois no create não faz sentido ter o id, pois creio que seja um auto increment, mais na rquest pede então passei mocado.
+			id: 2, //teste, pois no create não faz sentido ter o id, pois creio que seja um auto increment, mais na rquest pede então passei mocado.
 			titulo: pNome,
-			preco: pPreco,
-			descricao: pDescricao,
-			imagem: img,
-			ingredientes: pIngredientes,
+			preco: 12,//pPreco,
+			descricao: "teste",//pDescricao,
+			imagem: "",//img,
+			ingredientes: ["açucar", "sal"],//pIngredientes,
 			unidadeDeVenda: "unidade", //teste, pois não entendi qual valor deve ser passado.
-			tipoProduto: pType,
-			restricoes: pRestrictions,
+			categoria: 1,//pType,
+			restricoes: [1, 2]//pRestrictions,
 		});
 	};
 
@@ -193,8 +198,8 @@ function RegisterProduct({
 		const newRestrictions: Restriction[] =
 			restrictionProduct != undefined
 				? restrictionProduct.filter(item => {
-						return item.params.isActive ? { ...pRestrictions, pAuxRestriction } : "";
-				  })
+					return item.params.isActive ? { ...pRestrictions, pAuxRestriction } : "";
+				})
 				: pRestrictions;
 		setRestrictions(newRestrictions);
 		setAuxFunction("auxFucntion");
