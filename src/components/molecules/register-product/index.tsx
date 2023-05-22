@@ -200,13 +200,12 @@ function RegisterProduct({
 		setAuxFunction("auxFucntion");
 	}, [auxFunction]);
 
-	//executar mais de uma funções ao fechar a aba
-	const closeAba = () => {
+	//limpar os campos quando abrir a aba ou fechar
+	useEffect(() => {
 		clear();
 		clearObjEdit();
 		clearRestriction();
-		toggle != undefined ? toggle() : {};
-	};
+	}, [active]);
 
 	return (
 		<>
@@ -218,9 +217,7 @@ function RegisterProduct({
 				<>
 					<BtnRegisterProduct
 						isOpen={active}
-						onClick={() =>
-							pId != "" ? closeAba() : toggle != undefined ? toggle() : {}
-						}
+						onClick={toggle}
 					>
 						<AiOutlineRight />
 					</BtnRegisterProduct>
