@@ -1,5 +1,5 @@
 import { HttpClient } from "@/app/domain/protocols/HttpClient";
-import { SafeFoodProductResponse, SafeFoodProductsResponse, SafeFoodProductRequest, SafeFoodProductFilterRequest, SafeFoodProductFilterResponse, SafeFoodAvaliationRequest } from './models/SafeFoodProduct';
+import { SafeFoodProductResponse, SafeFoodProductsResponse, SafeFoodProductFilterRequest, SafeFoodProductFilterResponse, SafeFoodAvaliationRequest, SafeFoodCreateProductRequest } from './models/SafeFoodProduct';
 import queryString from '../../../../../node_modules/query-string/index.d';
 
 export class SafeFoodProductGateway {
@@ -50,9 +50,9 @@ export class SafeFoodProductGateway {
 
 
     // PUT /produtos/{id}
-    async create(product: SafeFoodProductRequest): Promise<SafeFoodProductResponse> {
+    async create(id: number, product: SafeFoodCreateProductRequest): Promise<SafeFoodProductResponse> {
         const res = await this.http.execute<SafeFoodProductResponse>({
-            url: `/produtos`,
+            url: `/produtos/${id}`,
             method: 'POST',
             body: product,
         });
@@ -66,7 +66,7 @@ export class SafeFoodProductGateway {
     }
 
     // DELETE /produtos/{id}
-    async update(id: string, product: SafeFoodProductRequest): Promise<SafeFoodProductResponse> {
+    async update(id: string, product: SafeFoodCreateProductRequest): Promise<SafeFoodProductResponse> {
         const res = await this.http.execute<SafeFoodProductResponse>({
             url: `/produtos/${id}`,
             method: 'PUT',

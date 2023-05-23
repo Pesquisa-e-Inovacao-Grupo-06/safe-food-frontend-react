@@ -3,19 +3,24 @@ import styled from "styled-components";
 import { AvaliationStars } from "@/components/molecules/avaliation-stars";
 import { Subtitle } from "@/styles/components/text/Subtitle";
 import { Text } from "../../atoms/text";
-import { FaCommentAlt, IoLocationSharp } from "react-icons/all";
+import { FaCommentAlt, IoLocationSharp, MdEdit } from "react-icons/all";
 import { Star } from "@/components/atoms/star";
 import { TextIcon } from "@/components/molecules/text-icon/text-icon-molecule";
 import { Divider } from "@/components/atoms/divider";
 import { formatReal } from "@/app/util/convertions/price-br";
 import { Product } from "@/app/domain/entities/Product";
+import { ImageAtom } from "@/components/atoms/img";
+import SearchBar from "@/components/molecules/search-bar";
+import { ButtonEdit } from "@/components/atoms/button-edit";
 import { useNavigate } from "react-router-dom";
 
 export type EstablishmentFoodProps = {
 	NearbyFoodsItem: Product;
 };
-export type InfoProduct = {
+export type InfoProductProps = {
 	product: Product;
+	getInfoProduct?(): void;
+	activeEdit?: boolean;
 };
 
 export const NearbyFoodsCard: React.FC<EstablishmentFoodProps> = ({
@@ -95,8 +100,10 @@ export const NearbyFoodsCard: React.FC<EstablishmentFoodProps> = ({
 	);
 };
 
-export const CardEstablishmentFoodOrganism: React.FC<InfoProduct> = ({
+export const CardEstablishmentFoodOrganism: React.FC<InfoProductProps> = ({
 	product,
+	activeEdit = false,
+	getInfoProduct,
 }) => {
 	return (
 		<Box
@@ -107,8 +114,21 @@ export const CardEstablishmentFoodOrganism: React.FC<InfoProduct> = ({
 			shadow="md"
 			background="#FCFCFC"
 		>
-			<div style={{ width: "100%" }}>
-				<img
+			<div
+				style={{
+					width: "100%",
+					backgroundImage: "url('https://via.placeholder.com/400')",
+					backgroundPosition: "center",
+					backgroundSize: "cover",
+					borderRadius: "4px",
+					maxHeight: "200px",
+					minHeight: "200px",
+					padding: "10px",
+				}}
+			>
+				{activeEdit && <ButtonEdit onClick={getInfoProduct} />}
+				{/* COMENTEI A IMG ABAIXO, PARA COLOCAR IMG NO BAKCGROUND DA DIV, PARA COLOCAR BOTÃO DE EDITAR */}
+				{/* <img
 					src={product.params.imagem ?? "https://via.placeholder.com/400"}
 					alt=""
 					style={{
@@ -117,7 +137,7 @@ export const CardEstablishmentFoodOrganism: React.FC<InfoProduct> = ({
 						width: "100%",
 						borderRadius: "4px",
 					}}
-				/>
+				/> */}
 			</div>
 			<StyledColumn style={{ margin: "14px", alignItems: "start" }}>
 				<Subtitle>{product.params.titulo}</Subtitle>
@@ -138,7 +158,14 @@ export const CardEstablishmentFoodOrganism: React.FC<InfoProduct> = ({
 		</Box>
 	);
 };
-export const CardExpansiveEstablishmentFoodOrganism = ({}) => {
+
+type CardExpansiveEstablishmentFoodOrganismProps = {
+	titulo?: string;
+};
+
+export const CardExpansiveEstablishmentFoodOrganism: React.FC<
+	CardExpansiveEstablishmentFoodOrganismProps
+> = ({ titulo = "Hamburger Vegan 2.0" }) => {
 	return (
 		<Box
 			display="flex"
@@ -150,7 +177,7 @@ export const CardExpansiveEstablishmentFoodOrganism = ({}) => {
 		>
 			<div style={{ height: "125px", padding: "10px", flexBasis: "20%" }}>
 				<img
-					src="https://midias.agazeta.com.br/2022/05/25/hamburguer-da-101-brasa-burger-em-vila-velha-769174-article.jpg"
+					src="https://via.placeholder.com/400"
 					alt=""
 					style={{
 						maxHeight: "100%",
@@ -161,7 +188,7 @@ export const CardExpansiveEstablishmentFoodOrganism = ({}) => {
 				/>
 			</div>
 			<StyledColumn style={{ flexBasis: "20%", alignItems: "start" }}>
-				<Subtitle>Hamburger Vegan 2.0</Subtitle>
+				<Subtitle>{titulo}</Subtitle>
 				<StyledRow style={{ justifyContent: "unset", gap: "20px" }}>
 					<TextIcon
 						icon={

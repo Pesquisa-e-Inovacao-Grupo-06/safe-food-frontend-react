@@ -100,16 +100,28 @@ export type SafeFoodProductFilterRequest = {
 
 export type SafeFoodProductFilterResponse = & SafeFoodProductsResponse;
 
-export type SafeFoodProductRequest = {
-    id: string,
+// export type SafeFoodProductRequest = {
+//     id: string,
+//     titulo: string,
+//     descricao: string,
+//     preco: number,
+//     imagem?: string,
+//     ingredientes: string[],
+//     unidadeDeVenda: string,
+//     tipoProduto: string,
+//     restricoes: Restriction[]
+// }
+
+export type SafeFoodCreateProductRequest = {
+    id: number,
     titulo: string,
     descricao: string,
     preco: number,
     imagem?: string,
     ingredientes: string[],
     unidadeDeVenda: string,
-    tipoProduto: string,
-    restricoes: Restriction[]
+    categoria: number,
+    restricoes: number[]
 }
 
 // export type SafeFoodProductFilterRequest = {

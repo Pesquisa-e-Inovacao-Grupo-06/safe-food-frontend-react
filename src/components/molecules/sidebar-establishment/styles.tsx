@@ -137,9 +137,15 @@ export const SLinkContainer = styled.div<{
 export const SInfo = styled.div<{
 	sidebarOpen: boolean;
 }>`
+	max-width: 205px;
+	overflow: hidden;
 	display: ${({ sidebarOpen }) => (!sidebarOpen ? "none" : "inline")};
 	width: ${({ sidebarOpen }) => (!sidebarOpen ? "fit-content" : {})};
 	color: inherit;
+
+	> span {
+		font-size: 12px;
+	}
 `;
 
 export const SLink = styled(Link)`

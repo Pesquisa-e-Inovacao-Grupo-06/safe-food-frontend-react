@@ -49,7 +49,7 @@ export const ProfileEstablishmentTemplate: React.FC<
 	const [isEditable, setIsEditable] = useState<boolean>(false);
 	return (
 		<>
-			<Layout cache={cache}>
+			<Layout cache={cache} activeRegisterProduct={false}>
 				<PBanner>
 					<PBtnEditar
 						height="fit-content"

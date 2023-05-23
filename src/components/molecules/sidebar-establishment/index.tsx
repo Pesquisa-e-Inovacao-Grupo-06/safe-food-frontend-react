@@ -27,6 +27,7 @@ import Header from "../header";
 
 import { useSafeFoodTheme } from "../../../app/contexts/SafeFoodThemeProvider";
 import { Cache } from "@/app/domain/protocols/Cache";
+import { SafeFoodLoginResponse } from "@/app/infra/gateway/safefood/models/SafeFoodUser";
 
 type SidebarEstabProps = {
 	cache: Cache;
@@ -42,6 +43,10 @@ const SidebarEstab: React.FC<SidebarEstabProps> = ({ cache }) => {
 		cache.removeItem("establishment");
 		cache.removeItem("user");
 	}
+
+	const user: SafeFoodLoginResponse =
+		cache.getItem("user") !== null ? JSON.parse(cache.getItem("user")!) : {};
+
 	return (
 		<>
 			<SHeader>
@@ -65,8 +70,8 @@ const SidebarEstab: React.FC<SidebarEstabProps> = ({ cache }) => {
 						alt="Safe Food"
 					/>
 					<SInfo sidebarOpen={sidebarOpen}>
-						<h3>Guilherme</h3>
-						<span>guivic10@outlook.com</span>
+						<h3>{user.usuario.nome}</h3>
+						<span>{user.usuario.email}</span>
 					</SInfo>
 				</SLogo>
 				<SDivider />
