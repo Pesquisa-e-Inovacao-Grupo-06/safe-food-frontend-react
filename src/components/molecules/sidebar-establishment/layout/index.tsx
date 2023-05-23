@@ -18,9 +18,9 @@ type Props = {
 	cache: Cache;
 	productRestrictions?: Restriction[];
 	typeProduct?: TypeProduct[];
-	onClickCreate(data: SafeFoodCreateProductRequest): void;
+	onClickCreate?(data: SafeFoodCreateProductRequest): void;
 	productEdit?: Product;
-	user: SafeFoodUsuarioModel
+	user?: SafeFoodUsuarioModel
 };
 
 const Layout: React.FC<Props> = ({

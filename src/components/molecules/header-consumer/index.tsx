@@ -60,7 +60,7 @@ const itemLinkArraySideConsumer = [
 	},
 	{
 		icon: FaUserAlt,
-		text: "Meu Perdil",
+		text: "Meu Perfil",
 		to: "/profile",
 	},
 	{

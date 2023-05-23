@@ -22,9 +22,9 @@ type Props = {
 	activeRegisterProduct?: boolean;
 	restrictionProduct?: Restriction[];
 	typeProduct?: TypeProduct[];
-	onClickCreate(data: SafeFoodCreateProductRequest): void;
+	onClickCreate?(data: SafeFoodCreateProductRequest): void;
 	productEdit?: Product;
-	user: SafeFoodUsuarioModel
+	user?: SafeFoodUsuarioModel
 };
 
 function RegisterProduct({
@@ -143,7 +143,7 @@ function RegisterProduct({
 	//create product e limpa as inputs
 	useEffect(() => {
 		debugger;
-		objProduct != undefined ? onClickCreate(objProduct) : setProduct();
+		objProduct && onClickCreate != undefined ? onClickCreate(objProduct) : "";
 		clear();
 		clearRestriction();
 		clearObjEdit();
