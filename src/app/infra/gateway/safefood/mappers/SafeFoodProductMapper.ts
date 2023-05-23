@@ -1,4 +1,3 @@
-import { Address } from "@/app/domain/entities/Address";
 import { Product } from "@/app/domain/entities/Product";
 import { SafeFoodProductModel } from "../models/SafeFoodProduct";
 

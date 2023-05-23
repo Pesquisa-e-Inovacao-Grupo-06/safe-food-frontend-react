@@ -1,7 +1,7 @@
 import { Restriction } from "@/app/domain/entities/Restriction";
 import { SafeFoodGenericDataResponse } from "./SafeFoodResponse";
 import { SafeFoodRestrictionModel } from "./SafeFoodRestriction";
-import { SafeFoodEstablishmentModel } from "./SafeFoodEstablishment";
+import { SafeFoodEstablishmentModel, SafeFoodGetProductEstablishmentRequest } from './SafeFoodEstablishment';
 
 
 //produtos/{id}
@@ -21,9 +21,9 @@ export type SafeFoodProductModel = {
     isRetireNoLocal: boolean,
     isFreteGratis: boolean,
     tempoEsperaMedio: string,
-    categoria: SafeFoodCategoryProductModel,
+    categoria: SafeFoodCategoryProductModel[],
     restricoes: SafeFoodRestrictionModel[],
-    avaliacoes: SafeFoodAvaliationModel,
+    avaliacoes: SafeFoodAvaliationModel[],
     tipoProduto: string,
 
 };
@@ -41,6 +41,12 @@ export type SafeFoodCategoryProductModel = {
     descricao: string,
 }
 
+export type SafeFoodAvaliationRequest = {
+    rate: number,
+    comentario: string,
+    idConsumidor: number,
+}
+
 export type SafeFoodProductsModel = {
     content: SafeFoodProductModel[];
 };
@@ -48,6 +54,8 @@ export type SafeFoodProductsModel = {
 export type SafeFoodProductResponse = SafeFoodGenericDataResponse<SafeFoodProductModel>;
 
 export type SafeFoodProductsResponse = SafeFoodPage<SafeFoodProductModel>;
+
+export type SafeFoodPostCommentsProductEstablishmentRequest = SafeFoodAvaliationRequest;
 
 export type SafeFoodSort = {
     empty: boolean;

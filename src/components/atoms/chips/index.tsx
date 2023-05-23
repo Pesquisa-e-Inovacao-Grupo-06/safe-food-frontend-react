@@ -5,17 +5,6 @@ import { ContainerChips, ContainerSkillChips } from "./styles";
 function SkillChips() {
 	const [repositores, setRepositories] = useState<any[]>([]);
 
-	useEffect(() => {
-		getData();
-	}, []);
-
-	async function getData() {
-		const response = await fetch("https://api.github.com/users/guivicsan/repos");
-		const data = await response.json();
-
-		setRepositories(data);
-	}
-
 	function handleFavorite(id: number) {
 		const newRepositories = repositores.map(repo => {
 			return repo.id == id ? { ...repo, favorite: !repo.favorite } : repo;

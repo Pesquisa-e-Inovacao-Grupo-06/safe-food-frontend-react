@@ -1,5 +1,5 @@
 import { HttpClient } from "@/app/domain/protocols/HttpClient";
-import { SafeFoodProductResponse, SafeFoodProductsResponse, SafeFoodCreateProductRequest, SafeFoodProductFilterRequest, SafeFoodProductFilterResponse } from "./models/SafeFoodProduct";
+import { SafeFoodProductResponse, SafeFoodProductsResponse, SafeFoodProductFilterRequest, SafeFoodProductFilterResponse, SafeFoodAvaliationRequest, SafeFoodCreateProductRequest } from './models/SafeFoodProduct';
 import queryString from '../../../../../node_modules/query-string/index.d';
 
 export class SafeFoodProductGateway {
@@ -34,9 +34,23 @@ export class SafeFoodProductGateway {
 
     }
 
+    async createComments(id: string, avaliationRequest: SafeFoodAvaliationRequest): Promise<SafeFoodProductResponse> {
+        const res = await this.http.execute<SafeFoodProductResponse>({
+            url: `/produtos/${id}/avaliacoes`,
+            method: 'POST',
+            body: avaliationRequest,
+        });
+
+        if (!res.data) {
+            throw new Error("Erro ao tentar adicionar comentário.");
+        }
+        return res.data;
+
+    }
+
 
     // PUT /produtos/{id}
-    async create(id: number , product: SafeFoodCreateProductRequest): Promise<SafeFoodProductResponse> {
+    async create(id: number, product: SafeFoodCreateProductRequest): Promise<SafeFoodProductResponse> {
         const res = await this.http.execute<SafeFoodProductResponse>({
             url: `/produtos/${id}`,
             method: 'POST',

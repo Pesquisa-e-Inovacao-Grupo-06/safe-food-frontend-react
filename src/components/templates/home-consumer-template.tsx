@@ -84,28 +84,6 @@ const HomeConsumerTemplate: React.FC<HomeConsumerProps> = ({
 									/>
 								);
 							})}
-
-							{/* <DropDown
-								titleDropDown="Categoria do produto:"
-								activeCheckBox
-								alignTitleText={false}
-								alignSubText="start"
-								textSubMenuWithCheckBox={submenu}
-							/>
-							<DropDown
-							titleDropDown="Tipo de restrição:"
-							activeCheckBox
-							alignTitleText={false}
-							alignSubText="start"
-							textSubMenuWithCheckBox={submenu}
-							/>
-							<DropDown
-							titleDropDown="Outros:"
-							activeCheckBox
-							alignTitleText={false}
-							alignSubText="start"
-							textSubMenuWithCheckBox={submenu}
-						/> */}
 						</div>
 						<Divider marginAll="10px" />
 						<Button onClick={onClickApplication}>Aplicar</Button>
@@ -113,7 +91,7 @@ const HomeConsumerTemplate: React.FC<HomeConsumerProps> = ({
 					<div className="main-home-consumer">
 						<div className="container-main-home-consumer">
 							{products.map(item => (
-								<Link to="/product-consumer">
+								<Link to={`/product-consumer/${item.params.id}`}>
 									<CardProductHomeConsumer isActive={formCard}>
 										<CardEstablishmentFoodOrganism product={item} />
 									</CardProductHomeConsumer>

@@ -14,6 +14,8 @@ import iconNoMeat from "../../../assets/icons8-no-meat-50.png";
 import iconNoSoy from "../../../assets/icons8-no-soy-30.png";
 import { useSafeFoodTheme } from "@/app/contexts/SafeFoodThemeProvider";
 import { Product } from "@/app/domain/entities/Product";
+import { useNavigate } from "react-router-dom";
+import { MoreFavoriteType } from "../../../app/domain/entities/MoreFavorite";
 
 export type MoreFavoriteProps = {
 	moreFavoriteType: Product;
@@ -22,6 +24,7 @@ export type MoreFavoriteProps = {
 export const MoreFavoriteOrganism: React.FC<MoreFavoriteProps> = ({
 	moreFavoriteType,
 }) => {
+	const navigate = useNavigate();
 	const colors = useSafeFoodTheme();
 	return (
 		<BoxMoreFavorite
@@ -33,6 +36,7 @@ export const MoreFavoriteOrganism: React.FC<MoreFavoriteProps> = ({
 			style={{ flexWrap: "wrap" }}
 			width="100%"
 			height="100%"
+			onClick={() => navigate(`/product-consumer/${moreFavoriteType.params.id}`)}
 		>
 			<div style={{ width: "500px", height: "300px" }}>
 				<ImageAtom
@@ -133,20 +137,28 @@ export const MoreFavoriteOrganism: React.FC<MoreFavoriteProps> = ({
 					iconAlign={"left"}
 				>
 					{/* TODO: PRECISA De informações do estabelecimento */}
-					{/* {moreFavoriteType.nameEstablishment} */}
+					{moreFavoriteType.params.estabelecimento?.nomeEmpresa ?? ""}
 				</TextIcon>
 				<TextIcon
 					icon={<TiMediaEjectOutline />}
 					iconAlign={"left"}
 				>
-					{/* {moreFavoriteType.workingPlaceEstablishment} */}
+					{/* TODO: IMPLEMENTAR UTIL PARA VER SE ESTÁ ABERTO OU NÃO */}
+					{moreFavoriteType.params.isDelivery}
 				</TextIcon>
 				<TextIcon
 					style={{}}
 					icon={<TiMediaEjectOutline />}
 					iconAlign="left"
 				>
-					{/* {moreFavoriteType.locationEstablishment} */}
+					{/* {moreFavoriteType.params.estabelecimento
+						? `${moreFavoriteType.params.estabelecimento.endereco.bairro},
+					${moreFavoriteType.params.estabelecimento.endereco.numero},
+					${moreFavoriteType.params.estabelecimento.endereco.cidade} -
+					${moreFavoriteType.params.estabelecimento.endereco.estado},
+					${moreFavoriteType.params.estabelecimento.endereco.cep}
+					`
+						: "Não informado"} */}
 				</TextIcon>
 			</Box>
 		</BoxMoreFavorite>

@@ -12,6 +12,7 @@ import { Product } from "@/app/domain/entities/Product";
 import { ImageAtom } from "@/components/atoms/img";
 import SearchBar from "@/components/molecules/search-bar";
 import { ButtonEdit } from "@/components/atoms/button-edit";
+import { useNavigate } from "react-router-dom";
 
 export type EstablishmentFoodProps = {
 	NearbyFoodsItem: Product;
@@ -23,8 +24,10 @@ export type InfoProductProps = {
 };
 
 export const NearbyFoodsCard: React.FC<EstablishmentFoodProps> = ({
-	NearbyFoodsItem,
+	NearbyFoodsItem: nearbyFoodsItem,
 }) => {
+	const navigate = useNavigate();
+
 	return (
 		<>
 			<Box
@@ -35,10 +38,11 @@ export const NearbyFoodsCard: React.FC<EstablishmentFoodProps> = ({
 					width: "480px",
 					height: "236px",
 				}}
+				onClick={() => navigate(`/product-consumer/${nearbyFoodsItem.params.id}`)}
 			>
 				<div style={{ height: "46%", width: "100%" }}>
 					<img
-						src={NearbyFoodsItem.params.imagem ?? "https://via.placeholder.com/400"}
+						src={nearbyFoodsItem.params.imagem ?? "https://via.placeholder.com/400"}
 						style={{ objectFit: "cover", borderRadius: "4px", pointerEvents: "none" }}
 						height={"100%"}
 						width={"100%"}
@@ -67,7 +71,7 @@ export const NearbyFoodsCard: React.FC<EstablishmentFoodProps> = ({
 								flexBasis: "79.4%",
 							}}
 						>
-							{NearbyFoodsItem.params.titulo}
+							{nearbyFoodsItem.params.titulo}
 						</Subtitle>
 						{/* TODO: ARRUMAR AVEGARE */}
 						<AvaliationStars
@@ -76,10 +80,10 @@ export const NearbyFoodsCard: React.FC<EstablishmentFoodProps> = ({
 						/>
 						<div style={{ flexBasis: "10%" }}></div>
 					</StyledRow>
-					<Text typeText="text-md">{NearbyFoodsItem.params.descricao}</Text>
+					<Text typeText="text-md">{nearbyFoodsItem.params.descricao}</Text>
 					<StyledRow style={{ alignItems: "flex-start" }}>
 						<StyledCost typeText="text-mdb">
-							{formatReal(NearbyFoodsItem.params.preco)}
+							{formatReal(nearbyFoodsItem.params.preco)}
 						</StyledCost>
 						<TextIcon
 							icon={<IoLocationSharp />}

@@ -11,10 +11,7 @@ import { SafeFoodRestrictionModel } from "@/app/infra/gateway/safefood/models/Sa
 import { FindAddress } from "@/app/domain/usecases/FindAddress";
 import { CepValidator } from "@/app/util/validations/cep-validator";
 import { SafeFoodCreateAddressRequest } from "@/app/infra/gateway/safefood/models/SafeFoodAddress";
-import {
-	SafeFoodLoginResponse,
-	SafeFoodLoginUserRequest,
-} from "@/app/infra/gateway/safefood/models/SafeFoodUser";
+import { SafeFoodLoginResponse } from "@/app/infra/gateway/safefood/models/SafeFoodUser";
 
 type ProfileConsumerProps = {
 	cache: Cache;
@@ -52,6 +49,9 @@ function ProfileConsumer({
 		.filter(item => !IDSAtivos.includes(item.id))
 		.map(item => SafeFoodRestrictionMapper.of(item));
 
+	console.log("RESTRIÇÕES consumidor:", consumerRestrictions);
+	console.log("idsAtivos:", IDSAtivos);
+	console.log("total:", total);
 	const [name, setName] = useState(consumer.nome);
 	const [email, setEmail] = useState(consumer.email);
 	const [numberphone, setNumberPhone] = useState(consumer.telefone);
@@ -80,17 +80,29 @@ function ProfileConsumer({
 			numero: modalNumero,
 		});
 
-	useEffect(() => {
-		setTotalRestrictions([...consumerRestrictions, ...total] ?? []);
-	}, [consumerRestrictions, total]);
+	const [enderecoId, setEnderecoId] = useState<string>("");
 
-	//Actions
-
-	useEffect(() => {
-		if (modalCep.length > 8) {
-			findAddress(modalCep);
-		}
-	}, [modalCep, modalApelido, modalNumero]);
+	const handleAddressCardClick = (apelidoEnderecoSelecionado: string) => {
+		setEnderecoId(apelidoEnderecoSelecionado);
+		setIsModalVisible(true);
+		const enderecoInfo = consumer.enderecos.find(
+			item => item.apelido === apelidoEnderecoSelecionado
+		);
+		setModalCep(enderecoInfo?.cep ?? "");
+		setModalApelido(enderecoInfo?.apelido ?? "");
+		setModalNumero(enderecoInfo?.numero ?? "");
+		setEditableAddress({
+			...editableAddress,
+			cep: modalCep || "",
+			complemento: enderecoInfo?.complemento || "",
+			logradouro: enderecoInfo?.logradouro || "",
+			estado: enderecoInfo?.estado || "",
+			bairro: enderecoInfo?.bairro || "",
+			cidade: enderecoInfo?.cidade || "",
+			numero: modalNumero || "",
+			apelido: apelidoEnderecoSelecionado || "",
+		});
+	};
 
 	const findAddress = (cep: string) => {
 		findAddressUsecase
@@ -125,6 +137,17 @@ function ProfileConsumer({
 				// setError("CEP invalido");
 			});
 	};
+	useEffect(() => {
+		setTotalRestrictions([...consumerRestrictions, ...total] ?? []);
+	}, []);
+
+	//Actions
+
+	useEffect(() => {
+		if (modalCep.length > 8) {
+			findAddress(modalCep);
+		}
+	}, [modalCep, modalApelido, modalNumero]);
 
 	const onClickSaveNewAddress = async () => {
 		console.log(editableAddress);
@@ -154,21 +177,34 @@ function ProfileConsumer({
 		}
 	};
 
-	const onClickLogin = async () => {
+	const onClickCard = async () => {};
+
+	const onClickUpdate = async () => {
 		setIsLoading(true);
+		setIsVisibleAlert(true);
+
+		console.log(
+			JSON.stringify(
+				totalRestrictions
+					.filter(item => item.params.isActive === true)
+					.map(item => item.params.id)
+					.filter((id): id is number => typeof id === "number")
+			)
+		);
 		try {
 			const res = await consumerGateway.update(user.usuario.id, {
 				nome: name,
 				email: email,
 				telefone: numberphone,
 				restricoes: totalRestrictions
+					.filter(item => item.params.isActive === true)
 					.map(item => item.params.id)
 					.filter((id): id is number => typeof id === "number"),
+
 				file: imageProfile,
 			});
 
 			if (res?.status !== 200) {
-				setIsVisibleAlert(true);
 				setTypeAlert("warning");
 				setTextAlert("Alguns dados podem estar com formato incorreto!");
 				return;
@@ -178,7 +214,6 @@ function ProfileConsumer({
 			setTypeAlert("success");
 			setTextAlert("Cadastro alterado com sucesso!");
 		} catch (e) {
-			setIsVisibleAlert(true);
 			setTypeAlert("warning");
 			setTextAlert(
 				"Servidor não está respondendo no momento, tente daqui a pouco ou entre em contato"
@@ -188,9 +223,6 @@ function ProfileConsumer({
 		}
 	};
 
-	{
-		// console.log(consumer.enderecos.map(SafeFoodAddressMapper.of));
-	}
 	return (
 		<ProfileTemplate
 			urlDefault={consumer.imagem}
@@ -217,7 +249,7 @@ function ProfileConsumer({
 			listOfAddress={consumer.enderecos.map(SafeFoodAddressMapper.of)}
 			// TODO: saved restrictions
 			restrictionsUser={totalRestrictions}
-			onClickSave={onClickLogin}
+			onClickSave={onClickUpdate}
 			isSaveButtonActive={isActiveButton}
 			isLoading={isLoading}
 			isAlertVisible={isAlertVisible}
@@ -226,7 +258,10 @@ function ProfileConsumer({
 			onClickChangePassword={function (): void {
 				throw new Error("Function not implemented.");
 			}}
-			onClickSaveButton={() => setIsEditable(false)}
+			onClickSaveButton={() => {
+				setIsEditable(false);
+				// onClickUpdate()
+			}}
 			onClickEditable={() => setIsEditable(true)}
 			isEditable={isEditable}
 			onClickSaveNewAddress={onClickSaveNewAddress}
@@ -257,6 +292,7 @@ function ProfileConsumer({
 			onChangeFile={file => {
 				setImageProfile(file);
 			}}
+			onClickCard={handleAddressCardClick}
 		/>
 	);
 }

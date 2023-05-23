@@ -19,6 +19,7 @@ import { AddressModal } from "./address-modal";
 import { useState } from "react";
 import {} from "@/app/util/validations/cep-validator";
 import { SafeFoodCreateAddressRequest } from "@/app/infra/gateway/safefood/models/SafeFoodAddress";
+import HeaderConsumer from "../molecules/header-consumer";
 
 export type ProfileProps = {
 	restrictionsUser: Restriction[];
@@ -51,6 +52,7 @@ export type ProfileProps = {
 	isModalVisible: boolean;
 	onClickOpenModalAddress(): void;
 	onChangeFile(file: File): void;
+	onClickCard: (id: string) => void;
 };
 
 export const ProfileTemplate: React.FC<ProfileProps> = ({
@@ -80,12 +82,11 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 	isModalVisible,
 	onClickOpenModalAddress,
 	onChangeFile,
+	onClickCard,
 }) => {
-	//TODO: IMPLEMENTAR UPDATE no restrictions
-
 	return (
 		<>
-			<Header />
+			<HeaderConsumer />
 			{/* MODAL */}
 			<AddressModal
 				toggleModal={toggleModal}
@@ -179,6 +180,8 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 										//VERIFICAR SOBRE ESSE ICONE
 										// Icon={adress.Icon}
 										key={i}
+										apelido={address.params.apelido ? address.params.apelido : ""}
+										onClickCard={onClickCard}
 									/>
 								))}
 							</PContainerAddressCard>
@@ -197,12 +200,17 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 							>
 								{restrictionsUser.map((restriction, i) => (
 									<Chips
+										disabled={!isEditable}
 										key={restriction.params.id + "item"}
 										sizeChips="chips-lg"
 										//TODO: verificar com o guilherme
 										onClick={() => {
 											restriction.params.isActive = !restriction.params.isActive;
-											console.log(restrictionsUser);
+											console.log(
+												"restrições de usuário" +
+													JSON.stringify(restrictionsUser.map(item => item.params.isActive))
+											);
+											console.log("restrição ativo?:", restriction.params.isActive);
 										}}
 										isActive={restriction.params.isActive}
 									>

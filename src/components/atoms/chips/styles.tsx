@@ -13,39 +13,38 @@ export const ContainerChips = styled.div<{
 	text?: string;
 	favorite?: boolean;
 	key?: number;
+	disabled?: boolean;
 	onClick?: (id: number) => void;
 }>`
-	background-color: ${p => {
-		if (p.theme.isLight) {
-			return p.favorite
-				? p.theme.colors.success[200]
-				: p.theme.colors.light_gray[600];
+	background-color: ${({ theme, favorite, disabled }) => {
+		if (disabled) {
+			return theme.colors.dark_gray[200];
 		}
-		if (p.theme.isDark) {
-			return p.favorite
-				? p.theme.colors.success[1000]
-				: p.theme.colors.dark_gray[600];
+		if (theme.isLight) {
+			return favorite ? theme.colors.success[200] : theme.colors.light_gray[600];
+		}
+		if (theme.isDark) {
+			return favorite ? theme.colors.success[1000] : theme.colors.dark_gray[600];
 		}
 	}};
-	cursor: pointer;
+	cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
 	height: fit-content;
 	width: fit-content;
 	border: 2px solid
-		${p => {
-			if (p.theme.isLight) {
-				return p.favorite
-					? p.theme.colors.success[800]
-					: p.theme.colors.light_gray[200];
+		${({ theme, favorite, disabled }) => {
+			if (disabled) {
+				return theme.colors.dark_gray[200];
 			}
-			if (p.theme.isDark) {
-				return p.favorite
-					? p.theme.colors.success[1000]
-					: p.theme.colors.light_gray[800];
+			if (theme.isLight) {
+				return favorite ? theme.colors.success[800] : theme.colors.light_gray[200];
+			}
+			if (theme.isDark) {
+				return favorite ? theme.colors.success[1000] : theme.colors.light_gray[800];
 			}
 		}};
 
-	${l => {
-		switch (l.sizeChips) {
+	${({ sizeChips }) => {
+		switch (sizeChips) {
 			case "chips-sm":
 				return css`
 					padding: 3px 10px;
@@ -103,16 +102,15 @@ export const ContainerChips = styled.div<{
 
 	& p {
 		font-weight: 600;
-		color: ${p => {
-			if (p.theme.isLight) {
-				return p.favorite
-					? p.theme.colors.success[800]
-					: p.theme.colors.dark_gray[200];
+		color: ${({ theme, favorite, disabled }) => {
+			if (disabled) {
+				return theme.colors.dark_gray[600];
 			}
-			if (p.theme.isDark) {
-				return p.favorite
-					? p.theme.colors.success[200]
-					: p.theme.colors.light_gray[800];
+			if (theme.isLight) {
+				return favorite ? theme.colors.success[800] : theme.colors.dark_gray[200];
+			}
+			if (theme.isDark) {
+				return favorite ? theme.colors.success[200] : theme.colors.light_gray[800];
 			}
 		}};
 		display: flex;
