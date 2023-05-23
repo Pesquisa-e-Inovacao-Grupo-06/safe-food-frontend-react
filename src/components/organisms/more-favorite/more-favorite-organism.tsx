@@ -151,14 +151,14 @@ export const MoreFavoriteOrganism: React.FC<MoreFavoriteProps> = ({
 					icon={<TiMediaEjectOutline />}
 					iconAlign="left"
 				>
-					{/* {moreFavoriteType.params.estabelecimento
+					{moreFavoriteType.params.estabelecimento
 						? `${moreFavoriteType.params.estabelecimento.endereco.bairro},
 					${moreFavoriteType.params.estabelecimento.endereco.numero},
 					${moreFavoriteType.params.estabelecimento.endereco.cidade} -
 					${moreFavoriteType.params.estabelecimento.endereco.estado},
 					${moreFavoriteType.params.estabelecimento.endereco.cep}
 					`
-						: "Não informado"} */}
+						: "Não informado"}
 				</TextIcon>
 			</Box>
 		</BoxMoreFavorite>

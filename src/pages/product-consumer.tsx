@@ -56,7 +56,7 @@ function ProductConsumer({ cache, productGateway }: ProductProps) {
 			tempoEsperaMedio: "",
 		})
 	);
-	const [categorias, setCategorias] = useState<TypeProduct[]>();
+	const [categorias, setCategorias] = useState<TypeProduct>();
 	const [product, setProduct] = useState<Product>(
 		new Product({
 			descricao: "",
@@ -107,9 +107,7 @@ function ProductConsumer({ cache, productGateway }: ProductProps) {
 				setEstablishment(SafeFoodEstablishmentMapper.of(res.data.estabelecimento));
 				setProduct(SafeFoodProductMapper.of(res.data));
 				// setCategorias(res.data.categoria.map(SafeFoodTypeProductMapper.of));
-				setCategorias(
-					res.data.categoria.map(item => SafeFoodTypeProductMapper.of(item))
-				);
+				setCategorias(SafeFoodTypeProductMapper.of(res.data.categoria));
 			} catch (error) {
 				// faça algo com o erro
 			}

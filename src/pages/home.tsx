@@ -12,7 +12,6 @@ import SignUpConsumer from "./signUp-consumer";
 import { ViaCepGateway } from "@/app/infra/gateway/viacep/ViaCepGateway";
 import SignUpEstablishment from "./signUp-establishment";
 import { useModalHome } from "@/app/contexts/ModalProvider";
-import { useLocation } from "react-router-dom";
 
 export type HomeProps = {
 	cache: Cache;

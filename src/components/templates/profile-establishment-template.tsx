@@ -49,7 +49,10 @@ export const ProfileEstablishmentTemplate: React.FC<
 	const [isEditable, setIsEditable] = useState<boolean>(false);
 	return (
 		<>
-			<Layout cache={cache} activeRegisterProduct={false}>
+			<Layout
+				cache={cache}
+				activeRegisterProduct={false}
+			>
 				<PBanner>
 					<PBtnEditar
 						height="fit-content"
@@ -117,7 +120,9 @@ export const ProfileEstablishmentTemplate: React.FC<
 										${address.cep}
 										`}
 										headerText={address.apelido}
-										//VERIFICAR SOBRE ESSE ICONE
+										apelido={""}
+										//TODO: RESOLVER ISSO
+										onClickCard={() => {}} //VERIFICAR SOBRE ESSE ICONE
 										// Icon={adress.Icon}
 									/>
 								</PContainerAddressCard>

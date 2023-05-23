@@ -6,7 +6,6 @@ import { BodyTemplate } from "./body-template";
 import { Landing } from "../organisms/landing/landing";
 import { Product } from "@/app/domain/entities/Product";
 import { CardEstablishmentFoodOTemplate } from "./card-establishment-food-template";
-import { ContainerFluid } from "../atoms/container";
 
 export type HomeTemplateParams = {
 	nearbyFoodsCardItems: Product[];

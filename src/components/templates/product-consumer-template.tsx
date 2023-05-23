@@ -30,7 +30,7 @@ import { TypeProduct } from "@/app/domain/entities/TypeProduct";
 interface ProductParams {
 	establishment: Establishment;
 	product: Product;
-	category?: TypeProduct[];
+	category?: TypeProduct;
 	onClickAddComments(): void;
 }
 

@@ -2,7 +2,7 @@ import { SafeFoodAddressModel } from "@/app/infra/gateway/safefood/models/SafeFo
 
 export type EstablishmentParams = {
     id: number;
-    imagem?: string;
+    imagem: string;
     nome: string;
     email: string;
     tipoUsuario: string;

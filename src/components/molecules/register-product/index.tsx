@@ -24,7 +24,7 @@ type Props = {
 	typeProduct?: TypeProduct[];
 	onClickCreate?(data: SafeFoodCreateProductRequest): void;
 	productEdit?: Product;
-	user?: SafeFoodUsuarioModel
+	user?: SafeFoodUsuarioModel;
 };
 
 function RegisterProduct({
@@ -61,11 +61,11 @@ function RegisterProduct({
 	const objEditRestrictions = () => {
 		productEdit?.params.restricoes != undefined
 			? productEdit?.params.restricoes.map(item => {
-				var aux = item.restricao;
-				restrictionProduct?.filter(item => {
-					item.params.restricao == aux ? (item.params.isActive = true) : "";
-				});
-			})
+					var aux = item.name;
+					restrictionProduct?.filter(item => {
+						item.params.restricao == aux ? (item.params.isActive = true) : "";
+					});
+			  })
 			: [];
 	};
 
@@ -183,13 +183,13 @@ function RegisterProduct({
 		setObjProduct({
 			id: 2, //teste, pois no create não faz sentido ter o id, pois creio que seja um auto increment, mais na rquest pede então passei mocado.
 			titulo: pNome,
-			preco: 12,//pPreco,
-			descricao: "teste",//pDescricao,
-			imagem: "",//img,
-			ingredientes: ["açucar", "sal"],//pIngredientes,
+			preco: 12, //pPreco,
+			descricao: "teste", //pDescricao,
+			imagem: "", //img,
+			ingredientes: ["açucar", "sal"], //pIngredientes,
 			unidadeDeVenda: "unidade", //teste, pois não entendi qual valor deve ser passado.
-			categoria: 1,//pType,
-			restricoes: [1, 2]//pRestrictions,
+			categoria: 1, //pType,
+			restricoes: [1, 2], //pRestrictions,
 		});
 	};
 
@@ -198,8 +198,8 @@ function RegisterProduct({
 		const newRestrictions: Restriction[] =
 			restrictionProduct != undefined
 				? restrictionProduct.filter(item => {
-					return item.params.isActive ? { ...pRestrictions, pAuxRestriction } : "";
-				})
+						return item.params.isActive ? { ...pRestrictions, pAuxRestriction } : "";
+				  })
 				: pRestrictions;
 		setRestrictions(newRestrictions);
 		setAuxFunction("auxFucntion");

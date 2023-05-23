@@ -12,7 +12,7 @@ export type SafeFoodUpdateUserRequest = {
 
 export type SafeFoodUsuarioModel = {
     id: number,
-    imagem: string | null,
+    imagem: string,
     tipoUsuario: "CONSUMIDOR" | "ESTABELECIMENTO",
     dataCriacao: Date | string | null
 } & SafeFoodUpdateUserRequest;
