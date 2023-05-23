@@ -180,7 +180,9 @@ function ProfileConsumer({
 	const onClickCard = async () => {};
 
 	const onClickUpdate = async () => {
-		// setIsLoading(true);
+		setIsLoading(true);
+		setIsVisibleAlert(true);
+
 		console.log(
 			JSON.stringify(
 				totalRestrictions
@@ -203,7 +205,6 @@ function ProfileConsumer({
 			});
 
 			if (res?.status !== 200) {
-				setIsVisibleAlert(true);
 				setTypeAlert("warning");
 				setTextAlert("Alguns dados podem estar com formato incorreto!");
 				return;
@@ -213,7 +214,6 @@ function ProfileConsumer({
 			setTypeAlert("success");
 			setTextAlert("Cadastro alterado com sucesso!");
 		} catch (e) {
-			setIsVisibleAlert(true);
 			setTypeAlert("warning");
 			setTextAlert(
 				"Servidor não está respondendo no momento, tente daqui a pouco ou entre em contato"
