@@ -18,16 +18,6 @@ const DropDownLocalInfo: React.FC<Props> = ({ children }) => {
 	const [filterData, setFilterData] = useState<any[]>([]);
 	const [wordEntered, setWordEntered] = useState("");
 
-	useEffect(() => {
-		getData();
-	}, []);
-
-	async function getData() {
-		const response = await fetch("https://api.github.com/users/guivicsan/repos");
-		const data = await response.json();
-		setRepositories(data);
-	}
-
 	function setLocal(id: number) {
 		repositores.map(repo => {
 			return repo.id == id ? setValueText(repo.name) : "";

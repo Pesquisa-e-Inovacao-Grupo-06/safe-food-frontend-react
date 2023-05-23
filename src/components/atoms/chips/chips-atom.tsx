@@ -9,14 +9,14 @@ type PropsChips = {
 	sizeChips?: SizeChips;
 	onClick(state: boolean): void;
 	isActive?: boolean;
-} & PropsWithChildren &
-	HtmlHTMLAttributes<HTMLDivElement>;
+	disabled?: boolean;
+} & HtmlHTMLAttributes<HTMLDivElement> &
+	PropsWithChildren;
 
 export const Chips: React.FC<PropsChips> = ({
 	sizeChips = "chips-md",
-	children,
 	isActive,
-
+	disabled = false,
 	onClick,
 	...props
 }) => {
@@ -26,14 +26,17 @@ export const Chips: React.FC<PropsChips> = ({
 			{...props}
 			sizeChips={sizeChips}
 			favorite={state}
+			disabled={disabled}
 			onClick={() => {
-				const newState = !state;
-				setState(newState);
-				onClick(newState);
+				if (disabled == false) {
+					const newState = !state;
+					setState(newState);
+					onClick(newState);
+				}
 			}}
 			className="transition"
 		>
-			<p>{children}</p>
+			<p>{props.children}</p>
 		</ContainerChips>
 	);
 };

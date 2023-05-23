@@ -5,6 +5,7 @@ export const ContainerHeaderConsumer = styled.div`
 	grid-template-columns: 0fr 0.6fr 1fr 0fr 0fr;
 	align-items: center;
 	padding: 0 50px;
+	width: 100%;
 	grid-column-gap: 10px;
 	width: -webkit-fill-available;
 	justify-items: center;

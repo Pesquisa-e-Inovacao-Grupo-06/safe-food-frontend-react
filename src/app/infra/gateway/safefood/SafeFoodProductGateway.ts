@@ -1,5 +1,5 @@
 import { HttpClient } from "@/app/domain/protocols/HttpClient";
-import { SafeFoodProductResponse, SafeFoodProductsResponse, SafeFoodProductRequest, SafeFoodProductFilterRequest, SafeFoodProductFilterResponse } from "./models/SafeFoodProduct";
+import { SafeFoodProductResponse, SafeFoodProductsResponse, SafeFoodProductRequest, SafeFoodProductFilterRequest, SafeFoodProductFilterResponse, SafeFoodAvaliationRequest } from './models/SafeFoodProduct';
 import queryString from '../../../../../node_modules/query-string/index.d';
 
 export class SafeFoodProductGateway {
@@ -29,6 +29,20 @@ export class SafeFoodProductGateway {
 
         if (!res.data) {
             throw new Error("Erro ao tentar buscar todos os produtos");
+        }
+        return res.data;
+
+    }
+
+    async createComments(id: string, avaliationRequest: SafeFoodAvaliationRequest): Promise<SafeFoodProductResponse> {
+        const res = await this.http.execute<SafeFoodProductResponse>({
+            url: `/produtos/${id}/avaliacoes`,
+            method: 'POST',
+            body: avaliationRequest,
+        });
+
+        if (!res.data) {
+            throw new Error("Erro ao tentar adicionar comentário.");
         }
         return res.data;
 

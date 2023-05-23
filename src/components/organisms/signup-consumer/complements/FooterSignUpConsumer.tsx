@@ -5,6 +5,9 @@ import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 import { Steps } from "..";
 import { useSignupConsumer } from "@/app/contexts/SignupConsumerProvider";
 import { SafeFoodCreateConsumerRequest } from "@/app/infra/gateway/safefood/models/SafeFoodConsumer";
+import { SafeFoodCreateAddressRequest } from "@/app/infra/gateway/safefood/models/SafeFoodAddress";
+import { create } from "@mui/material/styles/createTransitions";
+import { useModalHome } from "@/app/contexts/ModalProvider";
 
 export const FooterSignUpConsumer: React.FC<{
 	step: Steps;
@@ -13,6 +16,7 @@ export const FooterSignUpConsumer: React.FC<{
 }> = ({ step, changeStep, create }) => {
 	let { errors, saveErrors, consumer, setConsumer, emailExists } =
 		useSignupConsumer();
+	const { setModal } = useModalHome();
 
 	const getOnBackClick = () => {
 		if (step === "additional") {
@@ -52,7 +56,9 @@ export const FooterSignUpConsumer: React.FC<{
 			});
 		}
 		if (step === "finished") {
-			return () => (window.location.href = "http://localhost:5173/");
+			// (() => setModal(null))();
+			(() => setModal("login"))();
+			// (() => (window.location.href = "http://localhost:5173/"))();
 		}
 	};
 	const getTextAhead = () => {

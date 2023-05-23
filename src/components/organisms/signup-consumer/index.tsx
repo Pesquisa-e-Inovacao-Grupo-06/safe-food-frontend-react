@@ -10,17 +10,16 @@ import {
 	RestrictionSignUpConsumer,
 } from "./steps";
 import { FooterSignUpConsumer } from "./complements/FooterSignUpConsumer";
-import { SignupConsumerProvider } from "@/app/contexts/SignupConsumerProvider";
-import { Restriction } from "@/app/domain/entities/Restriction";
 import { SafeFoodCreateConsumerRequest } from "@/app/infra/gateway/safefood/models/SafeFoodConsumer";
 import { FindAddress } from "@/app/domain/usecases/FindAddress";
 import { useModalHome } from "@/app/contexts/ModalProvider";
 import { SafeFoodRestrictionModel } from "@/app/infra/gateway/safefood/models/SafeFoodRestriction";
+import { Restriction } from "@/app/domain/entities/Restriction";
 
 export type Steps = "general-info" | "restrictions" | "additional" | "finished";
 
 export type SignUpConsumerProps = {
-	restrictions: SafeFoodRestrictionModel[];
+	restrictions: Restriction[];
 	findAddress: FindAddress;
 	toggleModal(): void;
 	isModalVisible: boolean;

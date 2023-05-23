@@ -10,7 +10,7 @@ type Props = {
 function SignUpButton({ to, text, onclick }: Props) {
 	return (
 		<Container>
-			{to ? <Link to={to}>{text}</Link> : <a onClick={onclick}>{text}</a>}{" "}
+			{to ? <Link to={to}>{text}</Link> : <a onClick={onclick}>{text}</a>}
 		</Container>
 	);
 }

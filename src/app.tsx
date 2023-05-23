@@ -110,7 +110,7 @@ export default function App({
 								element={<HomeEstablishment cache={cache} />}
 							/>
 							<Route
-								path="/product-consumer"
+								path="/product-consumer/:id"
 								element={
 									<ProductConsumer
 										cache={cache}

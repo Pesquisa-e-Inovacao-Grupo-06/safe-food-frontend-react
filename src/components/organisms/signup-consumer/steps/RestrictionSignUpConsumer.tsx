@@ -3,11 +3,13 @@ import { Chips } from "@/components/atoms/chips/chips-atom";
 import { FC } from "react";
 import { HeadingSignUpConsumer } from "../complements/HeadingSignUpConsumer";
 import { useSignupConsumer } from "@/app/contexts/SignupConsumerProvider";
-import { SafeFoodRestrictionModel } from "@/app/infra/gateway/safefood/models/SafeFoodRestriction";
+import { Restriction } from "@/app/domain/entities/Restriction";
 
 export const RestrictionSignUpConsumer: FC<{
-	restrictions: SafeFoodRestrictionModel[];
+	restrictions: Restriction[];
 }> = ({ restrictions }) => {
+	console.log(restrictions);
+
 	const { consumer, setConsumer } = useSignupConsumer();
 	return (
 		<>
@@ -25,35 +27,38 @@ export const RestrictionSignUpConsumer: FC<{
 					flexWrap: "wrap",
 				}}
 			>
-				{restrictions.map((r, i) => (
-					<Chips
-						key={r.id}
-						sizeChips="chips-lg"
-						onClick={st => {
-							const data = consumer.restricoes;
-							if (st) {
-								data.push(r.id);
-								setConsumer({
-									...consumer,
-									restricoes: data,
-								});
-							} else {
-								const index = data.indexOf(r.id);
-								if (index > -1) {
-									data.splice(index, 1);
-								}
-							}
+				{restrictions.map(
+					(r, i) =>
+						r.params.id && (
+							<Chips
+								key={r.params.id}
+								sizeChips="chips-lg"
+								onClick={st => {
+									const data = consumer.restricoes;
+									if (st) {
+										data.push(r.params.id);
+										setConsumer({
+											...consumer,
+											restricoes: data,
+										});
+									} else {
+										const index = data.indexOf(r.params.id);
+										if (index > -1) {
+											data.splice(index, 1);
+										}
+									}
 
-							setConsumer({
-								...consumer,
-								restricoes: data,
-							});
-						}}
-						title={r.descricao}
-					>
-						{r.restricao}
-					</Chips>
-				))}
+									setConsumer({
+										...consumer,
+										restricoes: data,
+									});
+								}}
+								title={r.params.descricao}
+							>
+								{r.params.restricao}
+							</Chips>
+						)
+				)}
 			</Box>
 		</>
 	);

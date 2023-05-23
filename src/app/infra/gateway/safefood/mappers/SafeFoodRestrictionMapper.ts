@@ -5,7 +5,11 @@ import { SafeFoodRestrictionModel } from "../models/SafeFoodRestriction";
 export class SafeFoodRestrictionMapper {
     static of(model: SafeFoodRestrictionModel, isActive: boolean = false): Restriction {
         return new Restriction({
-            ...model, isActive
+            descricao: model.descricao,
+            id: model.id,
+            restricao: model.name,
+            tipoRestricao: model.tipoRestricao,
+            isActive
         }
         )
     }

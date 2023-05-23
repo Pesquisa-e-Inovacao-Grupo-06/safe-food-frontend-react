@@ -11,5 +11,5 @@ export type SafeFoodRestrictionParams = {
 
 
 export class Restriction {
-    constructor(public params: Partial<SafeFoodRestrictionParams>) { }
+    constructor(public params: SafeFoodRestrictionParams) { }
 }

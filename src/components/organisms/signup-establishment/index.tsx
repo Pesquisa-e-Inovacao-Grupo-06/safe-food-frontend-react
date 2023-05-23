@@ -25,7 +25,7 @@ export const SignUpEstablishmentTemplate: React.FC<{
 	isModalVisible: boolean;
 }> = ({ findAddress, onClickCreate, isModalVisible, toggleModal }) => {
 	const [visible, setVisible] = useState(false);
-	const [step, setStep] = useState<StepsEstablishmentTemplate>("security");
+	const [step, setStep] = useState<StepsEstablishmentTemplate>("company");
 	const { setModal, modal } = useModalHome();
 	const StepScreen = () => {
 		if (step === "company") return <CompanySignUp />;
