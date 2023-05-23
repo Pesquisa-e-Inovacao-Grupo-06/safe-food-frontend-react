@@ -27,7 +27,7 @@ const DropDownSubMenu: React.FC<Props> = ({ children }) => {
 
 						<ul>
 							{itemLinkArray.map(({ icon, text, to }) => (
-								<li>
+								<li key={text}>
 									<Link to={to}>
 										{icon}
 										<span>{text}</span>

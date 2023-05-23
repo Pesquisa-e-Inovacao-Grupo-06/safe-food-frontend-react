@@ -8,6 +8,7 @@ import { SafeFoodCreateUserRequest } from "@/app/infra/gateway/safefood/models/S
 import { SafeFoodCreateConsumerRequest } from "@/app/infra/gateway/safefood/models/SafeFoodConsumer";
 import { SafeFoodCreateAddressRequest } from "@/app/infra/gateway/safefood/models/SafeFoodAddress";
 import { create } from "@mui/material/styles/createTransitions";
+import { useModalHome } from "@/app/contexts/ModalProvider";
 
 export const FooterSignUpConsumer: React.FC<{
 	step: Steps;
@@ -15,6 +16,7 @@ export const FooterSignUpConsumer: React.FC<{
 	changeStep: (step: Steps) => void;
 }> = ({ step, changeStep, create }) => {
 	let { errors, saveErrors, consumer, setConsumer } = useSignupConsumer();
+	const { setModal } = useModalHome();
 
 	const getOnBackClick = () => {
 		if (step === "additional") {
@@ -40,7 +42,9 @@ export const FooterSignUpConsumer: React.FC<{
 			return changeStep("restrictions");
 		}
 		if (step === "finished") {
-			return () => (window.location.href = "http://localhost:5173/");
+			// (() => setModal(null))();
+			(() => setModal("login"))();
+			// (() => (window.location.href = "http://localhost:5173/"))();
 		}
 	};
 	const getTextAhead = () => {

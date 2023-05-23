@@ -20,20 +20,47 @@ import BoxComment from "@/components/molecules/box-coment";
 import { AvaliationProgressBar } from "../molecules/avaliation-progress-bar";
 import { Product } from "@/app/domain/entities/Product";
 import { Establishment } from "@/app/domain/entities/Establishment";
+import { SafeFoodProductGateway } from "@/app/infra/gateway/safefood/SafeFoodProductGateway";
+import { Cache } from "@/app/domain/protocols/Cache";
+import HeaderConsumer from "../molecules/header-consumer";
+import { formatReal } from "@/app/util/convertions/price-br";
+import { SafeFoodCategoryProductModel } from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
+import { TypeProduct } from "@/app/domain/entities/TypeProduct";
 
 interface ProductParams {
 	establishment: Establishment;
 	product: Product;
-	// listOfComments?: CommentProps[];
+	category?: TypeProduct[];
+	onClickAddComments(): void;
 }
 
 export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 	establishment,
 	product,
+	onClickAddComments,
+	category,
 }) => {
+	let rateCalc;
+
+	if (product.params.avaliacoes) {
+		const somaAvaliacoes = product.params.avaliacoes
+			.map(item => item.rate)
+			.filter(rate => rate !== undefined)
+			.reduce((acumulador, avaliacao) => acumulador + avaliacao, 0); // Exemplo de filtragem para remover avaliações indefinidas
+		const mediaAvaliacoes = somaAvaliacoes / product.params.avaliacoes.length;
+
+		rateCalc = mediaAvaliacoes;
+		// Restante do código que utiliza o rateCalc
+	} else {
+		// Tratamento para quando product.params.avaliacoes é undefined
+	}
+
+	console.log(rateCalc);
+	console.log("CATEROIA", product.params.categoria);
+
 	return (
 		<>
-			<Header />
+			<HeaderConsumer />
 			<BodyTemplate footer>
 				<ContainerProductConsumer>
 					<div className="header-product-consumer"></div>
@@ -56,24 +83,31 @@ export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 								<StyledRow>
 									<AvaliationStars
 										color="orange"
-										avegareRate={0}
+										avegareRate={rateCalc ?? 0}
 									/>
-									<Text>({0} avaliações)</Text>
+									<Text>({product.params.avaliacoes?.length ?? 0} avaliações)</Text>
 								</StyledRow>
 								<Box className="container-ingredientes-product-info">
-									{/* {categorias.map(item => (
-										<span
-											className="ingredientes-product-info"
-											key={item.nome}
-										>
-											{item.nome}
-										</span>
-									))} */}
+									<span
+										className="ingredientes-product-info"
+										// key={item.nome}
+									>
+										{product?.params?.categoria?.nome ?? "Nenhum ingrediente cadastrado"}
+									</span>
 								</Box>
-								<StyledCost typeText="text-mdb">
-									R$ {product.params.preco ? product.params.preco : ""}
-									<span> Unidade</span>
-								</StyledCost>
+								<Box
+									display="flex"
+									flexDirection="row"
+									justify="start"
+								>
+									<Subtitle
+										style={{ color: "orange" }}
+										large
+									>
+										{product.params.preco ? formatReal(product.params.preco) : ""}
+									</Subtitle>
+									<span style={{ color: "orange", fontWeight: "bold" }}> Unidade</span>
+								</Box>
 							</StyledColumn>
 							<div className="info-local">
 								<MdLocationOn className="icon-one-info-local" />
@@ -147,6 +181,7 @@ export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 								<ButtonIcon
 									buttonStyle="filled"
 									icon={undefined}
+									onClick={onClickAddComments}
 								>
 									CONTRIBUIR
 								</ButtonIcon>
@@ -154,28 +189,20 @@ export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 							<Box className="container-comentario-product-consumer-second-row">
 								<Subtitle>Comentários</Subtitle>
 								<div className="container-comentario-product-text">
-									<BoxComment
-										name="Denise Oliveira"
-										date="09/09/2022"
-										qtdComentario={4}
-										comentario="Eu sou vegetariana há alguns anos e já experimentei muitos
-                      hambúrgueres vegetarianos e veganos, mas devo dizer que o Hambúrguer
-                      2.0 Vegan do GreenBite é realmente impressionante! A textura é
-                      perfeita e o sabor é incrível, eu não conseguia acreditar que não era
-                      carne de verdade! Além disso, adorei a ideia de que é uma opção mais
-                      saudável e sustentável para o meio ambiente. Com certeza vou voltar
-                      para experimentar mais opções do menu."
-									/>
-									{/* {listOfComments?.map(item => (
-                    <BoxComment
-                      key={item.name}
-                      comentario={item.comentario}
-                      img={item.img}
-                      name={item.name}
-                      qtdComentario={item.qtdComentario}
-                      date={item.date}
-                    />
-                  ))} */}
+									{product.params.avaliacoes ? (
+										product.params.avaliacoes!.map(item => (
+											<BoxComment
+												key={item.id}
+												comentario={item.comentario}
+												img={""}
+												name={"mocks"}
+												// qtdComentario={item.}
+												date={item.dataCadastro}
+											/>
+										))
+									) : (
+										<Text>Sem comentários</Text>
+									)}
 								</div>
 							</Box>
 						</div>

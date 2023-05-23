@@ -64,7 +64,6 @@ function HomeConsumer({
 		useState<SafeFoodProductFilterRequest>({});
 
 	const [productsFilter, setProductsFilter] = useState<any>();
-
 	useEffect(() => {
 		async function fetchProducts() {
 			try {

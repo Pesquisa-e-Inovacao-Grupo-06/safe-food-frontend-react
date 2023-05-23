@@ -6,21 +6,28 @@ import { TextField } from "@/components/molecules/textfield";
 import { useState } from "react";
 import styled from "styled-components";
 
-export const LandingFormFoodOrganism = ({}) => {
-	const [textFieldFood, setTextFieldFood] = useState("");
-	const [textFieldLocation, setTextFieldLocation] = useState("");
+export type LandingFormFoodOrganismProps = {
+	textFieldFood: string;
+	textFieldLocation: string;
+	handleChangeFood: (value: any) => void;
+	handleChangeLocation: (value: any) => void;
+	onClickSearchLanding: () => void;
+};
 
-	function handleChangeFood(value: any) {
-		setTextFieldFood(value.target.value);
-	}
-	function handleChangeLocation(value: any) {
-		setTextFieldLocation(value.target.value);
-	}
+export const LandingFormFoodOrganism: React.FC<
+	LandingFormFoodOrganismProps
+> = ({
+	handleChangeFood,
+	handleChangeLocation,
+	textFieldFood,
+	textFieldLocation,
+	onClickSearchLanding,
+}) => {
 	return (
 		<ContainerLanding
 			size="sm"
 			height={"auto"}
-			style={{ width: "100%" }}
+			// style={{ width: "100%" }}
 		>
 			<Column style={{ width: "70%" }}>
 				<TextField
@@ -44,7 +51,12 @@ export const LandingFormFoodOrganism = ({}) => {
 				></TextField>
 				<Divider marginAll="10px" />
 
-				<Button style={{ width: "100%", height: "40px" }}>Pesquisar</Button>
+				<Button
+					style={{ width: "100%", height: "40px" }}
+					onClick={onClickSearchLanding}
+				>
+					Pesquisar
+				</Button>
 			</Column>
 		</ContainerLanding>
 	);
