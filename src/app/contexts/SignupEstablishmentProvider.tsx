@@ -9,12 +9,14 @@ import {
 } from "react";
 import { SafeFoodCreateEstablishmentRequest } from "../infra/gateway/safefood/models/SafeFoodEstablishment";
 import { SafeFoodCreateAddressRequest } from "../infra/gateway/safefood/models/SafeFoodAddress";
+import { SafeFoodUserGateway } from "../infra/gateway/safefood/SafeFoodUserGateway";
 
 export type SignupEstablishmentContextParams = {
 	establishment: SafeFoodCreateEstablishmentRequest;
 	setEstablishment: Dispatch<SetStateAction<SafeFoodCreateEstablishmentRequest>>;
 	errors: string[];
 	saveErrors: (errors: string[]) => void;
+	emailExists(email: string): Promise<boolean>;
 };
 export const signupEstablishmentContext =
 	createContext<SignupEstablishmentContextParams>(
@@ -24,7 +26,9 @@ export const signupEstablishmentContext =
 export const useSignupEstablishment = () =>
 	useContext(signupEstablishmentContext);
 
-export type SignupEstablishmentProviderProps = {} & PropsWithChildren;
+export type SignupEstablishmentProviderProps = {
+	gateway: SafeFoodUserGateway;
+} & PropsWithChildren;
 export const SignupEstablishmentProvider: FC<
 	SignupEstablishmentProviderProps
 > = props => {
@@ -58,6 +62,9 @@ export const SignupEstablishmentProvider: FC<
 				saveErrors: setErrors,
 				establishment,
 				setEstablishment,
+				emailExists(email) {
+					return props.gateway.emailExists(email).then(val => val);
+				},
 			}}
 		>
 			{props.children}

@@ -2,7 +2,6 @@ import { Box } from "@/components/atoms/box";
 import { ButtonIcon } from "@/components/molecules/button/button-icon";
 import React from "react";
 import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
-import { useSignupConsumer } from "@/app/contexts/SignupConsumerProvider";
 import { StepsEstablishmentTemplate } from "..";
 import { useSignupEstablishment } from "@/app/contexts/SignupEstablishmentProvider";
 import { SafeFoodCreateEstablishmentRequest } from "@/app/infra/gateway/safefood/models/SafeFoodEstablishment";
@@ -12,8 +11,8 @@ export const FooterSignUpConsumer: React.FC<{
 	changeStep: (step: StepsEstablishmentTemplate) => void;
 	onClickCreate(data: SafeFoodCreateEstablishmentRequest): void;
 }> = ({ step, changeStep, onClickCreate }) => {
-	const { establishment } = useSignupEstablishment();
-	let { errors, saveErrors } = useSignupEstablishment();
+	const { establishment, emailExists, saveErrors, errors } =
+		useSignupEstablishment();
 
 	const getOnBackClick = () => {
 		if (step === "finished") {
@@ -37,7 +36,21 @@ export const FooterSignUpConsumer: React.FC<{
 			return changeStep("security");
 		}
 		if (step === "security") {
-			return changeStep("importation");
+			emailExists(establishment.email).then(data => {
+				const errorEmail = "Email já cadastrado";
+				if (data) {
+					if (!errors.includes(errorEmail)) {
+						saveErrors([...errors, errorEmail]);
+					}
+				} else {
+					const index = errorEmail.indexOf(errorEmail);
+					if (index > -1) {
+						const newErrors = errors.filter(item => item !== errorEmail);
+						saveErrors(newErrors);
+					}
+					changeStep("importation");
+				}
+			});
 		}
 		if (step === "importation") {
 			onClickCreate(establishment);
@@ -100,9 +113,12 @@ export const FooterSignUpConsumer: React.FC<{
 
 						if (formEl) {
 							let amountErrors = formEl.querySelectorAll("[aria-errormessage]").length;
+							let messageError = "Alguns campos ainda nao foram preenchidos";
 							document.querySelectorAll("input[required]").forEach(el => {
-								console.log(el);
 								if (!(el as HTMLInputElement).value) {
+									if (!errors.includes(messageError)) {
+										errors.push(messageError);
+									}
 									el.parentElement?.classList.toggle("shake");
 									setTimeout(() => {
 										el.parentElement?.classList.toggle("shake");
@@ -110,14 +126,10 @@ export const FooterSignUpConsumer: React.FC<{
 									amountErrors++;
 								}
 							});
-							if (amountErrors == 0) {
-								errors = [];
-							}
-							saveErrors(errors);
 							if (amountErrors > 0) {
-								console.log({ errors, amountErrors });
-								// todo message error global context
+								saveErrors(errors.filter(item => item != messageError));
 							} else {
+								saveErrors([]);
 								getOnClickAhead();
 							}
 						}

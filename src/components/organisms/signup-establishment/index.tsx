@@ -1,16 +1,13 @@
 import { Modal } from "@/components/molecules/modal";
 import React, { useEffect, useState } from "react";
 import { Box } from "@/components/atoms/box";
-import { Button } from "@/components/atoms/button";
 import { UnderlineLink } from "@/components/atoms/underline-link";
 import { FooterSignUpConsumer } from "./complements/FooterSignUpEstablishment";
-import { SignupConsumerProvider } from "@/app/contexts/SignupConsumerProvider";
 import { LocationSignUpEstablishment } from "./steps/LocationSignUp";
 import { SecuritySignUp } from "./steps/SecuritySignUp";
 import { ImportationSignUp } from "./steps/ImportationSignup";
 import { FinishedSignUpConsumer } from "../signup-consumer/steps";
 import { CompanySignUp } from "./steps/CompanySignUp";
-import { SignupEstablishmentProvider } from "@/app/contexts/SignupEstablishmentProvider";
 import { FindAddress } from "@/app/domain/usecases/FindAddress";
 import { SafeFoodCreateEstablishmentRequest } from "@/app/infra/gateway/safefood/models/SafeFoodEstablishment";
 import { useModalHome } from "@/app/contexts/ModalProvider";
@@ -28,7 +25,7 @@ export const SignUpEstablishmentTemplate: React.FC<{
 	isModalVisible: boolean;
 }> = ({ findAddress, onClickCreate, isModalVisible, toggleModal }) => {
 	const [visible, setVisible] = useState(false);
-	const [step, setStep] = useState<StepsEstablishmentTemplate>("company");
+	const [step, setStep] = useState<StepsEstablishmentTemplate>("security");
 	const { setModal, modal } = useModalHome();
 	const StepScreen = () => {
 		if (step === "company") return <CompanySignUp />;
@@ -67,19 +64,17 @@ export const SignUpEstablishmentTemplate: React.FC<{
 					maxWidth={"600px"}
 					alignSelf="center"
 				>
-					<SignupEstablishmentProvider>
-						<form
-							encType="multipart/form-data"
-							id="signup-establishment-form"
-						>
-							<StepScreen />
-						</form>
-						<FooterSignUpConsumer
-							step={step}
-							onClickCreate={onClickCreate}
-							changeStep={setStep}
-						/>
-					</SignupEstablishmentProvider>
+					<form
+						encType="multipart/form-data"
+						id="signup-establishment-form"
+					>
+						<StepScreen />
+					</form>
+					<FooterSignUpConsumer
+						step={step}
+						onClickCreate={onClickCreate}
+						changeStep={setStep}
+					/>
 					<Box width="100%">
 						<UnderlineLink onClick={() => setModal("consumer")}>
 							Sou um consumidor

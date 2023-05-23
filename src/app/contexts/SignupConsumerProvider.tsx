@@ -8,12 +8,14 @@ import {
 	useState,
 } from "react";
 import { SafeFoodCreateConsumerRequest } from "../infra/gateway/safefood/models/SafeFoodConsumer";
+import { SafeFoodUserGateway } from "../infra/gateway/safefood/SafeFoodUserGateway";
 
 export type SignupConsumerContextParams = {
 	consumer: SafeFoodCreateConsumerRequest;
 	setConsumer: Dispatch<SetStateAction<SafeFoodCreateConsumerRequest>>;
 	errors: string[];
 	saveErrors: (errors: string[]) => void;
+	emailExists(email: string): Promise<boolean>;
 };
 export const signupConsumerContext = createContext<SignupConsumerContextParams>(
 	{} as SignupConsumerContextParams
@@ -21,7 +23,9 @@ export const signupConsumerContext = createContext<SignupConsumerContextParams>(
 
 export const useSignupConsumer = () => useContext(signupConsumerContext);
 
-export type SignupConsumerProviderProps = {} & PropsWithChildren;
+export type SignupConsumerProviderProps = {
+	gateway: SafeFoodUserGateway;
+} & PropsWithChildren;
 export const SignupConsumerProvider: FC<
 	SignupConsumerProviderProps
 > = props => {
@@ -50,6 +54,9 @@ export const SignupConsumerProvider: FC<
 				saveErrors: setErrors,
 				consumer,
 				setConsumer,
+				emailExists(email) {
+					return props.gateway.emailExists(email).then(val => val);
+				},
 			}}
 		>
 			{props.children}
