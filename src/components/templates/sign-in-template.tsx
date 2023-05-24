@@ -37,6 +37,7 @@ export const SignInTemplate: React.FC<SignInTemplateProps> = ({
 	loading,
 }) => {
 	const { colors } = useSafeFoodTheme().getTheme();
+	const { setModal } = useModalHome();
 	const [visible, setVisible] = useState(false);
 	useEffect(() => {
 		setVisible(isModalVisible);
@@ -145,10 +146,11 @@ export const SignInTemplate: React.FC<SignInTemplateProps> = ({
 					<Text>
 						Não possui uma conta?
 						<UnderlineLink
-							href="/signup"
+							// href="/signup"
 							style={{
 								marginLeft: 8,
 							}}
+							onClick={() => setModal("consumer")}
 						>
 							Cadastre-se
 						</UnderlineLink>

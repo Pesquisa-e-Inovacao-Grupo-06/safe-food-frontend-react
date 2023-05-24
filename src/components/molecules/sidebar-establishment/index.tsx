@@ -32,17 +32,16 @@ import { SafeFoodLoginResponse } from "@/app/infra/gateway/safefood/models/SafeF
 type SidebarEstabProps = {
 	cache: Cache;
 };
-
+export function clearCache(cache: Cache) {
+	cache.removeItem("token");
+	cache.removeItem("consumer");
+	cache.removeItem("establishment");
+	cache.removeItem("user");
+}
 const SidebarEstab: React.FC<SidebarEstabProps> = ({ cache }) => {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
 	const { pathname } = useLocation();
 	const { toggleTheme, getTheme } = useSafeFoodTheme();
-	function clearCache() {
-		cache.removeItem("token");
-		cache.removeItem("consumer");
-		cache.removeItem("establishment");
-		cache.removeItem("user");
-	}
 
 	const user: SafeFoodLoginResponse =
 		cache.getItem("user") !== null ? JSON.parse(cache.getItem("user")!) : {};
@@ -117,7 +116,7 @@ const SidebarEstab: React.FC<SidebarEstabProps> = ({ cache }) => {
 						<SLink
 							to={to}
 							style={!sidebarOpen ? { width: `fit-content` } : {}}
-							onClick={() => clearCache()}
+							onClick={() => clearCache(cache)}
 						>
 							<SLinkIcon>{icon}</SLinkIcon>
 							{sidebarOpen && <SLinkLabel>{label}</SLinkLabel>}

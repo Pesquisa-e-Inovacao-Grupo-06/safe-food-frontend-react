@@ -20,10 +20,11 @@ import { useState } from "react";
 import {} from "@/app/util/validations/cep-validator";
 import { SafeFoodCreateAddressRequest } from "@/app/infra/gateway/safefood/models/SafeFoodAddress";
 import HeaderConsumer from "../molecules/header-consumer";
+import { Cache } from "@/app/domain/protocols/Cache";
 
 export type ProfileProps = {
 	restrictionsUser: Restriction[];
-	listOfAddress: Address[];
+	listOfAddress?: Address[];
 	form: InputPropsComponent[];
 	urlDefault: string | null | undefined;
 	typeAlert?: AlertType;
@@ -32,13 +33,7 @@ export type ProfileProps = {
 	isSaveButtonActive: boolean;
 	isLoading: boolean;
 	isEditable?: boolean;
-
 	address: SafeFoodCreateAddressRequest;
-	onClickChangePassword(): void;
-	onClickSave(): void;
-	onClickSaveButton(): void;
-	onClickEditable(): void;
-	onClickSaveNewAddress(): void;
 	onChange: React.FormEventHandler<HTMLInputElement> &
 		((e: React.FormEvent<HTMLInputElement>) => void);
 	cep: string;
@@ -48,11 +43,17 @@ export type ProfileProps = {
 	apelido: string;
 	onChangeApelido: React.FormEventHandler<HTMLInputElement> &
 		((e: React.FormEvent<HTMLInputElement>) => void);
-	toggleModal(): void;
 	isModalVisible: boolean;
+	toggleModal(): void;
+	onClickChangePassword(): void;
+	onClickSave(): void;
+	onClickSaveButton(): void;
+	onClickEditable(): void;
+	onClickSaveNewAddress(): void;
 	onClickOpenModalAddress(): void;
 	onChangeFile(file: File): void;
 	onClickCard: (id: string) => void;
+	cache: Cache;
 };
 
 export const ProfileTemplate: React.FC<ProfileProps> = ({
@@ -83,10 +84,11 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 	onClickOpenModalAddress,
 	onChangeFile,
 	onClickCard,
+	cache,
 }) => {
 	return (
 		<>
-			<HeaderConsumer />
+			<HeaderConsumer cache={cache} />
 			{/* MODAL */}
 			<AddressModal
 				toggleModal={toggleModal}
@@ -166,25 +168,27 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 									<span>adicionar endereço</span>
 								</PBtnAdicionarEndereco>
 							</div>
-							<PContainerAddressCard>
-								{listOfAddress.map((address, i) => (
-									<AddresCard
-										bodyText={`
+							{listOfAddress && (
+								<PContainerAddressCard>
+									{listOfAddress.map((address, i) => (
+										<AddresCard
+											bodyText={`
 										${address.params.bairro},
 										${address.params.numero},
 										${address.params.cidade} -
 										${address.params.estado},
 										${address.params.cep}
 										`}
-										headerText={address.params.apelido}
-										//VERIFICAR SOBRE ESSE ICONE
-										// Icon={adress.Icon}
-										key={i}
-										apelido={address.params.apelido ? address.params.apelido : ""}
-										onClickCard={onClickCard}
-									/>
-								))}
-							</PContainerAddressCard>
+											headerText={address.params.apelido}
+											//VERIFICAR SOBRE ESSE ICONE
+											// Icon={adress.Icon}
+											key={i}
+											apelido={address.params.apelido ? address.params.apelido : ""}
+											onClickCard={onClickCard}
+										/>
+									))}
+								</PContainerAddressCard>
+							)}
 						</PContainerInfo2>
 						<PDivider />
 						<PContainerInfo3>

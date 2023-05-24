@@ -23,8 +23,8 @@ function SignUpConsumer({
 }) {
 	const { modal, setModal } = useModalHome();
 	const restrictions =
-		cache.getItem("restricoes") !== null
-			? (JSON.parse(cache.getItem("restricoes")!) as SafeFoodRestrictionModel[])
+		cache.getItem("restrictions") !== null
+			? (JSON.parse(cache.getItem("restrictions")!) as SafeFoodRestrictionModel[])
 			: [];
 	const clickToCreate = useCallback((data: SafeFoodCreateConsumerRequest) => {
 		const res = gateway.create(data).then(val => val.data);

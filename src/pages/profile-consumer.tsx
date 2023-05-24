@@ -246,7 +246,13 @@ function ProfileConsumer({
 					disabled: !isEditable,
 				},
 			]}
-			listOfAddress={consumer.enderecos.map(SafeFoodAddressMapper.of)}
+			listOfAddress={
+				consumer.enderecos
+					? consumer.enderecos.length > 0
+						? consumer.enderecos.map(SafeFoodAddressMapper.of)
+						: []
+					: []
+			}
 			// TODO: saved restrictions
 			restrictionsUser={totalRestrictions}
 			onClickSave={onClickUpdate}
@@ -293,6 +299,7 @@ function ProfileConsumer({
 				setImageProfile(file);
 			}}
 			onClickCard={handleAddressCardClick}
+			cache={cache}
 		/>
 	);
 }

@@ -5,12 +5,14 @@ import { FaHome, FaSignOutAlt, FaUserAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { ContainerDropDownSubMenu } from "./styles";
+import { Cache } from "@/app/domain/protocols/Cache";
 
 type Props = {
 	children?: any;
+	cache: Cache;
 };
 
-const DropDownSubMenu: React.FC<Props> = ({ children }) => {
+const DropDownSubMenu: React.FC<Props> = ({ cache, children }) => {
 	const [active, setActive] = useState(false);
 
 	return (
@@ -28,7 +30,17 @@ const DropDownSubMenu: React.FC<Props> = ({ children }) => {
 						<ul>
 							{itemLinkArray.map(({ icon, text, to }) => (
 								<li key={text}>
-									<Link to={to}>
+									<Link
+										to={to}
+										onClick={() => {
+											if (text == "Sair") {
+												cache.removeItem("token");
+												cache.removeItem("consumer");
+												cache.removeItem("establishment");
+												cache.removeItem("user");
+											}
+										}}
+									>
 										{icon}
 										<span>{text}</span>
 									</Link>

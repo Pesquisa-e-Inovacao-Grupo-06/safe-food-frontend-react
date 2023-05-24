@@ -12,6 +12,7 @@ import SignUpConsumer from "./signUp-consumer";
 import { ViaCepGateway } from "@/app/infra/gateway/viacep/ViaCepGateway";
 import SignUpEstablishment from "./signUp-establishment";
 import { useModalHome } from "@/app/contexts/ModalProvider";
+import { SafeFoodLoginResponse } from "@/app/infra/gateway/safefood/models/SafeFoodUser";
 
 export type HomeProps = {
 	cache: Cache;
@@ -31,6 +32,8 @@ function Home({
 	viaCepGateway,
 }: HomeProps) {
 	const { modal } = useModalHome();
+	const user: SafeFoodLoginResponse =
+		cache.getItem("user") !== null ? JSON.parse(cache.getItem("user")!) : {};
 
 	const [nearbyProducts, setNearbyProducts] = useState<SafeFoodProductModel[]>(
 		[]
@@ -64,7 +67,11 @@ function Home({
 				}
 			);
 
-			console.log(latitude, longitude);
+			console.log(
+				"LATITUDE LONGITUDE" + JSON.stringify(navigator.geolocation),
+				latitude,
+				longitude
+			);
 		} else {
 			console.log("Geolocalização não suportada pelo navegador.");
 		}
@@ -122,6 +129,8 @@ function Home({
 				onClickSearchLanding={() => {
 					console.log(textFieldLocation);
 				}}
+				user={user}
+				cache={cache}
 			/>
 		</div>
 	);

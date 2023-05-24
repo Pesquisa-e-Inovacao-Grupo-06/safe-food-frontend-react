@@ -1,7 +1,6 @@
 import { Box } from "@/components/atoms/box";
 import ContainerHeader from "@/components/atoms/container-header";
 import { LogoAtom } from "@/components/atoms/logo";
-import styled from "styled-components";
 import imgTeste from "../../../assets/food-favorite.png";
 import { Text } from "@/components/atoms/text";
 import DropDownSubMenu from "../drop-down-sub-menu";
@@ -13,8 +12,13 @@ import SearchBar from "../search-bar";
 import { ContainerHeaderConsumer } from "./styles";
 import { FaBars, FaHome, FaSignOutAlt, FaUserAlt } from "react-icons/fa";
 import Sidebar from "../sidebar";
+import { Cache } from "@/app/domain/protocols/Cache";
 
-const HeaderConsumer: React.FC = () => {
+export type HeaderConsumerProps = {
+	cache: Cache;
+};
+
+const HeaderConsumer: React.FC<HeaderConsumerProps> = ({ cache }) => {
 	const { toggleTheme, getTheme } = useSafeFoodTheme();
 	const [sidebar, setSidebar] = useState(false);
 
@@ -39,7 +43,7 @@ const HeaderConsumer: React.FC = () => {
 						<Text>
 							<span>Lincoln Ferreira</span>
 						</Text>
-						<DropDownSubMenu>
+						<DropDownSubMenu cache={cache}>
 							<img src={imgTeste} />
 						</DropDownSubMenu>
 					</Box>

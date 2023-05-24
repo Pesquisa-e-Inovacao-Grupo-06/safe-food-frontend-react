@@ -7,7 +7,7 @@ export class SafeFoodRestrictionMapper {
         return new Restriction({
             descricao: model.descricao,
             id: model.id,
-            restricao: model.name,
+            restricao: model.restricao,
             tipoRestricao: model.tipoRestricao,
             isActive
         }
