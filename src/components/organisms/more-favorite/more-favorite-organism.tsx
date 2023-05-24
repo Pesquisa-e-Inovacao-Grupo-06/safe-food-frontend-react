@@ -75,7 +75,10 @@ export const MoreFavoriteOrganism: React.FC<MoreFavoriteProps> = ({
 					>
 						{moreFavoriteType.params.titulo}
 					</Subtitle>
-					<AvaliationStars avegareRate={1} />
+					<AvaliationStars
+						avegareRate={1}
+						fixed
+					/>
 					<div
 						style={{
 							flexBasis: "14%",
@@ -131,35 +134,38 @@ export const MoreFavoriteOrganism: React.FC<MoreFavoriteProps> = ({
 					{formatReal(moreFavoriteType.params.preco)}
 				</StyledCost>
 				<Button width="fit-content">Ver produto</Button>
-
 				<TextIcon
 					icon={<TiMediaEjectOutline />}
 					iconAlign={"left"}
 				>
 					{/* TODO: PRECISA De informações do estabelecimento */}
-					{moreFavoriteType.params.estabelecimento?.nomeEmpresa ?? ""}
+					{moreFavoriteType.params.estabelecimento.nomeEmpresa}
 				</TextIcon>
-				<TextIcon
-					icon={<TiMediaEjectOutline />}
-					iconAlign={"left"}
-				>
-					{/* TODO: IMPLEMENTAR UTIL PARA VER SE ESTÁ ABERTO OU NÃO */}
-					{moreFavoriteType.params.isDelivery}
-				</TextIcon>
-				<TextIcon
-					style={{}}
-					icon={<TiMediaEjectOutline />}
-					iconAlign="left"
-				>
-					{moreFavoriteType.params.estabelecimento
-						? `${moreFavoriteType.params.estabelecimento.endereco.bairro},
+				{moreFavoriteType.params.isDelivery && (
+					<TextIcon
+						icon={<TiMediaEjectOutline />}
+						iconAlign={"left"}
+					>
+						{/* TODO: IMPLEMENTAR UTIL PARA VER SE ESTÁ ABERTO OU NÃO */}
+						{moreFavoriteType.params.isDelivery}
+					</TextIcon>
+				)}
+				{moreFavoriteType.params.estabelecimento!.endereco && (
+					<TextIcon
+						style={{}}
+						icon={<TiMediaEjectOutline />}
+						iconAlign="left"
+					>
+						{moreFavoriteType.params.estabelecimento
+							? `${moreFavoriteType.params.estabelecimento.endereco.bairro},
 					${moreFavoriteType.params.estabelecimento.endereco.numero},
 					${moreFavoriteType.params.estabelecimento.endereco.cidade} -
 					${moreFavoriteType.params.estabelecimento.endereco.estado},
 					${moreFavoriteType.params.estabelecimento.endereco.cep}
 					`
-						: "Não informado"}
-				</TextIcon>
+							: "Não informado"}
+					</TextIcon>
+				)}
 			</Box>
 		</BoxMoreFavorite>
 	);

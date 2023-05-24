@@ -75,6 +75,7 @@ export const NearbyFoodsCard: React.FC<EstablishmentFoodProps> = ({
 						</Subtitle>
 						{/* TODO: ARRUMAR AVEGARE */}
 						<AvaliationStars
+							fixed
 							avegareRate={1}
 							style={{ flexBasis: "20.6%" }}
 						/>
@@ -149,6 +150,7 @@ export const CardEstablishmentFoodOrganism: React.FC<InfoProductProps> = ({
 				<Divider />
 				<StyledRow>
 					<AvaliationStars
+						fixed
 						color="orange"
 						avegareRate={1}
 					/>

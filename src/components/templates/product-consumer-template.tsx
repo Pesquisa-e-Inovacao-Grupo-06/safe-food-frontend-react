@@ -82,6 +82,7 @@ export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 								</Text>
 								<StyledRow>
 									<AvaliationStars
+										fixed
 										color="orange"
 										avegareRate={rateCalc ?? 0}
 									/>
@@ -169,6 +170,7 @@ export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 								<Text>Dê uma nota para sua experiência</Text>
 								<div className="comentario-product-avaliation-start">
 									<AvaliationStars
+										fixed={false}
 										color="orange"
 										avegareRate={1}
 									/>
