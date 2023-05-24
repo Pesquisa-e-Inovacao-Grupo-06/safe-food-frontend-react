@@ -164,6 +164,7 @@ function ProductConsumer({ cache, productGateway }: ProductProps) {
 			textAlert={textAlert}
 			avaliationBar={avaliationBar}
 			avaliationsProps={avaliationsParams}
+			cache={cache}
 		/>
 	);
 }

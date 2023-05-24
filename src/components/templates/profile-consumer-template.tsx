@@ -155,18 +155,19 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 						<PContainerInfo2>
 							<div className="pcontainerinfo2-sub">
 								<PTitle>Endereços</PTitle>
-								<PBtnAdicionarEndereco
+								<ButtonIcon
 									icon={<IoMdAddCircleOutline color="#087704" />}
 									alignIcon="right"
 									buttonStyle="outline"
 									style={{
 										height: 45,
 									}}
+									width={"fit-content"}
 									disabled={!isEditable}
 									onClick={onClickOpenModalAddress}
 								>
 									<span>adicionar endereço</span>
-								</PBtnAdicionarEndereco>
+								</ButtonIcon>
 							</div>
 							{listOfAddress && (
 								<PContainerAddressCard>

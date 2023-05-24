@@ -13,17 +13,20 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Button } from "../atoms/button/index";
 import { Divider } from "@/components/atoms/divider";
+import { Cache } from "@/app/domain/protocols/Cache";
 
 export type HomeConsumerProps = {
 	products: Product[];
 	dropDownList: DropDownProps[];
 	onClickApplication(): void;
+	cache: Cache;
 };
 
 const HomeConsumerTemplate: React.FC<HomeConsumerProps> = ({
 	products,
 	dropDownList,
 	onClickApplication,
+	cache,
 }) => {
 	const [formCard, setFormcard] = useState<boolean>(false);
 	const [termAccepted, setTermAccepted] = useState(false);
@@ -38,7 +41,7 @@ const HomeConsumerTemplate: React.FC<HomeConsumerProps> = ({
 
 	return (
 		<>
-			<HeaderConsumer />
+			<HeaderConsumer cache={cache} />
 			<BodyTemplate footer={true}>
 				<ContainerHomeConsumer isFormCardActive={formCard}>
 					<div className="header-home-consumer">

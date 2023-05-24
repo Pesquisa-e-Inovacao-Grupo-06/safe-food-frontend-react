@@ -6,13 +6,15 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { ContainerDropDownSubMenu } from "./styles";
 import { Cache } from "@/app/domain/protocols/Cache";
+import { BsFillGearFill } from "react-icons/bs";
 
 type Props = {
 	children?: any;
 	cache: Cache;
+	userName: string;
 };
 
-const DropDownSubMenu: React.FC<Props> = ({ cache, children }) => {
+const DropDownSubMenu: React.FC<Props> = ({ userName, cache, children }) => {
 	const [active, setActive] = useState(false);
 
 	return (
@@ -21,10 +23,15 @@ const DropDownSubMenu: React.FC<Props> = ({ cache, children }) => {
 				active={active}
 				onClick={() => setActive(!active)}
 			>
-				<div className="container-children-dropdown-submenu">{children}</div>
+				<div
+					className="container-children-dropdown-submenu"
+					style={{ width: "max-content", gap: "10px" }}
+				>
+					{children}
+				</div>
 				<div className="big-container-info-dropdown-sunmenu">
 					<div className="container-info-dropdown-submenu">
-						<Text>Lincoln</Text>
+						<Text>{userName}</Text>
 						<Text>Safe Food</Text>
 
 						<ul>
@@ -66,6 +73,11 @@ const itemLinkArray = [
 		icon: <FaUserAlt />,
 		text: "Meu Perfil",
 		to: "/profile",
+	},
+	{
+		icon: <BsFillGearFill />,
+		text: "Preferências",
+		to: "/preferences-establishment",
 	},
 	{
 		icon: <FaSignOutAlt />,

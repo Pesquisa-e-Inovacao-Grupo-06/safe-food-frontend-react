@@ -49,6 +49,7 @@ interface ProductParams {
 	textAlert: string;
 	avaliationBar: AvaliationProgressBarProps;
 	avaliationsProps: SafeFoodAvaliationModel[];
+	cache: Cache;
 }
 
 export const ProductConsumerTemplate: React.FC<ProductParams> = ({
@@ -65,6 +66,7 @@ export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 	typeAlert,
 	avaliationBar,
 	avaliationsProps,
+	cache,
 }) => {
 	let rateCalc;
 
@@ -86,7 +88,7 @@ export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 
 	return (
 		<>
-			<HeaderConsumer />
+			<HeaderConsumer cache={cache} />
 			<BodyTemplate footer>
 				<ContainerProductConsumer>
 					<div className="header-product-consumer"></div>

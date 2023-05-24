@@ -19,7 +19,7 @@ import { MdLogout, MdOutlineFastfood } from "react-icons/md";
 import { HiOutlineUser } from "react-icons/hi";
 import { BsGear } from "react-icons/bs";
 
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import PingLogo from "../../../assets/Ping-Logo.png";
 
 import Toggle from "../../atoms/toggle-switch";
@@ -32,12 +32,22 @@ import { SafeFoodLoginResponse } from "@/app/infra/gateway/safefood/models/SafeF
 type SidebarEstabProps = {
 	cache: Cache;
 };
+
 export function clearCache(cache: Cache) {
+	const navigator = useNavigate();
+
 	cache.removeItem("token");
 	cache.removeItem("consumer");
 	cache.removeItem("establishment");
 	cache.removeItem("user");
+
+	if (window.location.pathname === "/") {
+		window.location.reload();
+	} else {
+		navigator("/");
+	}
 }
+
 const SidebarEstab: React.FC<SidebarEstabProps> = ({ cache }) => {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
 	const { pathname } = useLocation();

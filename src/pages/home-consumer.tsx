@@ -125,7 +125,7 @@ function HomeConsumer({
 	};
 
 	const dropdownRestrictions = restrictions
-		.map(item => ({ name: item.name, id: item.id }))
+		.map(item => ({ name: item.restricao, id: item.id }))
 		.filter(item => item.name !== undefined)
 		.map(item => ({ name: item.name as string, id: item.id }));
 
@@ -210,6 +210,7 @@ function HomeConsumer({
 				},
 			]}
 			onClickApplication={onClickApplication}
+			cache={cache}
 		/>
 	);
 }
