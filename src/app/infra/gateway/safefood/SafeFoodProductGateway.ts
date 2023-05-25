@@ -64,7 +64,7 @@ export class SafeFoodProductGateway {
     // PUT /produtos/{id}
     async create(id: number, product: SafeFoodCreateProductRequest): Promise<SafeFoodProductResponse> {
         const res = await this.http.execute<SafeFoodProductResponse>({
-            url: `/produtos/${id}`,
+            url: `/produtos/estabelecimento/${id}`,
             method: 'POST',
             body: product,
         });

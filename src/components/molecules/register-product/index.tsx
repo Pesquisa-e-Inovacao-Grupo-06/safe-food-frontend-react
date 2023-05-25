@@ -38,16 +38,20 @@ function RegisterProduct({
 	user,
 }: Props) {
 	const [objProduct, setObjProduct] = useState<SafeFoodCreateProductRequest>();
-	const [pId, setId] = useState<string>("");
-	const [pNome, setNome] = useState<string>("");
-	const [pPreco, setPreco] = useState<number>(0);
+	const [id, setId] = useState<string>("");
+	const [nome, setNome] = useState<string>("");
+	const [preco, setPreco] = useState<number>(0);
 	const [img, setImg] = useState<string>("");
-	const [pDescricao, setDescricao] = useState<string>("");
-	const [pType, setType] = useState<string>("");
-	const [pIngredientes, setIngredientes] = useState<string[]>([]);
-	const [pAuxIngredientes, setAuxIngredientes] = useState<string>("");
-	const [pRestrictions, setRestrictions] = useState<Restriction[]>([]);
-	const [pAuxRestriction, setAuxRestriction] = useState<Restriction>();
+	const [descricao, setDescricao] = useState<string>("");
+
+	const [categoria, setCategoria] = useState<number>(0);
+
+	const [ingredientes, setIngredientes] = useState<string[]>([]);
+	const [auxIngredientes, setAuxIngredientes] = useState<string>("");
+
+	const [restrictions, setRestrictions] = useState<number[]>([]);
+	const [auxRestriction, setAuxRestriction] = useState<number>();
+
 	const [auxFunction, setAuxFunction] = useState<string>();
 
 	//limpar todos os dados ao entrar ou reiniciar a página
@@ -71,9 +75,9 @@ function RegisterProduct({
 
 	//concatenar ingredientes para auto preencher a input de ingredietes do produto a ser editado
 	useEffect(() => {
-		const joinIngredientes = pIngredientes.join(", ");
+		const joinIngredientes = ingredientes.join(", ");
 		setAuxIngredientes(joinIngredientes);
-	}, [pId]);
+	}, [id]);
 
 	//limpar os values dos useState
 	const clear = () => {
@@ -83,7 +87,7 @@ function RegisterProduct({
 		setPreco(0);
 		setImg("");
 		setDescricao("");
-		setType("");
+		setCategoria(0);
 		setIngredientes([]);
 		setAuxIngredientes("");
 		setRestrictions([]);
@@ -113,6 +117,7 @@ function RegisterProduct({
 
 	//passar os dados de edit para os useState
 	const setObjEdit = () => {
+		debugger;
 		setId(productEdit?.params.id != undefined ? productEdit?.params.id : "");
 		setNome(
 			productEdit?.params.titulo != undefined ? productEdit?.params.titulo : ""
@@ -128,10 +133,10 @@ function RegisterProduct({
 				? productEdit?.params.descricao
 				: ""
 		);
-		setType(
-			productEdit?.params.categoria?.nome != undefined
-				? productEdit?.params.categoria.nome
-				: ""
+		setCategoria(
+			productEdit?.params.categoria?.id != undefined
+				? parseInt(productEdit?.params.categoria.id)
+				: 0
 		);
 		setIngredientes(
 			productEdit?.params.ingredientes != undefined
@@ -151,59 +156,65 @@ function RegisterProduct({
 
 	//manipulação dos ingredientes, para inserir cada um
 	useEffect(() => {
-		var ingredientesSplit = pAuxIngredientes.split(",");
+		var ingredientesSplit = auxIngredientes.split(",");
 		var ingredientesAdapter = ingredientesSplit.map(item => {
 			return item.trim();
 		});
 		setIngredientes(ingredientesAdapter);
-	}, [pAuxIngredientes]);
+	}, [auxIngredientes]);
 
 	//verificar os valores e mandar para o objeto que será criado
 	const setProduct = () => {
 		debugger;
-		if (pNome.length <= 0) {
+		if (user?.id == undefined || user.id == 0) {
 			return;
 		}
-		// if (pPreco <= 0) {
+		if (nome.length <= 0) {
+			return;
+		}
+		if (preco <= 0) {
+			return;
+		}
+		if (descricao.length <= 0) {
+			return;
+		}
+		if (ingredientes.length <= 0) {
+			return;
+		}
+		// if (restrictions.length <= 0) {
 		// 	return;
 		// }
-		// if (pDescricao.length <= 0) {
-		// 	return;
-		// }
-		// if (pIngredientes.length <= 0) {
-		// 	return;
-		// }
-		// if (pRestrictions.length <= 0) {
-		// 	return;
-		// }
-		// if (pType.length <= 0) {
-		// 	return;
-		// }
+		if (auxRestriction == undefined || auxRestriction <= 0) {
+			return;
+		}
+		if (categoria <= 0) {
+			return;
+		}
 
 		setObjProduct({
-			id: 2, //teste, pois no create não faz sentido ter o id, pois creio que seja um auto increment, mais na rquest pede então passei mocado.
-			titulo: pNome,
-			preco: 12, //pPreco,
-			descricao: "teste", //pDescricao,
-			imagem: "", //img,
-			ingredientes: ["açucar", "sal"], //pIngredientes,
-			unidadeDeVenda: "unidade", //teste, pois não entendi qual valor deve ser passado.
-			categoria: 1, //pType,
-			restricoes: [1, 2], //pRestrictions,
+			id: user?.id, //teste, pois no create não faz sentido ter o id, pois creio que seja um auto increment, mais na rquest pede então passei mocado.
+			titulo: nome,
+			preco: preco,
+			descricao: descricao,
+			imagem: "",
+			ingredientes: ingredientes,
+			unidadeDeVenda: "unidade",
+			categoria: categoria,
+			restricoes: [1, 2], //restrictions,
 		});
 	};
 
 	//concatenar as restrictions conforme ir selecionando
-	useEffect(() => {
-		const newRestrictions: Restriction[] =
-			restrictionProduct != undefined
-				? restrictionProduct.filter(item => {
-						return item.params.isActive ? { ...pRestrictions, pAuxRestriction } : "";
-				  })
-				: pRestrictions;
-		setRestrictions(newRestrictions);
-		setAuxFunction("auxFucntion");
-	}, [auxFunction]);
+	// useEffect(() => {
+	// 	const newRestrictions: Restriction[] =
+	// 		restrictionProduct != undefined
+	// 			? restrictionProduct.filter(item => {
+	// 					return item.params.isActive ? { ...restrictions, auxRestriction } : "";
+	// 			  })
+	// 			: restrictions;
+	// 	setRestrictions(newRestrictions);
+	// 	setAuxFunction("auxFucntion");
+	// }, [auxFunction]);
 
 	//limpar os campos quando abrir a aba ou fechar
 	useEffect(() => {
@@ -229,7 +240,7 @@ function RegisterProduct({
 				</>
 				<div className="container-info-register-product">
 					<div className="header-register-product">
-						<CardExpansiveEstablishmentFoodOrganism titulo={pNome} />
+						<CardExpansiveEstablishmentFoodOrganism titulo={nome} />
 					</div>
 					<div className="main-register-product">
 						<div className="container-main-register-product">
@@ -241,9 +252,9 @@ function RegisterProduct({
 								{typeProduct?.map(item => (
 									<StyledButton
 										onClick={() =>
-											item.params.nome == undefined
-												? setType("")
-												: setType(item.params.nome)
+											item.params.id == undefined
+												? setCategoria(0)
+												: setCategoria(item.params.id)
 										}
 										height="fit-content"
 										width="fit-content"
@@ -262,25 +273,25 @@ function RegisterProduct({
 							</Box>
 							<InputRegisterProduct
 								label="Nome do Produto"
-								value={pNome}
+								value={nome}
 								updateValue={setNome}
 								placeholder="Nome"
 							/>
 							<InputRegisterProduct
 								label="Preço"
-								value={pPreco}
+								value={preco}
 								updateValue={setPreco}
 								placeholder="valor"
 							/>
 							<InputRegisterProduct
 								label="Ingredientes"
-								value={pAuxIngredientes}
+								value={auxIngredientes}
 								updateValue={setAuxIngredientes}
 								placeholder="sal, açucar"
 							/>
 							<InputRegisterProduct
 								label="Descrição"
-								value={pDescricao}
+								value={descricao}
 								updateValue={setDescricao}
 								placeholder="Descrição"
 							/>
@@ -299,7 +310,7 @@ function RegisterProduct({
 											sizeChips="chips-md"
 											onClick={() => {
 												restriction.params.isActive = !restriction.params.isActive;
-												setAuxRestriction(restriction);
+												setAuxRestriction(restriction.params.id);
 												setAuxFunction("auxChips");
 											}}
 											isActive={restriction.params.isActive}
@@ -313,7 +324,7 @@ function RegisterProduct({
 					</div>
 					<div className="footer-register-product">
 						<Box className="container-footer-register-product">
-							{pId != "" ? (
+							{id != "" ? (
 								<StyledButton
 									className="btn-cancelar-footer-register-product"
 									height="fit-content"
@@ -333,7 +344,7 @@ function RegisterProduct({
 									Limpar
 								</StyledButton>
 							)}
-							{pId != "" ? (
+							{id != "" ? (
 								<StyledButton
 									className="btn-salvar-footer-register-product"
 									height="fit-content"
