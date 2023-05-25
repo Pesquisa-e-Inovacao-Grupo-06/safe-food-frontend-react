@@ -7,7 +7,10 @@ import { SafeFoodTypeProductGateway } from "@/app/infra/gateway/safefood/SafeFoo
 import { SafeFoodProductMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodProductMapper";
 import { SafeFoodRestrictionMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodRestrictionMapper";
 import { SafeFoodConsumerModel } from "@/app/infra/gateway/safefood/models/SafeFoodConsumer";
-import { SafeFoodProductFilterRequest } from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
+import {
+	SafeFoodProductFilterRequest,
+	SafeFoodProductsResponse,
+} from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
 import { SafeFoodRestrictionModel } from "@/app/infra/gateway/safefood/models/SafeFoodRestriction";
 import { CheckBoxEntity } from "@/components/molecules/checkbox-chain";
 import HomeConsumerTemplate from "@/components/templates/home-consumer/home-consumer-template";
@@ -57,6 +60,7 @@ function HomeConsumer({
 	// useState<SafeFoodProductFilterRequest>({});
 	const [productsFilter, setProductsFilter] = useState<any>();
 	const [pageNumber, setPageNumber] = useState<number>(0);
+	//	todo: verifica esse useState e seu componente de paginação, não consigo atualizaar ele lá em baixo no campo de totalPage, mesmo que eu de um set aqui no total, a paginação não atualiza o seu < 1 2 3>
 	const [totalPage, setTotalPage] = useState<number>(0);
 	const [initialize, setInitializa] = useState<boolean>(false);
 
@@ -68,6 +72,8 @@ function HomeConsumer({
 			return;
 		}
 		setPageNumber(pageNumberHandle);
+		console.log("handle");
+
 		try {
 			const fetchedProducts = await productGateway.productFilter({
 				ids_categorias: [],
@@ -76,9 +82,9 @@ function HomeConsumer({
 				cep: "09572660",
 				direction: "asc",
 				distanceRadio: 10,
-				itensPorPagina: 1,
+				itensPorPagina: 2,
 				numero: undefined,
-				page: pageNumber ?? 0, // Utilize o valor atual do pageNumber
+				page: pageNumber ?? 1, // Utilize o valor atual do pageNumber
 				pesquisa: undefined,
 				// sort: ,
 			});
@@ -86,27 +92,32 @@ function HomeConsumer({
 			setProducts(fetchedProducts.content.map(SafeFoodProductMapper.of));
 			console.log("TOTAL DE PÁGINAS:" + fetchedProducts.totalPages);
 
-			setTotalPage(fetchedProducts.totalPages);
+			// setTotalPage(fetchedProducts.totalPages);
 			// console.log(products);
 		} catch (error) {}
 	};
 
 	const onClickApplication = async () => {
+		console.log("onclick");
 		try {
 			const filterProducts: SafeFoodProductFilterRequest = {
 				ids_restricoes: checkedRestrictions,
 				ids_categorias: checkedTypeProducts,
 				ids_tipos_restricao: checkedTypeRestrictions,
-				page: 0,
+				page: 1,
+				itensPorPagina: 2,
 			};
-			console.log("Filtro aplicado:", filterProducts);
-			const fetchedProductsFilter = await productGateway.productFilter(
-				filterProducts
-			);
+			const fetchedProductsFilter: SafeFoodProductsResponse =
+				await productGateway.productFilter(filterProducts);
 
 			setProductsFilter(fetchedProductsFilter);
 			setProducts(fetchedProductsFilter.content.map(SafeFoodProductMapper.of));
-			setPageNumber(filterProducts.page ?? 0);
+			console.log(
+				"deveria encontrar total de páginas",
+				fetchedProductsFilter.totalPages
+			);
+			setTotalPage(fetchedProductsFilter.totalPages);
+			setInitializa(true);
 		} catch (error) {
 			// Tratar erros
 		}
@@ -114,9 +125,12 @@ function HomeConsumer({
 
 	useEffect(() => {
 		if (initialize == false) {
+			console.log("initialize == false");
+
 			onClickApplication();
 		}
-		if (pageNumber == 0) {
+		if (pageNumber <= 1) {
+			console.log("page number <=1");
 			return;
 		}
 		handlePageChange(pageNumber);
@@ -189,7 +203,6 @@ function HomeConsumer({
 		dropdownTypeRestrictions.map(item =>
 			createCheckBoxEntity(item.name, item.id)
 		);
-
 	return (
 		<HomeConsumerTemplate
 			products={products}
@@ -234,7 +247,7 @@ function HomeConsumer({
 			onClickApplication={onClickApplication}
 			cache={cache}
 			onPageChange={handlePageChange}
-			totalPagesProductFilter={totalPage}
+			totalPagesProductFilter={5}
 		/>
 	);
 }

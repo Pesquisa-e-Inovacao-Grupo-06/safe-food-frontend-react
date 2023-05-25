@@ -4,19 +4,27 @@ import { BiSearch } from "react-icons/bi";
 import { IoCloseSharp } from "react-icons/io5";
 import styled from "styled-components";
 import { ContainerSearchBar } from "./styles";
+import { Product } from "@/app/domain/entities/Product";
 
 type Props = {
 	children?: any;
+	products: Product[];
 };
 
-const SearchBar: React.FC<Props> = ({ children }) => {
-	const [repositores, setRepositories] = useState<any[]>([]);
-	const [filterData, setFilterData] = useState<any[]>([]);
+const SearchBar: React.FC<Props> = ({ children, products }) => {
+	const [filterData, setFilterData] = useState<Product[]>([]);
 	const [wordEntered, setWordEntered] = useState("");
+	const [repositores, setRepositories] = useState<Product[]>(products);
 
-	function setLocal(id: number) {
+	useEffect(() => {
+		setRepositories(products);
+	}, [products]);
+
+	function setLocal(id: string) {
 		repositores.map(repo => {
-			return repo.id == id ? setWordEntered(repo.name) : "";
+			return repo.params.id == id
+				? setWordEntered(repo.params.titulo != undefined ? repo.params.titulo : "")
+				: "";
 		});
 		setFilterData([]);
 	}
@@ -25,7 +33,9 @@ const SearchBar: React.FC<Props> = ({ children }) => {
 		const seacrhWorld = event.target.value;
 		setWordEntered(seacrhWorld);
 		const newFilter = repositores.filter(value => {
-			return value.name.toLowerCase().includes(seacrhWorld.toLowerCase());
+			return value.params.titulo != undefined
+				? value.params.titulo.toLowerCase().includes(seacrhWorld.toLowerCase())
+				: "";
 		});
 
 		if (seacrhWorld === "") {
@@ -63,10 +73,10 @@ const SearchBar: React.FC<Props> = ({ children }) => {
 							{filterData.slice(0, 15).map(repo => {
 								return (
 									<li
-										key={repo}
-										onClick={() => setLocal(repo.id)}
+										key={repo.params.id}
+										onClick={() => setLocal(repo.params.id)}
 									>
-										{repo.name}
+										{repo.params.titulo}
 									</li>
 								);
 							})}

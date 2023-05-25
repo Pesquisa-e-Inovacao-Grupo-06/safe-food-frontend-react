@@ -17,12 +17,14 @@ import { AiFillCaretDown } from "react-icons/ai";
 import { SafeFoodLoginResponse } from "@/app/infra/gateway/safefood/models/SafeFoodUser";
 import { SafeFoodConsumerModel } from "@/app/infra/gateway/safefood/models/SafeFoodConsumer";
 import { SafeFoodAddressMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodAddressMapper";
+import { Product } from "@/app/domain/entities/Product";
 
 export type HeaderConsumerProps = {
 	cache: Cache;
+	products?: Product[];
 };
 
-const HeaderConsumer: React.FC<HeaderConsumerProps> = ({ cache }) => {
+const HeaderConsumer: React.FC<HeaderConsumerProps> = ({ cache, products }) => {
 	const { toggleTheme, getTheme } = useSafeFoodTheme();
 	const [sidebar, setSidebar] = useState(false);
 
@@ -52,14 +54,14 @@ const HeaderConsumer: React.FC<HeaderConsumerProps> = ({ cache }) => {
 					<DropDownLocalInfo
 						address={consumer.enderecos.map(SafeFoodAddressMapper.of)}
 					/>
-					<SearchBar />
+					<SearchBar products={products ?? []} />
 					<Box className="container-user-info-header-consumer">
 						<DropDownSubMenu
 							cache={cache}
 							userName={user.usuario.nome ?? ""}
 						>
 							<Text cursor>{user.usuario.nome ?? ""}</Text>
-							<ImageAtom src={user.usuario.imagem} />
+							<ImageAtom src={consumer.imagem} />
 							<AiFillCaretDown
 								fill="orange"
 								color="orange"

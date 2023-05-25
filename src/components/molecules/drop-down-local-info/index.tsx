@@ -1,10 +1,8 @@
 import { Text } from "@/components/atoms/text";
-import { Box, Link } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
 import { BiSearch } from "react-icons/bi";
 import { GoLocation } from "react-icons/go";
-import styled from "styled-components";
 import { ContainerDropDownLocalInfo } from "./styles";
 import { Address } from "@/app/domain/entities/Address";
 
@@ -15,14 +13,14 @@ type Props = {
 
 const DropDownLocalInfo: React.FC<Props> = ({ children, address }) => {
 	const [active, setActive] = useState(false);
-	const [repositores, setRepositories] = useState<any[]>([]);
+	const [repositores, setRepositories] = useState<Address[]>(address);
 	const [valueText, setValueText] = useState<any>("Selecione um local");
-	const [filterData, setFilterData] = useState<any[]>([]);
+	const [filterData, setFilterData] = useState<Address[]>([]);
 	const [wordEntered, setWordEntered] = useState("");
 
-	function setLocal(id: number) {
+	function setLocal(id: string) {
 		repositores.map(repo => {
-			return repo.id == id ? setValueText(repo.name) : "";
+			return repo.params.apelido == id ? setValueText(repo.params.apelido) : "";
 		});
 		setActive(false);
 		setWordEntered("");
@@ -33,7 +31,9 @@ const DropDownLocalInfo: React.FC<Props> = ({ children, address }) => {
 		const seacrhWorld = event.target.value;
 		setWordEntered(seacrhWorld);
 		const newFilter = repositores.filter(value => {
-			return value.name.toLowerCase().includes(seacrhWorld.toLowerCase());
+			return value.params.apelido != undefined
+				? value.params.apelido.toLowerCase().includes(seacrhWorld.toLowerCase())
+				: "";
 		});
 
 		if (seacrhWorld === "") {
@@ -73,10 +73,14 @@ const DropDownLocalInfo: React.FC<Props> = ({ children, address }) => {
 									{filterData.slice(0, 15).map(repo => {
 										return (
 											<li
-												onClick={() => setLocal(repo.id)}
-												key={repo}
+												onClick={() =>
+													repo.params.apelido != undefined
+														? setLocal(repo.params.apelido)
+														: ""
+												}
+												key={repo.params.apelido}
 											>
-												{repo.name}
+												{repo.params.apelido}
 											</li>
 										);
 									})}

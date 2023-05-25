@@ -42,7 +42,10 @@ const HomeConsumerTemplate: React.FC<HomeConsumerProps> = ({
 
 	return (
 		<>
-			<HeaderConsumer cache={cache} />
+			<HeaderConsumer
+				cache={cache}
+				products={products}
+			/>
 			<BodyTemplate footer={true}>
 				<ContainerHomeConsumer isFormCardActive={formCard}>
 					<div className="header-home-consumer">
@@ -55,7 +58,9 @@ const HomeConsumerTemplate: React.FC<HomeConsumerProps> = ({
 								</li>
 								<li>
 									<Text>Exibir:</Text>
-									<SelectAtom options={[]} />
+									<SelectAtom
+										options={["5 itens", "10 itens", "20 itens", "30 itens"]}
+									/>
 								</li>
 								<li>
 									<Text>{count} produtos</Text>

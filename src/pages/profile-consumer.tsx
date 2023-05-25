@@ -231,10 +231,18 @@ function ProfileConsumer({
 
 				file: imageProfile,
 			});
+			const validStatus = [200, 201];
 
-			if (res?.status !== 200) {
+			if (!validStatus.includes(res.status)) {
 				setTypeAlert("warning");
 				setTextAlert("Alguns dados podem estar com formato incorreto!");
+				consumerState.nome = name;
+				consumerState.email = email;
+				// consumerState.restricoes = totalRestrictions
+				// 	.filter(item => item.params.isActive === true)
+				// 	.map(item => item.params.id)
+				// 	.filter((id): id is number => typeof id === "number"),
+
 				return;
 			}
 
