@@ -47,6 +47,18 @@ export class SafeFoodProductGateway {
         return res.data;
 
     }
+    async deleteComments(idUser: number, idProduct: number): Promise<any> {
+        const res = await this.http.execute<SafeFoodProductResponse>({
+            url: `/produtos/${idProduct}/avaliacoes/${idUser}`,
+            method: 'DELETE',
+        });
+
+        if (!res.data) {
+            throw new Error("Erro ao deletar comentário.");
+        }
+        return res.data;
+
+    }
 
 
     // PUT /produtos/{id}
@@ -97,7 +109,6 @@ export class SafeFoodProductGateway {
     }
 
     async productFilter(safeFoodProductFilterRequest?: SafeFoodProductFilterRequest): Promise<SafeFoodProductFilterResponse> {
-        console.log("filter");
         const queryStringParams = queryString.stringify(safeFoodProductFilterRequest ?? {} as SafeFoodProductFilterRequest);
 
 

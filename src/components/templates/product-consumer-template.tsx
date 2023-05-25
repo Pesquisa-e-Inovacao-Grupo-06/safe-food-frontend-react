@@ -34,15 +34,12 @@ import {
 import { TypeProduct } from "@/app/domain/entities/TypeProduct";
 import { Alert } from "../atoms/alert";
 import { AlertType } from "../atoms/alert/index";
+import { SafeFoodConsumerModel } from "@/app/infra/gateway/safefood/models/SafeFoodConsumer";
 
 interface ProductParams {
 	establishment: Establishment;
 	product: Product;
 	category?: TypeProduct;
-	onClickAddComments(): void;
-	onTextChange?: (comment: string) => void;
-	onClickStar?: (val: number) => void;
-	onClickShowMap?: () => void;
 	isLoadingOnClickAddComments: boolean;
 	isVisibleAlert: boolean;
 	typeAlert: AlertType;
@@ -50,6 +47,11 @@ interface ProductParams {
 	avaliationBar: AvaliationProgressBarProps;
 	avaliationsProps: SafeFoodAvaliationModel[];
 	cache: Cache;
+	onClickAddComments(): void;
+	onTextChange?: (comment: string) => void;
+	onClickStar?: (val: number) => void;
+	onClickShowMap?: () => void;
+	onClickTrashDelete: () => void;
 }
 
 export const ProductConsumerTemplate: React.FC<ProductParams> = ({
@@ -67,9 +69,13 @@ export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 	avaliationBar,
 	avaliationsProps,
 	cache,
+	onClickTrashDelete,
 }) => {
 	let rateCalc;
-
+	const consumer: SafeFoodConsumerModel =
+		cache.getItem("consumer") !== null
+			? JSON.parse(cache.getItem("consumer")!)
+			: {};
 	if (avaliationsProps) {
 		const somaAvaliacoes = avaliationsProps
 			.map(item => item.rate)
@@ -244,6 +250,9 @@ export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 												img={item.consumidor.imagem}
 												name={item.consumidor.nome}
 												date={item.dataCadastro}
+												onClickTrashDelete={() => {
+													onClickAddComments();
+												}}
 											/>
 										))
 									) : (

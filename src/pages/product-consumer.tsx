@@ -12,7 +12,11 @@ import { SafeFoodTypeProductMapper } from "@/app/infra/gateway/safefood/mappers/
 import { TypeProduct } from "@/app/domain/entities/TypeProduct";
 import { AlertType } from "@/components/atoms/alert";
 import { AvaliationProgressBarProps } from "@/components/molecules/avaliation-progress-bar";
-import { SafeFoodAvaliationModel } from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
+import {
+	SafeFoodAvaliationModel,
+	SafeFoodCategoryProductModel,
+} from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
+import { SafeFoodEstablishmentModel } from "@/app/infra/gateway/safefood/models/SafeFoodEstablishment";
 
 type ProductProps = {
 	cache: Cache;
@@ -93,6 +97,8 @@ function ProductConsumer({ cache, productGateway }: ProductProps) {
 			isFreteGratis: false,
 			isRetireNoLocal: false,
 			tempoEsperaMedio: "",
+			categoria: {} as SafeFoodCategoryProductModel,
+			estabelecimento: {} as SafeFoodEstablishmentModel,
 		})
 	);
 	const onClickAddComments = async () => {
@@ -145,26 +151,53 @@ function ProductConsumer({ cache, productGateway }: ProductProps) {
 		fetchProduct();
 	}, [id]);
 
+	const onClickDeleteComment = async (idUser: number, idProduct: number) => {
+		console.log("comentário dados de remoção: ", id);
+		// setAvaliationsParams([
+		// 	...avaliationsParams,
+		// 	{
+		// 		comentario: commentText,
+		// 		consumidor: consumer,
+		// 		dataCadastro: new Date().toString(),
+		// 		id: consumer.id.toString(),
+		// 		rate: valueStar,
+		// 	},
+		// ]);
+		setIsLoadingOnClickAddComments(true);
+		setIsVisibleAlert(true);
+		try {
+			if (id) {
+				const res = await productGateway.deleteComments(idUser, idProduct);
+				console.log("resposta delete:", res);
+			}
+		} catch (error) {
+			setIsVisibleAlert(true);
+			setTextAlert("Aconteceu algum erro, tente mais tarde!");
+			setTypeAlert("danger");
+		}
+		setIsLoadingOnClickAddComments(false);
+	};
 	return (
 		<ProductConsumerTemplate
 			establishment={establishment}
 			product={product}
 			category={categorias}
 			onClickAddComments={onClickAddComments}
-			// onClickShowMap={}
-			onClickStar={e => {
-				setValueStar(e);
-			}}
-			onTextChange={e => {
-				setCommentText(e);
-			}}
 			isLoadingOnClickAddComments={isLoadingOnClickAddComments}
 			isVisibleAlert={isVisibleAlert}
 			typeAlert={typeAlert}
 			textAlert={textAlert}
 			avaliationBar={avaliationBar}
 			avaliationsProps={avaliationsParams}
+			// onClickShowMap={}
 			cache={cache}
+			onClickStar={e => {
+				setValueStar(e);
+			}}
+			onTextChange={e => {
+				setCommentText(e);
+			}}
+			onClickTrashDelete={() => {}}
 		/>
 	);
 }

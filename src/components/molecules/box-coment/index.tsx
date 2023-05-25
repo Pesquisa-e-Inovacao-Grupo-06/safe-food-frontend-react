@@ -3,6 +3,8 @@ import { Text } from "@/components/atoms/text";
 import imgTeste from "../../../assets/food-favorite.png";
 import { ContainerBoxComent } from "./styles";
 import { ImageAtom } from "@/components/atoms/img";
+import { ButtonIcon } from "../button/button-icon";
+import { FaTrash } from "react-icons/fa";
 
 export type CommentProps = {
 	name?: string;
@@ -10,7 +12,9 @@ export type CommentProps = {
 	img?: string;
 	date?: string;
 	qtdComentario?: number;
+
 	// key?: React.Key;
+	onClickTrashDelete: () => void;
 };
 
 const BoxComment: React.FC<CommentProps> = ({
@@ -20,6 +24,7 @@ const BoxComment: React.FC<CommentProps> = ({
 	date = "20/04/2023",
 	qtdComentario = "18",
 	// key,
+	onClickTrashDelete,
 	...props
 }) => {
 	return (
@@ -31,7 +36,17 @@ const BoxComment: React.FC<CommentProps> = ({
 				<Box className="header-comentario-product-text">
 					<ImageAtom src={img} />
 					<Text>
-						<h3>{name}</h3>
+						<Box
+							display="flex"
+							flexDirection="row"
+							justify="space-between"
+						>
+							<h3>{name}</h3>
+							<FaTrash
+								cursor={"pointer"}
+								onClick={onClickTrashDelete}
+							></FaTrash>
+						</Box>
 						<span>
 							{date} - {qtdComentario} comentários
 						</span>

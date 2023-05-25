@@ -61,7 +61,7 @@ export const StyledText = styled.p<{
 	}};
 	margin: 0px;
 	padding: 0px;
-	cursor: ${p => (p.cursor ? "pointer" : "not-allowed")};
+	cursor: ${p => (p.cursor ? "pointer" : "unset")};
 
 	color: ${p =>
 		p.color
