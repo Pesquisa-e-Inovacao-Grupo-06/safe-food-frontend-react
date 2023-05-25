@@ -1,123 +1,6 @@
-import { Product } from "@/app/domain/entities/Product";
-import { SelectAtom } from "@/components/atoms/select";
-import { Text } from "@/components/atoms/text";
-import DropDown, { DropDownProps } from "@/components/molecules/drop-down";
-import HeaderConsumer from "@/components/molecules/header-consumer";
-import { CardEstablishmentFoodOrganism } from "@/components/organisms/card-establishment-food/card-establishment-food-organism";
-import { BodyTemplate } from "@/components/templates/body-template";
-import { Subtitle } from "@/styles/components/text/Subtitle";
-import { useState } from "react";
-import { FaBars } from "react-icons/fa";
-import { RxDashboard } from "react-icons/rx";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { Button } from "../atoms/button/index";
-import { Divider } from "@/components/atoms/divider";
-import { Cache } from "@/app/domain/protocols/Cache";
 
-export type HomeConsumerProps = {
-	products: Product[];
-	dropDownList: DropDownProps[];
-	onClickApplication(): void;
-	cache: Cache;
-};
-
-const HomeConsumerTemplate: React.FC<HomeConsumerProps> = ({
-	products,
-	dropDownList,
-	onClickApplication,
-	cache,
-}) => {
-	const [formCard, setFormcard] = useState<boolean>(false);
-	const [termAccepted, setTermAccepted] = useState(false);
-
-	var count = 0;
-
-	products.forEach(() => {
-		count++;
-	});
-
-	const [isDropDown, setDropDown] = useState(false);
-
-	return (
-		<>
-			<HeaderConsumer cache={cache} />
-			<BodyTemplate footer={true}>
-				<ContainerHomeConsumer isFormCardActive={formCard}>
-					<div className="header-home-consumer">
-						<div className="container-header-home-consumer">
-							<ul>
-								<li>
-									<Text>Ordenar:</Text>
-									<SelectAtom options={teste} />
-								</li>
-								<li>
-									<Text>Exibir:</Text>
-									<SelectAtom options={teste} />
-								</li>
-								<li>
-									<Text>{count} produtos</Text>
-								</li>
-							</ul>
-							<div className="container-icon-header-home-consumer">
-								<Text>{count} produtos</Text>
-								<div className="box-icon-header-home-consumer">
-									<FaBars onClick={() => setFormcard(true)} />
-									<RxDashboard onClick={() => setFormcard(false)} />
-								</div>
-							</div>
-						</div>
-					</div>
-					<div className="header-aside-filter-home-consumer">
-						<Subtitle>Filtrar por:</Subtitle>
-					</div>
-
-					<div className="main-aside-filter-home-consumer">
-						<div className="container-main-aside-filter-home-consumer">
-							{dropDownList.map(dropDownItem => {
-								return (
-									<DropDown
-										titleDropDown={dropDownItem.titleDropDown}
-										activeCheckBox={dropDownItem.activeCheckBox}
-										alignTitleText={dropDownItem.alignTitleText}
-										alignSubText={dropDownItem.alignSubText}
-										textSubMenuWithCheckBox={dropDownItem.textSubMenuWithCheckBox}
-										checkList={dropDownItem.checkList}
-										onCheckboxChainChange={dropDownItem.onCheckboxChainChange}
-									/>
-								);
-							})}
-						</div>
-						<Divider marginAll="10px" />
-						<Button onClick={onClickApplication}>Aplicar</Button>
-					</div>
-					<div className="main-home-consumer">
-						<div className="container-main-home-consumer">
-							{products.map(item => (
-								<Link to={`/product-consumer/${item.params.id}`}>
-									<CardProductHomeConsumer isActive={formCard}>
-										<CardEstablishmentFoodOrganism product={item} />
-									</CardProductHomeConsumer>
-								</Link>
-							))}
-						</div>
-					</div>
-					<div className="footer-home-consumer"></div>
-				</ContainerHomeConsumer>
-			</BodyTemplate>
-		</>
-	);
-};
-
-export default HomeConsumerTemplate;
-
-//Para a input select, porém não está funcionando
-const teste = ["Todos", "Todos", "Todos"];
-
-//itens sub-menu
-const submenu = ["Vegano", "Glúten", "Vegano", "Glúten", "Glúten", "Glúten"];
-
-const CardProductHomeConsumer = styled.div<{
+export const CardProductHomeConsumer = styled.div<{
 	isActive?: boolean;
 }>`
 	height: ${p => (p.isActive ? "11.5625rem" : "")};
@@ -210,7 +93,7 @@ const CardProductHomeConsumer = styled.div<{
 	}
 `;
 
-const ContainerHomeConsumer = styled.div<{
+export const ContainerHomeConsumer = styled.div<{
 	isFormCardActive: boolean;
 }>`
 	display: grid;

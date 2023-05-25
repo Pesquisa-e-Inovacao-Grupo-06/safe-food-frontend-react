@@ -1,7 +1,6 @@
 import { Box } from "@/components/atoms/box";
 import ContainerHeader from "@/components/atoms/container-header";
 import { LogoAtom } from "@/components/atoms/logo";
-import imgTeste from "../../../assets/food-favorite.png";
 import { Text } from "@/components/atoms/text";
 import DropDownSubMenu from "../drop-down-sub-menu";
 import Switch from "@/components/atoms/toggle-switch";
@@ -14,9 +13,10 @@ import { FaBars, FaHome, FaSignOutAlt, FaUserAlt } from "react-icons/fa";
 import Sidebar from "../sidebar";
 import { Cache } from "@/app/domain/protocols/Cache";
 import { ImageAtom } from "@/components/atoms/img";
-import styled from "styled-components";
 import { AiFillCaretDown } from "react-icons/ai";
 import { SafeFoodLoginResponse } from "@/app/infra/gateway/safefood/models/SafeFoodUser";
+import { SafeFoodConsumerModel } from "@/app/infra/gateway/safefood/models/SafeFoodConsumer";
+import { SafeFoodAddressMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodAddressMapper";
 
 export type HeaderConsumerProps = {
 	cache: Cache;
@@ -26,11 +26,17 @@ const HeaderConsumer: React.FC<HeaderConsumerProps> = ({ cache }) => {
 	const { toggleTheme, getTheme } = useSafeFoodTheme();
 	const [sidebar, setSidebar] = useState(false);
 
+	const consumer: SafeFoodConsumerModel =
+		cache.getItem("consumer") !== null
+			? JSON.parse(cache.getItem("consumer")!)
+			: {};
+
+	const user: SafeFoodLoginResponse =
+		cache.getItem("user") !== null ? JSON.parse(cache.getItem("user")!) : {};
+
 	function toggleSidebar() {
 		setSidebar(!sidebar);
 	}
-	const user: SafeFoodLoginResponse =
-		cache.getItem("user") !== null ? JSON.parse(cache.getItem("user")!) : {};
 
 	return (
 		<>
@@ -43,7 +49,9 @@ const HeaderConsumer: React.FC<HeaderConsumerProps> = ({ cache }) => {
 						toggle={toggleSidebar}
 					/>
 					<LogoAtom />
-					<DropDownLocalInfo />
+					<DropDownLocalInfo
+						address={consumer.enderecos.map(SafeFoodAddressMapper.of)}
+					/>
 					<SearchBar />
 					<Box className="container-user-info-header-consumer">
 						<DropDownSubMenu

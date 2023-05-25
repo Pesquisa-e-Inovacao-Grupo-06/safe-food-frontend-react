@@ -1,12 +1,12 @@
 import { Text } from "@/components/atoms/text";
-import { Box } from "@mui/material";
 import { useState } from "react";
 import { FaHome, FaSignOutAlt, FaUserAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
 import { ContainerDropDownSubMenu } from "./styles";
 import { Cache } from "@/app/domain/protocols/Cache";
 import { BsFillGearFill } from "react-icons/bs";
+import { SafeFoodLoginResponse } from "@/app/infra/gateway/safefood/models/SafeFoodUser";
+import { SafeFoodConsumerModel } from "@/app/infra/gateway/safefood/models/SafeFoodConsumer";
 
 type Props = {
 	children?: any;
@@ -16,6 +16,9 @@ type Props = {
 
 const DropDownSubMenu: React.FC<Props> = ({ userName, cache, children }) => {
 	const [active, setActive] = useState(false);
+
+	const user: SafeFoodLoginResponse =
+		cache.getItem("user") !== null ? JSON.parse(cache.getItem("user")!) : {};
 
 	return (
 		<>
@@ -45,6 +48,7 @@ const DropDownSubMenu: React.FC<Props> = ({ userName, cache, children }) => {
 												cache.removeItem("consumer");
 												cache.removeItem("establishment");
 												cache.removeItem("user");
+												window.location.reload();
 											}
 										}}
 									>

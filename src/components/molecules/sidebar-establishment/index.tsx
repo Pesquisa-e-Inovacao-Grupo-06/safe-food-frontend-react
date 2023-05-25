@@ -41,11 +41,11 @@ export function clearCache(cache: Cache) {
 	cache.removeItem("establishment");
 	cache.removeItem("user");
 
-	if (window.location.pathname === "/") {
-		window.location.reload();
-	} else {
-		navigator("/");
-	}
+	// if (window.location.pathname === "/") {
+	window.location.reload();
+	// } else {
+	// navigator("/");
+	// }
 }
 
 const SidebarEstab: React.FC<SidebarEstabProps> = ({ cache }) => {
@@ -126,7 +126,20 @@ const SidebarEstab: React.FC<SidebarEstabProps> = ({ cache }) => {
 						<SLink
 							to={to}
 							style={!sidebarOpen ? { width: `fit-content` } : {}}
-							onClick={() => clearCache(cache)}
+							onClick={() => {
+								const navigator = useNavigate();
+
+								cache.removeItem("token");
+								cache.removeItem("consumer");
+								cache.removeItem("establishment");
+								cache.removeItem("user");
+
+								// if (window.location.pathname === "/") {
+								window.location.reload();
+								// } else {
+								// navigator("/");
+								// }
+							}}
 						>
 							<SLinkIcon>{icon}</SLinkIcon>
 							{sidebarOpen && <SLinkLabel>{label}</SLinkLabel>}

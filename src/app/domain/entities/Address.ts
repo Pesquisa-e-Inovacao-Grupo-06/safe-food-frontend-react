@@ -7,8 +7,9 @@ export type AddressParams = {
   numero: string,
   bairro: string,
   apelido: string,
+  formatado?: string
 }
-        
+
 export class Address {
-    constructor (public params: Partial<AddressParams>){}
+  constructor(public params: Partial<AddressParams>) { }
 }

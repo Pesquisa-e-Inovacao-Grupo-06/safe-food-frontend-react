@@ -34,6 +34,7 @@ export const SelectAtom: React.FC<SelectProps> = ({
 				placeholder={nameSelect}
 				styles={style}
 				noOptionsMessage={() => noOptionsMessage}
+				options={options.map(option => ({ value: option, label: option }))}
 			/>
 		</StyledSelect>
 	);

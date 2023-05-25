@@ -203,25 +203,26 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 									flexWrap: "wrap",
 								}}
 							>
-								{restrictionsUser.map((restriction, i) => (
-									<Chips
-										disabled={!isEditable}
-										key={restriction.params.id + "item"}
-										sizeChips="chips-lg"
-										//TODO: verificar com o guilherme
-										onClick={() => {
-											restriction.params.isActive = !restriction.params.isActive;
-											console.log(
-												"restrições de usuário" +
-													JSON.stringify(restrictionsUser.map(item => item.params.isActive))
-											);
-											console.log("restrição ativo?:", restriction.params.isActive);
-										}}
-										isActive={restriction.params.isActive}
-									>
-										{restriction.params.restricao}
-									</Chips>
-								))}
+								{restrictionsUser &&
+									restrictionsUser.map((restriction, i) => (
+										<Chips
+											disabled={!isEditable}
+											key={restriction.params.id + "item"}
+											sizeChips="chips-lg"
+											//TODO: verificar com o guilherme
+											onClick={() => {
+												restriction.params.isActive = !restriction.params.isActive;
+												console.log(
+													"restrições de usuário" +
+														JSON.stringify(restrictionsUser.map(item => item.params.isActive))
+												);
+												console.log("restrição ativo?:", restriction.params.isActive);
+											}}
+											isActive={restriction.params.isActive}
+										>
+											{restriction.params.restricao}
+										</Chips>
+									))}
 							</PContainerRestricao>
 						</PContainerInfo3>
 					</PContainerInfo>

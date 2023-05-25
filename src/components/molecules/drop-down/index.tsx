@@ -71,7 +71,7 @@ const DropDown: React.FC<DropDownProps> = ({
 							)}
 							{!activeCheckBox &&
 								textSubMenuWithoutCheckBox.map(({ to, textSubMenu }) => (
-									<li>
+									<li key={textSubMenu}>
 										<Link to={to}>
 											<Text>{textSubMenu}</Text>
 										</Link>
