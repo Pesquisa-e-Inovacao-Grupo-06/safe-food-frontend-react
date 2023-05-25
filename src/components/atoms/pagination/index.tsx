@@ -35,6 +35,9 @@ export const Pagination: React.FC<{
 	};
 
 	useEffect(() => {
+		if (typeof currentPage == "number") {
+			onPageChange(+currentPage);
+		}
 		if (qtyPages.length - 1 > 4) {
 			if (typeof currentPage === "number" && currentPage >= 1 && currentPage < 4) {
 				let slice = qtyPages.slice(0, 4);
@@ -108,12 +111,6 @@ export const Pagination: React.FC<{
 			);
 		}
 	};
-
-	useEffect(() => {
-		if (typeof currentPage === "number") {
-			onPageChange(currentPage); // Chamada da função de retorno com o número da página atual
-		}
-	}, [currentPage, onPageChange]);
 
 	return (
 		<Box
