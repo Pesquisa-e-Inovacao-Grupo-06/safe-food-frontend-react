@@ -10,6 +10,9 @@ import { useParams } from "react-router-dom";
 import { SafeFoodConsumerModel } from "@/app/infra/gateway/safefood/models/SafeFoodConsumer";
 import { SafeFoodTypeProductMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodTypeProductMapper";
 import { TypeProduct } from "@/app/domain/entities/TypeProduct";
+import { AlertType } from "@/components/atoms/alert";
+import { AvaliationProgressBarProps } from "@/components/molecules/avaliation-progress-bar";
+import { SafeFoodAvaliationModel } from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
 
 type ProductProps = {
 	cache: Cache;
@@ -22,6 +25,19 @@ function ProductConsumer({ cache, productGateway }: ProductProps) {
 		cache.getItem("consumer") !== null
 			? JSON.parse(cache.getItem("consumer")!)
 			: {};
+	const [valueStar, setValueStar] = useState<number>(0);
+	const [commentText, setCommentText] = useState<string>("");
+	const [isLoadingOnClickAddComments, setIsLoadingOnClickAddComments] =
+		useState<boolean>(false);
+	const [isVisibleAlert, setIsVisibleAlert] = useState(false);
+	const [typeAlert, setTypeAlert] = useState<AlertType>("success");
+	const [textAlert, setTextAlert] = useState("Agradecemos por seu feedback!");
+	const [avaliationBar, setAvaliationBar] = useState<AvaliationProgressBarProps>(
+		{}
+	);
+	const [avaliationsParams, setAvaliationsParams] = useState<
+		SafeFoodAvaliationModel[]
+	>([]);
 
 	const [establishment, setEstablishment] = useState<Establishment>(
 		new Establishment({
@@ -80,18 +96,33 @@ function ProductConsumer({ cache, productGateway }: ProductProps) {
 		})
 	);
 	const onClickAddComments = async () => {
+		console.log("comentário dados: ", commentText, valueStar);
+		setAvaliationsParams([
+			...avaliationsParams,
+			{
+				comentario: commentText,
+				consumidor: consumer,
+				dataCadastro: new Date().toString(),
+				id: consumer.id.toString(),
+				rate: valueStar,
+			},
+		]);
+		setIsLoadingOnClickAddComments(true);
+		setIsVisibleAlert(true);
 		try {
-			//TODO: TIRAR MOCK
 			if (id) {
 				const res = await productGateway.createComments(id.toString(), {
-					comentario: "NOSSA MEU!",
-					rate: 5,
+					comentario: commentText,
+					rate: valueStar,
 					idConsumidor: consumer.id,
 				});
 			}
 		} catch (error) {
-			// faça algo com o erro
+			setIsVisibleAlert(true);
+			setTextAlert("Aconteceu algum erro, tente mais tarde!");
+			setTypeAlert("danger");
 		}
+		setIsLoadingOnClickAddComments(false);
 	};
 	useEffect(() => {
 		async function fetchProduct() {
@@ -103,41 +134,37 @@ function ProductConsumer({ cache, productGateway }: ProductProps) {
 				if (!res.data) {
 					return;
 				}
-				console.log("TESTE", res.data);
 				setEstablishment(SafeFoodEstablishmentMapper.of(res.data.estabelecimento));
 				setProduct(SafeFoodProductMapper.of(res.data));
-				// setCategorias(res.data.categoria.map(SafeFoodTypeProductMapper.of));
 				setCategorias(SafeFoodTypeProductMapper.of(res.data.categoria));
+				setAvaliationsParams(res.data.avaliacoes);
 			} catch (error) {
 				// faça algo com o erro
 			}
 		}
 		fetchProduct();
 	}, [id]);
-	console.log(product.params.avaliacoes);
-	useEffect(() => {
-		console.log("establishment", establishment);
-	}, [establishment]);
 
-	useEffect(() => {
-		console.log("product", product);
-		console.log("product", product.params.categoria);
-	}, [product]);
-
-	useEffect(() => {
-		console.log("product", product);
-		console.log("product", product.params.categoria);
-	}, [product.params.avaliacoes]);
-	useEffect(() => {
-		console.log("product", product);
-		console.log("product", product.params.categoria);
-	}, [categorias]);
 	return (
 		<ProductConsumerTemplate
 			establishment={establishment}
 			product={product}
 			category={categorias}
 			onClickAddComments={onClickAddComments}
+			// onClickShowMap={}
+			onClickStar={e => {
+				setValueStar(e);
+			}}
+			onTextChange={e => {
+				setCommentText(e);
+			}}
+			isLoadingOnClickAddComments={isLoadingOnClickAddComments}
+			isVisibleAlert={isVisibleAlert}
+			typeAlert={typeAlert}
+			textAlert={textAlert}
+			avaliationBar={avaliationBar}
+			avaliationsProps={avaliationsParams}
+			cache={cache}
 		/>
 	);
 }

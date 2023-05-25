@@ -17,21 +17,39 @@ import { ButtonIcon } from "@/components/molecules/button/button-icon";
 import { FaMapMarkedAlt } from "react-icons/fa";
 import TextArea from "@/components/atoms/textarea";
 import BoxComment from "@/components/molecules/box-coment";
-import { AvaliationProgressBar } from "../molecules/avaliation-progress-bar";
+import {
+	AvaliationProgressBar,
+	AvaliationProgressBarProps,
+} from "../molecules/avaliation-progress-bar";
 import { Product } from "@/app/domain/entities/Product";
 import { Establishment } from "@/app/domain/entities/Establishment";
 import { SafeFoodProductGateway } from "@/app/infra/gateway/safefood/SafeFoodProductGateway";
 import { Cache } from "@/app/domain/protocols/Cache";
 import HeaderConsumer from "../molecules/header-consumer";
 import { formatReal } from "@/app/util/convertions/price-br";
-import { SafeFoodCategoryProductModel } from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
+import {
+	SafeFoodAvaliationModel,
+	SafeFoodCategoryProductModel,
+} from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
 import { TypeProduct } from "@/app/domain/entities/TypeProduct";
+import { Alert } from "../atoms/alert";
+import { AlertType } from "../atoms/alert/index";
 
 interface ProductParams {
 	establishment: Establishment;
 	product: Product;
 	category?: TypeProduct;
 	onClickAddComments(): void;
+	onTextChange?: (comment: string) => void;
+	onClickStar?: (val: number) => void;
+	onClickShowMap?: () => void;
+	isLoadingOnClickAddComments: boolean;
+	isVisibleAlert: boolean;
+	typeAlert: AlertType;
+	textAlert: string;
+	avaliationBar: AvaliationProgressBarProps;
+	avaliationsProps: SafeFoodAvaliationModel[];
+	cache: Cache;
 }
 
 export const ProductConsumerTemplate: React.FC<ProductParams> = ({
@@ -39,15 +57,25 @@ export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 	product,
 	onClickAddComments,
 	category,
+	onTextChange,
+	onClickShowMap,
+	onClickStar,
+	isLoadingOnClickAddComments,
+	isVisibleAlert,
+	textAlert,
+	typeAlert,
+	avaliationBar,
+	avaliationsProps,
+	cache,
 }) => {
 	let rateCalc;
 
-	if (product.params.avaliacoes) {
-		const somaAvaliacoes = product.params.avaliacoes
+	if (avaliationsProps) {
+		const somaAvaliacoes = avaliationsProps
 			.map(item => item.rate)
 			.filter(rate => rate !== undefined)
-			.reduce((acumulador, avaliacao) => acumulador + avaliacao, 0); // Exemplo de filtragem para remover avaliações indefinidas
-		const mediaAvaliacoes = somaAvaliacoes / product.params.avaliacoes.length;
+			.reduce((acumulador, avaliacao) => acumulador + avaliacao, 0);
+		const mediaAvaliacoes = somaAvaliacoes / avaliationsProps.length;
 
 		rateCalc = mediaAvaliacoes;
 		// Restante do código que utiliza o rateCalc
@@ -60,7 +88,7 @@ export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 
 	return (
 		<>
-			<HeaderConsumer />
+			<HeaderConsumer cache={cache} />
 			<BodyTemplate footer>
 				<ContainerProductConsumer>
 					<div className="header-product-consumer"></div>
@@ -158,32 +186,49 @@ export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 									<span>{} Produtos</span>
 								</Text>
 							</Box>
-							<ButtonIcon icon={<FaMapMarkedAlt />}>VISUALIZAR</ButtonIcon>
+							<ButtonIcon
+								icon={<FaMapMarkedAlt />}
+								onClick={onClickShowMap}
+							>
+								VISUALIZAR
+							</ButtonIcon>
 							<Subtitle className="subtitulo-avaliacao-info-product">
 								Avaliações
 							</Subtitle>
-							<AvaliationProgressBar />
+							{/* TODO: FAZER IFS PARA COR DE CIRCLE */}
+							<AvaliationProgressBar
+								average={rateCalc}
+								label={avaliationBar.label}
+								reviews={avaliationBar.reviews}
+								values={avaliationBar.values}
+							/>
 						</div>
 						<div className="comentario-product-consumer">
 							<Box className="container-comentario-product-consumer-first-row">
 								<Subtitle>Contribua</Subtitle>
+								{isVisibleAlert ? <Alert type={typeAlert}>{textAlert}</Alert> : <></>}
 								<Text>Dê uma nota para sua experiência</Text>
 								<div className="comentario-product-avaliation-start">
 									<AvaliationStars
 										fixed={false}
 										color="orange"
-										avegareRate={1}
+										avegareRate={0}
+										onClickStar={onClickStar}
 									/>
 									<ul>
 										<li>MUITO BOM</li>
 									</ul>
 								</div>
 								<Text>Faça um comentário</Text>
-								<TextArea height="42px" />
+								<TextArea
+									height="42px"
+									onTextChange={onTextChange}
+								/>
 								<ButtonIcon
 									buttonStyle="filled"
 									icon={undefined}
 									onClick={onClickAddComments}
+									loading={isLoadingOnClickAddComments}
 								>
 									CONTRIBUIR
 								</ButtonIcon>
@@ -191,14 +236,13 @@ export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 							<Box className="container-comentario-product-consumer-second-row">
 								<Subtitle>Comentários</Subtitle>
 								<div className="container-comentario-product-text">
-									{product.params.avaliacoes ? (
-										product.params.avaliacoes!.map(item => (
+									{avaliationsProps ? (
+										avaliationsProps!.map(item => (
 											<BoxComment
 												key={item.id}
 												comentario={item.comentario}
-												img={""}
-												name={"mocks"}
-												// qtdComentario={item.}
+												img={item.consumidor.imagem}
+												name={item.consumidor.nome}
 												date={item.dataCadastro}
 											/>
 										))

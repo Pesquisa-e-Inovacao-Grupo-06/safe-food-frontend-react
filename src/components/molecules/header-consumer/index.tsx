@@ -1,8 +1,6 @@
 import { Box } from "@/components/atoms/box";
 import ContainerHeader from "@/components/atoms/container-header";
 import { LogoAtom } from "@/components/atoms/logo";
-import styled from "styled-components";
-import imgTeste from "../../../assets/food-favorite.png";
 import { Text } from "@/components/atoms/text";
 import DropDownSubMenu from "../drop-down-sub-menu";
 import Switch from "@/components/atoms/toggle-switch";
@@ -13,10 +11,28 @@ import SearchBar from "../search-bar";
 import { ContainerHeaderConsumer } from "./styles";
 import { FaBars, FaHome, FaSignOutAlt, FaUserAlt } from "react-icons/fa";
 import Sidebar from "../sidebar";
+import { Cache } from "@/app/domain/protocols/Cache";
+import { ImageAtom } from "@/components/atoms/img";
+import { AiFillCaretDown } from "react-icons/ai";
+import { SafeFoodLoginResponse } from "@/app/infra/gateway/safefood/models/SafeFoodUser";
+import { SafeFoodConsumerModel } from "@/app/infra/gateway/safefood/models/SafeFoodConsumer";
+import { SafeFoodAddressMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodAddressMapper";
 
-const HeaderConsumer: React.FC = () => {
+export type HeaderConsumerProps = {
+	cache: Cache;
+};
+
+const HeaderConsumer: React.FC<HeaderConsumerProps> = ({ cache }) => {
 	const { toggleTheme, getTheme } = useSafeFoodTheme();
 	const [sidebar, setSidebar] = useState(false);
+
+	const consumer: SafeFoodConsumerModel =
+		cache.getItem("consumer") !== null
+			? JSON.parse(cache.getItem("consumer")!)
+			: {};
+
+	const user: SafeFoodLoginResponse =
+		cache.getItem("user") !== null ? JSON.parse(cache.getItem("user")!) : {};
 
 	function toggleSidebar() {
 		setSidebar(!sidebar);
@@ -33,14 +49,22 @@ const HeaderConsumer: React.FC = () => {
 						toggle={toggleSidebar}
 					/>
 					<LogoAtom />
-					<DropDownLocalInfo />
+					<DropDownLocalInfo
+						address={consumer.enderecos.map(SafeFoodAddressMapper.of)}
+					/>
 					<SearchBar />
 					<Box className="container-user-info-header-consumer">
-						<Text>
-							<span>Lincoln Ferreira</span>
-						</Text>
-						<DropDownSubMenu>
-							<img src={imgTeste} />
+						<DropDownSubMenu
+							cache={cache}
+							userName={user.usuario.nome ?? ""}
+						>
+							<Text cursor>{user.usuario.nome ?? ""}</Text>
+							<ImageAtom src={user.usuario.imagem} />
+							<AiFillCaretDown
+								fill="orange"
+								color="orange"
+								cursor="pointer"
+							/>
 						</DropDownSubMenu>
 					</Box>
 					<Switch onClick={toggleTheme} />
@@ -62,6 +86,11 @@ const itemLinkArraySideConsumer = [
 		icon: FaUserAlt,
 		text: "Meu Perfil",
 		to: "/profile",
+	},
+	{
+		icon: FaUserAlt,
+		text: "Preferências",
+		to: "/preferences",
 	},
 	{
 		icon: FaSignOutAlt,

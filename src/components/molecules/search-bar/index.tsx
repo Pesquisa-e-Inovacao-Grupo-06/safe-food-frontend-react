@@ -61,7 +61,14 @@ const SearchBar: React.FC<Props> = ({ children }) => {
 					<div className="content-search-bar">
 						<ul className="options-search-bar">
 							{filterData.slice(0, 15).map(repo => {
-								return <li onClick={() => setLocal(repo.id)}>{repo.name}</li>;
+								return (
+									<li
+										key={repo}
+										onClick={() => setLocal(repo.id)}
+									>
+										{repo.name}
+									</li>
+								);
 							})}
 						</ul>
 					</div>

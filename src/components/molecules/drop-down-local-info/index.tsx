@@ -1,17 +1,19 @@
 import { Text } from "@/components/atoms/text";
-import { Box } from "@mui/material";
+import { Box, Link } from "@mui/material";
 import { useEffect, useState } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
 import { BiSearch } from "react-icons/bi";
 import { GoLocation } from "react-icons/go";
 import styled from "styled-components";
 import { ContainerDropDownLocalInfo } from "./styles";
+import { Address } from "@/app/domain/entities/Address";
 
 type Props = {
 	children?: any;
+	address: Address[];
 };
 
-const DropDownLocalInfo: React.FC<Props> = ({ children }) => {
+const DropDownLocalInfo: React.FC<Props> = ({ children, address }) => {
 	const [active, setActive] = useState(false);
 	const [repositores, setRepositories] = useState<any[]>([]);
 	const [valueText, setValueText] = useState<any>("Selecione um local");
@@ -66,12 +68,28 @@ const DropDownLocalInfo: React.FC<Props> = ({ children }) => {
 							/>
 						</div>
 						{filterData.length != 0 && (
-							<ul className="options-dropdown-local-info">
-								{filterData.slice(0, 15).map(repo => {
-									return <li onClick={() => setLocal(repo.id)}>{repo.name}</li>;
-								})}
-							</ul>
+							<>
+								<ul className="options-dropdown-local-info">
+									{filterData.slice(0, 15).map(repo => {
+										return (
+											<li
+												onClick={() => setLocal(repo.id)}
+												key={repo}
+											>
+												{repo.name}
+											</li>
+										);
+									})}
+								</ul>
+							</>
 						)}
+						<ul>
+							{address ? (
+								address.map((item, i) => <Text key={i}>{item.params.apelido}</Text>)
+							) : (
+								<></>
+							)}
+						</ul>
 					</div>
 				</div>
 			</ContainerDropDownLocalInfo>

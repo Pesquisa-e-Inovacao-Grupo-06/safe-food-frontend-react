@@ -61,7 +61,7 @@ function RegisterProduct({
 	const objEditRestrictions = () => {
 		productEdit?.params.restricoes != undefined
 			? productEdit?.params.restricoes.map(item => {
-					var aux = item.name;
+					var aux = item.restricao;
 					restrictionProduct?.filter(item => {
 						item.params.restricao == aux ? (item.params.isActive = true) : "";
 					});

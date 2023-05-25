@@ -71,11 +71,7 @@ export default Sidebar;
 // 		text: "Início",
 // 		to: "/",
 // 	},
-// 	{
-// 		icon: FaInfoCircle,
-// 		text: "Safe Food",
-// 		to: "/about",
-// 	},
+
 // 	{
 // 		icon: FaQuestionCircle,
 // 		text: "FAQ",

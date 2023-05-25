@@ -1,4 +1,4 @@
-import {SafeFoodGenericDataResponse} from "./SafeFoodResponse";
+import { SafeFoodGenericDataResponse } from "./SafeFoodResponse";
 
 export type SafeFoodCreateAddressRequest = {
     apelido: string,

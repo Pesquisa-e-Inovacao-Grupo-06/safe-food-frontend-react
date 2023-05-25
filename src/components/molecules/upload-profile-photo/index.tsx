@@ -1,5 +1,5 @@
 import React, { HTMLAttributes, useState } from "react";
-import Camera from "../../../assets/form/camera.svg";
+import Camera from "../../../assets/form/camera.png";
 import { StyledLabelForImage } from "./styles";
 import { Box, BoxJustify } from "@/components/atoms/box";
 import { Text } from "@/components/atoms/text";

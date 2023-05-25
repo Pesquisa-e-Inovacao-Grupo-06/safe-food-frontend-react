@@ -11,7 +11,7 @@ export type AuthRouteProps = {
 export type UserAuthType = "CONSUMIDOR" | "ESTABELECIMENTO";
 export const AuthRoute: React.FC<AuthRouteProps> = ({
 	userAuth,
-	redirect = "/signin",
+	redirect = "/",
 	children,
 }) => {
 	const { user, token } = useAuth();
@@ -24,6 +24,7 @@ export const AuthRoute: React.FC<AuthRouteProps> = ({
 			!token ||
 			!user.usuario.tipoUsuario ||
 			user.usuario.tipoUsuario != userAuth ||
+			//TODO: tem que mandar uma verificação para quando a sessão expira
 			!isTokenValid(token)
 		) {
 			navigate(redirect);

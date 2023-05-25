@@ -157,7 +157,10 @@ function HomeEstablishmentTemplate({
 				<div className="main-home-establishment">
 					<div className="container-main-home-establishment">
 						{filterData.map(item => (
-							<CardHomeEstablishment isActive={false}>
+							<CardHomeEstablishment
+								isActive={false}
+								key={item.params.id}
+							>
 								<CardEstablishmentFoodOrganism
 									product={item}
 									activeEdit

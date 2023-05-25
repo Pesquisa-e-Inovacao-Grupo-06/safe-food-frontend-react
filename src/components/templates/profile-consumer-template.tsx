@@ -20,10 +20,11 @@ import { useState } from "react";
 import {} from "@/app/util/validations/cep-validator";
 import { SafeFoodCreateAddressRequest } from "@/app/infra/gateway/safefood/models/SafeFoodAddress";
 import HeaderConsumer from "../molecules/header-consumer";
+import { Cache } from "@/app/domain/protocols/Cache";
 
 export type ProfileProps = {
 	restrictionsUser: Restriction[];
-	listOfAddress: Address[];
+	listOfAddress?: Address[];
 	form: InputPropsComponent[];
 	urlDefault: string | null | undefined;
 	typeAlert?: AlertType;
@@ -32,13 +33,7 @@ export type ProfileProps = {
 	isSaveButtonActive: boolean;
 	isLoading: boolean;
 	isEditable?: boolean;
-
 	address: SafeFoodCreateAddressRequest;
-	onClickChangePassword(): void;
-	onClickSave(): void;
-	onClickSaveButton(): void;
-	onClickEditable(): void;
-	onClickSaveNewAddress(): void;
 	onChange: React.FormEventHandler<HTMLInputElement> &
 		((e: React.FormEvent<HTMLInputElement>) => void);
 	cep: string;
@@ -48,11 +43,17 @@ export type ProfileProps = {
 	apelido: string;
 	onChangeApelido: React.FormEventHandler<HTMLInputElement> &
 		((e: React.FormEvent<HTMLInputElement>) => void);
-	toggleModal(): void;
 	isModalVisible: boolean;
+	toggleModal(): void;
+	onClickChangePassword(): void;
+	onClickSave(): void;
+	onClickSaveButton(): void;
+	onClickEditable(): void;
+	onClickSaveNewAddress(): void;
 	onClickOpenModalAddress(): void;
 	onChangeFile(file: File): void;
 	onClickCard: (id: string) => void;
+	cache: Cache;
 };
 
 export const ProfileTemplate: React.FC<ProfileProps> = ({
@@ -83,10 +84,11 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 	onClickOpenModalAddress,
 	onChangeFile,
 	onClickCard,
+	cache,
 }) => {
 	return (
 		<>
-			<HeaderConsumer />
+			<HeaderConsumer cache={cache} />
 			{/* MODAL */}
 			<AddressModal
 				toggleModal={toggleModal}
@@ -153,38 +155,41 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 						<PContainerInfo2>
 							<div className="pcontainerinfo2-sub">
 								<PTitle>Endereços</PTitle>
-								<PBtnAdicionarEndereco
+								<ButtonIcon
 									icon={<IoMdAddCircleOutline color="#087704" />}
 									alignIcon="right"
 									buttonStyle="outline"
 									style={{
 										height: 45,
 									}}
+									width={"fit-content"}
 									disabled={!isEditable}
 									onClick={onClickOpenModalAddress}
 								>
 									<span>adicionar endereço</span>
-								</PBtnAdicionarEndereco>
+								</ButtonIcon>
 							</div>
-							<PContainerAddressCard>
-								{listOfAddress.map((address, i) => (
-									<AddresCard
-										bodyText={`
+							{listOfAddress && (
+								<PContainerAddressCard>
+									{listOfAddress.map((address, i) => (
+										<AddresCard
+											bodyText={`
 										${address.params.bairro},
 										${address.params.numero},
 										${address.params.cidade} -
 										${address.params.estado},
 										${address.params.cep}
 										`}
-										headerText={address.params.apelido}
-										//VERIFICAR SOBRE ESSE ICONE
-										// Icon={adress.Icon}
-										key={i}
-										apelido={address.params.apelido ? address.params.apelido : ""}
-										onClickCard={onClickCard}
-									/>
-								))}
-							</PContainerAddressCard>
+											headerText={address.params.apelido}
+											//VERIFICAR SOBRE ESSE ICONE
+											// Icon={adress.Icon}
+											key={i}
+											apelido={address.params.apelido ? address.params.apelido : ""}
+											onClickCard={onClickCard}
+										/>
+									))}
+								</PContainerAddressCard>
+							)}
 						</PContainerInfo2>
 						<PDivider />
 						<PContainerInfo3>
@@ -198,25 +203,26 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 									flexWrap: "wrap",
 								}}
 							>
-								{restrictionsUser.map((restriction, i) => (
-									<Chips
-										disabled={!isEditable}
-										key={restriction.params.id + "item"}
-										sizeChips="chips-lg"
-										//TODO: verificar com o guilherme
-										onClick={() => {
-											restriction.params.isActive = !restriction.params.isActive;
-											console.log(
-												"restrições de usuário" +
-													JSON.stringify(restrictionsUser.map(item => item.params.isActive))
-											);
-											console.log("restrição ativo?:", restriction.params.isActive);
-										}}
-										isActive={restriction.params.isActive}
-									>
-										{restriction.params.restricao}
-									</Chips>
-								))}
+								{restrictionsUser &&
+									restrictionsUser.map((restriction, i) => (
+										<Chips
+											disabled={!isEditable}
+											key={restriction.params.id + "item"}
+											sizeChips="chips-lg"
+											//TODO: verificar com o guilherme
+											onClick={() => {
+												restriction.params.isActive = !restriction.params.isActive;
+												console.log(
+													"restrições de usuário" +
+														JSON.stringify(restrictionsUser.map(item => item.params.isActive))
+												);
+												console.log("restrição ativo?:", restriction.params.isActive);
+											}}
+											isActive={restriction.params.isActive}
+										>
+											{restriction.params.restricao}
+										</Chips>
+									))}
 							</PContainerRestricao>
 						</PContainerInfo3>
 					</PContainerInfo>

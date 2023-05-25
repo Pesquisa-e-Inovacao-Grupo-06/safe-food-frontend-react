@@ -43,7 +43,7 @@ export const StyledButton = styled.button<{
 	&:disabled {
 		opacity: 0.8;
 		filter: contrast(0.8);
-		cursor: none;
+		cursor: not-allowed;
 		user-select: contain;
 
 		&:hover {

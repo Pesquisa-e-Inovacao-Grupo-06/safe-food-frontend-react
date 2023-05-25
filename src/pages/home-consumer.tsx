@@ -6,13 +6,11 @@ import { SafeFoodProductGateway } from "@/app/infra/gateway/safefood/SafeFoodPro
 import { SafeFoodTypeProductGateway } from "@/app/infra/gateway/safefood/SafeFoodTypeProductGateway";
 import { SafeFoodProductMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodProductMapper";
 import { SafeFoodRestrictionMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodRestrictionMapper";
-import { SafeFoodTypeProductMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodTypeProductMapper";
 import { SafeFoodConsumerModel } from "@/app/infra/gateway/safefood/models/SafeFoodConsumer";
 import { SafeFoodProductFilterRequest } from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
 import { SafeFoodRestrictionModel } from "@/app/infra/gateway/safefood/models/SafeFoodRestriction";
-import { SafeFoodLoginResponse } from "@/app/infra/gateway/safefood/models/SafeFoodUser";
 import { CheckBoxEntity } from "@/components/molecules/checkbox-chain";
-import HomeConsumerTemplate from "@/components/templates/home-consumer-template";
+import HomeConsumerTemplate from "@/components/templates/home-consumer/home-consumer-template";
 import { useEffect, useState } from "react";
 
 type HomeConsumerProps = {
@@ -36,13 +34,9 @@ function HomeConsumer({
 			? JSON.parse(cache.getItem("restrictions")!)
 			: {};
 
-	const user: SafeFoodLoginResponse =
-		cache.getItem("user") !== null ? JSON.parse(cache.getItem("user")!) : {};
-
 	const [userRestrictions, setUserRestrictions] = useState<
 		SafeFoodRestrictionModel[]
 	>(consumer.restricoes);
-
 	const userTypeRestrictions = userRestrictions.map(
 		restriction => restriction.tipoRestricao
 	);
@@ -53,37 +47,86 @@ function HomeConsumer({
 	const inactiveRestrictions = restrictions
 		.filter(item => !activeRestrictionIds.includes(item.id))
 		.map(item => SafeFoodRestrictionMapper.of(item));
-
 	const [totalRestrictions, setTotalRestrictions] = useState<Restriction[]>(
 		[...consumerRestrictions, ...inactiveRestrictions] ?? []
 	);
 
 	const [products, setProducts] = useState<Product[]>([]);
 	const [typeProducts, setTypeProducts] = useState<TypeProduct[]>([]);
-	const [filterProducts, setFilterProducts] =
-		useState<SafeFoodProductFilterRequest>({});
-
+	// const [filterProducts, setFilterProducts] =
+	// useState<SafeFoodProductFilterRequest>({});
 	const [productsFilter, setProductsFilter] = useState<any>();
-	useEffect(() => {
-		async function fetchProducts() {
-			try {
-				const fetchedProducts = await productGateway.findAll();
-				const fetchedTypeProducts = await typeProductGateway.findAll();
-				setProducts(fetchedProducts.content.map(SafeFoodProductMapper.of));
-				setTypeProducts(fetchedTypeProducts.map(SafeFoodTypeProductMapper.of));
-				console.log("fetch" + JSON.stringify(fetchedProducts));
-			} catch (error) {}
+	const [pageNumber, setPageNumber] = useState<number>(0);
+	const [totalPage, setTotalPage] = useState<number>(0);
+	const [initialize, setInitializa] = useState<boolean>(false);
+
+	const handlePageChange = async (pageNumberHandle: number) => {
+		if (initialize == false) {
+			return;
 		}
-		fetchProducts();
-	}, []);
+		if (pageNumberHandle === pageNumber) {
+			return;
+		}
+		setPageNumber(pageNumberHandle);
+		try {
+			const fetchedProducts = await productGateway.productFilter({
+				ids_categorias: [],
+				ids_restricoes: [],
+				ids_tipos_restricao: [],
+				cep: "09572660",
+				direction: "asc",
+				distanceRadio: 10,
+				itensPorPagina: 1,
+				numero: undefined,
+				page: pageNumber ?? 0, // Utilize o valor atual do pageNumber
+				pesquisa: undefined,
+				// sort: ,
+			});
+			console.log("fetch" + JSON.stringify(fetchedProducts.content));
+			setProducts(fetchedProducts.content.map(SafeFoodProductMapper.of));
+			console.log("TOTAL DE PÁGINAS:" + fetchedProducts.totalPages);
+
+			setTotalPage(fetchedProducts.totalPages);
+			// console.log(products);
+		} catch (error) {}
+	};
+
+	const onClickApplication = async () => {
+		try {
+			const filterProducts: SafeFoodProductFilterRequest = {
+				ids_restricoes: checkedRestrictions,
+				ids_categorias: checkedTypeProducts,
+				ids_tipos_restricao: checkedTypeRestrictions,
+				page: 0,
+			};
+			console.log("Filtro aplicado:", filterProducts);
+			const fetchedProductsFilter = await productGateway.productFilter(
+				filterProducts
+			);
+
+			setProductsFilter(fetchedProductsFilter);
+			setProducts(fetchedProductsFilter.content.map(SafeFoodProductMapper.of));
+			setPageNumber(filterProducts.page ?? 0);
+		} catch (error) {
+			// Tratar erros
+		}
+	};
+
+	useEffect(() => {
+		if (initialize == false) {
+			onClickApplication();
+		}
+		if (pageNumber == 0) {
+			return;
+		}
+		handlePageChange(pageNumber);
+	}, [pageNumber]);
 
 	const [checkedRestrictions, setCheckedRestrictions] = useState<string[]>([]);
 	const [checkedTypeProducts, setCheckedTypeProducts] = useState<string[]>([]);
 	const [checkedTypeRestrictions, setCheckedTypeRestrictions] = useState<
 		string[]
 	>([]);
-
-	// ...
 
 	const handleCheckboxChainChangeRestrictions = (
 		checkedCheckboxes: string[]
@@ -103,29 +146,8 @@ function HomeConsumer({
 		setCheckedTypeRestrictions(checkedCheckboxes);
 	};
 
-	const onClickApplication = async () => {
-		try {
-			const filterProducts = {
-				ids_restricoes: checkedRestrictions,
-				ids_categorias: checkedTypeProducts,
-				ids_tipos_restricoes: checkedTypeRestrictions,
-			};
-
-			console.log("Filtro aplicado:", filterProducts);
-
-			const fetchedProductsFilter = await productGateway.productFilter(
-				filterProducts
-			);
-			setProductsFilter(fetchedProductsFilter);
-			setProducts(fetchedProductsFilter.content.map(SafeFoodProductMapper.of));
-			console.log("RESPOSTA DE FILTRO:", fetchedProductsFilter);
-		} catch (error) {
-			// Tratar erros
-		}
-	};
-
 	const dropdownRestrictions = restrictions
-		.map(item => ({ name: item.name, id: item.id }))
+		.map(item => ({ name: item.restricao, id: item.id }))
 		.filter(item => item.name !== undefined)
 		.map(item => ({ name: item.name as string, id: item.id }));
 
@@ -210,6 +232,9 @@ function HomeConsumer({
 				},
 			]}
 			onClickApplication={onClickApplication}
+			cache={cache}
+			onPageChange={handlePageChange}
+			totalPagesProductFilter={totalPage}
 		/>
 	);
 }

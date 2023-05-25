@@ -1,17 +1,24 @@
 import { Text } from "@/components/atoms/text";
-import { Box } from "@mui/material";
 import { useState } from "react";
 import { FaHome, FaSignOutAlt, FaUserAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
 import { ContainerDropDownSubMenu } from "./styles";
+import { Cache } from "@/app/domain/protocols/Cache";
+import { BsFillGearFill } from "react-icons/bs";
+import { SafeFoodLoginResponse } from "@/app/infra/gateway/safefood/models/SafeFoodUser";
+import { SafeFoodConsumerModel } from "@/app/infra/gateway/safefood/models/SafeFoodConsumer";
 
 type Props = {
 	children?: any;
+	cache: Cache;
+	userName: string;
 };
 
-const DropDownSubMenu: React.FC<Props> = ({ children }) => {
+const DropDownSubMenu: React.FC<Props> = ({ userName, cache, children }) => {
 	const [active, setActive] = useState(false);
+
+	const user: SafeFoodLoginResponse =
+		cache.getItem("user") !== null ? JSON.parse(cache.getItem("user")!) : {};
 
 	return (
 		<>
@@ -19,16 +26,32 @@ const DropDownSubMenu: React.FC<Props> = ({ children }) => {
 				active={active}
 				onClick={() => setActive(!active)}
 			>
-				<div className="container-children-dropdown-submenu">{children}</div>
+				<div
+					className="container-children-dropdown-submenu"
+					style={{ width: "max-content", gap: "10px" }}
+				>
+					{children}
+				</div>
 				<div className="big-container-info-dropdown-sunmenu">
 					<div className="container-info-dropdown-submenu">
-						<Text>Lincoln</Text>
+						<Text>{userName}</Text>
 						<Text>Safe Food</Text>
 
 						<ul>
 							{itemLinkArray.map(({ icon, text, to }) => (
 								<li key={text}>
-									<Link to={to}>
+									<Link
+										to={to}
+										onClick={() => {
+											if (text == "Sair") {
+												cache.removeItem("token");
+												cache.removeItem("consumer");
+												cache.removeItem("establishment");
+												cache.removeItem("user");
+												window.location.reload();
+											}
+										}}
+									>
 										{icon}
 										<span>{text}</span>
 									</Link>
@@ -54,6 +77,11 @@ const itemLinkArray = [
 		icon: <FaUserAlt />,
 		text: "Meu Perfil",
 		to: "/profile",
+	},
+	{
+		icon: <BsFillGearFill />,
+		text: "Preferências",
+		to: "/preferences-establishment",
 	},
 	{
 		icon: <FaSignOutAlt />,

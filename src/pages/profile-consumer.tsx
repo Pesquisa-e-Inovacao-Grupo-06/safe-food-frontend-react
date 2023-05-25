@@ -3,15 +3,19 @@ import { ProfileTemplate } from "@/components/templates/profile-consumer-templat
 import { SafeFoodAddressMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodAddressMapper";
 import { SafeFoodConsumerModel } from "@/app/infra/gateway/safefood/models/SafeFoodConsumer";
 import { AlertType } from "@/components/atoms/alert";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { SafeFoodConsumerGateway } from "@/app/infra/gateway/safefood/SafeFoodConsumerGateway";
 import { Restriction } from "@/app/domain/entities/Restriction";
 import { SafeFoodRestrictionMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodRestrictionMapper";
 import { SafeFoodRestrictionModel } from "@/app/infra/gateway/safefood/models/SafeFoodRestriction";
 import { FindAddress } from "@/app/domain/usecases/FindAddress";
 import { CepValidator } from "@/app/util/validations/cep-validator";
-import { SafeFoodCreateAddressRequest } from "@/app/infra/gateway/safefood/models/SafeFoodAddress";
+import {
+	SafeFoodAddressModel,
+	SafeFoodCreateAddressRequest,
+} from "@/app/infra/gateway/safefood/models/SafeFoodAddress";
 import { SafeFoodLoginResponse } from "@/app/infra/gateway/safefood/models/SafeFoodUser";
+import { Address } from "@/app/domain/entities/Address";
 
 type ProfileConsumerProps = {
 	cache: Cache;
@@ -41,10 +45,15 @@ function ProfileConsumer({
 		cache.getItem("user") !== null ? JSON.parse(cache.getItem("user")!) : {};
 
 	//CAMPOS
-	const consumerRestrictions = consumer.restricoes.map(item =>
-		SafeFoodRestrictionMapper.of(item, true)
-	);
-	const IDSAtivos = consumer.restricoes.map(i => i.id);
+	const consumerRestrictions = consumer.restricoes
+		? consumer.restricoes.map(item => SafeFoodRestrictionMapper.of(item, true))
+		: [];
+
+	console.log(consumerRestrictions);
+
+	const IDSAtivos = consumer.restricoes
+		? consumer.restricoes.map(i => i.id)
+		: [];
 	const total = restrictions
 		.filter(item => !IDSAtivos.includes(item.id))
 		.map(item => SafeFoodRestrictionMapper.of(item));
@@ -52,6 +61,13 @@ function ProfileConsumer({
 	console.log("RESTRIÇÕES consumidor:", consumerRestrictions);
 	console.log("idsAtivos:", IDSAtivos);
 	console.log("total:", total);
+	const [consumerState, setConsumer] = useState(consumer);
+
+	const updateConsumer = useCallback((consumer: SafeFoodConsumerModel) => {
+		setConsumer(consumer);
+		cache.setItem("consumer", JSON.stringify(consumer));
+	}, []);
+
 	const [name, setName] = useState(consumer.nome);
 	const [email, setEmail] = useState(consumer.email);
 	const [numberphone, setNumberPhone] = useState(consumer.telefone);
@@ -68,17 +84,23 @@ function ProfileConsumer({
 	const [modalCep, setModalCep] = useState<string>("");
 	const [modalNumero, setModalNumero] = useState<string>("");
 	const [modalApelido, setModalApelido] = useState<string>("");
-	const [editableAddress, setEditableAddress] =
-		useState<SafeFoodCreateAddressRequest>({
-			apelido: modalApelido,
-			bairro: "",
-			cep: modalCep,
-			cidade: "",
-			complemento: "",
-			estado: "",
-			logradouro: "",
-			numero: modalNumero,
-		});
+	const [listOfAddress, setListOfAddres] = useState<Address[]>(
+		consumer.enderecos && consumer.enderecos.length > 0
+			? consumer.enderecos.map(SafeFoodAddressMapper.of)
+			: []
+	);
+	const [editableAddress, setEditableAddress] = useState<
+		SafeFoodCreateAddressRequest | SafeFoodAddressModel
+	>({
+		apelido: modalApelido,
+		bairro: "",
+		cep: modalCep,
+		cidade: "",
+		complemento: "",
+		estado: "",
+		logradouro: "",
+		numero: modalNumero,
+	});
 
 	const [enderecoId, setEnderecoId] = useState<string>("");
 
@@ -160,11 +182,17 @@ function ProfileConsumer({
 				user.usuario.id,
 				editableAddress
 			);
-			if (addNewAddress.status != 200) {
+			const validStatus = [200, 201];
+			if (!validStatus.includes(addNewAddress.status)) {
 				setTypeAlert("warning");
 				setTextAlert("Erro ao cadastrar o endereço");
-				consumer.enderecos.push(addNewAddress.data);
+				consumerState.enderecos.push(editableAddress as SafeFoodAddressModel);
+				updateConsumer(consumerState);
 			} else {
+				setListOfAddres(prev => [
+					...prev,
+					SafeFoodAddressMapper.of(addNewAddress.data),
+				]);
 				setTypeAlert("success");
 				setTextAlert("Endereço cadastrado com sucesso");
 			}
@@ -246,7 +274,7 @@ function ProfileConsumer({
 					disabled: !isEditable,
 				},
 			]}
-			listOfAddress={consumer.enderecos.map(SafeFoodAddressMapper.of)}
+			listOfAddress={listOfAddress}
 			// TODO: saved restrictions
 			restrictionsUser={totalRestrictions}
 			onClickSave={onClickUpdate}
@@ -293,6 +321,7 @@ function ProfileConsumer({
 				setImageProfile(file);
 			}}
 			onClickCard={handleAddressCardClick}
+			cache={cache}
 		/>
 	);
 }

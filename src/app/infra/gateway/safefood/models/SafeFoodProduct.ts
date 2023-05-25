@@ -2,6 +2,7 @@ import { Restriction } from "@/app/domain/entities/Restriction";
 import { SafeFoodGenericDataResponse } from "./SafeFoodResponse";
 import { SafeFoodRestrictionModel } from "./SafeFoodRestriction";
 import { SafeFoodEstablishmentModel, SafeFoodGetProductEstablishmentRequest } from './SafeFoodEstablishment';
+import { SafeFoodConsumerModel } from "./SafeFoodConsumer";
 
 
 //produtos/{id}
@@ -26,13 +27,15 @@ export type SafeFoodProductModel = {
     avaliacoes: SafeFoodAvaliationModel[],
     tipoProduto: string,
 
+
 };
 
 export type SafeFoodAvaliationModel = {
     id: string,
     rate: number,
     comentario: string,
-    dataCadastro: string
+    dataCadastro: string,
+    consumidor: SafeFoodConsumerModel,
 }
 
 export type SafeFoodCategoryProductModel = {

@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/home";
-import About from "./pages/about";
 import FAQ from "./pages/faq";
 import Profile from "./pages/profile-consumer";
 import TermOfService from "./pages/term-of-service";
@@ -69,10 +68,7 @@ export default function App({
 									</ModalHomeProvider>
 								}
 							/>
-							<Route
-								path="/about"
-								element={<About />}
-							/>
+
 							<Route
 								path="/faq"
 								element={<FAQ />}
