@@ -59,12 +59,14 @@ function HomeConsumer({
 	// const [filterProducts, setFilterProducts] =
 	// useState<SafeFoodProductFilterRequest>({});
 	const [productsFilter, setProductsFilter] = useState<any>();
-	const [pageNumber, setPageNumber] = useState<number>(0);
+	const [pageNumber, setPageNumber] = useState<number>(1);
 	//	todo: verifica esse useState e seu componente de paginação, não consigo atualizaar ele lá em baixo no campo de totalPage, mesmo que eu de um set aqui no total, a paginação não atualiza o seu < 1 2 3>
 	const [totalPage, setTotalPage] = useState<number>(0);
 	const [initialize, setInitializa] = useState<boolean>(false);
 
 	const handlePageChange = async (pageNumberHandle: number) => {
+		console.log(pageNumberHandle);
+
 		if (initialize == false) {
 			return;
 		}
@@ -72,7 +74,6 @@ function HomeConsumer({
 			return;
 		}
 		setPageNumber(pageNumberHandle);
-		console.log("handle");
 
 		try {
 			const fetchedProducts = await productGateway.productFilter({
@@ -84,16 +85,12 @@ function HomeConsumer({
 				distanceRadio: 10,
 				itensPorPagina: 2,
 				numero: undefined,
-				page: pageNumber ?? 1, // Utilize o valor atual do pageNumber
+				page: pageNumberHandle ?? 1, // Utilize o valor atual do pageNumber
 				pesquisa: undefined,
 				// sort: ,
 			});
-			console.log("fetch" + JSON.stringify(fetchedProducts.content));
 			setProducts(fetchedProducts.content.map(SafeFoodProductMapper.of));
-			console.log("TOTAL DE PÁGINAS:" + fetchedProducts.totalPages);
-
-			// setTotalPage(fetchedProducts.totalPages);
-			// console.log(products);
+			setTotalPage(fetchedProducts.totalPages);
 		} catch (error) {}
 	};
 
@@ -112,10 +109,6 @@ function HomeConsumer({
 
 			setProductsFilter(fetchedProductsFilter);
 			setProducts(fetchedProductsFilter.content.map(SafeFoodProductMapper.of));
-			console.log(
-				"deveria encontrar total de páginas",
-				fetchedProductsFilter.totalPages
-			);
 			setTotalPage(fetchedProductsFilter.totalPages);
 			setInitializa(true);
 		} catch (error) {
@@ -129,11 +122,6 @@ function HomeConsumer({
 
 			onClickApplication();
 		}
-		if (pageNumber <= 1) {
-			console.log("page number <=1");
-			return;
-		}
-		handlePageChange(pageNumber);
 	}, [pageNumber]);
 
 	const [checkedRestrictions, setCheckedRestrictions] = useState<string[]>([]);
@@ -203,53 +191,55 @@ function HomeConsumer({
 		dropdownTypeRestrictions.map(item =>
 			createCheckBoxEntity(item.name, item.id)
 		);
-	return (
-		<HomeConsumerTemplate
-			products={products}
-			dropDownList={[
-				{
-					titleDropDown: "Restrições:",
-					textSubMenuWithCheckBox: totalRestrictions
-						.map(item => item.params.restricao)
-						.filter(text => text !== undefined)
-						.map(text => text as string),
-					activeCheckBox: true,
-					alignSubText: "start",
-					alignTitleText: false,
-					checkList: checkboxListRestrictions,
-					onCheckboxChainChange: handleCheckboxChainChangeRestrictions,
-				},
-				{
-					titleDropDown: "Categoria do produto:",
-					textSubMenuWithCheckBox: typeProducts
-						.map(item => item.params.nome)
-						.filter(text => text !== undefined)
-						.map(text => text as string),
-					activeCheckBox: true,
-					alignSubText: "start",
-					alignTitleText: false,
-					checkList: checkboxListTypeProducts,
-					onCheckboxChainChange: handleCheckboxChainChangeTypeProducts,
-				},
-				{
-					titleDropDown: "Tipo de restrição:",
-					textSubMenuWithCheckBox: restrictions
-						.map(item => item.tipoRestricao.tipoRestricao)
-						.filter(text => text !== undefined)
-						.map(text => text as string),
-					activeCheckBox: true,
-					alignSubText: "start",
-					alignTitleText: false,
-					checkList: checkboxListTypeRestrictions,
-					onCheckboxChainChange: handleCheckboxChainChangeTypeRestrictions,
-				},
-			]}
-			onClickApplication={onClickApplication}
-			cache={cache}
-			onPageChange={handlePageChange}
-			totalPagesProductFilter={5}
-		/>
-	);
+	if (totalPage > 0) {
+		return (
+			<HomeConsumerTemplate
+				products={products}
+				dropDownList={[
+					{
+						titleDropDown: "Restrições:",
+						textSubMenuWithCheckBox: totalRestrictions
+							.map(item => item.params.restricao)
+							.filter(text => text !== undefined)
+							.map(text => text as string),
+						activeCheckBox: true,
+						alignSubText: "start",
+						alignTitleText: false,
+						checkList: checkboxListRestrictions,
+						onCheckboxChainChange: handleCheckboxChainChangeRestrictions,
+					},
+					{
+						titleDropDown: "Categoria do produto:",
+						textSubMenuWithCheckBox: typeProducts
+							.map(item => item.params.nome)
+							.filter(text => text !== undefined)
+							.map(text => text as string),
+						activeCheckBox: true,
+						alignSubText: "start",
+						alignTitleText: false,
+						checkList: checkboxListTypeProducts,
+						onCheckboxChainChange: handleCheckboxChainChangeTypeProducts,
+					},
+					{
+						titleDropDown: "Tipo de restrição:",
+						textSubMenuWithCheckBox: restrictions
+							.map(item => item.tipoRestricao.tipoRestricao)
+							.filter(text => text !== undefined)
+							.map(text => text as string),
+						activeCheckBox: true,
+						alignSubText: "start",
+						alignTitleText: false,
+						checkList: checkboxListTypeRestrictions,
+						onCheckboxChainChange: handleCheckboxChainChangeTypeRestrictions,
+					},
+				]}
+				onClickApplication={onClickApplication}
+				cache={cache}
+				onPageChange={handlePageChange}
+				totalPagesProductFilter={totalPage}
+			/>
+		);
+	} else return null;
 }
 
 export default HomeConsumer;
