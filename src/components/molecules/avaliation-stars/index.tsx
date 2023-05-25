@@ -8,6 +8,7 @@ export type AvaliationStarsProps = {
 	onClickStar?: (val: number) => void;
 	color?: string;
 	gap?: number;
+	fixed?: boolean;
 } & HTMLAttributes<HTMLDivElement>;
 export const AvaliationStars: React.FC<AvaliationStarsProps> = ({
 	avegareRate = 4,
@@ -16,10 +17,12 @@ export const AvaliationStars: React.FC<AvaliationStarsProps> = ({
 	size = 16,
 	color,
 	gap = 2,
+	fixed = true,
 	...props
 }) => {
 	const { colors } = useSafeFoodTheme().getTheme();
 	const [starsFilled, setStarsFilled] = useState(0);
+
 	return (
 		<>
 			<section
@@ -35,15 +38,24 @@ export const AvaliationStars: React.FC<AvaliationStarsProps> = ({
 						key={val}
 						opacity={starsFilled ? 1 : 0.8}
 						color={color ? color : colors.warning[600]}
-						onMouseOver={() => {
-							setStarsFilled(val);
-						}}
+						//onMouseOver={() => {
+						//	if (!fixed) {
+						//		setStarsFilled(val);
+						//	}
+						//}}
 						title={`Avaliar com ${val} estrelas`}
-						onMouseOut={() => setStarsFilled(0)}
+						//onMouseOut={() => {
+						//	if (!fixed) {
+						//		setStarsFilled(0);
+						//	}
+						//}}
 						value={val}
 						size={size}
 						onClick={() => {
-							onClickStar(val);
+							if (!fixed) {
+								setStarsFilled(val);
+								onClickStar(val);
+							}
 						}}
 						filled={val <= (starsFilled ? starsFilled : avegareRate)}
 					/>

@@ -11,7 +11,7 @@ export type SafeFoodProductParams = {
     ingredientes?: string[],
     unidadeDeVenda?: string,
     dataCadastro?: string,
-    estabelecimento?: SafeFoodEstablishmentModel,
+    estabelecimento: SafeFoodEstablishmentModel,
     horarioFuncionamentoSemana?: string,
     horarioFuncionamentoFimDeSemana?: string,
     isDelivery?: boolean,
@@ -25,5 +25,5 @@ export type SafeFoodProductParams = {
 };
 
 export class Product {
-    constructor(public params: Partial<SafeFoodProductParams>) { }
+    constructor(public params: SafeFoodProductParams) { }
 }
