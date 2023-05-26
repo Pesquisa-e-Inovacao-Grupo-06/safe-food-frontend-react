@@ -13,4 +13,9 @@ export class SafeFoodRestrictionMapper {
         }
         )
     }
+    static ofEntity({params}: Restriction): SafeFoodRestrictionModel {
+        return {
+            ...params,
+        }
+    }
 }

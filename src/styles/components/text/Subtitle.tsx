@@ -31,5 +31,4 @@ export const Subtitle = styled.h2<{
 			: p.theme.isLight
 			? p.theme.colors.dark_gray[400]
 			: p.theme.colors.light_gray[400]};
-	cursor: ${p => (p.cursor ? "pointer" : "not-allowed")};
 `;

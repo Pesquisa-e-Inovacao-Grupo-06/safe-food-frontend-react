@@ -50,8 +50,6 @@ function ProfileConsumer({
 		? consumer.restricoes.map(item => SafeFoodRestrictionMapper.of(item, true))
 		: [];
 
-	console.log(consumerRestrictions);
-
 	const IDSAtivos = consumer.restricoes
 		? consumer.restricoes.map(i => i.id)
 		: [];
@@ -60,7 +58,6 @@ function ProfileConsumer({
 		.map(item => SafeFoodRestrictionMapper.of(item));
 
 	const [consumerState, setConsumer] = useState(consumer);
-	console.table(consumer);
 
 	const updateConsumer = useCallback((consumer: SafeFoodConsumerModel) => {
 		setConsumer(consumer);
@@ -231,11 +228,10 @@ function ProfileConsumer({
 			if (!validStatus.includes(res.status)) {
 				setTypeAlert("warning");
 				setTextAlert("Alguns dados podem estar com formato incorreto!");
-				updateConsumer(res.data);
-				console.table(res.data);
 				return;
 			}
 
+			updateConsumer(res.data);
 			setIsLoading(false);
 			setTypeAlert("success");
 			setTextAlert("Cadastro alterado com sucesso!");
@@ -246,6 +242,24 @@ function ProfileConsumer({
 			);
 		} finally {
 			setIsLoading(false);
+		}
+	};
+
+	const onClickRestriction = (restriction: Restriction) => {
+		const index = totalRestrictions.findIndex(
+			item => item.params.id === restriction.params.id
+		);
+		if (index > -1) {
+			totalRestrictions[index].params.isActive =
+				!totalRestrictions[index].params.isActive;
+			setTotalRestrictions(totalRestrictions);
+			const newTotalRestrictionsIds = totalRestrictions
+				.filter(item => item.params.isActive)
+				.map(SafeFoodRestrictionMapper.ofEntity);
+			setConsumer({
+				...consumerState,
+				restricoes: newTotalRestrictionsIds,
+			});
 		}
 	};
 
@@ -294,6 +308,7 @@ function ProfileConsumer({
 			]}
 			listOfAddress={listOfAddress}
 			// TODO: saved restrictions
+			onClickRestriction={onClickRestriction}
 			restrictionsUser={totalRestrictions}
 			onClickSave={onClickUpdate}
 			isSaveButtonActive={isActiveButton}
