@@ -7,7 +7,8 @@ export type AddressParams = {
   numero: string,
   bairro: string,
   apelido: string,
-  formatado?: string
+  formatado?: string,
+  id: number,
 }
 
 export class Address {

@@ -1,9 +1,7 @@
-import Header from "@/components/molecules/header";
 import { BodyTemplate } from "@/components/templates/body-template";
 import styled from "styled-components";
 import {
 	StyledColumn,
-	StyledCost,
 	StyledRow,
 } from "@/components/organisms/card-establishment-food/card-establishment-food-organism";
 import { Subtitle } from "@/styles/components/text/Subtitle";
@@ -23,14 +21,10 @@ import {
 } from "../molecules/avaliation-progress-bar";
 import { Product } from "@/app/domain/entities/Product";
 import { Establishment } from "@/app/domain/entities/Establishment";
-import { SafeFoodProductGateway } from "@/app/infra/gateway/safefood/SafeFoodProductGateway";
 import { Cache } from "@/app/domain/protocols/Cache";
 import HeaderConsumer from "../molecules/header-consumer";
 import { formatReal } from "@/app/util/convertions/price-br";
-import {
-	SafeFoodAvaliationModel,
-	SafeFoodCategoryProductModel,
-} from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
+import { SafeFoodAvaliationModel } from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
 import { TypeProduct } from "@/app/domain/entities/TypeProduct";
 import { Alert } from "../atoms/alert";
 import { AlertType } from "../atoms/alert/index";
@@ -51,7 +45,7 @@ interface ProductParams {
 	onTextChange?: (comment: string) => void;
 	onClickStar?: (val: number) => void;
 	onClickShowMap?: () => void;
-	onClickTrashDelete: () => void;
+	onClickTrashDelete: (idComment: number) => void;
 }
 
 export const ProductConsumerTemplate: React.FC<ProductParams> = ({
@@ -250,9 +244,8 @@ export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 												img={item.consumidor.imagem}
 												name={item.consumidor.nome}
 												date={item.dataCadastro}
-												onClickTrashDelete={() => {
-													onClickAddComments();
-												}}
+												onClickDeleteComment={onClickTrashDelete}
+												idComment={parseInt(item.id)}
 											/>
 										))
 									) : (

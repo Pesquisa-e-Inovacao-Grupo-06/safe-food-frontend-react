@@ -150,7 +150,7 @@ export class SafeFoodConsumerGateway {
     async removeAddress(id: number, idEndereco: number): Promise<SafeFoodResponse> {
         const res = await this.http.execute<SafeFoodAddressResponse>({
             url: `/consumidores/${id}/endereco/${idEndereco}`,
-            method: 'POST',
+            method: 'DELETE',
         })
         if (!res.data) {
             throw new Error("Erro ao realizar requisicao de remover endereco do consumidor")

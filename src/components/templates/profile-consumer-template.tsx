@@ -1,5 +1,4 @@
 import { Box } from "@/components/atoms/box";
-import Header from "@/components/molecules/header";
 import banner from "../../assets/food-favorite.png";
 import styled from "styled-components";
 import { ProfilePhotoUploadWithPreview } from "@/components/molecules/upload-profile-photo";
@@ -16,7 +15,6 @@ import { InputPropsComponent } from "../atoms/input";
 import { Address } from "@/app/domain/entities/Address";
 import { Alert, AlertType } from "../atoms/alert";
 import { AddressModal } from "./address-modal";
-import { useState } from "react";
 import {} from "@/app/util/validations/cep-validator";
 import { SafeFoodCreateAddressRequest } from "@/app/infra/gateway/safefood/models/SafeFoodAddress";
 import HeaderConsumer from "../molecules/header-consumer";
@@ -59,6 +57,7 @@ export type ProfileProps = {
 	onChangeFile(file: File): void;
 	onClickCard: (id: string) => void;
 	cache: Cache;
+	onClickDeleteAddress: (id: number) => void;
 };
 
 export const ProfileTemplate: React.FC<ProfileProps> = ({
@@ -91,6 +90,7 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 	onChangeFile,
 	onClickCard,
 	cache,
+	onClickDeleteAddress,
 }) => {
 	return (
 		<>
@@ -177,23 +177,28 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 							</div>
 							{listOfAddress && (
 								<PContainerAddressCard>
-									{listOfAddress.map((address, i) => (
-										<AddresCard
-											bodyText={`
+									{listOfAddress.map(
+										(address, i) =>
+											address.params.id && (
+												<AddresCard
+													bodyText={`
 										${address.params.bairro},
 										${address.params.numero},
 										${address.params.cidade} -
 										${address.params.estado},
 										${address.params.cep}
 										`}
-											headerText={address.params.apelido}
-											//VERIFICAR SOBRE ESSE ICONE
-											// Icon={adress.Icon}
-											key={i}
-											apelido={address.params.apelido ? address.params.apelido : ""}
-											onClickCard={onClickCard}
-										/>
-									))}
+													headerText={address.params.apelido}
+													//VERIFICAR SOBRE ESSE ICONE
+													// Icon={adress.Icon}
+													key={i}
+													apelido={address.params.apelido ? address.params.apelido : ""}
+													onClickCard={onClickCard}
+													idAddress={address.params.id}
+													onClickDeleteAddress={onClickDeleteAddress}
+												/>
+											)
+									)}
 								</PContainerAddressCard>
 							)}
 						</PContainerInfo2>

@@ -201,7 +201,22 @@ function ProfileConsumer({
 		}
 	};
 
-	const onClickCard = async () => {};
+	const onClickDeleteAddress = async (idAddress: number) => {
+		console.log("dados delete address:", consumer.id, idAddress);
+		try {
+			const res = await consumerGateway.removeAddress(consumer.id, idAddress);
+			const validStatus = [200, 201];
+			if (!validStatus.includes(res.status)) {
+				setTypeAlert("success");
+				setTextAlert("Endereço excluído com sucesso!");
+				setIsVisibleAlert(true);
+			}
+		} catch (e) {
+			setTypeAlert("danger");
+			setTextAlert("Endereço não excluído!");
+			setIsVisibleAlert(true);
+		}
+	};
 
 	const onClickUpdate = async (model: SafeFoodUpdateConsumerRequest) => {
 		setIsLoading(true);
@@ -325,6 +340,7 @@ function ProfileConsumer({
 			}}
 			onClickCard={handleAddressCardClick}
 			cache={cache}
+			onClickDeleteAddress={onClickDeleteAddress}
 		/>
 	);
 }

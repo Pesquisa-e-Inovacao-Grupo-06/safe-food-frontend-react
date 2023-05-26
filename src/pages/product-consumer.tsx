@@ -151,31 +151,22 @@ function ProductConsumer({ cache, productGateway }: ProductProps) {
 		fetchProduct();
 	}, [id]);
 
-	const onClickDeleteComment = async (idUser: number, idProduct: number) => {
-		console.log("comentário dados de remoção: ", id);
-		// setAvaliationsParams([
-		// 	...avaliationsParams,
-		// 	{
-		// 		comentario: commentText,
-		// 		consumidor: consumer,
-		// 		dataCadastro: new Date().toString(),
-		// 		id: consumer.id.toString(),
-		// 		rate: valueStar,
-		// 	},
-		// ]);
-		setIsLoadingOnClickAddComments(true);
-		setIsVisibleAlert(true);
+	const onClickDeleteComment = async (idComment: number) => {
+		console.log("comentário dados de remoção: ", id, idComment);
 		try {
 			if (id) {
-				const res = await productGateway.deleteComments(idUser, idProduct);
-				console.log("resposta delete:", res);
+				const res = await productGateway.deleteComments(parseInt(id), idComment);
+				if (res.status == 200 || res.status == 201 || res.status == 204) {
+					setTypeAlert("success");
+					setTextAlert("Endereço excluído com sucesso!");
+					setIsVisibleAlert(true);
+				}
 			}
-		} catch (error) {
-			setIsVisibleAlert(true);
-			setTextAlert("Aconteceu algum erro, tente mais tarde!");
+		} catch (e) {
 			setTypeAlert("danger");
+			setTextAlert("Endereço não excluído!");
+			setIsVisibleAlert(true);
 		}
-		setIsLoadingOnClickAddComments(false);
 	};
 	return (
 		<ProductConsumerTemplate
@@ -197,7 +188,7 @@ function ProductConsumer({ cache, productGateway }: ProductProps) {
 			onTextChange={e => {
 				setCommentText(e);
 			}}
-			onClickTrashDelete={() => {}}
+			onClickTrashDelete={onClickDeleteComment}
 		/>
 	);
 }

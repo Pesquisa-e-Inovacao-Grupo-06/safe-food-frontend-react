@@ -12,9 +12,10 @@ export type CommentProps = {
 	img?: string;
 	date?: string;
 	qtdComentario?: number;
+	idComment: number;
 
 	// key?: React.Key;
-	onClickTrashDelete: () => void;
+	onClickDeleteComment: (idComment: number) => void;
 };
 
 const BoxComment: React.FC<CommentProps> = ({
@@ -23,10 +24,13 @@ const BoxComment: React.FC<CommentProps> = ({
 	img = "https://via.placeholder.com/150",
 	date = "20/04/2023",
 	qtdComentario = "18",
-	// key,
-	onClickTrashDelete,
+	onClickDeleteComment,
+	idComment,
 	...props
 }) => {
+	const handleClickDeleteComment = () => {
+		onClickDeleteComment(idComment);
+	};
 	return (
 		<>
 			<ContainerBoxComent
@@ -44,7 +48,7 @@ const BoxComment: React.FC<CommentProps> = ({
 							<h3>{name}</h3>
 							<FaTrash
 								cursor={"pointer"}
-								onClick={onClickTrashDelete}
+								onClick={handleClickDeleteComment}
 							></FaTrash>
 						</Box>
 						<span>

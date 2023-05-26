@@ -47,9 +47,9 @@ export class SafeFoodProductGateway {
         return res.data;
 
     }
-    async deleteComments(idUser: number, idProduct: number): Promise<any> {
+    async deleteComments(idProduct: number, idComment: number): Promise<any> {
         const res = await this.http.execute<SafeFoodProductResponse>({
-            url: `/produtos/${idProduct}/avaliacoes/${idUser}`,
+            url: `/produtos/${idProduct}/avaliacoes/${idComment}`,
             method: 'DELETE',
         });
 
