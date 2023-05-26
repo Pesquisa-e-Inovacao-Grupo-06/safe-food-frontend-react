@@ -10,11 +10,12 @@ export type ProfilePhotoUploadWithPreviewProps = {
 	width: string;
 	justify?: BoxJustify;
 	urlDefault?: string | undefined | null;
+	isEditable?: boolean;
 	onChangeFile?(file: File): void;
 } & HTMLAttributes<HTMLLabelElement>;
 export const ProfilePhotoUploadWithPreview: React.FC<
 	ProfilePhotoUploadWithPreviewProps
-> = ({ justify, ...props }) => {
+> = ({ justify, isEditable = true, ...props }) => {
 	const [preview, setPreview] = useState(props.urlDefault || Camera);
 	const [fileName, setFilename] = useState("Nenhum arquivo selecionado");
 	return (
@@ -34,8 +35,10 @@ export const ProfilePhotoUploadWithPreview: React.FC<
 					preview={preview !== Camera}
 					{...props}
 					id={props.id + "-label"}
+					style={{ cursor: isEditable ? "pointer" : "not-allowed" }}
 				>
 					<ImageAtom
+						cursor={isEditable}
 						src={preview}
 						alt="Camera para editar a foto de perfil"
 					/>
@@ -44,7 +47,7 @@ export const ProfilePhotoUploadWithPreview: React.FC<
 			</Box>
 
 			<input
-				type="file"
+				type={isEditable ? "file" : "hidden"}
 				accept="image/*"
 				name={props.name}
 				id={props.id}

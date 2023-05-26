@@ -1,5 +1,4 @@
 import { Cache } from "@/app/domain/protocols/Cache";
-import { ProfileTemplate } from "@/components/templates/profile-consumer-template";
 import { SafeFoodAddressMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodAddressMapper";
 import { SafeFoodConsumerModel } from "@/app/infra/gateway/safefood/models/SafeFoodConsumer";
 import { AlertType } from "@/components/atoms/alert";
@@ -17,6 +16,7 @@ import {
 import { SafeFoodLoginResponse } from "@/app/infra/gateway/safefood/models/SafeFoodUser";
 import { Address } from "@/app/domain/entities/Address";
 import { SafeFoodUpdateConsumerRequest } from "../app/infra/gateway/safefood/models/SafeFoodConsumer";
+import { ProfileTemplate } from "@/components/templates/profile-consumer/profile-consumer-template";
 
 type ProfileConsumerProps = {
 	cache: Cache;
