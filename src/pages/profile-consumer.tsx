@@ -16,6 +16,7 @@ import {
 } from "@/app/infra/gateway/safefood/models/SafeFoodAddress";
 import { SafeFoodLoginResponse } from "@/app/infra/gateway/safefood/models/SafeFoodUser";
 import { Address } from "@/app/domain/entities/Address";
+import { SafeFoodUpdateConsumerRequest } from "../app/infra/gateway/safefood/models/SafeFoodConsumer";
 
 type ProfileConsumerProps = {
 	cache: Cache;
@@ -58,19 +59,14 @@ function ProfileConsumer({
 		.filter(item => !IDSAtivos.includes(item.id))
 		.map(item => SafeFoodRestrictionMapper.of(item));
 
-	console.log("RESTRIÇÕES consumidor:", consumerRestrictions);
-	console.log("idsAtivos:", IDSAtivos);
-	console.log("total:", total);
 	const [consumerState, setConsumer] = useState(consumer);
+	console.table(consumer);
 
 	const updateConsumer = useCallback((consumer: SafeFoodConsumerModel) => {
 		setConsumer(consumer);
 		cache.setItem("consumer", JSON.stringify(consumer));
 	}, []);
 
-	const [name, setName] = useState(consumer.nome);
-	const [email, setEmail] = useState(consumer.email);
-	const [numberphone, setNumberPhone] = useState(consumer.telefone);
 	const [imageProfile, setImageProfile] = useState<File>();
 	const [isActiveButton, setIsActiveButton] = useState<boolean>(false);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -207,42 +203,21 @@ function ProfileConsumer({
 
 	const onClickCard = async () => {};
 
-	const onClickUpdate = async () => {
+	const onClickUpdate = async (model: SafeFoodUpdateConsumerRequest) => {
 		setIsLoading(true);
-		setIsVisibleAlert(true);
 
-		console.log(
-			JSON.stringify(
-				totalRestrictions
-					.filter(item => item.params.isActive === true)
-					.map(item => item.params.id)
-					.filter((id): id is number => typeof id === "number")
-			)
-		);
+		if (typeof imageProfile == "object") {
+			model.file = imageProfile;
+		}
+
 		try {
-			const res = await consumerGateway.update(user.usuario.id, {
-				nome: name,
-				email: email,
-				telefone: numberphone,
-				restricoes: totalRestrictions
-					.filter(item => item.params.isActive === true)
-					.map(item => item.params.id)
-					.filter((id): id is number => typeof id === "number"),
-
-				file: imageProfile,
-			});
+			const res = await consumerGateway.update(user.usuario.id, model);
 			const validStatus = [200, 201];
-
 			if (!validStatus.includes(res.status)) {
 				setTypeAlert("warning");
 				setTextAlert("Alguns dados podem estar com formato incorreto!");
-				consumerState.nome = name;
-				consumerState.email = email;
-				// consumerState.restricoes = totalRestrictions
-				// 	.filter(item => item.params.isActive === true)
-				// 	.map(item => item.params.id)
-				// 	.filter((id): id is number => typeof id === "number"),
-
+				updateConsumer(res.data);
+				console.table(res.data);
 				return;
 			}
 
@@ -259,26 +234,46 @@ function ProfileConsumer({
 		}
 	};
 
+	useEffect(() => {
+		console.table(consumerState);
+	}, [consumerState]);
+
 	return (
 		<ProfileTemplate
+			consumer={consumerState}
 			urlDefault={consumer.imagem}
 			form={[
 				{
 					name: "Nome: ",
-					value: name,
-					setUseState: setName,
+					value: consumerState.nome,
+					setUseState: nome => {
+						setConsumer({
+							...consumerState,
+							nome,
+						});
+					},
 					disabled: !isEditable,
 				},
 				{
 					name: "Email: ",
-					value: email,
-					setUseState: setEmail,
+					value: consumerState.email,
+					setUseState: email => {
+						setConsumer({
+							...consumerState,
+							email,
+						});
+					},
 					disabled: !isEditable,
 				},
 				{
 					name: "Número telefone: ",
-					value: numberphone,
-					setUseState: setNumberPhone,
+					value: consumerState.telefone,
+					setUseState: telefone => {
+						setConsumer({
+							...consumerState,
+							telefone,
+						});
+					},
 					disabled: !isEditable,
 				},
 			]}

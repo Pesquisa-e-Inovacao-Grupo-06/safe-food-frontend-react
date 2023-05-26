@@ -9,14 +9,14 @@ export type InputPropsComponent = {
 	name?: string;
 	value: string;
 	error?: string;
-	setUseState?: Dispatch<any>;
+	setUseState?: (state: any) => void;
 	disabled?: boolean;
 	onFocus?(e: any): void;
 };
 export type InputProps = React.HTMLAttributes<HTMLInputElement> &
 	InputPropsComponent;
 
-function onChange(e: FormEvent<HTMLInputElement>, fn: Dispatch<any>) {
+function onChange(e: FormEvent<HTMLInputElement>, fn: (state: any) => void) {
 	fn(e.currentTarget.value);
 	//closure javascript
 }
@@ -36,7 +36,6 @@ export const Input: React.FC<InputProps> = ({
 				error={error.length > 0}
 				type={type}
 				value={value}
-				pattern={"abc"}
 				maxLength={max}
 				minLength={min}
 				onChange={e => {

@@ -21,6 +21,10 @@ import {} from "@/app/util/validations/cep-validator";
 import { SafeFoodCreateAddressRequest } from "@/app/infra/gateway/safefood/models/SafeFoodAddress";
 import HeaderConsumer from "../molecules/header-consumer";
 import { Cache } from "@/app/domain/protocols/Cache";
+import {
+	SafeFoodConsumerModel,
+	SafeFoodUpdateConsumerRequest,
+} from "@/app/infra/gateway/safefood/models/SafeFoodConsumer";
 
 export type ProfileProps = {
 	restrictionsUser: Restriction[];
@@ -32,6 +36,7 @@ export type ProfileProps = {
 	isAlertVisible: boolean;
 	isSaveButtonActive: boolean;
 	isLoading: boolean;
+	consumer: SafeFoodConsumerModel;
 	isEditable?: boolean;
 	address: SafeFoodCreateAddressRequest;
 	onChange: React.FormEventHandler<HTMLInputElement> &
@@ -46,7 +51,7 @@ export type ProfileProps = {
 	isModalVisible: boolean;
 	toggleModal(): void;
 	onClickChangePassword(): void;
-	onClickSave(): void;
+	onClickSave(model: SafeFoodUpdateConsumerRequest): void;
 	onClickSaveButton(): void;
 	onClickEditable(): void;
 	onClickSaveNewAddress(): void;
@@ -82,6 +87,7 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 	toggleModal,
 	isModalVisible,
 	onClickOpenModalAddress,
+	consumer,
 	onChangeFile,
 	onClickCard,
 	cache,
@@ -243,7 +249,15 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 									width="fit-content"
 									buttonStyle="filled"
 									disabled={isSaveButtonActive}
-									onClick={onClickSave}
+									onClick={() => {
+										const { email, nome, telefone, restricoes } = consumer;
+										onClickSave({
+											email,
+											nome,
+											restricoes: restricoes.map(i => i.id),
+											telefone,
+										});
+									}}
 									loading={isLoading}
 								>
 									Salvar
