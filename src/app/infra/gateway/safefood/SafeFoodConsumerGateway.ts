@@ -152,6 +152,7 @@ export class SafeFoodConsumerGateway {
             url: `/consumidores/${id}/endereco/${idEndereco}`,
             method: 'DELETE',
         })
+        console.log("delete", res);
         if (!res.data) {
             throw new Error("Erro ao realizar requisicao de remover endereco do consumidor")
         }

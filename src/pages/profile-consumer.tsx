@@ -77,7 +77,7 @@ function ProfileConsumer({
 	const [modalCep, setModalCep] = useState<string>("");
 	const [modalNumero, setModalNumero] = useState<string>("");
 	const [modalApelido, setModalApelido] = useState<string>("");
-	const [listOfAddress, setListOfAddres] = useState<Address[]>(
+	const [listOfAddress, setListOfAddress] = useState<Address[]>(
 		consumer.enderecos && consumer.enderecos.length > 0
 			? consumer.enderecos.map(SafeFoodAddressMapper.of)
 			: []
@@ -182,7 +182,7 @@ function ProfileConsumer({
 				consumerState.enderecos.push(editableAddress as SafeFoodAddressModel);
 				updateConsumer(consumerState);
 			} else {
-				setListOfAddres(prev => [
+				setListOfAddress(prev => [
 					...prev,
 					SafeFoodAddressMapper.of(addNewAddress.data),
 				]);
@@ -202,12 +202,18 @@ function ProfileConsumer({
 		console.log("dados delete address:", consumer.id, idAddress);
 		try {
 			const res = await consumerGateway.removeAddress(consumer.id, idAddress);
-			const validStatus = [200, 201];
+			const validStatus = [200, 201, 204];
 			if (!validStatus.includes(res.status)) {
-				setTypeAlert("success");
-				setTextAlert("Endereço excluído com sucesso!");
-				setIsVisibleAlert(true);
+				setTypeAlert("warning");
+				setTextAlert("Alguns dados podem estar com formato incorreto!");
+				return;
 			}
+
+			updateConsumer(consumerState);
+			setTypeAlert("success");
+			setTextAlert("Endereço excluído com sucesso!");
+			setIsVisibleAlert(true);
+			consumerState.enderecos.filter(item => item.id !== idAddress);
 		} catch (e) {
 			setTypeAlert("danger");
 			setTextAlert("Endereço não excluído!");

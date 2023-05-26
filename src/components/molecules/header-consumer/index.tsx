@@ -51,9 +51,11 @@ const HeaderConsumer: React.FC<HeaderConsumerProps> = ({ cache, products }) => {
 						toggle={toggleSidebar}
 					/>
 					<LogoAtom />
-					<DropDownLocalInfo
-						address={consumer.enderecos.map(SafeFoodAddressMapper.of)}
-					/>
+					{consumer.enderecos && (
+						<DropDownLocalInfo
+							address={consumer.enderecos.map(SafeFoodAddressMapper.of)}
+						/>
+					)}
 					<SearchBar products={products ?? []} />
 					<Box className="container-user-info-header-consumer">
 						<DropDownSubMenu
