@@ -57,10 +57,10 @@ function ProfileConsumer({
 		.filter(item => !IDSAtivos.includes(item.id))
 		.map(item => SafeFoodRestrictionMapper.of(item));
 
-	const [consumerState, setConsumer] = useState(consumer);
+	const [consumerState, setConsumerState] = useState<SafeFoodConsumerModel>(consumer);
 
 	const updateConsumer = useCallback((consumer: SafeFoodConsumerModel) => {
-		setConsumer(consumer);
+		setConsumerState(consumer);
 		cache.setItem("consumer", JSON.stringify(consumer));
 	}, []);
 
@@ -133,7 +133,6 @@ function ProfileConsumer({
 					numero,
 					apelido,
 				} = params;
-				console.log("cep:", cep);
 				setEditableAddress({
 					...editableAddress,
 					cep: modalCep || "",
@@ -145,7 +144,6 @@ function ProfileConsumer({
 					numero: modalNumero || "",
 					apelido: modalApelido || "",
 				});
-				console.log(editableAddress);
 			})
 			.catch(err => {
 				// clearAddress(cep);
@@ -165,11 +163,9 @@ function ProfileConsumer({
 	}, [modalCep, modalApelido, modalNumero]);
 
 	const onClickSaveNewAddress = async () => {
-		console.log(editableAddress);
 		if (!editableAddress) {
 			return;
 		}
-		console.log("id", user.usuario.id);
 		try {
 			const addNewAddress = await consumerGateway.addAddress(
 				user.usuario.id,
@@ -179,13 +175,19 @@ function ProfileConsumer({
 			if (!validStatus.includes(addNewAddress.status)) {
 				setTypeAlert("warning");
 				setTextAlert("Erro ao cadastrar o endereço");
-				consumerState.enderecos.push(editableAddress as SafeFoodAddressModel);
-				updateConsumer(consumerState);
+				// consumerState.enderecos.push(editableAddress as SafeFoodAddressModel);
+				// updateConsumer(consumerState);
 			} else {
-				setListOfAddress(prev => [
-					...prev,
-					SafeFoodAddressMapper.of(addNewAddress.data),
-				]);
+
+				// 1. mudamos o consumerState para que seja atualizado no nosso cache **LOCAL DA PÁGINA**
+				// 2. atualizamos o cache realmente do consumer 
+				debugger
+				const updateAddressCache: SafeFoodAddressModel[] = consumerState.enderecos;
+				updateAddressCache.push(editableAddress as SafeFoodAddressModel);
+				const newConsumer: SafeFoodConsumerModel = { ...consumerState, enderecos: updateAddressCache };
+				updateConsumer(newConsumer);
+				console.log("consumerState:", consumerState)
+				console.log("listOf:", listOfAddress)
 				setTypeAlert("success");
 				setTextAlert("Endereço cadastrado com sucesso");
 			}
@@ -199,24 +201,25 @@ function ProfileConsumer({
 	};
 
 	const onClickDeleteAddress = async (idAddress: number) => {
-		console.log("dados delete address:", consumer.id, idAddress);
 		try {
 			const res = await consumerGateway.removeAddress(consumer.id, idAddress);
 			const validStatus = [200, 201, 204];
-			if (!validStatus.includes(res.status)) {
+			if (!validStatus.includes(res)) {
 				setTypeAlert("warning");
 				setTextAlert("Alguns dados podem estar com formato incorreto!");
+
 				return;
 			}
-
+			const consumerNewDataAddress: SafeFoodAddressModel[] = consumerState.enderecos.filter(item => item.id !== idAddress);
+			setConsumerState({ ...consumerState, enderecos: consumerNewDataAddress });
 			updateConsumer(consumerState);
 			setTypeAlert("success");
 			setTextAlert("Endereço excluído com sucesso!");
-			setIsVisibleAlert(true);
-			consumerState.enderecos.filter(item => item.id !== idAddress);
 		} catch (e) {
 			setTypeAlert("danger");
 			setTextAlert("Endereço não excluído!");
+		}
+		finally {
 			setIsVisibleAlert(true);
 		}
 	};
@@ -262,7 +265,7 @@ function ProfileConsumer({
 			const newTotalRestrictionsIds = totalRestrictions
 				.filter(item => item.params.isActive)
 				.map(SafeFoodRestrictionMapper.ofEntity);
-			setConsumer({
+			setConsumerState({
 				...consumerState,
 				restricoes: newTotalRestrictionsIds,
 			});
@@ -273,6 +276,10 @@ function ProfileConsumer({
 		console.table(consumerState);
 	}, [consumerState]);
 
+	useEffect(() => {
+		setListOfAddress(consumerState.enderecos.map(SafeFoodAddressMapper.of));
+	}, [consumerState.enderecos]);
+
 	return (
 		<ProfileTemplate
 			consumer={consumerState}
@@ -282,7 +289,7 @@ function ProfileConsumer({
 					name: "Nome: ",
 					value: consumerState.nome,
 					setUseState: nome => {
-						setConsumer({
+						setConsumerState({
 							...consumerState,
 							nome,
 						});
@@ -293,7 +300,7 @@ function ProfileConsumer({
 					name: "Email: ",
 					value: consumerState.email,
 					setUseState: email => {
-						setConsumer({
+						setConsumerState({
 							...consumerState,
 							email,
 						});
@@ -304,7 +311,7 @@ function ProfileConsumer({
 					name: "Número telefone: ",
 					value: consumerState.telefone,
 					setUseState: telefone => {
-						setConsumer({
+						setConsumerState({
 							...consumerState,
 							telefone,
 						});
