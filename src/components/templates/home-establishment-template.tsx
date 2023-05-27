@@ -25,6 +25,8 @@ type HomeEstablishmentProps = {
 	user: SafeFoodUsuarioModel;
 	productGateway: SafeFoodProductGateway;
 	onClickCreate(data: SafeFoodCreateProductRequest): void;
+	onClickUpdate(id: string, data: SafeFoodCreateProductRequest): void;
+	onClickDelete(id: string): void;
 };
 
 function HomeEstablishmentTemplate({
@@ -35,6 +37,8 @@ function HomeEstablishmentTemplate({
 	user,
 	productGateway,
 	onClickCreate,
+	onClickUpdate,
+	onClickDelete,
 }: HomeEstablishmentProps) {
 	const [modalRegister, setModalRegister] = useState(false);
 	const [type, setType] = useState("");
@@ -43,6 +47,7 @@ function HomeEstablishmentTemplate({
 
 	const setObj = (item: Product) => {
 		setObjEdit(item);
+		setModalRegister(true);
 	};
 
 	useEffect(() => {
@@ -78,6 +83,8 @@ function HomeEstablishmentTemplate({
 		setModalRegister(!modalRegister);
 	}
 
+	const [auxBtnAdd, setAuxBtnAdd] = useState<boolean>(false);
+
 	return (
 		<Layout
 			active={modalRegister}
@@ -88,8 +95,11 @@ function HomeEstablishmentTemplate({
 			productRestrictions={productRestriction}
 			typeProduct={typeProduct}
 			onClickCreate={onClickCreate}
+			onClickUpdate={onClickUpdate}
+			onClickDelete={onClickDelete}
 			productEdit={objEdit}
 			user={user}
+			btnAdd={auxBtnAdd}
 		>
 			<ContainerHomeEstablishment>
 				<div className="header-home-establishment">
@@ -106,7 +116,11 @@ function HomeEstablishmentTemplate({
 								</div>
 							</Box>
 							<StyledButton
-								onClick={toggleModalResgiter}
+								onClick={() => {
+									debugger;
+									setModalRegister(true);
+									setAuxBtnAdd(!auxBtnAdd);
+								}}
 								buttonStyle="filled"
 							>
 								ADICIONAR
@@ -342,13 +356,13 @@ const ContainerHomeEstablishment = styled.div`
 		padding: 24px;
 
 		.container-main-home-establishment {
-			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
-			gap: 20px;
+			display: flex;
+			flex-wrap: wrap;
+			/* justify-content: center; */
+			gap: 5px;
 
 			> div {
-				/* max-width: min-content; */
-				flex: 1 1 200px;
+				min-width: 225px;
 				margin: 10px;
 				background: ${p =>
 					p.theme.name == "light"
@@ -361,7 +375,7 @@ const ContainerHomeEstablishment = styled.div`
 						? p.theme.colors.dark_gray[800]
 						: p.theme.colors.light_gray[600]};
 				> div {
-					gap: 15px;
+					gap: 0px;
 				}
 
 				img {
@@ -396,6 +410,12 @@ const ContainerHomeEstablishment = styled.div`
 					}
 				}
 
+				> div:nth-child(1) {
+					> div:nth-child(2) {
+						width: 100%;
+					}
+				}
+
 				span:nth-last-child(1) {
 					margin-left: 10px;
 					line-height: 16px;
@@ -416,6 +436,10 @@ const ContainerHomeEstablishment = styled.div`
 				@media screen and (max-width: 480px) {
 					margin: 15px 0px;
 				}
+
+				@media (max-width: 570px) {
+					min-width: 100%;
+				}
 			}
 
 			@media (max-width: 1100px) {
@@ -435,6 +459,7 @@ const CardHomeEstablishment = styled.div<{
 	isActive?: boolean;
 }>`
 	height: ${p => (p.isActive ? "11.5625rem" : "")};
+	border-radius: 5px;
 	> div {
 		background: ${p =>
 			p.theme.name == "light"
@@ -443,6 +468,7 @@ const CardHomeEstablishment = styled.div<{
 		width: auto;
 		display: ${p => (p.isActive ? "grid" : "")};
 		grid-template-columns: ${p => (p.isActive ? "0.3fr 1fr" : "")};
+		border-radius: 4px;
 
 		> div {
 			height: ${p => (p.isActive ? "11.5625rem" : "")};

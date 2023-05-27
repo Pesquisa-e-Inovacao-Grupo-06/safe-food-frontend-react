@@ -2,14 +2,11 @@ import { useState, useEffect } from "react";
 import { Cache } from "@/app/domain/protocols/Cache";
 import { SafeFoodProductGateway } from "@/app/infra/gateway/safefood/SafeFoodProductGateway";
 import { SafeFoodTypeProductGateway } from "@/app/infra/gateway/safefood/SafeFoodTypeProductGateway";
-import { SafeFoodEstablishmentModel } from "@/app/infra/gateway/safefood/models/SafeFoodEstablishment";
 import { SafeFoodRestrictionModel } from "@/app/infra/gateway/safefood/models/SafeFoodRestriction";
 import { SafeFoodLoginResponse } from "@/app/infra/gateway/safefood/models/SafeFoodUser";
 import { SafeFoodRestrictionMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodRestrictionMapper";
 import HomeEstablishmentTemplate from "@/components/templates/home-establishment-template";
-import {
-	SafeFoodCreateProductRequest,
-} from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
+import { SafeFoodCreateProductRequest } from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
 import { TypeProduct } from "@/app/domain/entities/TypeProduct";
 import { Product } from "@/app/domain/entities/Product";
 import { SafeFoodProductMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodProductMapper";
@@ -28,8 +25,19 @@ function HomeEstablishment({
 	typeProductGateway,
 	gateway,
 }: HomeEstablishmentProps) {
-	const clickToCreateProduct = async (data: SafeFoodCreateProductRequest ) => {
+	const clickToCreateProduct = async (data: SafeFoodCreateProductRequest) => {
 		const res = await gateway.create(user.usuario.id, data);
+	};
+
+	const clickToUpdateProduct = async (
+		id: string,
+		data: SafeFoodCreateProductRequest
+	) => {
+		const res = await gateway.update(id, data);
+	};
+
+	const clickToDeleteProduct = async (id: string) => {
+		const res = await gateway.delete(id);
 	};
 
 	const restrictions: SafeFoodRestrictionModel[] =
@@ -67,6 +75,8 @@ function HomeEstablishment({
 			user={user.usuario}
 			productGateway={productGateway}
 			onClickCreate={clickToCreateProduct}
+			onClickUpdate={clickToUpdateProduct}
+			onClickDelete={clickToDeleteProduct}
 		/>
 	);
 }

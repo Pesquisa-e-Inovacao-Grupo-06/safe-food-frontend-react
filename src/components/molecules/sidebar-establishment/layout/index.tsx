@@ -19,8 +19,11 @@ type Props = {
 	productRestrictions?: Restriction[];
 	typeProduct?: TypeProduct[];
 	onClickCreate?(data: SafeFoodCreateProductRequest): void;
+	onClickUpdate?(id: string, data: SafeFoodCreateProductRequest): void;
+	onClickDelete?(id: string): void;
 	productEdit?: Product;
-	user?: SafeFoodUsuarioModel
+	user?: SafeFoodUsuarioModel;
+	btnAdd?: boolean;
 };
 
 const Layout: React.FC<Props> = ({
@@ -30,8 +33,11 @@ const Layout: React.FC<Props> = ({
 	productRestrictions,
 	typeProduct,
 	onClickCreate,
+	onClickUpdate,
+	onClickDelete,
 	productEdit,
 	user,
+	btnAdd,
 	...props
 }) => {
 	return (
@@ -50,8 +56,11 @@ const Layout: React.FC<Props> = ({
 				restrictionProduct={productRestrictions}
 				typeProduct={typeProduct}
 				onClickCreate={onClickCreate}
+				onClickUpdate={onClickUpdate}
+				onClickDelete={onClickDelete}
 				productEdit={productEdit}
 				user={user}
+				btnAdd={btnAdd}
 			/>
 		</SLayout>
 	);
