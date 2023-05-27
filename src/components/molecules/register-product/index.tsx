@@ -205,6 +205,11 @@ function RegisterProduct({
 				? parseInt(productEdit?.params.categoria.id)
 				: 0
 		);
+		setAuxCategoria(
+			productEdit?.params.categoria.nome != undefined
+				? productEdit?.params.categoria.nome
+				: ""
+		);
 		setIngredientes(
 			productEdit?.params.ingredientes != undefined
 				? productEdit?.params.ingredientes
