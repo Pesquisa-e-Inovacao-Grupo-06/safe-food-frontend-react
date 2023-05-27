@@ -154,7 +154,8 @@ export const ProfileEstablishmentTemplate: React.FC<
 										height: 45,
 									}}
 									onClick={() => {
-										window.location.href = "http://localhost:8081/restricoes/download";
+										window.location.href =
+											import.meta.env.BACKEND_URL + "/restricoes/download";
 									}}
 								>
 									<span>Baixar restrições em Excel</span>
