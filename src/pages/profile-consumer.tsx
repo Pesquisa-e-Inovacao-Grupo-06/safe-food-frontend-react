@@ -89,27 +89,21 @@ function ProfileConsumer({
 		{} as SafeFoodAddressModel
 	);
 
-	const [enderecoId, setEnderecoId] = useState<string>("");
-
-	const handleAddressCardClick = (apelidoEnderecoSelecionado: string) => {
-		setEnderecoId(apelidoEnderecoSelecionado);
+	const handleAddressCardClick = (address: SafeFoodAddressModel) => {
 		setIsModalVisible(true);
-		const enderecoInfo = consumer.enderecos.find(
-			item => item.apelido === apelidoEnderecoSelecionado
-		);
-		setModalCep(enderecoInfo?.cep ?? "");
-		setModalApelido(enderecoInfo?.apelido ?? "");
-		setModalNumero(enderecoInfo?.numero ?? "");
+		setModalCep(address?.cep ?? "");
+		setModalApelido(address?.apelido ?? "");
+		setModalNumero(address?.numero ?? "");
 		setEditableAddress({
-			...editableAddress,
-			cep: modalCep || "",
-			complemento: enderecoInfo?.complemento || "",
-			logradouro: enderecoInfo?.logradouro || "",
-			estado: enderecoInfo?.estado || "",
-			bairro: enderecoInfo?.bairro || "",
-			cidade: enderecoInfo?.cidade || "",
-			numero: modalNumero || "",
-			apelido: apelidoEnderecoSelecionado || "",
+			...address,
+			cep: address.cep || modalCep,
+			complemento: address?.complemento || "",
+			logradouro: address?.logradouro || "",
+			estado: address?.estado || "",
+			bairro: address?.bairro || "",
+			cidade: address?.cidade || "",
+			numero: address.cep || modalNumero,
+			apelido: address.apelido || "",
 		});
 	};
 
@@ -192,6 +186,38 @@ function ProfileConsumer({
 			setIsModalVisible(false);
 		}
 	};
+	const onClickUpdateAddress = async (address: SafeFoodAddressModel) => {
+		if (!address) {
+			return;
+		}
+		try {
+			const response = await consumerGateway.updateAddress(
+				user.usuario.id,
+				address.id,
+				address
+			);
+			const validStatus = [200, 201];
+			if (!validStatus.includes(response.status)) {
+				setTypeAlert("warning");
+				setTextAlert("Erro ao cadastrar o endereço");
+			} else {
+				const indexAddress = consumerState.enderecos.findIndex(
+					item => item.id === response.data.id
+				);
+				consumerState.enderecos[indexAddress] = response.data;
+				updateConsumer(consumerState);
+				setListOfAddress(consumerState.enderecos.map(SafeFoodAddressMapper.of));
+				setTypeAlert("success");
+				setTextAlert("Endereço cadastrado com sucesso");
+			}
+		} catch (e) {
+			setTypeAlert("warning");
+			setTextAlert("Erro ao cadastrar o endereço");
+		} finally {
+			setIsVisibleAlert(true);
+			setIsModalVisible(false);
+		}
+	};
 
 	const onClickDeleteAddress = async (idAddress: number) => {
 		try {
@@ -205,8 +231,13 @@ function ProfileConsumer({
 			}
 			const consumerNewDataAddress: SafeFoodAddressModel[] =
 				consumerState.enderecos.filter(item => item.id !== idAddress);
-			setConsumerState({ ...consumerState, enderecos: consumerNewDataAddress });
-			updateConsumer(consumerState);
+			const newConsumer = { ...consumerState, enderecos: consumerNewDataAddress };
+			updateConsumer(newConsumer);
+			const newListOfAddress =
+				consumerNewDataAddress.length > 0
+					? consumerNewDataAddress.map(SafeFoodAddressMapper.of)
+					: [];
+			setListOfAddress(newListOfAddress);
 			setTypeAlert("success");
 			setTextAlert("Endereço excluído com sucesso!");
 		} catch (e) {
@@ -275,6 +306,7 @@ function ProfileConsumer({
 		<ProfileTemplate
 			consumer={consumerState}
 			urlDefault={consumer.imagem}
+			onClickUpdateAddress={onClickUpdateAddress}
 			form={[
 				{
 					name: "Nome: ",

@@ -2,12 +2,15 @@ import React from "react";
 import { Modal } from "../molecules/modal";
 import { Box } from "../atoms/box";
 import { Button } from "@/components/atoms/button";
-import { SafeFoodCreateAddressRequest } from "@/app/infra/gateway/safefood/models/SafeFoodAddress";
+import {
+	SafeFoodAddressModel,
+	SafeFoodCreateAddressRequest,
+} from "@/app/infra/gateway/safefood/models/SafeFoodAddress";
 import { TextField } from "@/components/molecules/textfield";
 export type AddressModalProps = {
 	toggleModal(): void;
 	isModalVisible: boolean;
-	address: SafeFoodCreateAddressRequest;
+	address: SafeFoodAddressModel;
 	cep: string;
 	numero: string;
 	apelido: string;
@@ -16,6 +19,7 @@ export type AddressModalProps = {
 	onChangeApelido: React.FormEventHandler<HTMLInputElement> &
 		((e: React.FormEvent<HTMLInputElement>) => void);
 	onClickSaveNewAddress(address: SafeFoodCreateAddressRequest): void;
+	onClickUpdateAddress(address: SafeFoodAddressModel): void;
 	onChange: React.FormEventHandler<HTMLInputElement> &
 		((e: React.FormEvent<HTMLInputElement>) => void);
 };
@@ -24,6 +28,7 @@ export const AddressModal: React.FC<AddressModalProps> = ({
 	isModalVisible,
 	toggleModal,
 	onClickSaveNewAddress,
+	onClickUpdateAddress,
 	address,
 	onChange,
 	cep,
@@ -115,16 +120,24 @@ export const AddressModal: React.FC<AddressModalProps> = ({
 						required={false}
 					/>
 					<Button
-						onClick={() =>
-							onClickSaveNewAddress({
-								...address,
-								numero,
-								apelido,
-								cep,
-							})
-						}
+						onClick={() => {
+							if (address.id) {
+								onClickUpdateAddress({
+									...address,
+									numero,
+									apelido,
+									cep,
+								});
+							} else
+								onClickSaveNewAddress({
+									...address,
+									numero,
+									apelido,
+									cep,
+								});
+						}}
 					>
-						Adicionar novo endereço
+						{address.id ? "Atualizar" : "Adicionar"}
 					</Button>
 				</Box>
 			</Modal>

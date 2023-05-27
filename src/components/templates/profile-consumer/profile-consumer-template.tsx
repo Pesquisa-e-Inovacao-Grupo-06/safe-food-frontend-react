@@ -12,7 +12,10 @@ import { Address } from "@/app/domain/entities/Address";
 import { Alert, AlertType } from "../../atoms/alert";
 import { AddressModal } from "../address-modal";
 import {} from "@/app/util/validations/cep-validator";
-import { SafeFoodCreateAddressRequest } from "@/app/infra/gateway/safefood/models/SafeFoodAddress";
+import {
+	SafeFoodAddressModel,
+	SafeFoodCreateAddressRequest,
+} from "@/app/infra/gateway/safefood/models/SafeFoodAddress";
 import HeaderConsumer from "../../molecules/header-consumer";
 import { Cache } from "@/app/domain/protocols/Cache";
 import {
@@ -35,6 +38,7 @@ import {
 	PContainerRestricao,
 	PContainerBtn,
 } from "./style";
+import { SafeFoodAddressMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodAddressMapper";
 
 export type ProfileProps = {
 	restrictionsUser: Restriction[];
@@ -49,7 +53,7 @@ export type ProfileProps = {
 	consumer: SafeFoodConsumerModel;
 	onClickRestriction(restriction: Restriction): void;
 	isEditable?: boolean;
-	address: SafeFoodCreateAddressRequest;
+	address: SafeFoodAddressModel;
 	onChange: React.FormEventHandler<HTMLInputElement> &
 		((e: React.FormEvent<HTMLInputElement>) => void);
 	cep: string;
@@ -66,10 +70,11 @@ export type ProfileProps = {
 	onClickSaveButton(): void;
 	onClickEditable(): void;
 	onClickSaveNewAddress(address: SafeFoodCreateAddressRequest): void;
+	onClickUpdateAddress(address: SafeFoodAddressModel): void;
 	onClickOpenModalAddress(): void;
 	onChangeFile(file: File): void;
 	cache: Cache;
-	onClickCard: (id: string) => void;
+	onClickCard: (address: SafeFoodAddressModel) => void;
 	onClickDeleteAddress: (id: number) => void;
 };
 
@@ -105,12 +110,14 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 	onClickCard,
 	cache,
 	onClickDeleteAddress,
+	onClickUpdateAddress,
 }) => {
 	return (
 		<>
 			<HeaderConsumer cache={cache} />
 			{/* MODAL */}
 			<AddressModal
+				onClickUpdateAddress={onClickUpdateAddress}
 				toggleModal={toggleModal}
 				isModalVisible={isModalVisible}
 				onClickSaveNewAddress={onClickSaveNewAddress}
@@ -194,7 +201,7 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 									<span>adicionar endereço</span>
 								</ButtonIcon>
 							</div>
-							{listOfAddress && (
+							{listOfAddress && listOfAddress.length > 0 ? (
 								<PContainerAddressCard>
 									{listOfAddress.map(
 										(address, i) =>
@@ -212,13 +219,17 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 													// Icon={adress.Icon}
 													key={i}
 													apelido={address.params.apelido ? address.params.apelido : ""}
-													onClickCard={onClickCard}
+													onClickCard={() =>
+														onClickCard(SafeFoodAddressMapper.ofEntity(address))
+													}
 													idAddress={address.params.id}
 													onClickDeleteAddress={onClickDeleteAddress}
 												/>
 											)
 									)}
 								</PContainerAddressCard>
+							) : (
+								<></>
 							)}
 						</PContainerInfo2>
 						<PDivider />
