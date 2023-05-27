@@ -255,6 +255,7 @@ export const StyledRow = styled.div`
 	justify-content: space-between;
 	align-items: center;
 	width: 100%;
+	max-width: 100%;
 `;
 export const StyledColumn = styled.div<{
 	alignItems?: AlignSetting;
@@ -262,6 +263,7 @@ export const StyledColumn = styled.div<{
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	max-width: 100%;
 	align-items: ${p => p.alignItems};
 	gap: 20px;
 `;
