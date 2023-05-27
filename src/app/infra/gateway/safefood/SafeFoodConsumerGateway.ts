@@ -123,14 +123,13 @@ export class SafeFoodConsumerGateway {
         return res.data;
     }
 
-    async addAddress(id: number, address: SafeFoodCreateAddressRequest): Promise<any> {
+    async addAddress(id: number, address: SafeFoodCreateAddressRequest): Promise<SafeFoodAddressResponse> {
         const res = await this.http.execute<SafeFoodAddressResponse>({
             url: `/consumidores/${id}/endereco`,
             method: 'POST',
             body: address
         })
         if (!res.data) {
-            console.log("throw");
             throw new Error("Erro ao realizar requisicao de adicionar endereco do consumidor")
         }
         return res.data;

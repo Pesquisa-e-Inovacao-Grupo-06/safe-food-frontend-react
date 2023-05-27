@@ -15,7 +15,7 @@ export type AddressModalProps = {
 		((e: React.FormEvent<HTMLInputElement>) => void);
 	onChangeApelido: React.FormEventHandler<HTMLInputElement> &
 		((e: React.FormEvent<HTMLInputElement>) => void);
-	onClickSaveNewAddress(): void;
+	onClickSaveNewAddress(address: SafeFoodCreateAddressRequest): void;
 	onChange: React.FormEventHandler<HTMLInputElement> &
 		((e: React.FormEvent<HTMLInputElement>) => void);
 };
@@ -114,7 +114,18 @@ export const AddressModal: React.FC<AddressModalProps> = ({
 						onChange={() => {}}
 						required={false}
 					/>
-					<Button onClick={onClickSaveNewAddress}>Adicionar novo endereço</Button>
+					<Button
+						onClick={() =>
+							onClickSaveNewAddress({
+								...address,
+								numero,
+								apelido,
+								cep,
+							})
+						}
+					>
+						Adicionar novo endereço
+					</Button>
 				</Box>
 			</Modal>
 		</>

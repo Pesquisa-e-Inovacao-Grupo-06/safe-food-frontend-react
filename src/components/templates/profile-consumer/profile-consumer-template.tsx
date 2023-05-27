@@ -11,7 +11,7 @@ import { InputPropsComponent } from "../../atoms/input";
 import { Address } from "@/app/domain/entities/Address";
 import { Alert, AlertType } from "../../atoms/alert";
 import { AddressModal } from "../address-modal";
-import { } from "@/app/util/validations/cep-validator";
+import {} from "@/app/util/validations/cep-validator";
 import { SafeFoodCreateAddressRequest } from "@/app/infra/gateway/safefood/models/SafeFoodAddress";
 import HeaderConsumer from "../../molecules/header-consumer";
 import { Cache } from "@/app/domain/protocols/Cache";
@@ -51,21 +51,21 @@ export type ProfileProps = {
 	isEditable?: boolean;
 	address: SafeFoodCreateAddressRequest;
 	onChange: React.FormEventHandler<HTMLInputElement> &
-	((e: React.FormEvent<HTMLInputElement>) => void);
+		((e: React.FormEvent<HTMLInputElement>) => void);
 	cep: string;
 	numero: string;
 	onChangeNumero: React.FormEventHandler<HTMLInputElement> &
-	((e: React.FormEvent<HTMLInputElement>) => void);
+		((e: React.FormEvent<HTMLInputElement>) => void);
 	apelido: string;
 	onChangeApelido: React.FormEventHandler<HTMLInputElement> &
-	((e: React.FormEvent<HTMLInputElement>) => void);
+		((e: React.FormEvent<HTMLInputElement>) => void);
 	isModalVisible: boolean;
 	toggleModal(): void;
 	onClickChangePassword(): void;
 	onClickSave(model: SafeFoodUpdateConsumerRequest): void;
 	onClickSaveButton(): void;
 	onClickEditable(): void;
-	onClickSaveNewAddress(): void;
+	onClickSaveNewAddress(address: SafeFoodCreateAddressRequest): void;
 	onClickOpenModalAddress(): void;
 	onChangeFile(file: File): void;
 	cache: Cache;
@@ -109,15 +109,6 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 	return (
 		<>
 			<HeaderConsumer cache={cache} />
-			<iframe
-				src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.400082814233!2d-46.45185368502239!3d-23.554070284686482!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce668f6fd23971%3A0x6d1d58bdc95eb741!2sR.%20Santo%20Ant%C3%B4nio%20de%20Itaberava%20-%20Vila%20Carmosina%2C%20S%C3%A3o%20Paulo%20-%20SP%2C%2008290-210!5e0!3m2!1spt-BR!2sbr!4v1685073323998!5m2!1spt-BR!2sbr"
-				width="600"
-				height="450"
-				style={{ border: "0" }}
-				allowFullScreen
-				loading="lazy"
-				referrerPolicy="no-referrer-when-downgrade"
-			></iframe>
 			{/* MODAL */}
 			<AddressModal
 				toggleModal={toggleModal}
