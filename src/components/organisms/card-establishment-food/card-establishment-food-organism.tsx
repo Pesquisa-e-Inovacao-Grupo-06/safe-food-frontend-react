@@ -163,11 +163,12 @@ export const CardEstablishmentFoodOrganism: React.FC<InfoProductProps> = ({
 
 type CardExpansiveEstablishmentFoodOrganismProps = {
 	titulo?: string;
+	categoria?: string;
 };
 
 export const CardExpansiveEstablishmentFoodOrganism: React.FC<
 	CardExpansiveEstablishmentFoodOrganismProps
-> = ({ titulo = "Hamburger Vegan 2.0" }) => {
+> = ({ titulo = "Hamburger Vegan 2.0", categoria = "" }) => {
 	return (
 		<Box
 			display="flex"
@@ -210,6 +211,7 @@ export const CardExpansiveEstablishmentFoodOrganism: React.FC<
 					>
 						53
 					</TextIcon>
+					{categoria}
 				</StyledRow>
 			</StyledColumn>
 			{/* <div

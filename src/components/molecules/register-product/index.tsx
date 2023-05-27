@@ -28,6 +28,7 @@ type Props = {
 	productEdit?: Product;
 	user?: SafeFoodUsuarioModel;
 	btnAdd?: boolean;
+	products?: Product[];
 };
 
 function RegisterProduct({
@@ -42,6 +43,7 @@ function RegisterProduct({
 	productEdit,
 	user,
 	btnAdd,
+	products,
 }: Props) {
 	const [objProduct, setObjProduct] = useState<SafeFoodCreateProductRequest>();
 	const [editObjProduct, setEditObjProduct] =
@@ -53,6 +55,7 @@ function RegisterProduct({
 	const [img, setImg] = useState<string>("");
 	const [descricao, setDescricao] = useState<string>("");
 	const [categoria, setCategoria] = useState<number>(0);
+	const [auxCategoria, setAuxCategoria] = useState<string>("");
 	const [ingredientes, setIngredientes] = useState<string[]>([]);
 	const [auxIngredientes, setAuxIngredientes] = useState<string>("");
 	const [restrictions, setRestrictions] = useState<number[]>([]);
@@ -142,6 +145,7 @@ function RegisterProduct({
 		setRestrictions([]);
 		setAuxRestriction(undefined);
 		setAuxFunction("");
+		setAuxCategoria("");
 	};
 
 	const clearValuesObjEdit = () => {
@@ -156,6 +160,7 @@ function RegisterProduct({
 		setRestrictions([]);
 		setAuxRestriction(undefined);
 		setAuxFunction("");
+		setAuxCategoria("");
 	};
 
 	//colocar todas restrições como inativadas
@@ -318,7 +323,10 @@ function RegisterProduct({
 				</>
 				<div className="container-info-register-product">
 					<div className="header-register-product">
-						<CardExpansiveEstablishmentFoodOrganism titulo={nome} />
+						<CardExpansiveEstablishmentFoodOrganism
+							titulo={nome}
+							categoria={auxCategoria}
+						/>
 					</div>
 					<div className="main-register-product">
 						<div className="container-main-register-product">
@@ -332,7 +340,10 @@ function RegisterProduct({
 										onClick={() =>
 											item.params.id == undefined
 												? setCategoria(0)
-												: setCategoria(item.params.id)
+												: (setCategoria(item.params.id),
+												  setAuxCategoria(
+														item.params.nome != undefined ? item.params.nome : ""
+												  ))
 										}
 										height="fit-content"
 										width="fit-content"
