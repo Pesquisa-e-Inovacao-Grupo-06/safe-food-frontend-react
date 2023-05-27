@@ -38,8 +38,9 @@ function ProfileEstablishment({
 	const [isAlertVisible, setIsVisibleAlert] = useState<boolean>(false);
 	const [typeAlert, setTypeAlert] = useState<AlertType>();
 	const [textAlert, setTextAlert] = useState<string>();
+	const [isEditable, setIsEditable] = useState<boolean>(false);
 
-	const onClickLogin = async () => {
+	const onClickUpdateInfo = async () => {
 		setIsLoading(true);
 		try {
 			const res = await establishmentGateway.update(establishment.id, {
@@ -47,7 +48,7 @@ function ProfileEstablishment({
 				email: email,
 				nomeEmpresa: nameEstablishment,
 				descricao: description,
-				celular: cellphone,
+				celular: cellphone!,
 				contatoCliente: contact,
 				cnpj: cnpj,
 			});
@@ -68,6 +69,13 @@ function ProfileEstablishment({
 		}
 	};
 
+	const onClickDeleteAddress = async (idAddress: number) => {
+
+	};
+
+	const handleAddressCardClick = (apelidoEnderecoSelecionado: string) => {
+
+	};
 	return establishment ? (
 		<ProfileEstablishmentTemplate
 			listOfComponentAdministration={[
@@ -79,50 +87,52 @@ function ProfileEstablishment({
 						e.target.value = "a";
 						setName("a");
 					},
+					disabled: !isEditable
 				},
-				{ name: "Email: ", value: email, setUseState: setEmail },
+				{ name: "Email: ", value: email, setUseState: setEmail, disabled: !isEditable },
 				{
 					name: "Número telefone: ",
-					value: numberphone,
-					setUseState: setNumberPhone,
+					value: numberphone ?? '',
+					setUseState: setNumberPhone, disabled: !isEditable
 				},
 			]}
 			listOfComponentEstablishment={[
 				{
 					name: "Nome da empresa: ",
 					value: nameEstablishment,
-					setUseState: setNameEstablishment,
+					setUseState: setNameEstablishment, disabled: !isEditable
 				},
-				{ name: "Cnpj: ", value: cnpj, setUseState: setCNPJ },
+				{ name: "Cnpj: ", value: cnpj, setUseState: setCNPJ, disabled: !isEditable },
 				{
 					name: "Celular (responsável): ",
 					value: cellphone || "",
-					setUseState: setCellphone,
+					setUseState: setCellphone, disabled: !isEditable
 				},
 				{
 					name: "Contato (Whatsaap para clientes): ",
 					value: contact,
-					setUseState: setContact,
+					setUseState: setContact, disabled: !isEditable
 				},
 				{
 					name: "Descrição: ",
 					value: description,
-					setUseState: setDescription,
+					setUseState: setDescription, disabled: !isEditable
 				},
 			]}
-			address={establishment.endereco}
+			address={establishment.endereco!}
 			urlDefault={imageProfile}
-			onClickSave={onClickLogin}
+			onClickSave={onClickUpdateInfo}
 			isSaveButtonActive={isActiveButton}
 			isLoading={isLoading}
 			isAlertVisible={isAlertVisible}
 			textAlert={textAlert}
 			typeAlert={typeAlert}
-			onClickChangePassowrd={function (): void {
+			onClickChangePassword={function (): void {
 				throw new Error("Function not implemented.");
 			}}
 			cache={cache}
-		/>
+			onClickCard={handleAddressCardClick}
+			onClickDeleteAddress={onClickDeleteAddress} />
 	) : (
 		<h1>Carregando...</h1>
 	);

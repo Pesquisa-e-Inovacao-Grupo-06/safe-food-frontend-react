@@ -48,7 +48,7 @@ const DropDownSubMenu: React.FC<Props> = ({ userName, cache, children }) => {
 												cache.removeItem("consumer");
 												cache.removeItem("establishment");
 												cache.removeItem("user");
-												window.location.reload();
+												// window.location.reload();
 											}
 										}}
 									>

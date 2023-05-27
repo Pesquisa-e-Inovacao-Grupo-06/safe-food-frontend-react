@@ -11,7 +11,7 @@ import { InputPropsComponent } from "../../atoms/input";
 import { Address } from "@/app/domain/entities/Address";
 import { Alert, AlertType } from "../../atoms/alert";
 import { AddressModal } from "../address-modal";
-import {} from "@/app/util/validations/cep-validator";
+import { } from "@/app/util/validations/cep-validator";
 import { SafeFoodCreateAddressRequest } from "@/app/infra/gateway/safefood/models/SafeFoodAddress";
 import HeaderConsumer from "../../molecules/header-consumer";
 import { Cache } from "@/app/domain/protocols/Cache";
@@ -51,14 +51,14 @@ export type ProfileProps = {
 	isEditable?: boolean;
 	address: SafeFoodCreateAddressRequest;
 	onChange: React.FormEventHandler<HTMLInputElement> &
-		((e: React.FormEvent<HTMLInputElement>) => void);
+	((e: React.FormEvent<HTMLInputElement>) => void);
 	cep: string;
 	numero: string;
 	onChangeNumero: React.FormEventHandler<HTMLInputElement> &
-		((e: React.FormEvent<HTMLInputElement>) => void);
+	((e: React.FormEvent<HTMLInputElement>) => void);
 	apelido: string;
 	onChangeApelido: React.FormEventHandler<HTMLInputElement> &
-		((e: React.FormEvent<HTMLInputElement>) => void);
+	((e: React.FormEvent<HTMLInputElement>) => void);
 	isModalVisible: boolean;
 	toggleModal(): void;
 	onClickChangePassword(): void;
@@ -68,8 +68,8 @@ export type ProfileProps = {
 	onClickSaveNewAddress(): void;
 	onClickOpenModalAddress(): void;
 	onChangeFile(file: File): void;
-	onClickCard: (id: string) => void;
 	cache: Cache;
+	onClickCard: (id: string) => void;
 	onClickDeleteAddress: (id: number) => void;
 };
 
