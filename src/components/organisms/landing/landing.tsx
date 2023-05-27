@@ -33,14 +33,10 @@ export const Landing: React.FC<LandingProps> = ({
 			alignItems="center"
 			justify="center"
 			background="linear-gradient(90.19deg, rgba(255, 213, 189, 0.8) 49.22%, rgba(255, 164, 80, 0.8) 98.62%)"
-			maxWidth="100%"
 			padding="12px 0"
 			style={{ paddingTop: "80px" }}
 		>
-			<Box
-				width="80%"
-				maxWidth="100%"
-			>
+			<Box width="80%">
 				<StyledRow>
 					<StyledColumn>
 						<TitleLanding color="orange">
@@ -76,12 +72,13 @@ export const Landing: React.FC<LandingProps> = ({
 };
 
 const ImageLanding = styled(StyledImage)`
-	display: none;
 	@media (max-width: 1200px) {
+		display: none;
 	}
 `;
 
 const TitleLanding = styled(Title)`
+	max-width: 800px;
 	@media (max-width: 1200px) {
 		text-align: center;
 	}
