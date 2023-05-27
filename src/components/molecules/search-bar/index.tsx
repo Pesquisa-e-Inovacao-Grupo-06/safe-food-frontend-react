@@ -1,20 +1,24 @@
-import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { IoCloseSharp } from "react-icons/io5";
-import styled from "styled-components";
 import { ContainerSearchBar } from "./styles";
 import { Product } from "@/app/domain/entities/Product";
 
 type Props = {
 	children?: any;
 	products: Product[];
+	onChange: (e: string) => Promise<void>;
 };
 
-const SearchBar: React.FC<Props> = ({ children, products }) => {
+const SearchBar: React.FC<Props> = ({ children, products, onChange }) => {
 	const [filterData, setFilterData] = useState<Product[]>([]);
-	const [wordEntered, setWordEntered] = useState("");
+	const [wordEntered, setWordEntered] = useState<string>("");
 	const [repositores, setRepositories] = useState<Product[]>(products);
+
+	const handleClick = () => {
+		onChange(wordEntered)
+	}
+
 
 	useEffect(() => {
 		setRepositories(products);
@@ -30,8 +34,7 @@ const SearchBar: React.FC<Props> = ({ children, products }) => {
 	}
 
 	const handleFilter = (event: any) => {
-		const seacrhWorld = event.target.value;
-		setWordEntered(seacrhWorld);
+		const seacrhWorld = event;
 		const newFilter = repositores.filter(value => {
 			return value.params.titulo != undefined
 				? value.params.titulo.toLowerCase().includes(seacrhWorld.toLowerCase())
@@ -57,7 +60,7 @@ const SearchBar: React.FC<Props> = ({ children, products }) => {
 					<input
 						type="text"
 						placeholder="Search"
-						onChange={handleFilter}
+						onChange={(e) => { setWordEntered(e.currentTarget.value) }}
 						value={wordEntered}
 					/>
 					{wordEntered.length == 0 ? (
@@ -65,7 +68,10 @@ const SearchBar: React.FC<Props> = ({ children, products }) => {
 					) : (
 						<IoCloseSharp onClick={clearInput} />
 					)}
-					<BiSearch />
+					<BiSearch onClick={async () => {
+						await handleClick();
+						handleFilter(wordEntered)
+					}} cursor={"pointer"} />
 				</div>
 				{filterData.length != 0 && (
 					<div className="content-search-bar">

@@ -91,7 +91,7 @@ function HomeConsumer({
 			});
 			setProducts(fetchedProducts.content.map(SafeFoodProductMapper.of));
 			setTotalPage(fetchedProducts.totalPages);
-		} catch (error) {}
+		} catch (error) { }
 	};
 
 	const onClickApplication = async () => {
@@ -194,6 +194,7 @@ function HomeConsumer({
 	if (totalPage > 0) {
 		return (
 			<HomeConsumerTemplate
+
 				products={products}
 				dropDownList={[
 					{
@@ -236,8 +237,7 @@ function HomeConsumer({
 				onClickApplication={onClickApplication}
 				cache={cache}
 				onPageChange={handlePageChange}
-				totalPagesProductFilter={totalPage}
-			/>
+				totalPagesProductFilter={totalPage} productGateway={productGateway} />
 		);
 	} else return null;
 }

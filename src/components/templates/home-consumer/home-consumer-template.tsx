@@ -16,6 +16,7 @@ import { Cache } from "@/app/domain/protocols/Cache";
 import { Pagination } from "../../atoms/pagination";
 import { Box } from "../../atoms/box";
 import { CardProductHomeConsumer, ContainerHomeConsumer } from "./style";
+import { SafeFoodProductGateway } from "@/app/infra/gateway/safefood/SafeFoodProductGateway";
 export type HomeConsumerProps = {
 	products: Product[];
 	dropDownList: DropDownProps[];
@@ -23,6 +24,7 @@ export type HomeConsumerProps = {
 	cache: Cache;
 	onPageChange: (pageNumber: number) => void;
 	totalPagesProductFilter: number;
+	productGateway: SafeFoodProductGateway;
 };
 const HomeConsumerTemplate: React.FC<HomeConsumerProps> = ({
 	products,
@@ -31,6 +33,7 @@ const HomeConsumerTemplate: React.FC<HomeConsumerProps> = ({
 	cache,
 	onPageChange,
 	totalPagesProductFilter,
+	productGateway
 }) => {
 	const [formCard, setFormcard] = useState<boolean>(false);
 	var count = 0;
@@ -44,7 +47,7 @@ const HomeConsumerTemplate: React.FC<HomeConsumerProps> = ({
 		<>
 			<HeaderConsumer
 				cache={cache}
-				products={products}
+				productGateway={productGateway}
 			/>
 			<BodyTemplate footer={true}>
 				<ContainerHomeConsumer isFormCardActive={formCard}>

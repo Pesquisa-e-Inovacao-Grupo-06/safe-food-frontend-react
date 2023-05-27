@@ -18,20 +18,35 @@ import { SafeFoodLoginResponse } from "@/app/infra/gateway/safefood/models/SafeF
 import { SafeFoodConsumerModel } from "@/app/infra/gateway/safefood/models/SafeFoodConsumer";
 import { SafeFoodAddressMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodAddressMapper";
 import { Product } from "@/app/domain/entities/Product";
+import { SafeFoodProductGateway } from "@/app/infra/gateway/safefood/SafeFoodProductGateway";
+import { SafeFoodProductMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodProductMapper";
 
 export type HeaderConsumerProps = {
 	cache: Cache;
-	products?: Product[];
+	productGateway: SafeFoodProductGateway;
 };
 
-const HeaderConsumer: React.FC<HeaderConsumerProps> = ({ cache, products }) => {
+const HeaderConsumer: React.FC<HeaderConsumerProps> = ({ cache, productGateway }) => {
 	const { toggleTheme, getTheme } = useSafeFoodTheme();
 	const [sidebar, setSidebar] = useState(false);
-
+	const [products, setProducts] = useState<Product[]>([]);
 	const consumer: SafeFoodConsumerModel =
 		cache.getItem("consumer") !== null
 			? JSON.parse(cache.getItem("consumer")!)
 			: {};
+
+
+	async function fetchProducts(wordSearch: string) {
+		try {
+			const fetchedProducts = await productGateway.productFilter({ pesquisa: wordSearch, itensPorPagina: 3 });
+			console.log(fetchedProducts.content)
+			setProducts(fetchedProducts.content.map(SafeFoodProductMapper.of));
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
+
 
 	const user: SafeFoodLoginResponse =
 		cache.getItem("user") !== null ? JSON.parse(cache.getItem("user")!) : {};
@@ -56,7 +71,7 @@ const HeaderConsumer: React.FC<HeaderConsumerProps> = ({ cache, products }) => {
 							address={consumer.enderecos.map(SafeFoodAddressMapper.of)}
 						/>
 					)}
-					<SearchBar products={products ?? []} />
+					<SearchBar products={products ?? []} onChange={async (item) => await fetchProducts(item ?? "")} />
 					<Box className="container-user-info-header-consumer">
 						<DropDownSubMenu
 							cache={cache}
@@ -102,3 +117,7 @@ const itemLinkArraySideConsumer = [
 		to: "#",
 	},
 ];
+function useEffect(arg0: () => void) {
+	throw new Error("Function not implemented.");
+}
+
