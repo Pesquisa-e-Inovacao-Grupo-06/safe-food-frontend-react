@@ -5,5 +5,5 @@ export type SafeFoodTypeProductParams = {
 };
 
 export class TypeProduct {
-    constructor(public params: Partial<SafeFoodTypeProductParams>) { }
+    constructor(public id: number, public nome: string, public descricao: string) { }
 }

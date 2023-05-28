@@ -12,6 +12,7 @@ import { SafeFoodEstablishmentGateway } from "./app/infra/gateway/safefood/SafeF
 import { SafeFoodProductGateway } from "./app/infra/gateway/safefood/SafeFoodProductGateway";
 import { SafeFoodTypeProductGateway } from "./app/infra/gateway/safefood/SafeFoodTypeProductGateway";
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+import { TypeProduct } from "./app/domain/entities/TypeProduct";
 
 const cache = new LocalStorageCache();
 const safeFoodClient = new AxiosHttpClient(BACKEND_URL);
@@ -31,6 +32,12 @@ const typeProductGateway = new SafeFoodTypeProductGateway(safeFoodClient);
 if (!cache.getItem("restrictions")) {
 	restrictionsGateway.getAll().then(data => {
 		cache.setItem("restrictions", JSON.stringify(data));
+	});
+}
+
+if (!cache.getItem("typeProducts")) {
+	typeProductGateway.findAll().then(data => {
+		return cache.setItem("typeProducts", JSON.stringify(data));
 	});
 }
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(

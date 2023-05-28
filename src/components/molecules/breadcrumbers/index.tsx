@@ -29,6 +29,7 @@ export const Breadcrumbers: React.FC<BreadcrumbersProps> = ({
 				style={{
 					cursor: item.url ? "pointer" : "unset",
 					fontSize: textSize ? textSize + "px" : "",
+					fontWeight: "bold",
 				}}
 				onClick={() => {
 					if (item.url) {
@@ -44,7 +45,7 @@ export const Breadcrumbers: React.FC<BreadcrumbersProps> = ({
 					alignSelf="center"
 					style={{ fill: "#fa1" }}
 				>
-					<MdOutlineKeyboardArrowRight size={textSize} />
+					<MdOutlineKeyboardArrowRight size={24} />
 				</Box>
 			)}
 		</React.Fragment>
@@ -55,14 +56,10 @@ export const Breadcrumbers: React.FC<BreadcrumbersProps> = ({
 			gap="8px"
 			display="flex"
 			flexDirection="row"
-			justify="center"
+			justify="space-between"
 			width="fit-content"
 		>
 			{breadcrumbItems}
 		</Box>
 	);
-
-	// <Breadcrumbers
-	// 				crumbsArr={[{ text: "sla", url: "/profi" }, { text: "sla" }]}
-	// 			></Breadcrumbers>;
 };
