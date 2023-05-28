@@ -18,7 +18,6 @@ import Bolo from "../assets/Mask group (2).png";
 import Doghnut from "../assets/Mask group (3).png";
 import Restaurante from "../assets/pexels-kaboompics-com-5697 1.png";
 import BannerFinal from "../assets/Banner-meio.png";
-import { orange } from "@mui/material/colors";
 
 export const NewHome: React.FC = () => {
 	return (
@@ -46,19 +45,19 @@ export const NewHome: React.FC = () => {
 							</div>
 							<div className="card-img-destaque-new-home">
 								<img src={ZeroGruten} />
-								<Text>Zero Lactose</Text>
+								<Text>Zero Glúten</Text>
 							</div>
 							<div className="card-img-destaque-new-home">
 								<img src={Vegano} />
-								<Text>Zero Lactose</Text>
+								<Text>Vegano</Text>
 							</div>
 							<div className="card-img-destaque-new-home">
 								<img src={Vegetariano} />
-								<Text>Zero Lactose</Text>
+								<Text>Vegetariano</Text>
 							</div>
 							<div className="card-img-destaque-new-home">
 								<img src={ZeroAcucar} />
-								<Text>Zero Lactose</Text>
+								<Text>Zero Açúcar</Text>
 							</div>
 						</div>
 					</div>
