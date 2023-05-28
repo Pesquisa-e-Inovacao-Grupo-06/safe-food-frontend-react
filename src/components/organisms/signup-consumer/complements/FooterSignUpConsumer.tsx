@@ -57,6 +57,7 @@ export const FooterSignUpConsumer: React.FC<{
 		}
 		if (step === "finished") {
 			// (() => setModal(null))();
+			//TODO: VERIFICAR ESSE CARA
 			(() => setModal("login"))();
 			// (() => (window.location.href = "http://localhost:5173/"))();
 		}

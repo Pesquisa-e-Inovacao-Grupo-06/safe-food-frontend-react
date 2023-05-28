@@ -4,18 +4,16 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Box } from "@/components/atoms/box";
 import { Text } from "@/components/atoms/text";
-import imgTeste from "../../assets/food-favorite.png";
+import imgTeste from "../../../assets/food-favorite.png";
 import { StyledButton } from "@/components/atoms/button/styles";
 import { Cache } from "@/app/domain/protocols/Cache";
 import { Restriction } from "@/app/domain/entities/Restriction";
 import { Product } from "@/app/domain/entities/Product";
-import { Link } from "react-router-dom";
 import { TypeProduct } from "@/app/domain/entities/TypeProduct";
 import { SafeFoodUsuarioModel } from "@/app/infra/gateway/safefood/models/SafeFoodUser";
 import { SafeFoodCreateProductRequest } from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
 import { SafeFoodProductGateway } from "@/app/infra/gateway/safefood/SafeFoodProductGateway";
 import { SafeFoodProductMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodProductMapper";
-import { SafeFoodTypeProductRequest } from "@/app/infra/gateway/safefood/models/SafeFoodTypeProduct";
 
 type HomeEstablishmentProps = {
 	products: Product[];
@@ -25,6 +23,9 @@ type HomeEstablishmentProps = {
 	user: SafeFoodUsuarioModel;
 	productGateway: SafeFoodProductGateway;
 	onClickCreate(data: SafeFoodCreateProductRequest): void;
+	onClickUpdate(id: string, data: SafeFoodCreateProductRequest): void;
+	onClickDelete(id: string): void;
+	renderListProduct(): void;
 };
 
 function HomeEstablishmentTemplate({
@@ -35,25 +36,26 @@ function HomeEstablishmentTemplate({
 	user,
 	productGateway,
 	onClickCreate,
+	onClickUpdate,
+	onClickDelete,
+	renderListProduct,
 }: HomeEstablishmentProps) {
 	const [modalRegister, setModalRegister] = useState(false);
 	const [type, setType] = useState("");
 	const [filterData, setFilterData] = useState<Product[]>([]);
 	const [objEdit, setObjEdit] = useState<Product>();
+	const [auxObjEdit, setAuxObjEdit] = useState<boolean>(false);
+	const [auxBtnAdd, setAuxBtnAdd] = useState<boolean>(false);
 
 	const setObj = (item: Product) => {
 		setObjEdit(item);
+		setModalRegister(true);
+		setAuxObjEdit(!auxObjEdit);
 	};
 
 	useEffect(() => {
-		async function fetchProducts() {
-			try {
-				const fetchedProducts = await productGateway.findAll();
-				setFilterData(fetchedProducts.content.map(SafeFoodProductMapper.of));
-			} catch (error) {}
-		}
-		fetchProducts();
-	}, []);
+		setFilterData(products);
+	}, [products]);
 
 	const handleFilter = (typeProduct: string) => {
 		const filterType = typeProduct;
@@ -67,7 +69,7 @@ function HomeEstablishmentTemplate({
 				.includes(type.toLowerCase());
 		});
 
-		if (type === "") {
+		if (type == "") {
 			setFilterData(products);
 		} else {
 			setFilterData(newFilter);
@@ -88,8 +90,13 @@ function HomeEstablishmentTemplate({
 			productRestrictions={productRestriction}
 			typeProduct={typeProduct}
 			onClickCreate={onClickCreate}
+			onClickUpdate={onClickUpdate}
+			onClickDelete={onClickDelete}
 			productEdit={objEdit}
+			auxObjEdit={auxObjEdit}
 			user={user}
+			btnAdd={auxBtnAdd}
+			renderListProduct={renderListProduct}
 		>
 			<ContainerHomeEstablishment>
 				<div className="header-home-establishment">
@@ -106,7 +113,10 @@ function HomeEstablishmentTemplate({
 								</div>
 							</Box>
 							<StyledButton
-								onClick={toggleModalResgiter}
+								onClick={() => {
+									setModalRegister(true);
+									setAuxBtnAdd(!auxBtnAdd);
+								}}
 								buttonStyle="filled"
 							>
 								ADICIONAR
@@ -195,17 +205,17 @@ const ContainerHomeEstablishment = styled.div`
 			h1 {
 				font-size: 15px;
 				color: ${p =>
-					p.theme.name == "light"
-						? p.theme.colors.dark_gray[600]
-						: p.theme.colors.light_gray[400]};
+		p.theme.name == "light"
+			? p.theme.colors.dark_gray[600]
+			: p.theme.colors.light_gray[400]};
 			}
 
 			label {
 				font-size: 12px;
 				color: ${p =>
-					p.theme.name == "light"
-						? p.theme.colors.dark_gray[200]
-						: p.theme.colors.light_gray[600]};
+		p.theme.name == "light"
+			? p.theme.colors.dark_gray[200]
+			: p.theme.colors.light_gray[600]};
 			}
 		}
 
@@ -217,9 +227,9 @@ const ContainerHomeEstablishment = styled.div`
 			justify-content: space-between;
 			border-radius: 8px;
 			background: ${p =>
-				p.theme.name == "light"
-					? p.theme.colors.light_gray[400]
-					: p.theme.colors.black};
+		p.theme.name == "light"
+			? p.theme.colors.light_gray[400]
+			: p.theme.colors.black};
 			box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px 0px;
 
 			gap: 15px;
@@ -240,17 +250,17 @@ const ContainerHomeEstablishment = styled.div`
 				h1 {
 					font-size: 15px;
 					color: ${p =>
-						p.theme.name == "light"
-							? p.theme.colors.dark_gray[600]
-							: p.theme.colors.light_gray[400]};
+		p.theme.name == "light"
+			? p.theme.colors.dark_gray[600]
+			: p.theme.colors.light_gray[400]};
 				}
 
 				label {
 					font-size: 13px;
 					color: ${p =>
-						p.theme.name == "light"
-							? p.theme.colors.dark_gray[400]
-							: p.theme.colors.light_gray[600]};
+		p.theme.name == "light"
+			? p.theme.colors.dark_gray[400]
+			: p.theme.colors.light_gray[600]};
 				}
 			}
 
@@ -297,33 +307,33 @@ const ContainerHomeEstablishment = styled.div`
 
 			::-webkit-scrollbar-track {
 				background-color: ${p =>
-					p.theme.name == "light"
-						? p.theme.colors.light_gray[200]
-						: p.theme.colors.dark_gray[600]};
+		p.theme.name == "light"
+			? p.theme.colors.light_gray[200]
+			: p.theme.colors.dark_gray[600]};
 			}
 
 			/* Handle */
 
 			::-webkit-scrollbar-thumb {
 				background-color: ${p =>
-					p.theme.name == "light"
-						? p.theme.colors.light_gray[600]
-						: p.theme.colors.dark_gray[800]};
+		p.theme.name == "light"
+			? p.theme.colors.light_gray[600]
+			: p.theme.colors.dark_gray[800]};
 				border-radius: 50px;
 				border: 3px solid
 					${p =>
-						p.theme.name == "light"
-							? p.theme.colors.light_gray[200]
-							: p.theme.colors.dark_gray[600]};
+		p.theme.name == "light"
+			? p.theme.colors.light_gray[200]
+			: p.theme.colors.dark_gray[600]};
 			}
 
 			/* Handle on Hover */
 
 			::-webkit-scrollbar-thumb:hover {
 				background-color: ${p =>
-					p.theme.name == "light"
-						? p.theme.colors.light_gray[800]
-						: p.theme.colors.black};
+		p.theme.name == "light"
+			? p.theme.colors.light_gray[800]
+			: p.theme.colors.black};
 			}
 
 			> button {
@@ -342,26 +352,26 @@ const ContainerHomeEstablishment = styled.div`
 		padding: 24px;
 
 		.container-main-home-establishment {
-			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
-			gap: 20px;
+			display: flex;
+			flex-wrap: wrap;
+			/* justify-content: center; */
+			gap: 5px;
 
 			> div {
-				/* max-width: min-content; */
-				flex: 1 1 200px;
+				min-width: 225px;
 				margin: 10px;
 				background: ${p =>
-					p.theme.name == "light"
-						? p.theme.colors.light_gray[400]
-						: p.theme.colors.black};
+		p.theme.name == "light"
+			? p.theme.colors.light_gray[400]
+			: p.theme.colors.black};
 				box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px 0px;
 
 				color: ${p =>
-					p.theme.name == "light"
-						? p.theme.colors.dark_gray[800]
-						: p.theme.colors.light_gray[600]};
+		p.theme.name == "light"
+			? p.theme.colors.dark_gray[800]
+			: p.theme.colors.light_gray[600]};
 				> div {
-					gap: 15px;
+					gap: 0px;
 				}
 
 				img {
@@ -390,9 +400,15 @@ const ContainerHomeEstablishment = styled.div`
 					> div:nth-last-child(2) {
 						height: 1px;
 						background: ${p =>
-							p.theme.name == "light"
-								? p.theme.colors.light_gray[600]
-								: p.theme.colors.dark_gray[600]};
+		p.theme.name == "light"
+			? p.theme.colors.light_gray[600]
+			: p.theme.colors.dark_gray[600]};
+					}
+				}
+
+				> div:nth-child(1) {
+					> div:nth-child(2) {
+						width: 100%;
 					}
 				}
 
@@ -416,6 +432,10 @@ const ContainerHomeEstablishment = styled.div`
 				@media screen and (max-width: 480px) {
 					margin: 15px 0px;
 				}
+
+				@media (max-width: 570px) {
+					min-width: 100%;
+				}
 			}
 
 			@media (max-width: 1100px) {
@@ -435,14 +455,16 @@ const CardHomeEstablishment = styled.div<{
 	isActive?: boolean;
 }>`
 	height: ${p => (p.isActive ? "11.5625rem" : "")};
+	border-radius: 5px;
 	> div {
 		background: ${p =>
-			p.theme.name == "light"
-				? p.theme.colors.light_gray[200]
-				: p.theme.colors.dark_gray[1000]};
+		p.theme.name == "light"
+			? p.theme.colors.light_gray[200]
+			: p.theme.colors.dark_gray[1000]};
 		width: auto;
 		display: ${p => (p.isActive ? "grid" : "")};
 		grid-template-columns: ${p => (p.isActive ? "0.3fr 1fr" : "")};
+		border-radius: 4px;
 
 		> div {
 			height: ${p => (p.isActive ? "11.5625rem" : "")};
@@ -486,15 +508,15 @@ const CardHomeEstablishment = styled.div<{
 
 			> div:nth-child(4) {
 				background: ${p =>
-					p.theme.name == "light"
-						? p.theme.colors.light_gray[600]
-						: p.theme.colors.dark_gray[800]};
+		p.theme.name == "light"
+			? p.theme.colors.light_gray[600]
+			: p.theme.colors.dark_gray[800]};
 
 				/* border: ${p => (p.isActive ? "0.1px" : "0px")} solid
 					${p =>
-					p.theme.name == "light"
-						? p.theme.colors.light_gray[600]
-						: p.theme.colors.dark_gray[800]}; */
+		p.theme.name == "light"
+			? p.theme.colors.light_gray[600]
+			: p.theme.colors.dark_gray[800]}; */
 			}
 
 			> div:nth-child(5) {

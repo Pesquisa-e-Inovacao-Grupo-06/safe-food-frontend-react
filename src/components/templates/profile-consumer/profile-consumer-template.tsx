@@ -10,11 +10,10 @@ import { Restriction } from "@/app/domain/entities/Restriction";
 import { InputPropsComponent } from "../../atoms/input";
 import { Address } from "@/app/domain/entities/Address";
 import { Alert, AlertType } from "../../atoms/alert";
-import { AddressModal } from "../address-modal";
-import {} from "@/app/util/validations/cep-validator";
+import { } from "@/app/util/validations/cep-validator";
+import { } from "@/app/util/validations/cep-validator";
 import {
-	SafeFoodAddressModel,
-	SafeFoodCreateAddressRequest,
+	SafeFoodAddressModel, SafeFoodCreateAddressRequest,
 } from "@/app/infra/gateway/safefood/models/SafeFoodAddress";
 import HeaderConsumer from "../../molecules/header-consumer";
 import { Cache } from "@/app/domain/protocols/Cache";
@@ -39,6 +38,7 @@ import {
 	PContainerBtn,
 } from "./style";
 import { SafeFoodAddressMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodAddressMapper";
+import { AddressModal } from "../address-modal/address-modal";
 
 export type ProfileProps = {
 	restrictionsUser: Restriction[];
@@ -55,14 +55,14 @@ export type ProfileProps = {
 	isEditable?: boolean;
 	address: SafeFoodAddressModel;
 	onChange: React.FormEventHandler<HTMLInputElement> &
-		((e: React.FormEvent<HTMLInputElement>) => void);
+	((e: React.FormEvent<HTMLInputElement>) => void);
 	cep: string;
 	numero: string;
 	onChangeNumero: React.FormEventHandler<HTMLInputElement> &
-		((e: React.FormEvent<HTMLInputElement>) => void);
+	((e: React.FormEvent<HTMLInputElement>) => void);
 	apelido: string;
 	onChangeApelido: React.FormEventHandler<HTMLInputElement> &
-		((e: React.FormEvent<HTMLInputElement>) => void);
+	((e: React.FormEvent<HTMLInputElement>) => void);
 	isModalVisible: boolean;
 	toggleModal(): void;
 	onClickChangePassword(): void;

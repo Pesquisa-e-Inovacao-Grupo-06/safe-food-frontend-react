@@ -331,6 +331,13 @@ export const ContainerRegisterProduct = styled.div<{
 		.container-footer-register-product {
 			display: flex;
 			justify-content: space-between;
+			flex-direction: column-reverse;
+
+			button {
+				width: 100%;
+				opacity: 100%;
+				margin-bottom: 15px;
+			}
 
 			.btn-cancelar-footer-register-product {
 				font-size: 16px;
