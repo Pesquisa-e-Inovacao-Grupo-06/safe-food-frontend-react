@@ -8,6 +8,9 @@ import { TypeProduct } from "@/app/domain/entities/TypeProduct";
 import { SafeFoodCreateProductRequest } from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
 import { Product } from "@/app/domain/entities/Product";
 import { SafeFoodUsuarioModel } from "@/app/infra/gateway/safefood/models/SafeFoodUser";
+import HeaderConsumer from "../../header-consumer";
+import { Box } from "@/components/atoms/box";
+import { Divider } from "@/components/atoms/divider";
 
 type Props = {
 	children?: any;
@@ -26,6 +29,7 @@ type Props = {
 	btnAdd?: boolean;
 	renderListProduct?: () => void;
 	auxObjEdit?: boolean;
+	typeUser: "CONSUMIDOR" | "ESTABELECIMENTO";
 };
 
 const Layout: React.FC<Props> = ({
@@ -41,35 +45,43 @@ const Layout: React.FC<Props> = ({
 	user,
 	btnAdd,
 	renderListProduct,
+	typeUser,
 	auxObjEdit,
 	...props
 }) => {
+
+
 	return (
-		<SLayout>
-			<SidebarEstab cache={cache} />
-			<SMain
-				padding={paddingMain}
-				active={props.active}
-			>
-				{props.children}
-			</SMain>
-			<RegisterProduct
-				activeRegisterProduct={activeRegisterProduct}
-				active={props.active}
-				toggle={props.toggle}
-				restrictionProduct={productRestrictions}
-				typeProduct={typeProduct}
-				onClickCreate={onClickCreate}
-				onClickUpdate={onClickUpdate}
-				onClickDelete={onClickDelete}
-				productEdit={productEdit}
-				auxObjEdit={auxObjEdit}
-				user={user}
-				btnAdd={btnAdd}
-				renderListProduct={renderListProduct}
-			/>
-		</SLayout>
-	);
+		typeUser == "ESTABELECIMENTO" ?
+			< SLayout >
+				<SidebarEstab cache={cache} />
+				<SMain
+					padding={paddingMain}
+					active={props.active}
+				>
+					{props.children}
+				</SMain>
+				<RegisterProduct
+					activeRegisterProduct={activeRegisterProduct}
+					active={props.active}
+					toggle={props.toggle}
+					restrictionProduct={productRestrictions}
+					typeProduct={typeProduct}
+					onClickCreate={onClickCreate}
+					onClickUpdate={onClickUpdate}
+					onClickDelete={onClickDelete}
+					productEdit={productEdit}
+					auxObjEdit={auxObjEdit}
+					user={user}
+					btnAdd={btnAdd}
+					renderListProduct={renderListProduct}
+				/>
+			</SLayout >
+			: <><HeaderConsumer cache={cache} />
+				<Divider marginTop="100px"></Divider>
+				<Box overflow="hidden">{props.children}</Box>
+			</>
+	)
 };
 
 export default Layout;

@@ -65,31 +65,31 @@ function Sidebar({ active, toggle, itemLinkArray }: Props) {
 
 export default Sidebar;
 
-// const itemLinkArray = [
-// 	{
-// 		icon: FaHome,
-// 		text: "Início",
-// 		to: "/",
-// 	},
+const itemLinkArray = [
+	{
+		icon: FaHome,
+		text: "Início",
+		to: "/",
+	},
 
-// 	{
-// 		icon: FaQuestionCircle,
-// 		text: "FAQ",
-// 		to: "/faq",
-// 	},
-// 	{
-// 		icon: FaSignInAlt,
-// 		text: "Entrar",
-// 		to: "/signin",
-// 	},
-// 	{
-// 		icon: MdPersonAddAlt1,
-// 		text: "Cadastrar",
-// 		to: "/signup",
-// 	},
-// 	{
-// 		icon: FaSignOutAlt,
-// 		text: "Sair",
-// 		to: "#",
-// 	},
-// ];
+	{
+		icon: FaQuestionCircle,
+		text: "FAQ",
+		to: "/faq",
+	},
+	{
+		icon: FaSignInAlt,
+		text: "Entrar",
+		to: "/signin",
+	},
+	{
+		icon: MdPersonAddAlt1,
+		text: "Cadastrar",
+		to: "/signup",
+	},
+	{
+		icon: FaSignOutAlt,
+		text: "Sair",
+		to: "#",
+	},
+];

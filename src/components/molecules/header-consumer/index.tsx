@@ -5,7 +5,7 @@ import { Text } from "@/components/atoms/text";
 import DropDownSubMenu from "../drop-down-sub-menu";
 import Switch from "@/components/atoms/toggle-switch";
 import { useSafeFoodTheme } from "@/app/contexts/SafeFoodThemeProvider";
-import { useState } from "react";
+import { PropsWithChildren, useState } from "react";
 import DropDownLocalInfo from "../drop-down-local-info";
 import SearchBar from "../search-bar";
 import { ContainerHeaderConsumer } from "./styles";
@@ -22,7 +22,7 @@ import { Product } from "@/app/domain/entities/Product";
 export type HeaderConsumerProps = {
 	cache: Cache;
 	products?: Product[];
-};
+} & PropsWithChildren;
 
 const HeaderConsumer: React.FC<HeaderConsumerProps> = ({ cache, products }) => {
 	const { toggleTheme, getTheme } = useSafeFoodTheme();

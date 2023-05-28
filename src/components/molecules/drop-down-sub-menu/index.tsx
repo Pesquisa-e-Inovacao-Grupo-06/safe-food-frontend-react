@@ -43,13 +43,17 @@ const DropDownSubMenu: React.FC<Props> = ({ userName, cache, children }) => {
 									<Link
 										to={to}
 										onClick={() => {
-											if (text == "Sair") {
-												cache.removeItem("token");
-												cache.removeItem("consumer");
-												cache.removeItem("establishment");
-												cache.removeItem("user");
-												window.location.reload();
+											if (text === "Sair") {
+												if (window.location.pathname === "/") {
+													window.location.reload();
+												} else {
+													cache.removeItem("token");
+													cache.removeItem("consumer");
+													cache.removeItem("establishment");
+													cache.removeItem("user");
+												}
 											}
+
 										}}
 									>
 										{icon}

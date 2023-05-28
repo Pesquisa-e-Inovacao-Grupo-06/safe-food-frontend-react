@@ -24,6 +24,8 @@ import ForgetPassWord from "./pages/forget-password";
 import { FindAddress } from "./app/domain/usecases/FindAddress";
 import { CepValidator } from "./app/util/validations/cep-validator";
 import { SafeFoodTypeProductGateway } from "./app/infra/gateway/safefood/SafeFoodTypeProductGateway";
+import MapsPage from "./pages/maps";
+import ProductsEstablishment from "./pages/product-establishment";
 
 type AppProps = {
 	cache: Cache;
@@ -136,12 +138,20 @@ export default function App({
 								}
 							/>
 							<Route
-								path="/*"
-								element={<NotFound />}
-							/>
-							<Route
 								path="/change-password"
 								element={<ForgetPassWord />}
+							/>
+							<Route
+								path="/maps"
+								element={<MapsPage cache={cache} />}
+							/>
+							<Route
+								path="/products"
+								element={<ProductsEstablishment cache={cache} />}
+							/>
+							<Route
+								path="/*"
+								element={<NotFound />}
 							/>
 						</Routes>
 					</Router>

@@ -5,7 +5,7 @@ import { SafeFoodTypeProductGateway } from "@/app/infra/gateway/safefood/SafeFoo
 import { SafeFoodRestrictionModel } from "@/app/infra/gateway/safefood/models/SafeFoodRestriction";
 import { SafeFoodLoginResponse } from "@/app/infra/gateway/safefood/models/SafeFoodUser";
 import { SafeFoodRestrictionMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodRestrictionMapper";
-import HomeEstablishmentTemplate from "@/components/templates/home-establishment-template";
+import HomeEstablishmentTemplate from "@/components/templates/home-establishment/home-establishment-template";
 import { SafeFoodCreateProductRequest } from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
 import { TypeProduct } from "@/app/domain/entities/TypeProduct";
 import { Product } from "@/app/domain/entities/Product";
@@ -82,7 +82,7 @@ function HomeEstablishment({
 
 				setProducts(fetchedProductsById.data.map(SafeFoodProductMapper.of));
 				setTypeProducts(fetchedTypeProducts.map(SafeFoodTypeProductMapper.of));
-			} catch (error) {}
+			} catch (error) { }
 		}
 		fetchProducts();
 	}, [renderListProduct]);

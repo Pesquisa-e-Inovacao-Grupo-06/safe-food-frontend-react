@@ -1,6 +1,6 @@
 import React from "react";
-import { Modal } from "../molecules/modal";
-import { Box } from "../atoms/box";
+import { Modal } from "../../molecules/modal";
+import { Box } from "../../atoms/box";
 import { Button } from "@/components/atoms/button";
 import { SafeFoodCreateAddressRequest } from "@/app/infra/gateway/safefood/models/SafeFoodAddress";
 import { TextField } from "@/components/molecules/textfield";
@@ -12,12 +12,12 @@ export type AddressModalProps = {
 	numero: string;
 	apelido: string;
 	onChangeNumero: React.FormEventHandler<HTMLInputElement> &
-		((e: React.FormEvent<HTMLInputElement>) => void);
+	((e: React.FormEvent<HTMLInputElement>) => void);
 	onChangeApelido: React.FormEventHandler<HTMLInputElement> &
-		((e: React.FormEvent<HTMLInputElement>) => void);
+	((e: React.FormEvent<HTMLInputElement>) => void);
 	onClickSaveNewAddress(): void;
 	onChange: React.FormEventHandler<HTMLInputElement> &
-		((e: React.FormEvent<HTMLInputElement>) => void);
+	((e: React.FormEvent<HTMLInputElement>) => void);
 };
 
 export const AddressModal: React.FC<AddressModalProps> = ({
@@ -76,28 +76,28 @@ export const AddressModal: React.FC<AddressModalProps> = ({
 						id={"logradouro"}
 						label={"Logradouro:"}
 						value={address.logradouro}
-						onChange={() => {}}
+						onChange={() => { }}
 						required={false}
 					/>
 					<TextField
 						id={"estado"}
 						label={"Estado:"}
 						value={address.estado}
-						onChange={() => {}}
+						onChange={() => { }}
 						required={false}
 					/>
 					<TextField
 						id={"bairro"}
 						label={"Bairro:"}
 						value={address.bairro}
-						onChange={() => {}}
+						onChange={() => { }}
 						required={false}
 					/>
 					<TextField
 						id={"cidade"}
 						label={"Cidade:"}
 						value={address.cidade}
-						onChange={() => {}}
+						onChange={() => { }}
 						required={false}
 					/>
 					<TextField
@@ -111,7 +111,7 @@ export const AddressModal: React.FC<AddressModalProps> = ({
 						id={"complemento"}
 						label={"Complemento:"}
 						value={address.complemento}
-						onChange={() => {}}
+						onChange={() => { }}
 						required={false}
 					/>
 					<Button onClick={onClickSaveNewAddress}>Adicionar novo endereço</Button>
