@@ -52,8 +52,9 @@ const DropDownSubMenu: React.FC<Props> = ({ userName, cache, children }) => {
 													cache.removeItem("establishment");
 													cache.removeItem("user");
 												}
-											}
 
+
+											}
 										}}
 									>
 										{icon}

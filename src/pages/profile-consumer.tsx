@@ -57,10 +57,13 @@ function ProfileConsumer({
 		.filter(item => !IDSAtivos.includes(item.id))
 		.map(item => SafeFoodRestrictionMapper.of(item));
 
-	const [consumerState, setConsumer] = useState(consumer);
+	const [consumerState, setConsumerState] = useState<SafeFoodConsumerModel>({
+		...consumer,
+		enderecos: consumer.enderecos || [],
+	});
 
 	const updateConsumer = useCallback((consumer: SafeFoodConsumerModel) => {
-		setConsumer(consumer);
+		setConsumerState(consumer);
 		cache.setItem("consumer", JSON.stringify(consumer));
 	}, []);
 
@@ -82,40 +85,25 @@ function ProfileConsumer({
 			? consumer.enderecos.map(SafeFoodAddressMapper.of)
 			: []
 	);
-	const [editableAddress, setEditableAddress] = useState<
-		SafeFoodCreateAddressRequest | SafeFoodAddressModel
-	>({
-		apelido: modalApelido,
-		bairro: "",
-		cep: modalCep,
-		cidade: "",
-		complemento: "",
-		estado: "",
-		logradouro: "",
-		numero: modalNumero,
-	});
+	const [editableAddress, setEditableAddress] = useState<SafeFoodAddressModel>(
+		{} as SafeFoodAddressModel
+	);
 
-	const [enderecoId, setEnderecoId] = useState<string>("");
-
-	const handleAddressCardClick = (apelidoEnderecoSelecionado: string) => {
-		setEnderecoId(apelidoEnderecoSelecionado);
+	const handleAddressCardClick = (address: SafeFoodAddressModel) => {
 		setIsModalVisible(true);
-		const enderecoInfo = consumer.enderecos.find(
-			item => item.apelido === apelidoEnderecoSelecionado
-		);
-		setModalCep(enderecoInfo?.cep ?? "");
-		setModalApelido(enderecoInfo?.apelido ?? "");
-		setModalNumero(enderecoInfo?.numero ?? "");
+		setModalCep(address?.cep ?? "");
+		setModalApelido(address?.apelido ?? "");
+		setModalNumero(address?.numero ?? "");
 		setEditableAddress({
-			...editableAddress,
-			cep: modalCep || "",
-			complemento: enderecoInfo?.complemento || "",
-			logradouro: enderecoInfo?.logradouro || "",
-			estado: enderecoInfo?.estado || "",
-			bairro: enderecoInfo?.bairro || "",
-			cidade: enderecoInfo?.cidade || "",
-			numero: modalNumero || "",
-			apelido: apelidoEnderecoSelecionado || "",
+			...address,
+			cep: address.cep || modalCep,
+			complemento: address?.complemento || "",
+			logradouro: address?.logradouro || "",
+			estado: address?.estado || "",
+			bairro: address?.bairro || "",
+			cidade: address?.cidade || "",
+			numero: address.cep || modalNumero,
+			apelido: address.apelido || "",
 		});
 	};
 
@@ -133,7 +121,6 @@ function ProfileConsumer({
 					numero,
 					apelido,
 				} = params;
-				console.log("cep:", cep);
 				setEditableAddress({
 					...editableAddress,
 					cep: modalCep || "",
@@ -145,7 +132,6 @@ function ProfileConsumer({
 					numero: modalNumero || "",
 					apelido: modalApelido || "",
 				});
-				console.log(editableAddress);
 			})
 			.catch(err => {
 				// clearAddress(cep);
@@ -164,28 +150,63 @@ function ProfileConsumer({
 		}
 	}, [modalCep, modalApelido, modalNumero]);
 
-	const onClickSaveNewAddress = async () => {
-		console.log(editableAddress);
-		if (!editableAddress) {
+	const onClickSaveNewAddress = async (
+		address: SafeFoodCreateAddressRequest
+	) => {
+		if (!address) {
 			return;
 		}
-		console.log("id", user.usuario.id);
 		try {
 			const addNewAddress = await consumerGateway.addAddress(
 				user.usuario.id,
-				editableAddress
+				address
 			);
 			const validStatus = [200, 201];
 			if (!validStatus.includes(addNewAddress.status)) {
 				setTypeAlert("warning");
 				setTextAlert("Erro ao cadastrar o endereço");
-				consumerState.enderecos.push(editableAddress as SafeFoodAddressModel);
-				updateConsumer(consumerState);
 			} else {
-				setListOfAddress(prev => [
-					...prev,
-					SafeFoodAddressMapper.of(addNewAddress.data),
-				]);
+				const enderecosOld = consumerState.enderecos.filter(
+					item => item.id !== addNewAddress.data.id
+				);
+				enderecosOld.push(addNewAddress.data);
+				const newConsumer: SafeFoodConsumerModel = {
+					...consumerState,
+					enderecos: enderecosOld,
+				};
+				updateConsumer(newConsumer);
+				setTypeAlert("success");
+				setTextAlert("Endereço cadastrado com sucesso");
+			}
+		} catch (e) {
+			setTypeAlert("warning");
+			setTextAlert("Erro ao cadastrar o endereço");
+		} finally {
+			setIsVisibleAlert(true);
+			setIsModalVisible(false);
+		}
+	};
+	const onClickUpdateAddress = async (address: SafeFoodAddressModel) => {
+		if (!address) {
+			return;
+		}
+		try {
+			const response = await consumerGateway.updateAddress(
+				user.usuario.id,
+				address.id,
+				address
+			);
+			const validStatus = [200, 201];
+			if (!validStatus.includes(response.status)) {
+				setTypeAlert("warning");
+				setTextAlert("Erro ao cadastrar o endereço");
+			} else {
+				const indexAddress = consumerState.enderecos.findIndex(
+					item => item.id === response.data.id
+				);
+				consumerState.enderecos[indexAddress] = response.data;
+				updateConsumer(consumerState);
+				setListOfAddress(consumerState.enderecos.map(SafeFoodAddressMapper.of));
 				setTypeAlert("success");
 				setTextAlert("Endereço cadastrado com sucesso");
 			}
@@ -199,24 +220,30 @@ function ProfileConsumer({
 	};
 
 	const onClickDeleteAddress = async (idAddress: number) => {
-		console.log("dados delete address:", consumer.id, idAddress);
 		try {
 			const res = await consumerGateway.removeAddress(consumer.id, idAddress);
 			const validStatus = [200, 201, 204];
-			if (!validStatus.includes(res.status)) {
+			if (!validStatus.includes(res)) {
 				setTypeAlert("warning");
 				setTextAlert("Alguns dados podem estar com formato incorreto!");
+
 				return;
 			}
-
-			updateConsumer(consumerState);
+			const consumerNewDataAddress: SafeFoodAddressModel[] =
+				consumerState.enderecos.filter(item => item.id !== idAddress);
+			const newConsumer = { ...consumerState, enderecos: consumerNewDataAddress };
+			updateConsumer(newConsumer);
+			const newListOfAddress =
+				consumerNewDataAddress.length > 0
+					? consumerNewDataAddress.map(SafeFoodAddressMapper.of)
+					: [];
+			setListOfAddress(newListOfAddress);
 			setTypeAlert("success");
 			setTextAlert("Endereço excluído com sucesso!");
-			setIsVisibleAlert(true);
-			consumerState.enderecos.filter(item => item.id !== idAddress);
 		} catch (e) {
 			setTypeAlert("danger");
 			setTextAlert("Endereço não excluído!");
+		} finally {
 			setIsVisibleAlert(true);
 		}
 	};
@@ -262,7 +289,7 @@ function ProfileConsumer({
 			const newTotalRestrictionsIds = totalRestrictions
 				.filter(item => item.params.isActive)
 				.map(SafeFoodRestrictionMapper.ofEntity);
-			setConsumer({
+			setConsumerState({
 				...consumerState,
 				restricoes: newTotalRestrictionsIds,
 			});
@@ -270,19 +297,22 @@ function ProfileConsumer({
 	};
 
 	useEffect(() => {
-		console.table(consumerState);
+		if (consumerState.enderecos && consumerState.enderecos.length > 0) {
+			setListOfAddress(consumerState.enderecos.map(SafeFoodAddressMapper.of));
+		}
 	}, [consumerState]);
 
 	return (
 		<ProfileTemplate
 			consumer={consumerState}
 			urlDefault={consumer.imagem}
+			onClickUpdateAddress={onClickUpdateAddress}
 			form={[
 				{
 					name: "Nome: ",
 					value: consumerState.nome,
 					setUseState: nome => {
-						setConsumer({
+						setConsumerState({
 							...consumerState,
 							nome,
 						});
@@ -293,7 +323,7 @@ function ProfileConsumer({
 					name: "Email: ",
 					value: consumerState.email,
 					setUseState: email => {
-						setConsumer({
+						setConsumerState({
 							...consumerState,
 							email,
 						});
@@ -304,7 +334,7 @@ function ProfileConsumer({
 					name: "Número telefone: ",
 					value: consumerState.telefone,
 					setUseState: telefone => {
-						setConsumer({
+						setConsumerState({
 							...consumerState,
 							telefone,
 						});
@@ -313,7 +343,6 @@ function ProfileConsumer({
 				},
 			]}
 			listOfAddress={listOfAddress}
-			// TODO: saved restrictions
 			onClickRestriction={onClickRestriction}
 			restrictionsUser={totalRestrictions}
 			onClickSave={onClickUpdate}

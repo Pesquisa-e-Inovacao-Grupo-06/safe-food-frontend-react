@@ -27,8 +27,10 @@ export type ProfileEstablishmentTemplateProps = {
 	textAlert?: string;
 	isAlertVisible: boolean;
 	address: SafeFoodAddressModel;
-	onClickChangePassowrd(): void;
+	onClickChangePassword(): void;
 	cache: Cache;
+	onClickCard: (id: string) => void;
+	onClickDeleteAddress: (id: number) => void
 };
 export const ProfileEstablishmentTemplate: React.FC<
 	ProfileEstablishmentTemplateProps
@@ -43,193 +45,205 @@ export const ProfileEstablishmentTemplate: React.FC<
 	textAlert,
 	typeAlert,
 	address,
-	onClickChangePassowrd,
+	onClickChangePassword: onClickChangePassword,
 	cache,
+	onClickCard,
+	onClickDeleteAddress,
 }) => {
-	const [isEditable, setIsEditable] = useState<boolean>(false);
-	return (
-		<>
-			<Layout
-				cache={cache}
-				activeRegisterProduct={false}
-			>
-				<PBanner>
-					<PBtnEditar
-						height="fit-content"
-						width="fit-content"
-						buttonStyle="outline"
-					>
-						Editar imagem
-					</PBtnEditar>
-				</PBanner>
-				<PContainer>
-					<PContainerProfilePhoto>
-						<PProfilePhoto
-							name="profile"
-							id="p1"
-							width="125px"
-							justify="start"
-							urlDefault={urlDefault}
-						/>
-					</PContainerProfilePhoto>
-					<PContainerSub>
-						<PContainerInfo>
-							<Box width="fit-content">
-								{isAlertVisible ? (
-									<Alert type={typeAlert ?? "info"}>{textAlert}</Alert>
-								) : null}
-							</Box>
-							<PDivider />
-							<PTitle>Administrador</PTitle>
-							<div className="form-inputs-adm">
-								<Form listOfComponent={listOfComponentAdministration} />
-								<ul>
-									<li>
-										<span>Senha:</span>
-										<StyledButton
-											height="fit-content"
-											width="fit-content"
-											buttonStyle="filled"
-											style={{
-												fontSize: "16px",
-												maxHeight: "32px",
-												width: "fit-content",
-											}}
-											onClick={onClickChangePassowrd}
-										>
-											Alterar Senha
-										</StyledButton>
-									</li>
-								</ul>
-							</div>
-							<PDivider />
-							<PTitle>Empresa</PTitle>
-							<div className="form-inputs-empresa">
-								<Form listOfComponent={listOfComponentEstablishment} />
-							</div>
-							<PDivider />
-							<PContainerInfo3>
-								<PTitle>Endereço do estabelecimento</PTitle>
-								<PContainerAddressCard>
-									<AddresCard
-										bodyText={`
+		const [isEditable, setIsEditable] = useState<boolean>(false);
+		return (
+			<>
+				<Layout
+					cache={cache}
+					activeRegisterProduct={false}
+				>
+					<PBanner>
+						<PBtnEditar
+							height="fit-content"
+							width="fit-content"
+							buttonStyle="outline"
+							style={{
+								// cursor: isEditable ? "cursor" : "not-allowed",
+								display: isEditable ? "flex" : "none",
+							}}
+						>
+							Editar imagem
+						</PBtnEditar>
+					</PBanner>
+					<PContainer>
+						<PContainerProfilePhoto>
+							<PProfilePhoto
+								name="profile"
+								id="p1"
+								width="125px"
+								justify="start"
+								urlDefault={urlDefault}
+								// onChangeFile={onChangeFile}
+								isEditable={isEditable}
+							/>
+						</PContainerProfilePhoto>
+						<PContainerSub>
+							<PContainerInfo>
+								<Box width="fit-content">
+									{isAlertVisible ? (
+										<Alert type={typeAlert ?? "info"}>{textAlert}</Alert>
+									) : null}
+								</Box>
+								<PDivider />
+								<PTitle>Administrador</PTitle>
+								<div className="form-inputs-adm">
+									<Form listOfComponent={listOfComponentAdministration} />
+									<ul>
+										<li>
+											<span>Senha:</span>
+											<StyledButton
+												height="fit-content"
+												width="fit-content"
+												buttonStyle="filled"
+												style={{
+													fontSize: "16px",
+													maxHeight: "32px",
+													width: "fit-content",
+												}}
+												onClick={onClickChangePassword}
+												disabled={!isEditable}
+											>
+												Alterar Senha
+											</StyledButton>
+										</li>
+									</ul>
+								</div>
+								<PDivider />
+								<PTitle>Empresa</PTitle>
+								<div className="form-inputs-empresa">
+									<Form listOfComponent={listOfComponentEstablishment} />
+								</div>
+								<PDivider />
+								<PContainerInfo3>
+									<PTitle>Endereço do estabelecimento</PTitle>
+									<PContainerAddressCard>
+										<AddresCard
+											bodyText={`
 										${address.bairro},
 										${address.numero},
 										${address.cidade} -
 										${address.estado},
 										${address.cep}
 										`}
-										headerText={address.apelido}
-										apelido={""}
-										//TODO: RESOLVER ISSO
-										onClickCard={() => {}} //VERIFICAR SOBRE ESSE ICONE
-										// Icon={adress.Icon}
-									/>
-								</PContainerAddressCard>
-							</PContainerInfo3>
-							<PDivider />
-							<PTitle>Importações</PTitle>
-							<Box
-								display="flex"
-								justify="left"
-								gap="20px"
-							>
-								<PBtnBaixar
-									icon={<MdOutlineFileDownload />}
-									alignIcon="right"
-									buttonStyle="filled"
-									style={{
-										height: 45,
-									}}
-									onClick={() => {
-										window.location.href = "http://localhost:8081/restricoes/download";
-									}}
+											headerText={address.apelido}
+											key={address.apelido}
+											apelido={address.apelido ? address.apelido : ""}
+											onClickCard={onClickCard}
+											idAddress={address.id}
+											onClickDeleteAddress={onClickDeleteAddress}								// Icon={adress.Icon}
+										/>
+									</PContainerAddressCard>
+								</PContainerInfo3>
+								<PDivider />
+								<PTitle>Importações</PTitle>
+								<Box
+									display="flex"
+									justify="left"
+									gap="20px"
 								>
-									<span>Baixar restrições em Excel</span>
-								</PBtnBaixar>
-								<PBtnBaixar
-									icon={<MdOutlineFileDownload />}
-									alignIcon="right"
-									buttonStyle="filled"
-									style={{
-										height: 45,
-									}}
-								>
-									<span>Baixar template de produtos</span>
-								</PBtnBaixar>
-							</Box>
-							<PBtnImportar
-								icon={<MdOutlineCloudDownload />}
-								alignIcon="right"
-								buttonStyle="filled"
-								style={{
-									height: 45,
-								}}
-							>
-								<span>Importar Excel preenchido</span>
-							</PBtnImportar>
-							<Box style={{ marginTop: "16px" }}>
-								Baixe o nosso template para excel e o preencha com infomações de seus
-								produtos, assim o cadastro fica mais fácil quando em grandes
-								quantidades. Logo após preencher é apenas nos importar o excel
-								preenchido novamente.
-								<b> OBS: apenas aceitamos no nosso formato de Excel.</b>
-							</Box>
-						</PContainerInfo>
-						{/* TODO: CHANGE BUTTON TO COMPONENT ATOM AND EXPORT FUNCTION ONCLICK */}
-						<PContainerBtn>
-							{isEditable ? (
-								<>
-									<Button
-										height="45px"
-										width="fit-content"
-										buttonStyle="outline"
-										disabled={isSaveButtonActive}
-										onClick={() => setIsEditable(false)}
+									<PBtnBaixar
+										icon={<MdOutlineFileDownload />}
+										alignIcon="right"
+										buttonStyle="filled"
+										style={{
+											height: 45,
+										}}
+										onClick={() => {
+											window.location.href = "http://localhost:8081/restricoes/download";
+										}}
 									>
-										Cancelar
-									</Button>
+										<span>Baixar restrições em Excel</span>
+									</PBtnBaixar>
+									<PBtnBaixar
+										icon={<MdOutlineFileDownload />}
+										alignIcon="right"
+										buttonStyle="filled"
+										style={{
+											height: 45,
+										}}
+									>
+										<span>Baixar template de produtos</span>
+									</PBtnBaixar>
+								</Box>
+								<PBtnImportar
+									icon={<MdOutlineCloudDownload />}
+									alignIcon="right"
+									buttonStyle="filled"
+									style={{
+										height: 45,
+									}}
+								>
+									<span>Importar Excel preenchido</span>
+								</PBtnImportar>
+								<Box style={{ marginTop: "16px" }}>
+									Baixe o nosso template para excel e o preencha com infomações de seus
+									produtos, assim o cadastro fica mais fácil quando em grandes
+									quantidades. Logo após preencher é apenas nos importar o excel
+									preenchido novamente.
+									<b> OBS: apenas aceitamos no nosso formato de Excel.</b>
+								</Box>
+							</PContainerInfo>
+							{/* TODO: CHANGE BUTTON TO COMPONENT ATOM AND EXPORT FUNCTION ONCLICK */}
+							<PContainerBtn>
+								{isEditable ? (
+									<>
+										<Button
+											height="45px"
+											width="fit-content"
+											buttonStyle="outline"
+											disabled={isSaveButtonActive}
+											onClick={() => setIsEditable(false)}
+										>
+											Cancelar
+										</Button>
+										<Button
+											height="45px"
+											width="fit-content"
+											buttonStyle="filled"
+											disabled={isSaveButtonActive}
+											onClick={onClickSave}
+											loading={isLoading}
+										>
+											Salvar
+										</Button>
+									</>
+								) : (
 									<Button
 										height="45px"
 										width="fit-content"
 										buttonStyle="filled"
-										disabled={isSaveButtonActive}
-										onClick={onClickSave}
+										color="green"
+										disabled={isEditable}
 										loading={isLoading}
+										onClick={() => {
+											setIsEditable(true);
+										}}
 									>
-										Salvar
+										Editar
 									</Button>
-								</>
-							) : (
-								<Button
-									height="45px"
-									width="fit-content"
-									buttonStyle="filled"
-									color="green"
-									disabled={isEditable}
-									loading={isLoading}
-									onClick={() => {
-										setIsEditable(true);
-									}}
-								>
-									Editar
-								</Button>
-							)}
-						</PContainerBtn>
-					</PContainerSub>
-				</PContainer>
-			</Layout>
-		</>
-	);
-};
+								)}
+							</PContainerBtn>
+						</PContainerSub>
+					</PContainer>
+				</Layout>
+			</>
+		);
+	};
 
 const PBanner = styled(Box)`
 	display: flex;
-	height: 150px;
+	height: 225px;
+	padding-top: 75px;
 	background: url(${banner});
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center;
+	filter: brightness(46%);
 
 	@media (max-width: 800px) {
 		justify-content: flex-end;
@@ -279,9 +293,9 @@ const PProfilePhoto = styled(ProfilePhotoUploadWithPreview)`
 	opacity: 100%;
 	border: 5px solid
 		${p =>
-			p.theme.name == "light"
-				? p.theme.colors.light_gray[200]
-				: p.theme.colors.dark_gray[600]};
+		p.theme.name == "light"
+			? p.theme.colors.light_gray[200]
+			: p.theme.colors.dark_gray[600]};
 
 	@media (max-width: 800px) {
 		margin-left: auto;
@@ -336,7 +350,7 @@ const PContainerInfo = styled.div`
 
 	input {
 		background: ${p =>
-			p.theme.name == "light" ? "" : p.theme.colors.dark_gray[400]};
+		p.theme.name == "light" ? "" : p.theme.colors.dark_gray[400]};
 		opacity: 100%;
 	}
 

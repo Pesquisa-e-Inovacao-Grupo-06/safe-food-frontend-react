@@ -1,24 +1,31 @@
-import React, { PropsWithChildren, useEffect, useState } from "react";
-import { Box } from "@/components/atoms/box";
-import { useSafeFoodTheme } from "@/app/contexts/SafeFoodThemeProvider";
+import React, { PropsWithChildren, useEffect, useState } from 'react';
+import { Box } from '@/components/atoms/box';
+import { useSafeFoodTheme } from '@/app/contexts/SafeFoodThemeProvider';
 import {
 	MdOutlineKeyboardArrowLeft,
 	MdOutlineKeyboardArrowRight,
-} from "react-icons/md";
-import * as S from "./styles";
+} from 'react-icons/md';
+import * as S from './styles';
 
 export const Pagination: React.FC<{
 	totalPages: number;
 	onPageChange: (pageNumber: number) => void;
 }> = ({ totalPages, onPageChange }) => {
-	const { colors } = useSafeFoodTheme().getTheme();
-	let qtyPages: string | number[] = [];
-	for (let i = 1; i <= totalPages; i++) {
-		qtyPages.push(i);
-	}
-	let DOTS = "...";
+	const [qtyPages, setQtyPages] = useState<string | number[]>([]);
 	const [currentPage, setCurrentPage] = useState<string | number>(1);
-	const [pages, setPages] = useState(["<", ...qtyPages, ">"]);
+	const [pages, setPages] = useState(['<', ...qtyPages, '>']);
+	const { colors } = useSafeFoodTheme().getTheme();
+	useEffect(() => {
+		let newQtyPages: string | number[] = [];
+		for (let i = 1; i <= totalPages; i++) {
+			newQtyPages.push(i);
+		}
+		setQtyPages(newQtyPages);
+	}, [totalPages]);
+	useEffect(() => {
+		setPages(['<', ...qtyPages, '>']);
+	}, [qtyPages]);
+	let DOTS = '...';
 
 	const changePage = (val: string | number, index: number) => {
 		if (index === 0)
@@ -35,27 +42,31 @@ export const Pagination: React.FC<{
 	};
 
 	useEffect(() => {
-		if (typeof currentPage == "number") {
+		if (typeof currentPage == 'number') {
 			onPageChange(+currentPage);
 		}
 		if (qtyPages.length - 1 > 4) {
-			if (typeof currentPage === "number" && currentPage >= 1 && currentPage < 4) {
+			if (
+				typeof currentPage === 'number' &&
+				currentPage >= 1 &&
+				currentPage < 4
+			) {
 				let slice = qtyPages.slice(0, 4);
-				setPages(["<", ...slice, DOTS, pages[pages.length - 2], ">"]);
+				setPages(['<', ...slice, DOTS, pages[pages.length - 2], '>']);
 			} else if (
-				typeof currentPage === "number" &&
+				typeof currentPage === 'number' &&
 				currentPage >= 4 &&
 				currentPage < qtyPages.length - 2
 			) {
 				let slice = qtyPages.slice(currentPage - 2, currentPage + 1);
-				setPages(["<", 1, DOTS, ...slice, DOTS, pages[pages.length - 2], ">"]);
+				setPages(['<', 1, DOTS, ...slice, DOTS, pages[pages.length - 2], '>']);
 			} else if (
-				typeof currentPage === "number" &&
+				typeof currentPage === 'number' &&
 				currentPage >= qtyPages.length - 2 &&
 				currentPage <= qtyPages.length
 			) {
 				let slice = qtyPages.slice(qtyPages.length - 4, qtyPages.length);
-				setPages(["<", 1, DOTS, ...slice, ">"]);
+				setPages(['<', 1, DOTS, ...slice, '>']);
 			}
 		}
 	}, [currentPage]);
@@ -64,7 +75,7 @@ export const Pagination: React.FC<{
 		<MdOutlineKeyboardArrowLeft
 			size={32}
 			style={{
-				cursor: currentPage === 1 ? "not-allowed" : "pointer",
+				cursor: currentPage === 1 ? 'not-allowed' : 'pointer',
 				fill: currentPage !== 1 ? colors.primary[600] : colors.primary[400],
 			}}
 		/>
@@ -73,9 +84,11 @@ export const Pagination: React.FC<{
 		<MdOutlineKeyboardArrowRight
 			size={32}
 			style={{
-				cursor: currentPage === totalPages ? "not-allowed" : "pointer",
+				cursor: currentPage === totalPages ? 'not-allowed' : 'pointer',
 				fill:
-					currentPage !== totalPages ? colors.primary[600] : colors.primary[400],
+					currentPage !== totalPages
+						? colors.primary[600]
+						: colors.primary[400],
 			}}
 		/>
 	);
@@ -91,13 +104,13 @@ export const Pagination: React.FC<{
 		);
 		if (index === 0) {
 			return (
-				<Item key={val + "-" + index}>
+				<Item key={val + '-' + index}>
 					<PrevArrowButton />
 				</Item>
 			);
 		} else if (index === pages.length - 1) {
 			return (
-				<Item key={val + "-" + index}>
+				<Item key={val + '-' + index}>
 					<NextArrowButton />
 				</Item>
 			);
@@ -105,7 +118,7 @@ export const Pagination: React.FC<{
 			const PageNumber =
 				currentPage === val ? S.PaginationItemActive : S.PaginationItemDisable;
 			return (
-				<Item key={val + "-" + index}>
+				<Item key={val + '-' + index}>
 					<PageNumber>{val}</PageNumber>
 				</Item>
 			);

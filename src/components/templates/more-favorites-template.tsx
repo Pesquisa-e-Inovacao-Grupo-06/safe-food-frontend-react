@@ -22,15 +22,16 @@ export const MoreFavoritesTemplate: React.FC<MoreFavoriteProps> = ({
 				Mais favoritados
 			</Subtitle>
 			{listOfFavorite.slice(0, 2).map((i, index) => (
-				<>
-					{console.log("estabelecimento", i.params.estabelecimento)}
+				<div key={i.params.id}>
 					<MoreFavoriteOrganism
 						moreFavoriteType={i}
-						key={i.params.id}
+
 					/>
 					<Divider marginAll="10px" />
-				</>
-			))}
+				</div>)
+			)
+			}
+
 		</div>
-	);
+	)
 };

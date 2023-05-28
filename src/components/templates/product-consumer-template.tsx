@@ -29,6 +29,7 @@ import { TypeProduct } from "@/app/domain/entities/TypeProduct";
 import { Alert } from "../atoms/alert";
 import { AlertType } from "../atoms/alert/index";
 import { SafeFoodConsumerModel } from "@/app/infra/gateway/safefood/models/SafeFoodConsumer";
+import { Breadcrumbers } from "../molecules/breadcrumbers";
 
 interface ProductParams {
 	establishment: Establishment;
@@ -91,7 +92,31 @@ export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 			<HeaderConsumer cache={cache} />
 			<BodyTemplate footer>
 				<ContainerProductConsumer>
-					<div className="header-product-consumer"></div>
+					<Box
+						className="header-product-consumer"
+						margin="32px 0 0 0"
+					>
+						<Box maxWidth="690px">
+							<Breadcrumbers
+								textSize="20px"
+								crumbsArr={[
+									{ text: "Comidas", url: "home-consumer" },
+									{
+										text: product?.params?.categoria?.nome,
+										url: `home-consumer?categoria=${product?.params?.categoria?.nome}`,
+									},
+									{
+										text: establishment.params.nome || "",
+										url: `home-consumer?estabelecimento=${establishment.params.id}`,
+									},
+									{
+										text: product.params.titulo || "",
+										url: `product-consumer/${product.params.id}`,
+									},
+								]}
+							/>
+						</Box>
+					</Box>
 					<div className="main-product-consumer">
 						<div className="img-product-consumer">
 							<img

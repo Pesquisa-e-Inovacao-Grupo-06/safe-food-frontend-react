@@ -13,7 +13,7 @@ export type SafeFoodSaveProfileImage = {
   file?: File
 }
 export type SafeFoodCreateConsumerRequest = {
-  dataNascimento: string | Date
+  dataNascimento: string
 } & SafeFoodCreateUserRequest & SafeFoodUpdateConsumerRequest & SafeFoodCreateAddressRequest & SafeFoodSaveProfileImage;
 
 // response

@@ -9,7 +9,7 @@ export type ImageProps = {
 	maxHeight?: string | number;
 	minWidth?: string | number;
 	minHeight?: string | number;
-	cursor?: boolean;
+	cursor?: string;
 	borderRadius?: "sm" | "md" | "lg" | "none";
 	objectFit?: "fill" | "contain" | "cover" | "none" | "scale-down";
 } & ImgHTMLAttributes<HTMLImageElement>;
@@ -25,18 +25,20 @@ export const ImageAtom: React.FC<ImageProps> = ({
 	cursor,
 	borderRadius,
 	objectFit,
-}) => {
+  }) => {
 	return (
-		<StyledImage
-			alt=""
-			width={width}
-			height={height}
-			maxWidth={maxWidth}
-			maxHeight={maxHeight}
-			minWidth={minWidth}
-			minHeight={minHeight}
-			cursor={cursor}
-			src={src ?? "https://via.placeholder.com/400"}
-		/>
+	  <StyledImage
+		alt=""
+		width={width}
+		height={height}
+		maxWidth={maxWidth}
+		maxHeight={maxHeight}
+		minWidth={minWidth}
+		minHeight={minHeight}
+		cursor={cursor ? cursor.toString() : undefined}
+		borderRadius={borderRadius}
+		objectFit={objectFit}
+		src={src ?? "https://via.placeholder.com/400"}
+	  />
 	);
-};
+  };

@@ -5,6 +5,9 @@ import { BiSearch } from "react-icons/bi";
 import { GoLocation } from "react-icons/go";
 import { ContainerDropDownLocalInfo } from "./styles";
 import { Address } from "@/app/domain/entities/Address";
+import { Button } from "@/components/atoms/button";
+import { useNavigate } from "react-router-dom";
+import { Divider } from "@/components/atoms/divider";
 
 type Props = {
 	children?: any;
@@ -12,10 +15,11 @@ type Props = {
 };
 
 const DropDownLocalInfo: React.FC<Props> = ({ children, address }) => {
+	const navigate = useNavigate();
 	const [active, setActive] = useState(false);
 	const [repositores, setRepositories] = useState<Address[]>(address);
 	const [valueText, setValueText] = useState<any>("Selecione um local");
-	const [filterData, setFilterData] = useState<Address[]>([]);
+	const [filterData, setFilterData] = useState<Address[]>(address);
 	const [wordEntered, setWordEntered] = useState("");
 
 	function setLocal(id: string) {
@@ -67,33 +71,27 @@ const DropDownLocalInfo: React.FC<Props> = ({ children, address }) => {
 								value={wordEntered}
 							/>
 						</div>
-						{filterData.length != 0 && (
-							<>
-								<ul className="options-dropdown-local-info">
-									{filterData.slice(0, 15).map(repo => {
-										return (
-											<li
-												onClick={() =>
-													repo.params.apelido != undefined
-														? setLocal(repo.params.apelido)
-														: ""
-												}
-												key={repo.params.apelido}
-											>
-												{repo.params.apelido}
-											</li>
-										);
-									})}
-								</ul>
-							</>
-						)}
-						<ul>
-							{address ? (
-								address.map((item, i) => <Text key={i}>{item.params.apelido}</Text>)
-							) : (
-								<></>
-							)}
+
+						<ul className="options-dropdown-local-info">
+							{filterData.length > 0 ? filterData.map(repo => {
+								return (
+									<li
+										onClick={() =>
+											repo.params.apelido != undefined
+												? setLocal(repo.params.apelido)
+												: ""
+										}
+										key={repo.params.apelido}
+									>
+										{repo.params.apelido}
+									</li>
+								)
+							}) : <></>}
 						</ul>
+						<Divider marginTop="10px"></Divider>
+						<Button onClick={() => { navigate('/profile'); }}>
+							<Text color="white">novo endereço</Text>
+						</Button>
 					</div>
 				</div>
 			</ContainerDropDownLocalInfo>

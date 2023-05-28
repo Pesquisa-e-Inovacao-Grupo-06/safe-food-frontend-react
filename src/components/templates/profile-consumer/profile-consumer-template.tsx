@@ -10,9 +10,11 @@ import { Restriction } from "@/app/domain/entities/Restriction";
 import { InputPropsComponent } from "../../atoms/input";
 import { Address } from "@/app/domain/entities/Address";
 import { Alert, AlertType } from "../../atoms/alert";
-import { AddressModal } from "../address-modal/address-modal";
 import { } from "@/app/util/validations/cep-validator";
-import { SafeFoodCreateAddressRequest } from "@/app/infra/gateway/safefood/models/SafeFoodAddress";
+import { } from "@/app/util/validations/cep-validator";
+import {
+	SafeFoodAddressModel, SafeFoodCreateAddressRequest,
+} from "@/app/infra/gateway/safefood/models/SafeFoodAddress";
 import HeaderConsumer from "../../molecules/header-consumer";
 import { Cache } from "@/app/domain/protocols/Cache";
 import {
@@ -35,6 +37,8 @@ import {
 	PContainerRestricao,
 	PContainerBtn,
 } from "./style";
+import { SafeFoodAddressMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodAddressMapper";
+import { AddressModal } from "../address-modal/address-modal";
 
 export type ProfileProps = {
 	restrictionsUser: Restriction[];
@@ -49,7 +53,7 @@ export type ProfileProps = {
 	consumer: SafeFoodConsumerModel;
 	onClickRestriction(restriction: Restriction): void;
 	isEditable?: boolean;
-	address: SafeFoodCreateAddressRequest;
+	address: SafeFoodAddressModel;
 	onChange: React.FormEventHandler<HTMLInputElement> &
 	((e: React.FormEvent<HTMLInputElement>) => void);
 	cep: string;
@@ -65,11 +69,12 @@ export type ProfileProps = {
 	onClickSave(model: SafeFoodUpdateConsumerRequest): void;
 	onClickSaveButton(): void;
 	onClickEditable(): void;
-	onClickSaveNewAddress(): void;
+	onClickSaveNewAddress(address: SafeFoodCreateAddressRequest): void;
+	onClickUpdateAddress(address: SafeFoodAddressModel): void;
 	onClickOpenModalAddress(): void;
 	onChangeFile(file: File): void;
-	onClickCard: (id: string) => void;
 	cache: Cache;
+	onClickCard: (address: SafeFoodAddressModel) => void;
 	onClickDeleteAddress: (id: number) => void;
 };
 
@@ -105,21 +110,14 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 	onClickCard,
 	cache,
 	onClickDeleteAddress,
+	onClickUpdateAddress,
 }) => {
 	return (
 		<>
 			<HeaderConsumer cache={cache} />
-			<iframe
-				src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.400082814233!2d-46.45185368502239!3d-23.554070284686482!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce668f6fd23971%3A0x6d1d58bdc95eb741!2sR.%20Santo%20Ant%C3%B4nio%20de%20Itaberava%20-%20Vila%20Carmosina%2C%20S%C3%A3o%20Paulo%20-%20SP%2C%2008290-210!5e0!3m2!1spt-BR!2sbr!4v1685073323998!5m2!1spt-BR!2sbr"
-				width="600"
-				height="450"
-				style={{ border: "0" }}
-				allowFullScreen
-				loading="lazy"
-				referrerPolicy="no-referrer-when-downgrade"
-			></iframe>
 			{/* MODAL */}
 			<AddressModal
+				onClickUpdateAddress={onClickUpdateAddress}
 				toggleModal={toggleModal}
 				isModalVisible={isModalVisible}
 				onClickSaveNewAddress={onClickSaveNewAddress}
@@ -203,7 +201,7 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 									<span>adicionar endereço</span>
 								</ButtonIcon>
 							</div>
-							{listOfAddress && (
+							{listOfAddress && listOfAddress.length > 0 ? (
 								<PContainerAddressCard>
 									{listOfAddress.map(
 										(address, i) =>
@@ -221,13 +219,17 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 													// Icon={adress.Icon}
 													key={i}
 													apelido={address.params.apelido ? address.params.apelido : ""}
-													onClickCard={onClickCard}
+													onClickCard={() =>
+														onClickCard(SafeFoodAddressMapper.ofEntity(address))
+													}
 													idAddress={address.params.id}
 													onClickDeleteAddress={onClickDeleteAddress}
 												/>
 											)
 									)}
 								</PContainerAddressCard>
+							) : (
+								<></>
 							)}
 						</PContainerInfo2>
 						<PDivider />

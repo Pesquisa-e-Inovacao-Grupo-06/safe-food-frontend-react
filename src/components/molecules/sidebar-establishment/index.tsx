@@ -127,18 +127,13 @@ const SidebarEstab: React.FC<SidebarEstabProps> = ({ cache }) => {
 							to={to}
 							style={!sidebarOpen ? { width: `fit-content` } : {}}
 							onClick={() => {
-								const navigator = useNavigate();
-
-								cache.removeItem("token");
-								cache.removeItem("consumer");
-								cache.removeItem("establishment");
-								cache.removeItem("user");
-
-								// if (window.location.pathname === "/") {
-								window.location.reload();
-								// } else {
-								// navigator("/");
-								// }
+								if (label == "Logout") {
+									cache.removeItem("token");
+									cache.removeItem("consumer");
+									cache.removeItem("establishment");
+									cache.removeItem("user");
+									// window.location.reload();
+								}
 							}}
 						>
 							<SLinkIcon>{icon}</SLinkIcon>

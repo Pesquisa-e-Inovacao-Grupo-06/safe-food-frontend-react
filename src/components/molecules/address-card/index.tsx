@@ -7,6 +7,7 @@ import { MdEdit } from "react-icons/md";
 import { Box } from "@/components/atoms/box";
 import { FaTrash } from "react-icons/fa";
 import { AiFillEdit } from "react-icons/ai";
+import { SafeFoodAddressModel } from "@/app/infra/gateway/safefood/models/SafeFoodAddress";
 
 export type AddresCardProps = {
 	Icon?: IconType;
@@ -14,7 +15,7 @@ export type AddresCardProps = {
 	bodyText?: string;
 	apelido: string;
 	idAddress: number;
-	onClickCard: (id: string) => void;
+	onClickCard: () => void;
 	onClickDeleteAddress: (id: number) => void;
 };
 
@@ -28,8 +29,7 @@ const AddresCard: React.FC<AddresCardProps> = ({
 	...props
 }) => {
 	const handleButtonClick = () => {
-		const enderecoApelido = apelido;
-		onClickCard(enderecoApelido);
+		onClickCard();
 	};
 
 	const handleButtonClickDelete = () => {

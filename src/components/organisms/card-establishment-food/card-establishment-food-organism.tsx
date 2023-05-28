@@ -152,9 +152,9 @@ export const CardEstablishmentFoodOrganism: React.FC<InfoProductProps> = ({
 					<AvaliationStars
 						fixed
 						color="orange"
-						avegareRate={1}
+						avegareRate={product.params.average ?? 0}
 					/>
-					<Text>(123 avaliações)</Text>
+					<Text>{product.params.avaliacoes?.length ?? 0} avaliações</Text>
 				</StyledRow>
 			</StyledColumn>
 		</Box>
