@@ -4,7 +4,6 @@ import { SDivider } from "../sidebar-establishment/styles";
 import { StyledButton } from "@/components/atoms/button/styles";
 import { Box } from "@/components/atoms/box";
 import { CardExpansiveEstablishmentFoodOrganism } from "@/components/organisms/card-establishment-food/card-establishment-food-organism";
-import { JustStringAndSpaceValidator } from "@/app/util/validations/just-string-and-space";
 import { Text } from "@/components/atoms/text";
 import { CLabelAttention } from "@/components/atoms/checkbox/styles";
 import { Chips } from "@/components/atoms/chips/chips-atom";
@@ -61,12 +60,12 @@ function RegisterProduct({
 	const [ingredientes, setIngredientes] = useState<string[]>([]);
 	const [auxIngredientes, setAuxIngredientes] = useState<string>("");
 	const [restrictions, setRestrictions] = useState<number[]>([]);
-	const [auxRestriction, setAuxRestriction] = useState<number>();
-	const [auxFunction, setAuxFunction] = useState<string>();
+	const [auxFunction, setAuxFunction] = useState<string>("");
 	const [restrictionEdit, setRestrictionEdit] = useState<Restriction[]>(
 		restrictionProduct || []
 	);
 
+	//limpa os valores ao renderizar ao apertar o botão de adicionar e abrea a aba de regitro
 	useEffect(() => {
 		clear();
 		clearRestriction();
@@ -116,24 +115,25 @@ function RegisterProduct({
 
 	//ativa as restrições do produto que será editado
 	const objEditRestrictions = () => {
-		if (productEdit?.params.restricoes != undefined) {
-			productEdit.params.restricoes.forEach(restricaoAtiva => {
-				restricaoAtiva;
-				const index = restrictionEdit.findIndex(
-					item => item.params.id == restricaoAtiva.id
-				);
-				if (index > -1) {
-					restrictionEdit[index].params.isActive = true;
-					setRestrictionEdit(restrictionEdit);
-				}
-			});
-		}
+		productEdit?.params.restricoes != undefined
+			? productEdit?.params.restricoes.map(item => {
+					var aux = item.restricao;
+					restrictionEdit?.filter(item => {
+						item.params.restricao == aux ? (item.params.isActive = true) : "";
+					});
+			  })
+			: [];
+
 		// productEdit?.params.restricoes != undefined
-		// 	? productEdit?.params.restricoes.map(item => {
-		// 			var aux = item.restricao;
-		// 			restrictionProduct?.filter(item => {
-		// 				item.params.restricao == aux ? (item.params.isActive = true) : "";
-		// 			});
+		// 	? productEdit.params.restricoes.forEach(restricaoAtiva => {
+		// 			restricaoAtiva;
+		// 			const index = restrictionEdit.findIndex(
+		// 				item => item.params.id == restricaoAtiva.id
+		// 			);
+		// 			if (index > -1) {
+		// 				restrictionEdit[index].params.isActive = true;
+		// 				setRestrictionEdit(restrictionEdit);
+		// 			}
 		// 	  })
 		// 	: [];
 	};
@@ -160,11 +160,11 @@ function RegisterProduct({
 		setIngredientes([]);
 		setAuxIngredientes("");
 		setRestrictions([]);
-		setAuxRestriction(undefined);
-		setAuxFunction("");
 		setAuxCategoria("");
+		setAuxFunction("");
 	};
 
+	//limpas os valores da inpur do objeto que está sendo editado, porém não apaga o id, assim possibilitando editar
 	const clearValuesObjEdit = () => {
 		setObjProduct(undefined);
 		setNome("");
@@ -175,19 +175,18 @@ function RegisterProduct({
 		setIngredientes([]);
 		setAuxIngredientes("");
 		setRestrictions([]);
-		setAuxRestriction(undefined);
-		setAuxFunction("");
 		setAuxCategoria("");
+		setAuxFunction("");
 	};
 
 	//colocar todas restrições como inativadas
 	const clearRestriction = () => {
-		restrictionProduct?.map(item => {
+		restrictionEdit?.map(item => {
 			item.params.isActive = false;
 		});
 	};
 
-	//limpar objEdit, porém não está funcionando da forma que queria
+	//limpar objEdit, após editar ou fechar a aba
 	const clearObjEdit = () => {
 		productEdit = undefined;
 	};
@@ -196,8 +195,8 @@ function RegisterProduct({
 	useEffect(() => {
 		clear();
 		clearRestriction();
-		objEditRestrictions();
 		setObjEdit();
+		objEditRestrictions();
 	}, [auxObjEdit]);
 
 	//passar os dados de edit para os useState
@@ -309,16 +308,16 @@ function RegisterProduct({
 	//concatenar os id das restrictions conforme ir selecionando
 	useEffect(() => {
 		const newRestricitons: number[] = [];
-		restrictionProduct != undefined
-			? restrictionProduct.filter(item => {
+		restrictionEdit != undefined
+			? restrictionEdit.filter(item => {
 					item.params.isActive ? newRestricitons.push(item.params.id) : "";
 			  })
-			: restrictions;
+			: restrictionEdit;
 		setRestrictions(newRestricitons);
 		setAuxFunction("auxFucntion");
 	}, [auxFunction]);
 
-	//limpar os campos quando abrir a aba ou fechar
+	//limpar os campos quando abrir ou fechar a aba pelo o botão de seta da aba
 	const clearOpenModal = () => {
 		clear();
 		clearObjEdit();
@@ -416,16 +415,15 @@ function RegisterProduct({
 								</CLabelAttention>
 								<Box className="restricao-register-product">
 									{restrictionEdit?.map((restriction, i) => {
-										// debugger;
 										return (
 											<Chips
 												key={restriction.params.id + "item"}
 												sizeChips="chips-md"
 												onClick={() => {
-													setAuxRestriction(restriction.params.id);
+													restriction.params.isActive = !restriction.params.isActive;
 													setAuxFunction("auxChips");
 												}}
-												isActive={restriction.params.isActive ? true : false}
+												isActive={restriction.params.isActive}
 											>
 												{restriction.params.restricao}
 											</Chips>
