@@ -170,6 +170,13 @@ const ContainerNewHome = styled.div`
 				align-items: center;
 				flex-direction: column;
 			}
+
+			@media (max-width: 400px) {
+				> h1 {
+					font-size: 30px;
+					line-height: 50px;
+				}
+			}
 		}
 	}
 
