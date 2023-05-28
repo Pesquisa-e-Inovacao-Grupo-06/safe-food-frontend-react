@@ -23,6 +23,9 @@ export type HomeConsumerProps = {
 	cache: Cache;
 	onPageChange: (pageNumber: number) => void;
 	totalPagesProductFilter: number;
+	changeOrder:(e: any) => void;
+	changeItens:(e: any) => void;
+
 };
 const HomeConsumerTemplate: React.FC<HomeConsumerProps> = ({
 	products,
@@ -31,6 +34,8 @@ const HomeConsumerTemplate: React.FC<HomeConsumerProps> = ({
 	cache,
 	onPageChange,
 	totalPagesProductFilter,
+	changeItens,
+	changeOrder,
 }) => {
 	const [formCard, setFormcard] = useState<boolean>(false);
 	var count = 0;
@@ -54,14 +59,30 @@ const HomeConsumerTemplate: React.FC<HomeConsumerProps> = ({
 								{/* TODO: RESOLVER SELECTS */}
 								<li>
 									<Text>Ordenar:</Text>
-									<SelectAtom options={["sla", "sla"]} />
+									<SelectAtom options={[  { value: "TODOS", label: "Todos", direction: "asc" },
+										{ value: "QTD_AVALIACOES", label: "Mais Avaliados", direction: "desc"  },
+										{ value: "QTD_AVALIACOES_DESC", label: "Menos Avaliados", direction: "asc"},
+										{ value: "LANCAMENTOS", label: "Mais recentes", direction: "desc"  },
+										{ value: "LANCAMENTOS_DESC", label: "Menos recentes", direction: "asc" },
+										{ value: "PRECO", label: "Maiores Preços", direction: "desc"  },
+										{ value: "PRECO_DESC", label: "Menores Preços",direction: "asc" },
+										{ value: "MELHORES_AVALIACOES", label: "Mais relevante", direction: "desc"  },
+										{ value: "MELHORES_AVALIACOES_DESC", label: "Menos relevante",direction: "asc" }
+									]} 
+										onChange={changeOrder} 
+										/>
 								</li>
 								<li>
 									<Text>Exibir:</Text>
 									<SelectAtom
-										options={["5 itens", "10 itens", "20 itens", "30 itens"]}
+									// TODO: TIRAR VALUE ERRADO PARA TESTE
+										options={[ { value: "5", label: "5 itens" },
+										{ value: "10", label: "10 itens" },
+										{ value: "15", label: "15 itens" },
+										{ value: "20", label: "20 itens" }]
+										} onChange={changeItens}
 									/>
-								</li>
+							</li>
 								<li>
 									<Text>{count} produtos</Text>
 								</li>
