@@ -1,18 +1,18 @@
-import { Box } from "../../atoms/box/index";
-import styled from "styled-components";
-import { AvaliationStars } from "@/components/molecules/avaliation-stars";
-import { Subtitle } from "@/styles/components/text/Subtitle";
-import { Text } from "../../atoms/text";
-import { FaCommentAlt, IoLocationSharp, MdEdit } from "react-icons/all";
-import { Star } from "@/components/atoms/star";
-import { TextIcon } from "@/components/molecules/text-icon/text-icon-molecule";
-import { Divider } from "@/components/atoms/divider";
-import { formatReal } from "@/app/util/convertions/price-br";
-import { Product } from "@/app/domain/entities/Product";
-import { ImageAtom } from "@/components/atoms/img";
-import SearchBar from "@/components/molecules/search-bar";
-import { ButtonEdit } from "@/components/atoms/button-edit";
-import { useNavigate } from "react-router-dom";
+import { Box } from '../../atoms/box/index';
+import styled from 'styled-components';
+import { AvaliationStars } from '@/components/molecules/avaliation-stars';
+import { Subtitle } from '@/styles/components/text/Subtitle';
+import { Text } from '../../atoms/text';
+import { FaCommentAlt, IoLocationSharp, MdEdit } from 'react-icons/all';
+import { Star } from '@/components/atoms/star';
+import { TextIcon } from '@/components/molecules/text-icon/text-icon-molecule';
+import { Divider } from '@/components/atoms/divider';
+import { formatReal } from '@/app/util/convertions/price-br';
+import { Product } from '@/app/domain/entities/Product';
+import { ImageAtom } from '@/components/atoms/img';
+import SearchBar from '@/components/molecules/search-bar';
+import { ButtonEdit } from '@/components/atoms/button-edit';
+import { useNavigate } from 'react-router-dom';
 
 export type EstablishmentFoodProps = {
 	NearbyFoodsItem: Product;
@@ -35,40 +35,48 @@ export const NearbyFoodsCard: React.FC<EstablishmentFoodProps> = ({
 				flexDirection="column"
 				borderRadius="md"
 				style={{
-					width: "480px",
-					height: "236px",
+					width: '480px',
+					height: '236px',
 				}}
-				onClick={() => navigate(`/product-consumer/${nearbyFoodsItem.params.id}`)}
+				onClick={() =>
+					navigate(`/product-consumer/${nearbyFoodsItem.params.id}`)
+				}
 			>
-				<div style={{ height: "46%", width: "100%" }}>
+				<div style={{ height: '46%', width: '100%' }}>
 					<img
-						src={nearbyFoodsItem.params.imagem ?? "https://via.placeholder.com/400"}
-						style={{ objectFit: "cover", borderRadius: "4px", pointerEvents: "none" }}
-						height={"100%"}
-						width={"100%"}
+						src={
+							nearbyFoodsItem.params.imagem ?? 'https://via.placeholder.com/400'
+						}
+						style={{
+							objectFit: 'cover',
+							borderRadius: '4px',
+							pointerEvents: 'none',
+						}}
+						height={'100%'}
+						width={'100%'}
 					/>
 				</div>
 				<div
 					style={{
-						height: "54%",
-						width: "100%",
-						display: "flex",
-						flexDirection: "column",
-						justifyContent: "space-around",
-						padding: "10px",
+						height: '54%',
+						width: '100%',
+						display: 'flex',
+						flexDirection: 'column',
+						justifyContent: 'space-around',
+						padding: '10px',
 					}}
 				>
-					<StyledRow style={{ justifyContent: "unset" }}>
+					<StyledRow style={{ justifyContent: 'unset' }}>
 						<Subtitle
 							style={{
 								WebkitLineClamp: 1,
-								display: "-webkit-box",
-								textOverflow: "ellipsis",
-								overflow: "hidden",
-								width: "200px",
-								height: "auto",
-								WebkitBoxOrient: "vertical",
-								flexBasis: "79.4%",
+								display: '-webkit-box',
+								textOverflow: 'ellipsis',
+								overflow: 'hidden',
+								width: '200px',
+								height: 'auto',
+								WebkitBoxOrient: 'vertical',
+								flexBasis: '79.4%',
 							}}
 						>
 							{nearbyFoodsItem.params.titulo}
@@ -77,12 +85,12 @@ export const NearbyFoodsCard: React.FC<EstablishmentFoodProps> = ({
 						<AvaliationStars
 							fixed
 							avegareRate={1}
-							style={{ flexBasis: "20.6%" }}
+							style={{ flexBasis: '20.6%' }}
 						/>
-						<div style={{ flexBasis: "10%" }}></div>
+						<div style={{ flexBasis: '10%' }}></div>
 					</StyledRow>
 					<Text typeText="text-md">{nearbyFoodsItem.params.descricao}</Text>
-					<StyledRow style={{ alignItems: "flex-start" }}>
+					<StyledRow style={{ alignItems: 'flex-start' }}>
 						<StyledCost typeText="text-mdb">
 							{formatReal(nearbyFoodsItem.params.preco)}
 						</StyledCost>
@@ -91,7 +99,7 @@ export const NearbyFoodsCard: React.FC<EstablishmentFoodProps> = ({
 							iconAlign="left"
 							typeText="text-md"
 						>
-							{"m" ?? "distancia indefinida"}
+							{'m' ?? 'distancia indefinida'}
 						</TextIcon>
 						<div></div>
 					</StyledRow>
@@ -111,20 +119,19 @@ export const CardEstablishmentFoodOrganism: React.FC<InfoProductProps> = ({
 			display="flex"
 			flexDirection="column"
 			borderRadius="md"
-			width="360px"
 			shadow="md"
 			background="#FCFCFC"
 		>
 			<div
 				style={{
-					width: "100%",
+					width: '100%',
 					backgroundImage: "url('https://via.placeholder.com/400')",
-					backgroundPosition: "center",
-					backgroundSize: "cover",
-					borderRadius: "4px",
-					maxHeight: "200px",
-					minHeight: "200px",
-					padding: "10px",
+					backgroundPosition: 'center',
+					backgroundSize: 'cover',
+					borderRadius: '4px',
+					maxHeight: '200px',
+					minHeight: '200px',
+					padding: '10px',
 				}}
 			>
 				{activeEdit && <ButtonEdit onClick={getInfoProduct} />}
@@ -140,9 +147,18 @@ export const CardEstablishmentFoodOrganism: React.FC<InfoProductProps> = ({
 					}}
 				/> */}
 			</div>
-			<StyledColumn style={{ margin: "14px", alignItems: "start" }}>
-				<Subtitle>{product.params.titulo}</Subtitle>
-				<Text style={{ height: "fit-content" }}>{product.params.descricao}</Text>
+			<StyledColumn style={{ margin: '14px', alignItems: 'start' }}>
+				<Subtitle
+					style={{
+						height: '40px',
+						overflow: 'hidden',
+					}}
+				>
+					{product.params.titulo}
+				</Subtitle>
+				<Text style={{ height: '60px', overflow: 'hidden' }}>
+					{product.params.descricao}
+				</Text>
 				<StyledCost typeText="text-mdb">
 					{formatReal(product.params.preco)}
 				</StyledCost>
@@ -168,7 +184,7 @@ type CardExpansiveEstablishmentFoodOrganismProps = {
 
 export const CardExpansiveEstablishmentFoodOrganism: React.FC<
 	CardExpansiveEstablishmentFoodOrganismProps
-> = ({ titulo = "Hamburger Vegan 2.0", categoria = "" }) => {
+> = ({ titulo = 'Hamburger Vegan 2.0', categoria = '' }) => {
 	return (
 		<Box
 			display="flex"
@@ -178,21 +194,21 @@ export const CardExpansiveEstablishmentFoodOrganism: React.FC<
 			shadow="md"
 			background="#FCFCFC"
 		>
-			<div style={{ height: "125px", padding: "10px", flexBasis: "20%" }}>
+			<div style={{ height: '125px', padding: '10px', flexBasis: '20%' }}>
 				<img
 					src="https://via.placeholder.com/400"
 					alt=""
 					style={{
-						maxHeight: "100%",
-						objectFit: "cover",
-						width: "100%",
-						borderRadius: "8px",
+						maxHeight: '100%',
+						objectFit: 'cover',
+						width: '100%',
+						borderRadius: '8px',
 					}}
 				/>
 			</div>
-			<StyledColumn style={{ flexBasis: "20%", alignItems: "start" }}>
+			<StyledColumn style={{ flexBasis: '20%', alignItems: 'start' }}>
 				<Subtitle>{titulo}</Subtitle>
-				<StyledRow style={{ justifyContent: "unset", gap: "20px" }}>
+				<StyledRow style={{ justifyContent: 'unset', gap: '20px' }}>
 					<TextIcon
 						icon={
 							<Star
@@ -223,15 +239,16 @@ export const CardExpansiveEstablishmentFoodOrganism: React.FC<
 					position: "relative",
 				}}
 			></div> */}
-			<StyledRow style={{ flexBasis: "59%" }}>
-				<Text style={{ height: "fit-content" }}>
+			<StyledRow style={{ flexBasis: '59%' }}>
+				<Text style={{ height: 'fit-content' }}>
 					Aproveite todo o sabor de um clássico hambúrguer sem sacrificar seus
-					princípios veganos com o nosso revolucionário Hambúrguer 2.0 Vegano. Feito
-					com ingredientes de origem vegetal de alta qualidade, este hambúrguer é uma
-					deliciosa opção para quem busca uma alimentação mais saudável e
-					sustentável. Com sua textura suculenta e sabor inigualável, é perfeito para
-					qualquer refeição, desde um lanche rápido até um jantar sofisticado.
-					Experimente agora e descubra o futuro do hambúrguer vegano!
+					princípios veganos com o nosso revolucionário Hambúrguer 2.0 Vegano.
+					Feito com ingredientes de origem vegetal de alta qualidade, este
+					hambúrguer é uma deliciosa opção para quem busca uma alimentação mais
+					saudável e sustentável. Com sua textura suculenta e sabor inigualável,
+					é perfeito para qualquer refeição, desde um lanche rápido até um
+					jantar sofisticado. Experimente agora e descubra o futuro do
+					hambúrguer vegano!
 				</Text>
 			</StyledRow>
 		</Box>
@@ -239,7 +256,7 @@ export const CardExpansiveEstablishmentFoodOrganism: React.FC<
 };
 
 export const StyledContainer = styled.div<{
-	flexDiretion?: "column" | "row";
+	flexDiretion?: 'column' | 'row';
 }>`
 	width: 100%;
 	display: flex;
@@ -271,7 +288,7 @@ export const StyledColumn = styled.div<{
 export const StyledCost = styled(Text)<{
 	backgroundColor?: string;
 }>`
-	background-color: ${p => p.backgroundColor ?? "green"};
+	background-color: ${p => p.backgroundColor ?? 'green'};
 	height: 100%;
 	border-radius: 4px;
 	padding-left: 3%;
