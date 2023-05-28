@@ -24,6 +24,8 @@ type Props = {
 	productEdit?: Product;
 	user?: SafeFoodUsuarioModel;
 	btnAdd?: boolean;
+	renderListProduct?: () => void;
+	auxObjEdit?: boolean;
 };
 
 const Layout: React.FC<Props> = ({
@@ -38,6 +40,8 @@ const Layout: React.FC<Props> = ({
 	productEdit,
 	user,
 	btnAdd,
+	renderListProduct,
+	auxObjEdit,
 	...props
 }) => {
 	return (
@@ -59,8 +63,10 @@ const Layout: React.FC<Props> = ({
 				onClickUpdate={onClickUpdate}
 				onClickDelete={onClickDelete}
 				productEdit={productEdit}
+				auxObjEdit={auxObjEdit}
 				user={user}
 				btnAdd={btnAdd}
+				renderListProduct={renderListProduct}
 			/>
 		</SLayout>
 	);

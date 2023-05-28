@@ -9,13 +9,11 @@ import { StyledButton } from "@/components/atoms/button/styles";
 import { Cache } from "@/app/domain/protocols/Cache";
 import { Restriction } from "@/app/domain/entities/Restriction";
 import { Product } from "@/app/domain/entities/Product";
-import { Link } from "react-router-dom";
 import { TypeProduct } from "@/app/domain/entities/TypeProduct";
 import { SafeFoodUsuarioModel } from "@/app/infra/gateway/safefood/models/SafeFoodUser";
 import { SafeFoodCreateProductRequest } from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
 import { SafeFoodProductGateway } from "@/app/infra/gateway/safefood/SafeFoodProductGateway";
 import { SafeFoodProductMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodProductMapper";
-import { SafeFoodTypeProductRequest } from "@/app/infra/gateway/safefood/models/SafeFoodTypeProduct";
 
 type HomeEstablishmentProps = {
 	products: Product[];
@@ -27,6 +25,7 @@ type HomeEstablishmentProps = {
 	onClickCreate(data: SafeFoodCreateProductRequest): void;
 	onClickUpdate(id: string, data: SafeFoodCreateProductRequest): void;
 	onClickDelete(id: string): void;
+	renderListProduct(): void;
 };
 
 function HomeEstablishmentTemplate({
@@ -39,26 +38,24 @@ function HomeEstablishmentTemplate({
 	onClickCreate,
 	onClickUpdate,
 	onClickDelete,
+	renderListProduct,
 }: HomeEstablishmentProps) {
 	const [modalRegister, setModalRegister] = useState(false);
 	const [type, setType] = useState("");
 	const [filterData, setFilterData] = useState<Product[]>([]);
 	const [objEdit, setObjEdit] = useState<Product>();
+	const [auxObjEdit, setAuxObjEdit] = useState<boolean>(false);
+	const [auxBtnAdd, setAuxBtnAdd] = useState<boolean>(false);
 
 	const setObj = (item: Product) => {
 		setObjEdit(item);
 		setModalRegister(true);
+		setAuxObjEdit(!auxObjEdit);
 	};
 
 	useEffect(() => {
-		async function fetchProducts() {
-			try {
-				const fetchedProducts = await productGateway.findAll();
-				setFilterData(fetchedProducts.content.map(SafeFoodProductMapper.of));
-			} catch (error) {}
-		}
-		fetchProducts();
-	}, []);
+		setFilterData(products);
+	}, [products]);
 
 	const handleFilter = (typeProduct: string) => {
 		const filterType = typeProduct;
@@ -72,7 +69,7 @@ function HomeEstablishmentTemplate({
 				.includes(type.toLowerCase());
 		});
 
-		if (type === "") {
+		if (type == "") {
 			setFilterData(products);
 		} else {
 			setFilterData(newFilter);
@@ -82,8 +79,6 @@ function HomeEstablishmentTemplate({
 	function toggleModalResgiter() {
 		setModalRegister(!modalRegister);
 	}
-
-	const [auxBtnAdd, setAuxBtnAdd] = useState<boolean>(false);
 
 	return (
 		<Layout
@@ -98,8 +93,10 @@ function HomeEstablishmentTemplate({
 			onClickUpdate={onClickUpdate}
 			onClickDelete={onClickDelete}
 			productEdit={objEdit}
+			auxObjEdit={auxObjEdit}
 			user={user}
 			btnAdd={auxBtnAdd}
+			renderListProduct={renderListProduct}
 		>
 			<ContainerHomeEstablishment>
 				<div className="header-home-establishment">
@@ -117,7 +114,6 @@ function HomeEstablishmentTemplate({
 							</Box>
 							<StyledButton
 								onClick={() => {
-									debugger;
 									setModalRegister(true);
 									setAuxBtnAdd(!auxBtnAdd);
 								}}

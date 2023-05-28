@@ -11,6 +11,7 @@ import { TypeProduct } from "@/app/domain/entities/TypeProduct";
 import { Product } from "@/app/domain/entities/Product";
 import { SafeFoodProductMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodProductMapper";
 import { SafeFoodTypeProductMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodTypeProductMapper";
+import { AlertType } from "@/components/atoms/alert";
 
 type HomeEstablishmentProps = {
 	cache: Cache;
@@ -25,8 +26,27 @@ function HomeEstablishment({
 	typeProductGateway,
 	gateway,
 }: HomeEstablishmentProps) {
+	const [products, setProducts] = useState<Product[]>([]);
+	const [typeProducts, setTypeProducts] = useState<TypeProduct[]>([]);
+	const [renderListProduct, setRenderListProduct] = useState<boolean>(false);
+	const [typeAlert, setTypeAlert] = useState<AlertType>();
+	const [textAlert, setTextAlert] = useState<string>();
+
 	const clickToCreateProduct = async (data: SafeFoodCreateProductRequest) => {
+		// try {
 		const res = await gateway.create(user.usuario.id, data);
+		// 	const validStatus = [200, 201];
+		// 	if (!validStatus.includes(res.status)) {
+		// 		setTypeAlert("warning");
+		// 		setTextAlert("Erro ao cadastrar o produto");
+		// 	} else {
+		// 		setTypeAlert("success");
+		// 		setTextAlert("Produto cadastrado com sucesso");
+		// 	}
+		// } catch (e) {
+		// 	setTypeAlert("warning");
+		// 	setTextAlert("Erro ao cadastrar o endereço");
+		// }
 	};
 
 	const clickToUpdateProduct = async (
@@ -48,21 +68,24 @@ function HomeEstablishment({
 	const user: SafeFoodLoginResponse =
 		cache.getItem("user") !== null ? JSON.parse(cache.getItem("user")!) : {};
 
-	const [products, setProducts] = useState<Product[]>([]);
-	const [typeProducts, setTypeProducts] = useState<TypeProduct[]>([]);
+	const renderList = () => {
+		setRenderListProduct(!renderListProduct);
+	};
 
 	useEffect(() => {
 		async function fetchProducts() {
 			try {
-				const fetchedProducts = await productGateway.findAll();
+				const fetchedProductsById = await productGateway.findByEstablishmentId(
+					user.usuario.id.toString()
+				);
 				const fetchedTypeProducts = await typeProductGateway.findAll();
-				setProducts(fetchedProducts.content.map(SafeFoodProductMapper.of));
+
+				setProducts(fetchedProductsById.data.map(SafeFoodProductMapper.of));
 				setTypeProducts(fetchedTypeProducts.map(SafeFoodTypeProductMapper.of));
-				console.log("fetch" + JSON.stringify(fetchedProducts));
 			} catch (error) {}
 		}
 		fetchProducts();
-	}, []);
+	}, [renderListProduct]);
 
 	return (
 		<HomeEstablishmentTemplate
@@ -77,6 +100,7 @@ function HomeEstablishment({
 			onClickCreate={clickToCreateProduct}
 			onClickUpdate={clickToUpdateProduct}
 			onClickDelete={clickToDeleteProduct}
+			renderListProduct={renderList}
 		/>
 	);
 }

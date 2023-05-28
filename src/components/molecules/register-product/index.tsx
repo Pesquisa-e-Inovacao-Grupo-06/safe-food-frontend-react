@@ -28,7 +28,8 @@ type Props = {
 	productEdit?: Product;
 	user?: SafeFoodUsuarioModel;
 	btnAdd?: boolean;
-	products?: Product[];
+	renderListProduct?: () => void;
+	auxObjEdit?: boolean;
 };
 
 function RegisterProduct({
@@ -43,7 +44,8 @@ function RegisterProduct({
 	productEdit,
 	user,
 	btnAdd,
-	products,
+	renderListProduct,
+	auxObjEdit,
 }: Props) {
 	const [objProduct, setObjProduct] = useState<SafeFoodCreateProductRequest>();
 	const [editObjProduct, setEditObjProduct] =
@@ -61,6 +63,9 @@ function RegisterProduct({
 	const [restrictions, setRestrictions] = useState<number[]>([]);
 	const [auxRestriction, setAuxRestriction] = useState<number>();
 	const [auxFunction, setAuxFunction] = useState<string>();
+	const [restrictionEdit, setRestrictionEdit] = useState<Restriction[]>(
+		restrictionProduct || []
+	);
 
 	useEffect(() => {
 		clear();
@@ -71,35 +76,35 @@ function RegisterProduct({
 
 	//create product e limpa as inputs
 	useEffect(() => {
-		debugger;
 		objProduct != undefined && onClickCreate != undefined
 			? onClickCreate(objProduct)
 			: "";
 		clear();
 		clearRestriction();
 		clearObjEdit();
+		renderListProduct != undefined ? renderListProduct() : "";
 	}, [objProduct]);
 
 	//update product e limpa as inputs
 	useEffect(() => {
-		debugger;
 		editObjProduct != undefined && onClickUpdate != undefined
 			? onClickUpdate(editId, editObjProduct)
 			: "";
 		clear();
 		clearRestriction();
 		clearObjEdit();
+		renderListProduct != undefined ? renderListProduct() : "";
 	}, [editObjProduct]);
 
 	//delete product e limpa as inputs
 	useEffect(() => {
-		debugger;
 		deleteProductId != "" && onClickDelete != undefined
 			? onClickDelete(deleteProductId)
 			: "";
 		clear();
 		clearRestriction();
 		clearObjEdit();
+		renderListProduct != undefined ? renderListProduct() : "";
 	}, [deleteProductId]);
 
 	//limpar todos os dados ao entrar ou reiniciar a página
@@ -111,14 +116,26 @@ function RegisterProduct({
 
 	//ativa as restrições do produto que será editado
 	const objEditRestrictions = () => {
-		productEdit?.params.restricoes != undefined
-			? productEdit?.params.restricoes.map(item => {
-					var aux = item.restricao;
-					restrictionProduct?.filter(item => {
-						item.params.restricao == aux ? (item.params.isActive = true) : "";
-					});
-			  })
-			: [];
+		if (productEdit?.params.restricoes != undefined) {
+			productEdit.params.restricoes.forEach(restricaoAtiva => {
+				restricaoAtiva;
+				const index = restrictionEdit.findIndex(
+					item => item.params.id == restricaoAtiva.id
+				);
+				if (index > -1) {
+					restrictionEdit[index].params.isActive = true;
+					setRestrictionEdit(restrictionEdit);
+				}
+			});
+		}
+		// productEdit?.params.restricoes != undefined
+		// 	? productEdit?.params.restricoes.map(item => {
+		// 			var aux = item.restricao;
+		// 			restrictionProduct?.filter(item => {
+		// 				item.params.restricao == aux ? (item.params.isActive = true) : "";
+		// 			});
+		// 	  })
+		// 	: [];
 	};
 
 	//concatena ingredientes para auto preencher a input de ingredietes do produto a ser editado
@@ -179,9 +196,9 @@ function RegisterProduct({
 	useEffect(() => {
 		clear();
 		clearRestriction();
-		setObjEdit();
 		objEditRestrictions();
-	}, [productEdit]);
+		setObjEdit();
+	}, [auxObjEdit]);
 
 	//passar os dados de edit para os useState
 	const setObjEdit = () => {
@@ -398,20 +415,22 @@ function RegisterProduct({
 									Restrições:
 								</CLabelAttention>
 								<Box className="restricao-register-product">
-									{restrictionProduct?.map((restriction, i) => (
-										<Chips
-											key={restriction.params.id + "item"}
-											sizeChips="chips-md"
-											onClick={() => {
-												restriction.params.isActive = !restriction.params.isActive;
-												setAuxRestriction(restriction.params.id);
-												setAuxFunction("auxChips");
-											}}
-											isActive={restriction.params.isActive}
-										>
-											{restriction.params.restricao}
-										</Chips>
-									))}
+									{restrictionEdit?.map((restriction, i) => {
+										// debugger;
+										return (
+											<Chips
+												key={restriction.params.id + "item"}
+												sizeChips="chips-md"
+												onClick={() => {
+													setAuxRestriction(restriction.params.id);
+													setAuxFunction("auxChips");
+												}}
+												isActive={restriction.params.isActive ? true : false}
+											>
+												{restriction.params.restricao}
+											</Chips>
+										);
+									})}
 								</Box>
 							</div>
 						</div>
