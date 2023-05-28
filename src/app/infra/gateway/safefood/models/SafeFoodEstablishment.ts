@@ -33,16 +33,16 @@ export type SafeFoodEstablishmentModel =
     email: string,
     cnpj: string,
     nomeEmpresa: string,
-    celular?: string,
+    celular: string,
     contatoCliente: string,
     descricao: string,
     endereco?: SafeFoodAddressModel,
-    horarioFuncionamentoSemana?: string,
-    horarioFuncionamentoFimDeSemana?: string,
-    isDelivery?: boolean,
-    isRetireNoLocal?: boolean,
-    isFreteGratis?: boolean,
-    tempoEsperaMedio?: string,
+    horarioFuncionamentoSemana: string,
+    horarioFuncionamentoFimDeSemana: string,
+    isDelivery: boolean,
+    isRetireNoLocal: boolean,
+    isFreteGratis: boolean,
+    tempoEsperaMedio: string,
   } & SafeFoodUsuarioModel
 
 

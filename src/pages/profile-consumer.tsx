@@ -187,6 +187,8 @@ function ProfileConsumer({
 		}
 	};
 	const onClickUpdateAddress = async (address: SafeFoodAddressModel) => {
+		setIsLoading(true);
+
 		if (!address) {
 			return;
 		}
@@ -216,6 +218,8 @@ function ProfileConsumer({
 		} finally {
 			setIsVisibleAlert(true);
 			setIsModalVisible(false);
+			setIsLoading(false);
+
 		}
 	};
 

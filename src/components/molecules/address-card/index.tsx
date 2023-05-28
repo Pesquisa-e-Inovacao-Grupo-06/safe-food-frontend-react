@@ -1,13 +1,10 @@
 import React from "react";
 import { AddresCardContainer } from "./styles";
 import { Subtitle } from "@/styles/components/text/Subtitle";
-import { ButtonIcon } from "../button/button-icon";
 import { IconType } from "react-icons/lib";
-import { MdEdit } from "react-icons/md";
 import { Box } from "@/components/atoms/box";
 import { FaTrash } from "react-icons/fa";
 import { AiFillEdit } from "react-icons/ai";
-import { SafeFoodAddressModel } from "@/app/infra/gateway/safefood/models/SafeFoodAddress";
 
 export type AddresCardProps = {
 	Icon?: IconType;
@@ -15,24 +12,29 @@ export type AddresCardProps = {
 	bodyText?: string;
 	apelido: string;
 	idAddress: number;
-	onClickCard: () => void;
-	onClickDeleteAddress: (id: number) => void;
+	onClickEditAddress: () => void;
+	onClickDeleteAddress?: (id: number) => void;
+	haveIconDelete: boolean;
 };
 
 const AddresCard: React.FC<AddresCardProps> = ({
 	headerText,
 	bodyText,
-	onClickCard,
+	onClickEditAddress,
 	apelido,
 	onClickDeleteAddress,
 	idAddress,
+	haveIconDelete = true,
 	...props
 }) => {
 	const handleButtonClick = () => {
-		onClickCard();
+		onClickEditAddress();
 	};
 
 	const handleButtonClickDelete = () => {
+		if(!onClickDeleteAddress){
+			return;
+		}
 		onClickDeleteAddress(idAddress);
 	};
 
@@ -52,10 +54,11 @@ const AddresCard: React.FC<AddresCardProps> = ({
 							onClick={handleButtonClick}
 							cursor="pointer"
 						/>
-						<FaTrash
+					{!haveIconDelete ? 	<FaTrash
 							cursor="pointer"
 							onClick={handleButtonClickDelete}
-						/>
+						/> : <></>
+					}
 					</Box>
 				</div>
 				<Box className="address-car-container-text">

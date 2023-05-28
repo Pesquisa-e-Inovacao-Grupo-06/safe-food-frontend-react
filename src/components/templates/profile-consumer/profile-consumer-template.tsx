@@ -11,7 +11,7 @@ import { InputPropsComponent } from "../../atoms/input";
 import { Address } from "@/app/domain/entities/Address";
 import { Alert, AlertType } from "../../atoms/alert";
 import { AddressModal } from "../address-modal";
-import {} from "@/app/util/validations/cep-validator";
+import { } from "@/app/util/validations/cep-validator";
 import {
 	SafeFoodAddressModel,
 	SafeFoodCreateAddressRequest,
@@ -39,6 +39,7 @@ import {
 	PContainerBtn,
 } from "./style";
 import { SafeFoodAddressMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodAddressMapper";
+import { FormEvent } from "react";
 
 export type ProfileProps = {
 	restrictionsUser: Restriction[];
@@ -54,28 +55,26 @@ export type ProfileProps = {
 	onClickRestriction(restriction: Restriction): void;
 	isEditable?: boolean;
 	address: SafeFoodAddressModel;
-	onChange: React.FormEventHandler<HTMLInputElement> &
-		((e: React.FormEvent<HTMLInputElement>) => void);
 	cep: string;
 	numero: string;
-	onChangeNumero: React.FormEventHandler<HTMLInputElement> &
-		((e: React.FormEvent<HTMLInputElement>) => void);
 	apelido: string;
-	onChangeApelido: React.FormEventHandler<HTMLInputElement> &
-		((e: React.FormEvent<HTMLInputElement>) => void);
 	isModalVisible: boolean;
 	toggleModal(): void;
+	onClickSaveNewAddress(address: SafeFoodCreateAddressRequest): void;
 	onClickChangePassword(): void;
 	onClickSave(model: SafeFoodUpdateConsumerRequest): void;
 	onClickSaveButton(): void;
 	onClickEditable(): void;
-	onClickSaveNewAddress(address: SafeFoodCreateAddressRequest): void;
 	onClickUpdateAddress(address: SafeFoodAddressModel): void;
 	onClickOpenModalAddress(): void;
 	onChangeFile(file: File): void;
 	cache: Cache;
 	onClickCard: (address: SafeFoodAddressModel) => void;
 	onClickDeleteAddress: (id: number) => void;
+	onChangeInputApelido(ev: FormEvent<HTMLInputElement>): void;
+	onChangeInputCep(ev: FormEvent<HTMLInputElement>): void;
+	onChangeInputNumero(ev: FormEvent<HTMLInputElement>): void;
+	onChangeInputComplemento(ev: FormEvent<HTMLInputElement>): void;
 };
 
 export const ProfileTemplate: React.FC<ProfileProps> = ({
@@ -96,12 +95,6 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 	onClickSaveNewAddress,
 	address,
 	onClickRestriction,
-	onChange,
-	cep,
-	numero,
-	onChangeNumero,
-	apelido,
-	onChangeApelido,
 	toggleModal,
 	isModalVisible,
 	onClickOpenModalAddress,
@@ -111,6 +104,7 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 	cache,
 	onClickDeleteAddress,
 	onClickUpdateAddress,
+onChangeInputApelido,onChangeInputCep,onChangeInputComplemento,onChangeInputNumero
 }) => {
 	return (
 		<>
@@ -122,12 +116,10 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 				isModalVisible={isModalVisible}
 				onClickSaveNewAddress={onClickSaveNewAddress}
 				address={address}
-				onChange={onChange}
-				cep={cep}
-				numero={numero}
-				onChangeNumero={onChangeNumero}
-				apelido={apelido}
-				onChangeApelido={onChangeApelido}
+				onChangeInputApelido={onChangeInputApelido}
+				onChangeInputCep={onChangeInputCep}
+				onChangeInputComplemento={onChangeInputComplemento}
+				onChangeInputNumero={onChangeInputNumero}
 			/>
 			<PBanner>
 				<PBtnEditar
@@ -219,7 +211,7 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 													// Icon={adress.Icon}
 													key={i}
 													apelido={address.params.apelido ? address.params.apelido : ""}
-													onClickCard={() =>
+													onClickEditAddress={() =>
 														onClickCard(SafeFoodAddressMapper.ofEntity(address))
 													}
 													idAddress={address.params.id}

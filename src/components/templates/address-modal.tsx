@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FormEvent } from "react";
 import { Modal } from "../molecules/modal";
 import { Box } from "../atoms/box";
 import { Button } from "@/components/atoms/button";
@@ -11,31 +11,25 @@ export type AddressModalProps = {
 	toggleModal(): void;
 	isModalVisible: boolean;
 	address: SafeFoodAddressModel;
-	cep: string;
-	numero: string;
-	apelido: string;
-	onChangeNumero: React.FormEventHandler<HTMLInputElement> &
-		((e: React.FormEvent<HTMLInputElement>) => void);
-	onChangeApelido: React.FormEventHandler<HTMLInputElement> &
-		((e: React.FormEvent<HTMLInputElement>) => void);
-	onClickSaveNewAddress(address: SafeFoodCreateAddressRequest): void;
+	onClickSaveNewAddress?(address: SafeFoodCreateAddressRequest): void;
 	onClickUpdateAddress(address: SafeFoodAddressModel): void;
-	onChange: React.FormEventHandler<HTMLInputElement> &
-		((e: React.FormEvent<HTMLInputElement>) => void);
+	onChangeInputApelido(ev: FormEvent<HTMLInputElement>): void;
+	onChangeInputCep(ev: FormEvent<HTMLInputElement>): void;
+	onChangeInputNumero(ev: FormEvent<HTMLInputElement>): void;
+	onChangeInputComplemento(ev: FormEvent<HTMLInputElement>): void;
+
 };
 
 export const AddressModal: React.FC<AddressModalProps> = ({
 	isModalVisible,
 	toggleModal,
-	onClickSaveNewAddress,
-	onClickUpdateAddress,
 	address,
-	onChange,
-	cep,
-	numero,
-	onChangeNumero,
-	apelido,
-	onChangeApelido,
+   	onClickUpdateAddress,    
+	onClickSaveNewAddress,
+	onChangeInputApelido,
+	onChangeInputCep,
+	onChangeInputComplemento,
+	onChangeInputNumero
 }) => {
 	return (
 		<>
@@ -66,57 +60,57 @@ export const AddressModal: React.FC<AddressModalProps> = ({
 					<TextField
 						id={"apelido"}
 						label={"Apelido:"}
-						value={apelido}
-						onChange={onChangeApelido}
+						value={ address.apelido}
+						onChange={onChangeInputApelido}
 						required={false}
 					/>
 					<TextField
 						id={"cep"}
 						label={"Cep:"}
-						value={cep}
-						onChange={onChange}
+						value={address.cep}
+						onChange={onChangeInputCep}
 						required={false}
 					/>
 					<TextField
 						id={"logradouro"}
 						label={"Logradouro:"}
 						value={address.logradouro}
-						onChange={() => {}}
+						onChange={() => { }}
 						required={false}
 					/>
 					<TextField
 						id={"estado"}
 						label={"Estado:"}
 						value={address.estado}
-						onChange={() => {}}
+						onChange={() => { }}
 						required={false}
 					/>
 					<TextField
 						id={"bairro"}
 						label={"Bairro:"}
 						value={address.bairro}
-						onChange={() => {}}
+						onChange={() => { }}
 						required={false}
 					/>
 					<TextField
 						id={"cidade"}
 						label={"Cidade:"}
 						value={address.cidade}
-						onChange={() => {}}
+						onChange={() => { }}
 						required={false}
 					/>
 					<TextField
 						id={"numero"}
 						label={"Número:"}
-						value={numero}
-						onChange={onChangeNumero}
+						value={ address.numero}
+						onChange={onChangeInputNumero}
 						required={false}
 					/>
 					<TextField
 						id={"complemento"}
 						label={"Complemento:"}
 						value={address.complemento}
-						onChange={() => {}}
+						onChange={onChangeInputComplemento}
 						required={false}
 					/>
 					<Button
@@ -124,17 +118,15 @@ export const AddressModal: React.FC<AddressModalProps> = ({
 							if (address.id) {
 								onClickUpdateAddress({
 									...address,
-									numero,
-									apelido,
-									cep,
 								});
-							} else
+							} else{
+								if(!onClickSaveNewAddress){
+									return;
+								}
 								onClickSaveNewAddress({
 									...address,
-									numero,
-									apelido,
-									cep,
 								});
+							}
 						}}
 					>
 						{address.id ? "Atualizar" : "Adicionar"}

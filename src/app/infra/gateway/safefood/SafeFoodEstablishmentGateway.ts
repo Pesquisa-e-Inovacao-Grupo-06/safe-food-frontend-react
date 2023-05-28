@@ -1,9 +1,24 @@
 import { HttpClient } from "@/app/domain/protocols/HttpClient";
 import { SafeFoodCreateEstablishmentRequest, SafeFoodEstablishmentResponse, SafeFoodUpdateEstablishmentRequest } from "./models/SafeFoodEstablishment";
 import { Cache } from "@/app/domain/protocols/Cache";
-import {SafeFoodGenericDataResponse} from "./models/SafeFoodResponse";
+import { SafeFoodGenericDataResponse } from "./models/SafeFoodResponse";
+import { SafeFoodAddressModel, SafeFoodAddressResponse, SafeFoodCreateAddressRequest } from "./models/SafeFoodAddress";
 
 export class SafeFoodEstablishmentGateway {
+
+    async changeAddress(idEstablishment: number, modal: SafeFoodAddressModel): Promise<SafeFoodAddressResponse> {
+        const res = await this.http.execute<SafeFoodAddressResponse>({
+            url: `/estabelecimentos/${idEstablishment}/endereco`,
+            method: "PUT",
+            jwt: this.token,
+            body: modal,
+        })
+        if (!res.data) {
+            throw new Error("Erro ao tentar encontrar usuário")
+        }
+        return res.data;
+
+    }
     private token: string = '';
     constructor(private readonly http: HttpClient, private readonly cache: Cache) {
         this.token = cache.getItem('token') || '';
@@ -64,7 +79,7 @@ export class SafeFoodEstablishmentGateway {
         if (!res.data) {
             throw new Error("Erro ao tentar adicionar estabelecimento");
         }
-        if(data.file && res.data.data.id){
+        if (data.file && res.data.data.id) {
             let requestImage = new FormData();
             requestImage.append("image", data.file);
             const responseImage = await this.http.execute<SafeFoodGenericDataResponse<string>>({
@@ -73,9 +88,9 @@ export class SafeFoodEstablishmentGateway {
                 contentType: "multipart/form-data",
                 body: requestImage
             })
-            if(responseImage.data){
+            if (responseImage.data) {
                 res.data.data.imagem = responseImage.data.data;
-            }else{
+            } else {
                 throw new Error("Erro ao realizar requisicao de adicionar foto do consumidor")
             }
         }
