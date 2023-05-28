@@ -24,6 +24,7 @@ import ForgetPassWord from "./pages/forget-password";
 import { FindAddress } from "./app/domain/usecases/FindAddress";
 import { CepValidator } from "./app/util/validations/cep-validator";
 import { SafeFoodTypeProductGateway } from "./app/infra/gateway/safefood/SafeFoodTypeProductGateway";
+import { NewHome } from "./pages/new-home";
 
 type AppProps = {
 	cache: Cache;
@@ -142,6 +143,10 @@ export default function App({
 							<Route
 								path="/change-password"
 								element={<ForgetPassWord />}
+							/>
+							<Route
+								path="/new-home"
+								element={<NewHome />}
 							/>
 						</Routes>
 					</Router>
