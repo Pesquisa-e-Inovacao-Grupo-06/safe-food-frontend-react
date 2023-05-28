@@ -6,7 +6,7 @@ export const StyledFooterColumnContainer = styled.div`
 	/* position: relative; */
 `;
 
-export const StyledTitleFooterColumn = styled.p`
+export const StyledTitleFooterColumn = styled.div`
 	margin-bottom: 16px;
 	border-bottom: 4px solid orange;
 `;

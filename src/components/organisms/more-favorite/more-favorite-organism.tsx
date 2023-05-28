@@ -12,10 +12,8 @@ import { ImageAtom } from "@/components/atoms/img";
 import iconNoGluten from "../../../assets/icons8-no-gluten-50.png";
 import iconNoMeat from "../../../assets/icons8-no-meat-50.png";
 import iconNoSoy from "../../../assets/icons8-no-soy-30.png";
-import { useSafeFoodTheme } from "@/app/contexts/SafeFoodThemeProvider";
 import { Product } from "@/app/domain/entities/Product";
 import { useNavigate } from "react-router-dom";
-import { MoreFavoriteType } from "../../../app/domain/entities/MoreFavorite";
 
 export type MoreFavoriteProps = {
 	moreFavoriteType: Product;
@@ -25,7 +23,6 @@ export const MoreFavoriteOrganism: React.FC<MoreFavoriteProps> = ({
 	moreFavoriteType,
 }) => {
 	const navigate = useNavigate();
-	const colors = useSafeFoodTheme();
 	return (
 		<BoxMoreFavorite
 			display="flex"
@@ -55,7 +52,6 @@ export const MoreFavoriteOrganism: React.FC<MoreFavoriteProps> = ({
 				flexDirection="column"
 				alignItems="start"
 				justify="space-between"
-				// height="100%"
 				style={{ flexBasis: "50%" }}
 				height="320px"
 			>
@@ -76,7 +72,7 @@ export const MoreFavoriteOrganism: React.FC<MoreFavoriteProps> = ({
 						{moreFavoriteType.params.titulo}
 					</Subtitle>
 					<AvaliationStars
-						avegareRate={1}
+						avegareRate={moreFavoriteType.params.average ?? 0}
 						fixed
 					/>
 					<div
@@ -138,7 +134,6 @@ export const MoreFavoriteOrganism: React.FC<MoreFavoriteProps> = ({
 					icon={<TiMediaEjectOutline />}
 					iconAlign={"left"}
 				>
-					{/* TODO: PRECISA De informações do estabelecimento */}
 					{moreFavoriteType.params.estabelecimento.nomeEmpresa}
 				</TextIcon>
 				{moreFavoriteType.params.isDelivery && (
@@ -195,6 +190,7 @@ function IngredientsList(ingredients: string[]) {
 					padding: "3px",
 					height: "fit-content",
 				}}
+				key={"ingredientes" + i}
 			>
 				{ingredients[i]}
 			</StyledTextWithBorder>
@@ -204,6 +200,7 @@ function IngredientsList(ingredients: string[]) {
 				<Text
 					typeText="text-md"
 					style={{ alignSelf: "flex-end" }}
+					key={"ingredientesText" + i}
 				>
 					...
 				</Text>
