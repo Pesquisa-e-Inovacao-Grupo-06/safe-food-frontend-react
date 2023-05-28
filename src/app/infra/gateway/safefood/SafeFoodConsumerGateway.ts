@@ -65,8 +65,6 @@ export class SafeFoodConsumerGateway {
     }
 
     async create(data: SafeFoodCreateConsumerRequest): Promise<SafeFoodConsumerResponse> {
-        // TODO: Colocar data de nascimento apos backend arrumar
-        // TODO: Salvar imagem
         let body: {
             "nome": string,
             "email": string,
@@ -104,7 +102,6 @@ export class SafeFoodConsumerGateway {
         if (!res.data) {
             throw new Error("Erro ao realizar requisicao de adicionar consumidor")
         }
-
         if (data.file && res.data.data.id) {
             let requestImage = new FormData();
             requestImage.append("image", data.file);
