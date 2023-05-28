@@ -111,7 +111,7 @@ export const AdditionalSignUpConsumer: FC<{
 					width="120px"
 					name="additional-profile-photo-consumer"
 					id="additional-profile-photo-consumer"
-					onChangeFile={file =>
+					fileChange={file =>
 						setConsumer({
 							...consumer,
 							file,
@@ -197,7 +197,7 @@ export const AdditionalSignUpConsumer: FC<{
 							required={!!consumer.cep}
 							value={consumer.estado}
 							placeholder="SP"
-							onChange={() => {}}
+							onChange={() => { }}
 							title="Estado/UF de seu endereço"
 							type="string"
 							inputMode="text"
@@ -211,7 +211,7 @@ export const AdditionalSignUpConsumer: FC<{
 							required={!!consumer.cep}
 							id="address-bairro"
 							value={consumer.bairro}
-							onChange={() => {}}
+							onChange={() => { }}
 							title="Digite seu bairro"
 							type="string"
 							disabled
@@ -225,7 +225,7 @@ export const AdditionalSignUpConsumer: FC<{
 							disabled
 							required={!!consumer.cep}
 							value={consumer.cidade}
-							onChange={() => {}}
+							onChange={() => { }}
 							title="Digite sua cidade"
 							type="string"
 							inputMode="text"
@@ -240,7 +240,7 @@ export const AdditionalSignUpConsumer: FC<{
 							disabled
 							required={!!consumer.cep}
 							value={consumer.logradouro}
-							onChange={() => {}}
+							onChange={() => { }}
 							title="Logradouro do endereço"
 						/>
 					</Column>

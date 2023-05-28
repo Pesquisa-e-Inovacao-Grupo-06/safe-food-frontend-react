@@ -10,7 +10,7 @@ import { Cache } from "@/app/domain/protocols/Cache";
 import { Restriction } from "@/app/domain/entities/Restriction";
 import { Product } from "@/app/domain/entities/Product";
 import { TypeProduct } from "@/app/domain/entities/TypeProduct";
-import { SafeFoodUsuarioModel } from "@/app/infra/gateway/safefood/models/SafeFoodUser";
+import { SafeFoodLoginResponse, SafeFoodUsuarioModel } from "@/app/infra/gateway/safefood/models/SafeFoodUser";
 import { SafeFoodCreateProductRequest } from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
 import { SafeFoodProductGateway } from "@/app/infra/gateway/safefood/SafeFoodProductGateway";
 import { SafeFoodProductMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodProductMapper";
@@ -80,6 +80,7 @@ function HomeEstablishmentTemplate({
 		setModalRegister(!modalRegister);
 	}
 
+
 	return (
 		<Layout
 			active={modalRegister}
@@ -96,8 +97,7 @@ function HomeEstablishmentTemplate({
 			auxObjEdit={auxObjEdit}
 			user={user}
 			btnAdd={auxBtnAdd}
-			renderListProduct={renderListProduct}
-		>
+			renderListProduct={renderListProduct} typeUser={user.tipoUsuario}		>
 			<ContainerHomeEstablishment>
 				<div className="header-home-establishment">
 					<Box className="container-home-establishment">
@@ -143,9 +143,9 @@ function HomeEstablishmentTemplate({
 							{typeProduct?.map(item => (
 								<StyledButton
 									onClick={() =>
-										item.params.nome == undefined
+										item.nome == undefined
 											? handleFilter("")
-											: handleFilter(item.params.nome)
+											: handleFilter(item.nome)
 									}
 									height="fit-content"
 									width="fit-content"
@@ -156,9 +156,9 @@ function HomeEstablishmentTemplate({
 										width: "fit-content",
 										maxWidth: "50px",
 									}}
-									key={item.params.id}
+									key={item.id}
 								>
-									{item.params.nome}
+									{item.nome}
 								</StyledButton>
 							))}
 						</Box>

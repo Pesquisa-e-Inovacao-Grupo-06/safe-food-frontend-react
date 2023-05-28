@@ -117,11 +117,11 @@ function RegisterProduct({
 	const objEditRestrictions = () => {
 		productEdit?.params.restricoes != undefined
 			? productEdit?.params.restricoes.map(item => {
-					var aux = item.restricao;
-					restrictionEdit?.filter(item => {
-						item.params.restricao == aux ? (item.params.isActive = true) : "";
-					});
-			  })
+				var aux = item.restricao;
+				restrictionEdit?.filter(item => {
+					item.params.restricao == aux ? (item.params.isActive = true) : "";
+				});
+			})
 			: [];
 
 		// productEdit?.params.restricoes != undefined
@@ -310,8 +310,8 @@ function RegisterProduct({
 		const newRestricitons: number[] = [];
 		restrictionEdit != undefined
 			? restrictionEdit.filter(item => {
-					item.params.isActive ? newRestricitons.push(item.params.id) : "";
-			  })
+				item.params.isActive ? newRestricitons.push(item.params.id) : "";
+			})
 			: restrictionEdit;
 		setRestrictions(newRestricitons);
 		setAuxFunction("auxFucntion");
@@ -359,12 +359,12 @@ function RegisterProduct({
 								{typeProduct?.map(item => (
 									<StyledButton
 										onClick={() =>
-											item.params.id == undefined
+											item.id == undefined
 												? setCategoria(0)
-												: (setCategoria(item.params.id),
-												  setAuxCategoria(
-														item.params.nome != undefined ? item.params.nome : ""
-												  ))
+												: (setCategoria(item.id),
+													setAuxCategoria(
+														item.nome != undefined ? item.nome : ""
+													))
 										}
 										height="fit-content"
 										width="fit-content"
@@ -375,9 +375,9 @@ function RegisterProduct({
 											width: "fit-content",
 											maxWidth: "50px",
 										}}
-										key={item.params.id}
+										key={item.id}
 									>
-										{item.params.nome}
+										{item.nome}
 									</StyledButton>
 								))}
 							</Box>

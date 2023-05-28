@@ -385,7 +385,7 @@ function ProfileConsumer({
 			}}
 			isModalVisible={isModalVisible}
 			onClickOpenModalAddress={() => setIsModalVisible(true)}
-			onChangeFile={file => {
+			fileChange={file => {
 				setImageProfile(file);
 			}}
 			onClickCard={handleAddressCardClick}

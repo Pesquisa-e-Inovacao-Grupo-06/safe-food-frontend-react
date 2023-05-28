@@ -1,6 +1,6 @@
 import { Product } from "@/app/domain/entities/Product";
 import { Restriction } from "@/app/domain/entities/Restriction";
-import { SafeFoodTypeProductParams, TypeProduct } from "@/app/domain/entities/TypeProduct";
+import { TypeProduct } from "@/app/domain/entities/TypeProduct";
 import { Cache } from "@/app/domain/protocols/Cache";
 import { SafeFoodProductGateway } from "@/app/infra/gateway/safefood/SafeFoodProductGateway";
 import { SafeFoodTypeProductGateway } from "@/app/infra/gateway/safefood/SafeFoodTypeProductGateway";
@@ -42,9 +42,9 @@ function HomeConsumer({
 			: {};
 
 	const typeProductCache: TypeProduct[] =
-			cache.getItem("typeProducts") !== null
-				? JSON.parse(cache.getItem("typeProducts")!) as TypeProduct[]
-				: [];
+		cache.getItem("typeProducts") !== null
+			? JSON.parse(cache.getItem("typeProducts")!) as TypeProduct[]
+			: [];
 
 	const [userRestrictions, setUserRestrictions] = useState<
 		SafeFoodRestrictionModel[]
@@ -91,15 +91,15 @@ function HomeConsumer({
 				cep: "09572660",
 				direction: direction,
 				distanceRadio: 10,
-				itensPorPagina: selectItems ,
+				itensPorPagina: selectItems,
 				numero: undefined,
 				page: pageNumberHandle ?? 1, // Utilize o valor atual do pageNumber
 				pesquisa: undefined,
-				select: selectOrder ??"TODOS"
+				select: selectOrder ?? "TODOS"
 			});
 			setProducts(fetchedProducts.content.map(SafeFoodProductMapper.of));
 			setTotalPage(fetchedProducts.totalPages);
-		} catch (error) {}
+		} catch (error) { }
 	};
 
 	const onClickApplication = async () => {
@@ -115,12 +115,12 @@ function HomeConsumer({
 				page: 1,
 				direction: direction,
 				itensPorPagina: selectItems,
-				select: selectOrder??"TODOS"
+				select: selectOrder ?? "TODOS"
 			};
 			const fetchedProductsFilter: SafeFoodProductsResponse =
 				await productGateway.productFilter(filterProducts);
-				console.log(fetchedProductsFilter);
-			if(fetchedProductsFilter.size == 0){
+			console.log(fetchedProductsFilter);
+			if (fetchedProductsFilter.size == 0) {
 				setProducts([]);
 				setInitializa(true);
 				return;
@@ -143,9 +143,9 @@ function HomeConsumer({
 		}
 	}, [pageNumber]);
 
-	useEffect(()=>{
+	useEffect(() => {
 
-	},[typeProductCache])
+	}, [typeProductCache])
 	const [checkedRestrictions, setCheckedRestrictions] = useState<string[]>([]);
 	const [checkedTypeProducts, setCheckedTypeProducts] = useState<string[]>([]);
 	const [checkedTypeRestrictions, setCheckedTypeRestrictions] = useState<
@@ -177,8 +177,8 @@ function HomeConsumer({
 		.filter(item => item.name !== undefined)
 		.map(item => ({ name: item.name as string, id: item.id }));
 
-		const dropdownTypeProducts = typeProducts
-			.map(item => ({ name: item.nome, id: item.id }))
+	const dropdownTypeProducts = typeProducts
+		.map(item => ({ name: item.nome, id: item.id }))
 
 	const dropdownTypeRestrictions = restrictions
 		.map(item => ({
@@ -208,30 +208,30 @@ function HomeConsumer({
 
 	const checkboxListTypeProducts: CheckBoxEntity[] = dropdownTypeProducts.map(item => {
 		return createCheckBoxEntity(item.name, item.id!);
-	  });
-	  
+	});
+
 	const checkboxListTypeRestrictions: CheckBoxEntity[] =
 		dropdownTypeRestrictions.map(item =>
 			createCheckBoxEntity(item.name, item.id)
 		);
-		const handleItemsChange = (value: Option) => {
-			const res = value as Option;
-			setSelectItems(parseInt(res.value));
-		};
-		  
-		const handleOrderChange = (value: Option) => {
-		setDirection( value.direction)
+	const handleItemsChange = (value: Option) => {
+		const res = value as Option;
+		setSelectItems(parseInt(res.value));
+	};
+
+	const handleOrderChange = (value: Option) => {
+		setDirection(value.direction)
 		const order = removeDescSuffix(value.value);
 		setSelectOrder(order as OrderSelect);
-	  };
+	};
 
-		  
-		  useEffect(() => {
-		  }, [selectItems]);
-		  
-		  useEffect(() => {
-		  }, [selectOrder]);
-		  
+
+	useEffect(() => {
+	}, [selectItems]);
+
+	useEffect(() => {
+	}, [selectOrder]);
+
 	if (totalPage > 0) {
 		return (
 			<HomeConsumerTemplate
@@ -277,10 +277,10 @@ function HomeConsumer({
 				onClickApplication={onClickApplication}
 				cache={cache}
 				onPageChange={handlePageChange}
-				totalPagesProductFilter={totalPage} 
-				changeOrder={handleOrderChange} 
+				totalPagesProductFilter={totalPage}
+				changeOrder={handleOrderChange}
 				changeItens={handleItemsChange}
-							/>
+			/>
 		);
 	} else return null;
 }

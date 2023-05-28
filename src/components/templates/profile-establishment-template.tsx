@@ -81,7 +81,7 @@ export const ProfileEstablishmentTemplate: React.FC<
 								width="125px"
 								justify="start"
 								urlDefault={urlDefault}
-								// onChangeFile={onChangeFile}
+								// fileChange={fileChange}
 								isEditable={isEditable}
 							/>
 						</PContainerProfilePhoto>

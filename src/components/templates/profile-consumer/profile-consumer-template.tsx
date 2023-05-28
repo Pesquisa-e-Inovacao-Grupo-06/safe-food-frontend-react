@@ -72,7 +72,7 @@ export type ProfileProps = {
 	onClickSaveNewAddress(address: SafeFoodCreateAddressRequest): void;
 	onClickUpdateAddress(address: SafeFoodAddressModel): void;
 	onClickOpenModalAddress(): void;
-	onChangeFile(file: File): void;
+	fileChange?(file: File): void;
 	cache: Cache;
 	onClickCard: (address: SafeFoodAddressModel) => void;
 	onClickDeleteAddress: (id: number) => void;
@@ -106,7 +106,7 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 	isModalVisible,
 	onClickOpenModalAddress,
 	consumer,
-	onChangeFile,
+	fileChange,
 	onClickCard,
 	cache,
 	onClickDeleteAddress,
@@ -150,7 +150,7 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 						width="125px"
 						justify="start"
 						urlDefault={urlDefault}
-						onChangeFile={onChangeFile}
+						fileChange={fileChange}
 						isEditable={isEditable}
 					/>
 				</PContainerProfilePhoto>

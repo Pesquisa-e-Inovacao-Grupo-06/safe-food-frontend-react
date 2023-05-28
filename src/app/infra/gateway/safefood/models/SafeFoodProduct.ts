@@ -24,7 +24,7 @@ export type SafeFoodProductModel = {
 	isRetireNoLocal: boolean;
 	isFreteGratis: boolean;
 	tempoEsperaMedio: string;
-	categoria: SafeFoodCategoryProductModel;
+	categoria: TypeProductModal;
 	restricoes: SafeFoodRestrictionModel[];
 	avaliacoes: SafeFoodAvaliationModel[];
 	tipoProduto: string;
@@ -38,8 +38,8 @@ export type SafeFoodAvaliationModel = {
 	consumidor: SafeFoodConsumerModel;
 };
 
-export type SafeFoodCategoryProductModel = {
-	id: string;
+export type TypeProductModal = {
+	id: number;
 	nome: string;
 	descricao: string;
 };
