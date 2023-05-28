@@ -51,18 +51,17 @@ const HeaderConsumer: React.FC<HeaderConsumerProps> = ({ cache, products }) => {
 						toggle={toggleSidebar}
 					/>
 					<LogoAtom />
-					{consumer.enderecos && (
+
 						<DropDownLocalInfo
-							address={consumer.enderecos.map(SafeFoodAddressMapper.of)}
+							address={consumer.enderecos ? consumer.enderecos.length > 0 ? consumer.enderecos.map(SafeFoodAddressMapper.of) : [] : []}
 						/>
-					)}
 					<SearchBar products={products ?? []} />
 					<Box className="container-user-info-header-consumer">
 						<DropDownSubMenu
 							cache={cache}
 							userName={user.usuario.nome ?? ""}
 						>
-							<Text cursor>{user.usuario.nome ?? ""}</Text>
+							<Text cursor={true}>{user.usuario.nome ?? ""}</Text>
 							<ImageAtom src={consumer.imagem} />
 							<AiFillCaretDown
 								fill="orange"

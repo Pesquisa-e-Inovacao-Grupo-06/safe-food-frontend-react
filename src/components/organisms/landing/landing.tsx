@@ -59,7 +59,7 @@ export const Landing: React.FC<LandingProps> = ({
 					<StyledColumn>
 						<ImageLanding
 							src={bannerHome}
-							cursor={false}
+							cursor={"false"}
 							id="img-landing"
 						/>
 					</StyledColumn>

@@ -47,7 +47,7 @@ export const MoreFavoriteOrganism: React.FC<MoreFavoriteProps> = ({
 					maxHeight={320}
 					objectFit="cover"
 					borderRadius="lg"
-					cursor
+					cursor={"true"}
 				/>
 			</div>
 			<Box
@@ -89,15 +89,15 @@ export const MoreFavoriteOrganism: React.FC<MoreFavoriteProps> = ({
 					>
 						<ImageAtom
 							src={iconNoGluten}
-							cursor
+							cursor={"true"}
 						/>
 						<ImageAtom
 							src={iconNoMeat}
-							cursor
+							cursor={"true"}
 						/>
 						<ImageAtom
 							src={iconNoSoy}
-							cursor
+							cursor={"true"}
 						/>
 					</div>
 				</Box>
