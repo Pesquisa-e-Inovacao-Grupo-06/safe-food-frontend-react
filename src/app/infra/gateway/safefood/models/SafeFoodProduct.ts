@@ -79,6 +79,8 @@ export type SafeFoodPage<T> = {
     empty: boolean;
     content: T[];
 }
+export type OrderSelect = "TODOS" | "QTD_AVALIACOES" | "LANCAMENTOS" | "PRECO"
+export type directionSelect = "asc" | "desc";
 export type SafeFoodProductFilterRequest = {
     ids_restricoes?: string[];
     ids_categorias?: string[];
@@ -87,10 +89,11 @@ export type SafeFoodProductFilterRequest = {
     page?: number;
     itensPorPagina?: number;
     sort?: SafeFoodSort;
-    direction?: string;
+    direction?: directionSelect;
     cep?: string;
     numero?: string;
     distanceRadio?: number;
+    select: OrderSelect;
     // totalPages: number;
     // totalElements: number;
     // last: boolean;

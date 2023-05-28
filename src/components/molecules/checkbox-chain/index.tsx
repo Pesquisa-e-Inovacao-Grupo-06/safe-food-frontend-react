@@ -47,12 +47,7 @@ const CheckboxChain: React.FC<CheckboxChainProps> = ({
 					messageAlert={false}
 				/>
 			))}
-			<p>
-				Checkboxes marcados:{" "}
-				{checkedCheckboxes.map(checkbox => (
-					<span key={checkbox}>{checkbox}, </span>
-				))}
-			</p>
+
 		</div>
 	);
 };
