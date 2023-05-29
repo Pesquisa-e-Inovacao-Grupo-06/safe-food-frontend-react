@@ -1,21 +1,21 @@
-import { MdOutlineFileDownload, MdOutlineCloudDownload } from "react-icons/md";
-import AddresCard from "../molecules/address-card";
-import Layout from "../molecules/sidebar-establishment/layout";
-import { Subtitle } from "@/styles/components/text/Subtitle";
-import styled from "styled-components";
-import { StyledButton } from "../atoms/button/styles";
-import { ButtonIcon } from "../molecules/button/button-icon";
-import { ProfilePhotoUploadWithPreview } from "../molecules/upload-profile-photo";
-import { Box } from "../atoms/box";
-import banner from "../../assets/food-favorite.png";
-import { Form } from "../molecules/form";
-import { InputPropsComponent } from "../atoms/input";
-import { Button } from "../atoms/button";
-import { Alert, AlertType } from "../atoms/alert";
-import { SafeFoodAddressModel } from "@/app/infra/gateway/safefood/models/SafeFoodAddress";
-import { useState } from "react";
-import { Cache } from "@/app/domain/protocols/Cache";
-import { SafeFoodLoginResponse } from "@/app/infra/gateway/safefood/models/SafeFoodUser";
+import { MdOutlineFileDownload, MdOutlineCloudDownload } from 'react-icons/md';
+import AddresCard from '../molecules/address-card';
+import Layout from '../molecules/sidebar-establishment/layout';
+import { Subtitle } from '@/styles/components/text/Subtitle';
+import styled from 'styled-components';
+import { StyledButton } from '../atoms/button/styles';
+import { ButtonIcon } from '../molecules/button/button-icon';
+import { ProfilePhotoUploadWithPreview } from '../molecules/upload-profile-photo';
+import { Box } from '../atoms/box';
+import banner from '../../assets/food-favorite.png';
+import { Form } from '../molecules/form';
+import { InputPropsComponent } from '../atoms/input';
+import { Button } from '../atoms/button';
+import { Alert, AlertType } from '../atoms/alert';
+import { SafeFoodAddressModel } from '@/app/infra/gateway/safefood/models/SafeFoodAddress';
+import { useState } from 'react';
+import { Cache } from '@/app/domain/protocols/Cache';
+import { SafeFoodLoginResponse } from '@/app/infra/gateway/safefood/models/SafeFoodUser';
 
 export type ProfileEstablishmentTemplateProps = {
 	urlDefault: string | null | undefined;
@@ -51,193 +51,195 @@ export const ProfileEstablishmentTemplate: React.FC<
 	onClickCard,
 	onClickDeleteAddress,
 }) => {
-		const user: SafeFoodLoginResponse =
-			cache.getItem("user") !== null ? JSON.parse(cache.getItem("user")!) : {};
+	const user: SafeFoodLoginResponse =
+		cache.getItem('user') !== null ? JSON.parse(cache.getItem('user')!) : {};
 
-		const [isEditable, setIsEditable] = useState<boolean>(false);
-		return (
-			<>
-				<Layout
-					cache={cache}
-					activeRegisterProduct={false} typeUser={user.usuario.tipoUsuario}	>
-					<PBanner>
-						<PBtnEditar
-							height="fit-content"
-							width="fit-content"
-							buttonStyle="outline"
-							style={{
-								// cursor: isEditable ? "cursor" : "not-allowed",
-								display: isEditable ? "flex" : "none",
-							}}
-						>
-							Editar imagem
-						</PBtnEditar>
-					</PBanner>
-					<PContainer>
-						<PContainerProfilePhoto>
-							<PProfilePhoto
-								name="profile"
-								id="p1"
-								width="125px"
-								justify="start"
-								urlDefault={urlDefault}
-								// fileChange={fileChange}
-								isEditable={isEditable}
-							/>
-						</PContainerProfilePhoto>
-						<PContainerSub>
-							<PContainerInfo>
-								<Box width="fit-content">
-									{isAlertVisible ? (
-										<Alert type={typeAlert ?? "info"}>{textAlert}</Alert>
-									) : null}
-								</Box>
-								<PDivider />
-								<PTitle>Administrador</PTitle>
-								<div className="form-inputs-adm">
-									<Form listOfComponent={listOfComponentAdministration} />
-									<ul>
-										<li>
-											<span>Senha:</span>
-											<StyledButton
-												height="fit-content"
-												width="fit-content"
-												buttonStyle="filled"
-												style={{
-													fontSize: "16px",
-													maxHeight: "32px",
-													width: "fit-content",
-												}}
-												onClick={onClickChangePassword}
-												disabled={!isEditable}
-											>
-												Alterar Senha
-											</StyledButton>
-										</li>
-									</ul>
-								</div>
-								<PDivider />
-								<PTitle>Empresa</PTitle>
-								<div className="form-inputs-empresa">
-									<Form listOfComponent={listOfComponentEstablishment} />
-								</div>
-								<PDivider />
-								<PContainerInfo3>
-									<PTitle>Endereço do estabelecimento</PTitle>
-									<PContainerAddressCard>
-										<AddresCard
-											bodyText={`
+	const [isEditable, setIsEditable] = useState<boolean>(false);
+	return (
+		<>
+			<Layout
+				cache={cache}
+				activeRegisterProduct={false}
+				typeUser={user.usuario.tipoUsuario}
+			>
+				<PBanner>
+					<PBtnEditar
+						height="fit-content"
+						width="fit-content"
+						buttonStyle="outline"
+						style={{
+							// cursor: isEditable ? "cursor" : "not-allowed",
+							display: isEditable ? 'flex' : 'none',
+						}}
+					>
+						Editar imagem
+					</PBtnEditar>
+				</PBanner>
+				<PContainer>
+					<PContainerProfilePhoto>
+						<PProfilePhoto
+							name="profile"
+							id="p1"
+							width="125px"
+							justify="start"
+							urlDefault={urlDefault}
+							// fileChange={fileChange}
+							isEditable={isEditable}
+						/>
+					</PContainerProfilePhoto>
+					<PContainerSub>
+						<PContainerInfo>
+							<Box width="fit-content">
+								{isAlertVisible ? (
+									<Alert type={typeAlert ?? 'info'}>{textAlert}</Alert>
+								) : null}
+							</Box>
+							<PDivider />
+							<PTitle>Administrador</PTitle>
+							<div className="form-inputs-adm">
+								<Form listOfComponent={listOfComponentAdministration} />
+								<ul>
+									<li>
+										<span>Senha:</span>
+										<StyledButton
+											height="fit-content"
+											width="fit-content"
+											buttonStyle="filled"
+											style={{
+												fontSize: '16px',
+												maxHeight: '32px',
+												width: 'fit-content',
+											}}
+											onClick={onClickChangePassword}
+											disabled={!isEditable}
+										>
+											Alterar Senha
+										</StyledButton>
+									</li>
+								</ul>
+							</div>
+							<PDivider />
+							<PTitle>Empresa</PTitle>
+							<div className="form-inputs-empresa">
+								<Form listOfComponent={listOfComponentEstablishment} />
+							</div>
+							<PDivider />
+							<PContainerInfo3>
+								<PTitle>Endereço do estabelecimento</PTitle>
+								<PContainerAddressCard>
+									<AddresCard
+										bodyText={`
 										${address.bairro},
 										${address.numero},
 										${address.cidade} -
 										${address.estado},
 										${address.cep}
 										`}
-											headerText={address.apelido}
-											key={address.apelido}
-											apelido={address.apelido ? address.apelido : ""}
-											onClickCard={() => onClickCard("")}
-											idAddress={address.id}
-											onClickDeleteAddress={onClickDeleteAddress} // Icon={adress.Icon}
-										/>
-									</PContainerAddressCard>
-								</PContainerInfo3>
-								<PDivider />
-								<PTitle>Importações</PTitle>
-								<Box
-									display="flex"
-									justify="left"
-									gap="20px"
+										headerText={address.apelido}
+										key={address.apelido}
+										apelido={address.apelido ? address.apelido : ''}
+										onClickCard={() => onClickCard('')}
+										idAddress={address.id}
+										onClickDeleteAddress={onClickDeleteAddress} // Icon={adress.Icon}
+									/>
+								</PContainerAddressCard>
+							</PContainerInfo3>
+							<PDivider />
+							<PTitle>Importações</PTitle>
+							<Box
+								display="flex"
+								justify="left"
+								gap="20px"
+							>
+								<PBtnBaixar
+									icon={<MdOutlineFileDownload />}
+									alignIcon="right"
+									buttonStyle="filled"
+									style={{
+										height: 45,
+									}}
+									onClick={() => {
+										window.location.href =
+											import.meta.env.BACKEND_URL + '/restricoes/download';
+									}}
 								>
-									<PBtnBaixar
-										icon={<MdOutlineFileDownload />}
-										alignIcon="right"
-										buttonStyle="filled"
-										style={{
-											height: 45,
-										}}
-										onClick={() => {
-											window.location.href =
-												import.meta.env.BACKEND_URL + "/restricoes/download";
-										}}
-									>
-										<span>Baixar restrições em Excel</span>
-									</PBtnBaixar>
-									<PBtnBaixar
-										icon={<MdOutlineFileDownload />}
-										alignIcon="right"
-										buttonStyle="filled"
-										style={{
-											height: 45,
-										}}
-									>
-										<span>Baixar template de produtos</span>
-									</PBtnBaixar>
-								</Box>
-								<PBtnImportar
-									icon={<MdOutlineCloudDownload />}
+									<span>Baixar restrições em Excel</span>
+								</PBtnBaixar>
+								<PBtnBaixar
+									icon={<MdOutlineFileDownload />}
 									alignIcon="right"
 									buttonStyle="filled"
 									style={{
 										height: 45,
 									}}
 								>
-									<span>Importar Excel preenchido</span>
-								</PBtnImportar>
-								<Box style={{ marginTop: "16px" }}>
-									Baixe o nosso template para excel e o preencha com infomações de seus
-									produtos, assim o cadastro fica mais fácil quando em grandes
-									quantidades. Logo após preencher é apenas nos importar o excel
-									preenchido novamente.
-									<b> OBS: apenas aceitamos no nosso formato de Excel.</b>
-								</Box>
-							</PContainerInfo>
-							{/* TODO: CHANGE BUTTON TO COMPONENT ATOM AND EXPORT FUNCTION ONCLICK */}
-							<PContainerBtn>
-								{isEditable ? (
-									<>
-										<Button
-											height="45px"
-											width="fit-content"
-											buttonStyle="outline"
-											disabled={isSaveButtonActive}
-											onClick={() => setIsEditable(false)}
-										>
-											Cancelar
-										</Button>
-										<Button
-											height="45px"
-											width="fit-content"
-											buttonStyle="filled"
-											disabled={isSaveButtonActive}
-											onClick={onClickSave}
-											loading={isLoading}
-										>
-											Salvar
-										</Button>
-									</>
-								) : (
+									<span>Baixar template de produtos</span>
+								</PBtnBaixar>
+							</Box>
+							<PBtnImportar
+								icon={<MdOutlineCloudDownload />}
+								alignIcon="right"
+								buttonStyle="filled"
+								style={{
+									height: 45,
+								}}
+							>
+								<span>Importar Excel preenchido</span>
+							</PBtnImportar>
+							<Box style={{ marginTop: '16px' }}>
+								Baixe o nosso template para excel e o preencha com infomações de
+								seus produtos, assim o cadastro fica mais fácil quando em
+								grandes quantidades. Logo após preencher é apenas nos importar o
+								excel preenchido novamente.
+								<b> OBS: apenas aceitamos no nosso formato de Excel.</b>
+							</Box>
+						</PContainerInfo>
+						{/* TODO: CHANGE BUTTON TO COMPONENT ATOM AND EXPORT FUNCTION ONCLICK */}
+						<PContainerBtn>
+							{isEditable ? (
+								<>
+									<Button
+										height="45px"
+										width="fit-content"
+										buttonStyle="outline"
+										disabled={isSaveButtonActive}
+										onClick={() => setIsEditable(false)}
+									>
+										Cancelar
+									</Button>
 									<Button
 										height="45px"
 										width="fit-content"
 										buttonStyle="filled"
-										color="green"
-										disabled={isEditable}
+										disabled={isSaveButtonActive}
+										onClick={onClickSave}
 										loading={isLoading}
-										onClick={() => {
-											setIsEditable(true);
-										}}
 									>
-										Editar
+										Salvar
 									</Button>
-								)}
-							</PContainerBtn>
-						</PContainerSub>
-					</PContainer>
-				</Layout>
-			</>
-		);
-	};
+								</>
+							) : (
+								<Button
+									height="45px"
+									width="fit-content"
+									buttonStyle="filled"
+									color="green"
+									disabled={isEditable}
+									loading={isLoading}
+									onClick={() => {
+										setIsEditable(true);
+									}}
+								>
+									Editar
+								</Button>
+							)}
+						</PContainerBtn>
+					</PContainerSub>
+				</PContainer>
+			</Layout>
+		</>
+	);
+};
 
 const PBanner = styled(Box)`
 	display: flex;
@@ -275,7 +277,7 @@ const PContainer = styled.div`
 `;
 
 const PContainerProfilePhoto = styled.div`
-	position: relative;
+	/* position: relative; */
 	margin-top: -45px;
 	margin-left: -80px;
 
@@ -296,9 +298,9 @@ const PProfilePhoto = styled(ProfilePhotoUploadWithPreview)`
 	opacity: 100%;
 	border: 5px solid
 		${p =>
-		p.theme.name == "light"
-			? p.theme.colors.light_gray[200]
-			: p.theme.colors.dark_gray[600]};
+			p.theme.name == 'light'
+				? p.theme.colors.light_gray[200]
+				: p.theme.colors.dark_gray[600]};
 
 	@media (max-width: 800px) {
 		margin-left: auto;
@@ -353,8 +355,8 @@ const PContainerInfo = styled.div`
 
 	input {
 		background: ${p =>
-		p.theme.name == "light" ? "" : p.theme.colors.dark_gray[400]};
-		opacity: 100%;
+			p.theme.name == 'light' ? '' : p.theme.colors.dark_gray[400]};
+		opacity: 100% !important;
 	}
 
 	.last-input {
@@ -373,8 +375,9 @@ const PContainerInfo = styled.div`
 
 	.form-inputs-adm {
 		button {
-			opacity: 100%;
+			opacity: 100% !important;
 			width: fit-content;
+			filter: none !important;
 		}
 		@media (max-width: 600px) {
 			button {
@@ -388,7 +391,7 @@ const PDivider = styled.div`
 	height: 1px;
 	width: 100%;
 	background: ${p =>
-		p.theme.name == "light"
+		p.theme.name == 'light'
 			? p.theme.colors.light_gray[600]
 			: p.theme.colors.dark_gray[400]};
 	margin: 24px 0;
@@ -484,10 +487,10 @@ const PBtnCancelar = styled(StyledButton)`
 	min-width: 90px;
 	padding: 0%;
 	color: ${p =>
-		p.theme.name == "light"
+		p.theme.name == 'light'
 			? p.theme.colors.dark_gray[800]
 			: p.theme.colors.light_gray[200]};
 `;
 function setState(): [any, any] {
-	throw new Error("Function not implemented.");
+	throw new Error('Function not implemented.');
 }

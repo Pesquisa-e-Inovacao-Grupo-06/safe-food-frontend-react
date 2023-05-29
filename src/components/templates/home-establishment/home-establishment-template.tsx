@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Box } from "@/components/atoms/box";
 import { Text } from "@/components/atoms/text";
-import imgTeste from "../../../assets/food-favorite.png";
 import { StyledButton } from "@/components/atoms/button/styles";
 import { Cache } from "@/app/domain/protocols/Cache";
 import { Restriction } from "@/app/domain/entities/Restriction";
