@@ -82,7 +82,9 @@ function HomeEstablishment({
 
 				setProducts(fetchedProductsById.data.map(SafeFoodProductMapper.of));
 				setTypeProducts(fetchedTypeProducts.map(SafeFoodTypeProductMapper.of));
-			} catch (error) {}
+			} catch (error) {
+				console.log(error);
+			}
 		}
 		fetchProducts();
 	}, [renderListProduct]);

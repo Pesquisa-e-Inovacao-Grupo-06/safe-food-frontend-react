@@ -9,6 +9,32 @@ interface ProgressBarProps {
 	index: number;
 }
 
+
+const niveisSatisfacao = new Map<number, { text: string, class: string }>();
+
+niveisSatisfacao.set(0, { text: "Inválido", class: "gray" })
+niveisSatisfacao.set(1, { text: "Muito insatisfeito", class: "red" })
+niveisSatisfacao.set(2, { text: "Insatisfeito", class: "orange" })
+niveisSatisfacao.set(3, { text: "Neutro", class: "yellow" })
+niveisSatisfacao.set(4, { text: "Satisfeito", class: "light-green" })
+niveisSatisfacao.set(5, { text: "Muito satisfeito", class: "green" })
+
+
+function obterNivelSatisfacao(numero: number): { text: string, class: string } {
+	if (numero >= 1 && numero <= 1.9) {
+		return niveisSatisfacao.get(1)!;
+	} else if (numero >= 2 && numero <= 2.9) {
+		return niveisSatisfacao.get(2)!;
+	} else if (numero >= 3 && numero <= 3.9) {
+		return niveisSatisfacao.get(3)!;
+	} else if (numero >= 4 && numero <= 4.9) {
+		return niveisSatisfacao.get(4)!;
+	} else if (numero >= 5) {
+		return niveisSatisfacao.get(5)!;
+	} else {
+		return niveisSatisfacao.get(0)!;
+	}
+}
 const ProgressBarWrapper: React.FC<ProgressBarProps> = ({ value, index }) => {
 	return (
 		<div className={`progress-bar-${index}`}>
@@ -21,15 +47,13 @@ const ProgressBarWrapper: React.FC<ProgressBarProps> = ({ value, index }) => {
 export interface AvaliationProgressBarProps {
 	values?: number[];
 	average?: number;
-	label?: string;
 	reviews?: string;
 }
 
 export const AvaliationProgressBar: React.FC<AvaliationProgressBarProps> = ({
-	values = [10, 2, 15, 0, 9],
+	values = [0, 0, 0, 0, 0],
 	average = 0,
-	label = "Sem avaliação",
-	reviews = "",
+	reviews,
 }) => {
 	let calcMetricsValue = values.reduce((total, value) => value + total);
 
@@ -40,21 +64,27 @@ export const AvaliationProgressBar: React.FC<AvaliationProgressBarProps> = ({
 					<>
 						<ProgressBarWrapper
 							key={index}
-							value={(value / calcMetricsValue) * 100}
+							value={value == 0 ? 0 : (value / calcMetricsValue) * 100}
 							index={index + 1}
 						/>
+						{console.log(index)}
+						{console.log(calcMetricsValue)}
+						{console.log(value)}
+						{console.log((value / calcMetricsValue) * 100)}
 					</>
 				))}
 			</div>
-			<div className="container-circulo-value">
-				<div className="circulo-value">
-					<Text>{average.toFixed(1)}</Text>
+			<div className="container-circulo-value ">
+				<div className={"circulo-value " + obterNivelSatisfacao(calcMetricsValue).class}>
+
+					<Text>{average.toFixed(1) === "NaN" ? "0.0" : average.toFixed(1)}</Text>
 				</div>
 				<Subtitle>
-					<h3>{label}</h3>
-					<span>{reviews} reviews</span>
+					<h3>{obterNivelSatisfacao(calcMetricsValue).text}</h3>
+
+					<span>{reviews ?? 0} reviews</span>
 				</Subtitle>
 			</div>
-		</Box>
+		</Box >
 	);
 };

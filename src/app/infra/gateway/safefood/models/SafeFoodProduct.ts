@@ -28,6 +28,7 @@ export type SafeFoodProductModel = {
 	restricoes: SafeFoodRestrictionModel[];
 	avaliacoes: SafeFoodAvaliationModel[];
 	tipoProduto: string;
+	average: number;
 };
 
 export type SafeFoodAvaliationModel = {

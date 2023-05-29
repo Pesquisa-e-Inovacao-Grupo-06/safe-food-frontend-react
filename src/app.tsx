@@ -146,7 +146,7 @@ export default function App({
 								element={<MapsPage cache={cache} />}
 							/>
 							<Route
-								path="/products"
+								path="home-establishment/:idEstablishment/products/:idProduct"
 								element={<ProductsEstablishment cache={cache} productGateway={productGateway} />}
 							/>
 							<Route
