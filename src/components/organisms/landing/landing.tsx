@@ -8,6 +8,8 @@ import bannerHome from "../../../assets/banner-home.svg";
 import { Box } from "@/components/atoms/box";
 import { ImageAtom } from "@/components/atoms/img";
 import styled from "styled-components";
+import { ContainerFluid } from "@/components/atoms/container";
+import { StyledImage } from "@/components/atoms/img/styles";
 
 export type LandingProps = {
 	textFieldFood: string;
@@ -29,9 +31,9 @@ export const Landing: React.FC<LandingProps> = ({
 			margin="0px 0px 0px 0px"
 			display="flex"
 			alignItems="center"
-			width="100%"
 			justify="center"
-			background=" linear-gradient(90.19deg, rgba(255, 213, 189, 0.8) 49.22%, rgba(255, 164, 80, 0.8) 98.62%)"
+			background="linear-gradient(90.19deg, rgba(255, 213, 189, 0.8) 49.22%, rgba(255, 164, 80, 0.8) 98.62%)"
+			padding="12px 0"
 			style={{ paddingTop: "80px" }}
 		>
 			<Box width="80%">
@@ -69,13 +71,14 @@ export const Landing: React.FC<LandingProps> = ({
 	);
 };
 
-const ImageLanding = styled(ImageAtom)`
+const ImageLanding = styled(StyledImage)`
 	@media (max-width: 1200px) {
 		display: none;
 	}
 `;
 
 const TitleLanding = styled(Title)`
+	max-width: 800px;
 	@media (max-width: 1200px) {
 		text-align: center;
 	}

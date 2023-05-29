@@ -9,13 +9,13 @@ import { SafeFoodRestrictionGateway } from "./app/infra/gateway/safefood/SafeFoo
 import { ViaCepGateway } from "./app/infra/gateway/viacep/ViaCepGateway";
 import { SafeFoodConsumerGateway } from "./app/infra/gateway/safefood/SafeFoodConsumerGateway";
 import { SafeFoodEstablishmentGateway } from "./app/infra/gateway/safefood/SafeFoodEstablishmentGateway";
-import { SafeFoodRestrictionModel } from "./app/infra/gateway/safefood/models/SafeFoodRestriction";
 import { SafeFoodProductGateway } from "./app/infra/gateway/safefood/SafeFoodProductGateway";
 import { SafeFoodTypeProductGateway } from "./app/infra/gateway/safefood/SafeFoodTypeProductGateway";
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 import { TypeProduct } from "./app/domain/entities/TypeProduct";
 
 const cache = new LocalStorageCache();
-const safeFoodClient = new AxiosHttpClient("http://localhost:8081");
+const safeFoodClient = new AxiosHttpClient(BACKEND_URL);
 const defaultClient = new AxiosHttpClient();
 const userGateway = new SafeFoodUserGateway(safeFoodClient);
 const consumerGateway = new SafeFoodConsumerGateway(safeFoodClient, cache);
@@ -25,6 +25,7 @@ const establishmentGateway = new SafeFoodEstablishmentGateway(
 	safeFoodClient,
 	cache
 );
+
 const productGateway = new SafeFoodProductGateway(safeFoodClient);
 const typeProductGateway = new SafeFoodTypeProductGateway(safeFoodClient);
 

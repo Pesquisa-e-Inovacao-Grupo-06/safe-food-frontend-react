@@ -31,7 +31,7 @@ export type ProfileEstablishmentTemplateProps = {
 	onClickChangePassword(): void;
 	cache: Cache;
 	onClickCard: (id: string) => void;
-	onClickDeleteAddress: (id: number) => void
+	onClickDeleteAddress: (id: number) => void;
 };
 export const ProfileEstablishmentTemplate: React.FC<
 	ProfileEstablishmentTemplateProps
@@ -136,9 +136,9 @@ export const ProfileEstablishmentTemplate: React.FC<
 											headerText={address.apelido}
 											key={address.apelido}
 											apelido={address.apelido ? address.apelido : ""}
-											onClickCard={() => { }}
+											onClickCard={() => onClickCard("")}
 											idAddress={address.id}
-											onClickDeleteAddress={onClickDeleteAddress}								// Icon={adress.Icon}
+											onClickDeleteAddress={onClickDeleteAddress} // Icon={adress.Icon}
 										/>
 									</PContainerAddressCard>
 								</PContainerInfo3>
@@ -157,7 +157,8 @@ export const ProfileEstablishmentTemplate: React.FC<
 											height: 45,
 										}}
 										onClick={() => {
-											window.location.href = "http://localhost:8081/restricoes/download";
+											window.location.href =
+												import.meta.env.BACKEND_URL + "/restricoes/download";
 										}}
 									>
 										<span>Baixar restrições em Excel</span>
