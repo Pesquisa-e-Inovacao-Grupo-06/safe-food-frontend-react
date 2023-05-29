@@ -2,7 +2,7 @@ import { Container } from "@/components/atoms/container";
 import { motion } from "framer-motion";
 import styled, { css } from "styled-components";
 
-export const CarouselSection = styled(motion.div)<{
+export const CarouselSection = styled(motion.div) <{
 	width?: number;
 	heigth: number;
 }>`
@@ -13,7 +13,7 @@ export const CarouselSection = styled(motion.div)<{
 	cursor: grab;
 	padding: 8px 0;
 `;
-export const CarouselInner = styled(motion.div)<{
+export const CarouselInner = styled(motion.div) <{
 	width?: number;
 	heigth?: number;
 }>`
@@ -22,7 +22,7 @@ export const CarouselInner = styled(motion.div)<{
 	align-items: center;
 `;
 
-export const CarouselItem = styled(motion.div)<{
+export const CarouselItem = styled(motion.div) <{
 	width?: number;
 	height?: number;
 	marginHorizontal?: number;
@@ -32,7 +32,9 @@ export const CarouselItem = styled(motion.div)<{
 	height: 100%;
 	min-width: ${p => p.width + "px"};
 	margin: 0px ${p => (p.marginHorizontal ? p.marginHorizontal + "px" : "12px")};
-
+	background-color: red;
 	overflow-x: hidden;
 	overflow-y: auto;
+	width: 200px;
+	height: 200px;
 `;

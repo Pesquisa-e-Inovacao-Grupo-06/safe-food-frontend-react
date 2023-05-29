@@ -126,7 +126,7 @@ export const CardEstablishmentFoodOrganism: React.FC<InfoProductProps> = ({
 			<div
 				style={{
 					width: '100%',
-					backgroundImage: "url('https://via.placeholder.com/400')",
+					backgroundImage: `url(${product.params.imagem ? product.params.imagem : 'https://via.placeholder.com/400'})`,
 					backgroundPosition: 'center',
 					backgroundSize: 'cover',
 					borderRadius: '4px',

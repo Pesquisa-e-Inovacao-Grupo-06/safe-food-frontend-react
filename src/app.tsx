@@ -147,7 +147,7 @@ export default function App({
 							/>
 							<Route
 								path="/products"
-								element={<ProductsEstablishment cache={cache} />}
+								element={<ProductsEstablishment cache={cache} productGateway={productGateway} />}
 							/>
 							<Route
 								path="/*"
