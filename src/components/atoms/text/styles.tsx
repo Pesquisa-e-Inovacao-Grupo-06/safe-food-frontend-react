@@ -5,7 +5,7 @@ export const StyledText = styled.p<{
 	typeText: TypeText;
 	color?: string;
 	align?: AlignText;
-	cursor?: boolean;
+	cursor?: boolean | string;
 }>`
 	text-align: ${p => p.align ?? "start"};
 	${p => {
@@ -61,7 +61,8 @@ export const StyledText = styled.p<{
 	}};
 	margin: 0px;
 	padding: 0px;
-	cursor: ${p => (p.cursor ? "pointer" : "unset")};
+	cursor: ${(p) =>
+    p.cursor ? (p.cursor === "true" ? "pointer" : "unset") : "inherit"}; 
 
 	color: ${p =>
 		p.color

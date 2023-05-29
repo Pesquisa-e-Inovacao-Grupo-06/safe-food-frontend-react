@@ -1,7 +1,7 @@
 import {InputValidator} from "./input-validator";
 
 export class EmailValidator implements InputValidator{
-    private regexEmailValid = /^[a-zA-Z0-9.!#$%&’+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:.[a-zA-Z0-9-]+)$/;
+    private regexEmailValid = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
 
     constructor(private min: number, private max: number){}
     public format(str: string) {

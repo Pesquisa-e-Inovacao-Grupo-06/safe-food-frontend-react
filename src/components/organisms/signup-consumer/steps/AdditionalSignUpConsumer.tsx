@@ -145,7 +145,7 @@ export const AdditionalSignUpConsumer: FC<{
 							title="Selecione a data de seu nascimento"
 							type="date"
 							inputMode="numeric"
-							value={consumer.telefone}
+							value={consumer.dataNascimento}
 							onChange={changeBirthDateInput}
 							error={errorDate}
 						/>

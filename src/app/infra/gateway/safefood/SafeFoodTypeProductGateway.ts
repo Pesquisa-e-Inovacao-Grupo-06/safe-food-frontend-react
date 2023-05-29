@@ -1,11 +1,11 @@
 import { HttpClient } from "@/app/domain/protocols/HttpClient";
-import { SafeFoodTypeProductRequest } from "./models/SafeFoodTypeProduct";
+import { SafeFoodTypeProductRequest, SafeFoodTypeProductResponse } from "./models/SafeFoodTypeProduct";
 
 export class SafeFoodTypeProductGateway {
     constructor(private readonly http: HttpClient) {
     }
-    async findAll(): Promise<SafeFoodTypeProductRequest[]> {
-        const res = await this.http.execute<SafeFoodTypeProductRequest[]>({
+    async findAll(): Promise<SafeFoodTypeProductResponse[]> {
+        const res = await this.http.execute<SafeFoodTypeProductResponse[]>({
             url: `/produtos/categorias`,
             method: 'GET',
         });

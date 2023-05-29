@@ -22,6 +22,7 @@ export type SafeFoodProductParams = {
     restricoes?: SafeFoodRestrictionModel[],
     avaliacoes?: SafeFoodAvaliationModel[],
     tipoProduto?: string,
+    average?: number,
 };
 
 export class Product {

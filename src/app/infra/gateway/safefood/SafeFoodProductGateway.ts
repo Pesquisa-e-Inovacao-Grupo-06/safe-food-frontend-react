@@ -116,9 +116,11 @@ export class SafeFoodProductGateway {
             url: `/produtos/filtrar?${queryStringParams}`,
             method: 'GET',
         });
-
         if (!res.data) {
             throw new Error("Erro ao tentar filtrar os produtos");
+        }
+        if (res.statusCode == 204) {
+            return {...res.data, size:0}
         }
 
         return res.data;

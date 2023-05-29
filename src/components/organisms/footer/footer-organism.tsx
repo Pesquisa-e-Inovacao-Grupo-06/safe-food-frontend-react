@@ -18,17 +18,17 @@ const FooterOrganism = () => {
 		<Box margin="0">
 			<StyledFooterContainer>
 				<FooterColumnMolecule title="Informações">
-					<Text cursor>Sobre a Safe Food</Text>
-					<Text cursor>Termos de uso</Text>
-					<Text cursor>Blog de Receitas</Text>
-					<Text cursor>FAQ</Text>
+					<Text cursor={true}>Sobre a Safe Food</Text>
+					<Text cursor={true}>Termos de uso</Text>
+					<Text cursor={true}>Blog de Receitas</Text>
+					<Text cursor={true}>FAQ</Text>
 				</FooterColumnMolecule>
 				<FooterColumnMolecule title="Redes Sociais">
 					<TextIcon
 						icon={<FaFacebook size={iconSize} />}
 						iconAlign="left"
 						iconColor="orange"
-						cursor
+						cursor={true}
 					>
 						Facebook
 					</TextIcon>
@@ -36,7 +36,7 @@ const FooterOrganism = () => {
 						icon={<FaGoogle size={iconSize} />}
 						iconAlign="left"
 						iconColor="orange"
-						cursor
+						cursor={true}
 					>
 						Gmail
 					</TextIcon>
@@ -44,7 +44,7 @@ const FooterOrganism = () => {
 						icon={<FaInstagram size={iconSize} />}
 						iconAlign="left"
 						iconColor="orange"
-						cursor
+						cursor={true}
 					>
 						Instagram
 					</TextIcon>
@@ -52,7 +52,7 @@ const FooterOrganism = () => {
 						icon={<FaTwitter size={iconSize} />}
 						iconAlign="left"
 						iconColor="orange"
-						cursor
+						cursor={true}
 					>
 						Twitter
 					</TextIcon>
@@ -61,7 +61,7 @@ const FooterOrganism = () => {
 					<ImageAtom
 						height={"auto"}
 						maxWidth={186}
-						cursor={true}
+						cursor={"true"}
 						src={GoogleLogo}
 					/>
 				</FooterColumnMolecule>

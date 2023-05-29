@@ -19,5 +19,6 @@ export const StyledImage = styled.img<ImageProps>`
 		if (p.borderRadius === "lg") return p.theme.border.radius.lg;
 		return "none";
 	}};
-	cursor: ${p => (p.cursor ? "pointer" : "not-allowed")};
+	 cursor: ${(p) => (p.cursor ? "pointer" : "inherit")}; // Use a ternary operator to conditionally set the cursor style
+
 `;
