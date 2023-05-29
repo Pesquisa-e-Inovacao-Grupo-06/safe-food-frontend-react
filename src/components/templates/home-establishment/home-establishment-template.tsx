@@ -10,10 +10,10 @@ import { Cache } from "@/app/domain/protocols/Cache";
 import { Restriction } from "@/app/domain/entities/Restriction";
 import { Product } from "@/app/domain/entities/Product";
 import { TypeProduct } from "@/app/domain/entities/TypeProduct";
-import { SafeFoodUsuarioModel } from "@/app/infra/gateway/safefood/models/SafeFoodUser";
 import { SafeFoodCreateProductRequest } from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
 import { SafeFoodProductGateway } from "@/app/infra/gateway/safefood/SafeFoodProductGateway";
-import { SafeFoodProductMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodProductMapper";
+import { SafeFoodUsuarioModel } from "@/app/infra/gateway/safefood/models/SafeFoodUser";
+import { ImageAtom } from "@/components/atoms/img";
 
 type HomeEstablishmentProps = {
 	products: Product[];
@@ -34,7 +34,6 @@ function HomeEstablishmentTemplate({
 	typeProduct,
 	cache,
 	user,
-	productGateway,
 	onClickCreate,
 	onClickUpdate,
 	onClickDelete,
@@ -80,6 +79,7 @@ function HomeEstablishmentTemplate({
 		setModalRegister(!modalRegister);
 	}
 
+
 	return (
 		<Layout
 			active={modalRegister}
@@ -96,8 +96,7 @@ function HomeEstablishmentTemplate({
 			auxObjEdit={auxObjEdit}
 			user={user}
 			btnAdd={auxBtnAdd}
-			renderListProduct={renderListProduct}
-		>
+			renderListProduct={renderListProduct} typeUser={user.tipoUsuario}		>
 			<ContainerHomeEstablishment>
 				<div className="header-home-establishment">
 					<Box className="container-home-establishment">
@@ -106,7 +105,7 @@ function HomeEstablishmentTemplate({
 						</Text>
 						<Box className="container-banner-home-establishment">
 							<Box className="banner-info-home-establishment">
-								<img src={imgTeste} />
+								<ImageAtom src={user.imagem} />
 								<div>
 									<h1>Safe Food</h1>
 									<label>Gerencie seus produtos</label>
@@ -143,9 +142,9 @@ function HomeEstablishmentTemplate({
 							{typeProduct?.map(item => (
 								<StyledButton
 									onClick={() =>
-										item.params.nome == undefined
+										item.nome == undefined
 											? handleFilter("")
-											: handleFilter(item.params.nome)
+											: handleFilter(item.nome)
 									}
 									height="fit-content"
 									width="fit-content"
@@ -153,12 +152,12 @@ function HomeEstablishmentTemplate({
 									style={{
 										fontSize: "16px",
 										maxHeight: "32px",
-										width: "fit-content",
-										maxWidth: "50px",
+										// width: "fit-content",
+										minWidth: "max-content",
 									}}
-									key={item.params.id}
+									key={item.id}
 								>
-									{item.params.nome}
+									{item.nome}
 								</StyledButton>
 							))}
 						</Box>

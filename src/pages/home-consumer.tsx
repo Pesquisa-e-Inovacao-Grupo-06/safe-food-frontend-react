@@ -1,15 +1,12 @@
-import { Product } from '@/app/domain/entities/Product';
-import { Restriction } from '@/app/domain/entities/Restriction';
-import {
-	SafeFoodTypeProductParams,
-	TypeProduct,
-} from '@/app/domain/entities/TypeProduct';
-import { Cache } from '@/app/domain/protocols/Cache';
-import { SafeFoodProductGateway } from '@/app/infra/gateway/safefood/SafeFoodProductGateway';
-import { SafeFoodTypeProductGateway } from '@/app/infra/gateway/safefood/SafeFoodTypeProductGateway';
-import { SafeFoodProductMapper } from '@/app/infra/gateway/safefood/mappers/SafeFoodProductMapper';
-import { SafeFoodRestrictionMapper } from '@/app/infra/gateway/safefood/mappers/SafeFoodRestrictionMapper';
-import { SafeFoodConsumerModel } from '@/app/infra/gateway/safefood/models/SafeFoodConsumer';
+import { Product } from "@/app/domain/entities/Product";
+import { Restriction } from "@/app/domain/entities/Restriction";
+import { TypeProduct } from "@/app/domain/entities/TypeProduct";
+import { Cache } from "@/app/domain/protocols/Cache";
+import { SafeFoodProductGateway } from "@/app/infra/gateway/safefood/SafeFoodProductGateway";
+import { SafeFoodTypeProductGateway } from "@/app/infra/gateway/safefood/SafeFoodTypeProductGateway";
+import { SafeFoodProductMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodProductMapper";
+import { SafeFoodRestrictionMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodRestrictionMapper";
+import { SafeFoodConsumerModel } from "@/app/infra/gateway/safefood/models/SafeFoodConsumer";
 import {
 	directionSelect,
 	OrderSelect,
@@ -45,9 +42,26 @@ function HomeConsumer({
 			: {};
 
 	const typeProductCache: TypeProduct[] =
-		cache.getItem('typeProducts') !== null
-			? (JSON.parse(cache.getItem('typeProducts')!) as TypeProduct[])
+		cache.getItem("typeProducts") !== null
+			? JSON.parse(cache.getItem("typeProducts")!) as TypeProduct[]
 			: [];
+
+	const [userRestrictions, setUserRestrictions] = useState<
+		SafeFoodRestrictionModel[]
+	>(consumer.restricoes);
+	const userTypeRestrictions = userRestrictions.map(
+		restriction => restriction.tipoRestricao
+	);
+	const consumerRestrictions = consumer.restricoes.map(item =>
+		SafeFoodRestrictionMapper.of(item, true)
+	);
+	const activeRestrictionIds = consumer.restricoes.map(i => i.id);
+	const inactiveRestrictions = restrictions
+		.filter(item => !activeRestrictionIds.includes(item.id))
+		.map(item => SafeFoodRestrictionMapper.of(item));
+	const [totalRestrictions, setTotalRestrictions] = useState<Restriction[]>(
+		[...consumerRestrictions, ...inactiveRestrictions] ?? []
+	);
 
 	const [products, setProducts] = useState<Product[]>([]);
 	const [productsFilter, setProductsFilter] = useState<any>();
@@ -81,12 +95,11 @@ function HomeConsumer({
 				numero: undefined,
 				page: pageNumberHandle ?? 1, // Utilize o valor atual do pageNumber
 				pesquisa: undefined,
-				select: selectOrder ?? 'TODOS',
+				select: selectOrder ?? "TODOS"
 			});
 			setProducts(fetchedProducts.content.map(SafeFoodProductMapper.of));
 			setTotalPage(fetchedProducts.totalPages);
-			setTotalItens(fetchedProducts.totalElements);
-		} catch (error) {}
+		} catch (error) { }
 	};
 
 	const onClickApplication = async () => {
@@ -98,7 +111,7 @@ function HomeConsumer({
 				page: 1,
 				direction: direction,
 				itensPorPagina: selectItems,
-				select: selectOrder ?? 'TODOS',
+				select: selectOrder ?? "TODOS"
 			};
 			const fetchedProductsFilter: SafeFoodProductsResponse =
 				await productGateway.productFilter(filterProducts);
@@ -126,7 +139,9 @@ function HomeConsumer({
 		}
 	}, [pageNumber]);
 
-	useEffect(() => {}, [typeProductCache]);
+	useEffect(() => {
+
+	}, [typeProductCache])
 	const [checkedRestrictions, setCheckedRestrictions] = useState<string[]>([]);
 	const [checkedTypeProducts, setCheckedTypeProducts] = useState<string[]>([]);
 	const [checkedTypeRestrictions, setCheckedTypeRestrictions] = useState<
@@ -204,10 +219,17 @@ function HomeConsumer({
 	};
 
 	const handleOrderChange = (value: Option) => {
-		setDirection(value.direction);
+		setDirection(value.direction)
 		const order = removeDescSuffix(value.value);
 		setSelectOrder(order as OrderSelect);
 	};
+
+
+	useEffect(() => {
+	}, [selectItems]);
+
+	useEffect(() => {
+	}, [selectOrder]);
 
 	if (totalPage > 0) {
 		return (

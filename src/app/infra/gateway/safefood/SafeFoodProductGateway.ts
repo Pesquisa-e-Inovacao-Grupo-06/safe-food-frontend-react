@@ -6,9 +6,11 @@ import {
 	SafeFoodProductFilterResponse,
 	SafeFoodAvaliationRequest,
 	SafeFoodCreateProductRequest,
-    SafeFoodProductEstablishmentResponse
+    SafeFoodProductEstablishmentResponse,
+	SafeFoodCreateProductWithNoImageRequest
 } from "./models/SafeFoodProduct";
 import queryString from "../../../../../node_modules/query-string/index.d";
+import { SafeFoodGenericDataResponse } from "./models/SafeFoodResponse";
 
 export class SafeFoodProductGateway {
 	constructor(private readonly http: HttpClient) {}
@@ -71,16 +73,35 @@ export class SafeFoodProductGateway {
 		id: number,
 		product: SafeFoodCreateProductRequest
 	): Promise<SafeFoodProductResponse> {
+		const body = { 
+			...product,
+			
+		};
+		delete body.imagem
 		const res = await this.http.execute<SafeFoodProductResponse>({
 			url: `/produtos/estabelecimento/${id}`,
 			method: "POST",
-			body: product,
+			body: body,
 		});
-
 		if (!res.data) {
 			throw new Error("Erro ao tentar buscar todos os produtos");
 		}
-
+		debugger
+		if (product.imagem && res.data.data.estabelecimento.id) {
+			let requestImage = new FormData();
+			requestImage.append("image", product.imagem);
+			const responseImage = await this.http.execute<SafeFoodGenericDataResponse<string>>({
+				url: `/produtos/${id}/imagem`,
+				method: 'POST',
+				contentType: "multipart/form-data",
+				body: requestImage
+			})
+			if (responseImage.data) {
+				res.data.data.imagem = responseImage.data.data;
+			} else {
+				throw new Error("Erro ao realizar requisicao de adicionar foto do consumidor")
+			}
+		}
 		return res.data;
 	}
 

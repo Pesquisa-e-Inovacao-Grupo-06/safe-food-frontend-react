@@ -64,7 +64,9 @@ function RegisterProduct({
 	const [restrictionEdit, setRestrictionEdit] = useState<Restriction[]>(
 		restrictionProduct || []
 	);
-
+	const [average, setAverage] = useState<number>()
+	const [qtdComments, setQtdComments] = useState<number>()
+	const [imageProfile, setImageProfile] = useState<File>();
 	//limpa os valores ao renderizar ao apertar o botão de adicionar e abrea a aba de regitro
 	useEffect(() => {
 		clear();
@@ -75,9 +77,12 @@ function RegisterProduct({
 
 	//create product e limpa as inputs
 	useEffect(() => {
+		debugger
+
 		objProduct != undefined && onClickCreate != undefined
 			? onClickCreate(objProduct)
 			: "";
+		console.log("OBJ IMAGE" + objProduct?.imagem);
 		clear();
 		clearRestriction();
 		clearObjEdit();
@@ -117,11 +122,11 @@ function RegisterProduct({
 	const objEditRestrictions = () => {
 		productEdit?.params.restricoes != undefined
 			? productEdit?.params.restricoes.map(item => {
-					var aux = item.restricao;
-					restrictionEdit?.filter(item => {
-						item.params.restricao == aux ? (item.params.isActive = true) : "";
-					});
-			  })
+				var aux = item.restricao;
+				restrictionEdit?.filter(item => {
+					item.params.restricao == aux ? (item.params.isActive = true) : "";
+				});
+			})
 			: [];
 
 		// productEdit?.params.restricoes != undefined
@@ -218,7 +223,7 @@ function RegisterProduct({
 		);
 		setCategoria(
 			productEdit?.params.categoria?.id != undefined
-				? parseInt(productEdit?.params.categoria.id)
+				? productEdit.params.categoria.id
 				: 0
 		);
 		setAuxCategoria(
@@ -231,6 +236,16 @@ function RegisterProduct({
 				? productEdit?.params.ingredientes
 				: []
 		);
+		setAverage(productEdit?.params.average != undefined
+			? productEdit.params.average
+			: 0);
+		setQtdComments(
+			productEdit?.params?.avaliacoes?.map((item) => item.comentario).length !== undefined
+				? productEdit?.params.avaliacoes.map((item) => item.comentario).length
+				: undefined
+		);
+
+
 	};
 
 	//manipulação dos ingredientes, para inserir cada um
@@ -244,6 +259,9 @@ function RegisterProduct({
 
 	//verificar os valores e mandar para o objeto que será criado
 	const setProduct = (method: string) => {
+		if (imageProfile) {
+			console.log("saidfjhoijasdo", imageProfile);
+		}
 		if (user?.id == undefined || user.id == 0) {
 			return;
 		}
@@ -272,7 +290,7 @@ function RegisterProduct({
 				titulo: nome,
 				preco: preco,
 				descricao: descricao,
-				imagem: "",
+				imagem: imageProfile,
 				ingredientes: ingredientes,
 				unidadeDeVenda: "unidade",
 				categoria: categoria,
@@ -289,7 +307,7 @@ function RegisterProduct({
 				titulo: nome,
 				preco: preco,
 				descricao: descricao,
-				imagem: "",
+				imagem: imageProfile,
 				ingredientes: ingredientes,
 				unidadeDeVenda: "unidade",
 				categoria: categoria,
@@ -310,8 +328,8 @@ function RegisterProduct({
 		const newRestricitons: number[] = [];
 		restrictionEdit != undefined
 			? restrictionEdit.filter(item => {
-					item.params.isActive ? newRestricitons.push(item.params.id) : "";
-			  })
+				item.params.isActive ? newRestricitons.push(item.params.id) : "";
+			})
 			: restrictionEdit;
 		setRestrictions(newRestricitons);
 		setAuxFunction("auxFucntion");
@@ -347,7 +365,10 @@ function RegisterProduct({
 						<CardExpansiveEstablishmentFoodOrganism
 							titulo={nome}
 							categoria={auxCategoria}
-						/>
+							fileChange={file => {
+								console.log(file);
+								setImageProfile(file);
+							}} average={average ?? 0} qtdComentario={qtdComments ?? 0} />
 					</div>
 					<div className="main-register-product">
 						<div className="container-main-register-product">
@@ -359,12 +380,12 @@ function RegisterProduct({
 								{typeProduct?.map(item => (
 									<StyledButton
 										onClick={() =>
-											item.params.id == undefined
+											item.id == undefined
 												? setCategoria(0)
-												: (setCategoria(item.params.id),
-												  setAuxCategoria(
-														item.params.nome != undefined ? item.params.nome : ""
-												  ))
+												: (setCategoria(item.id),
+													setAuxCategoria(
+														item.nome != undefined ? item.nome : ""
+													))
 										}
 										height="fit-content"
 										width="fit-content"
@@ -375,9 +396,9 @@ function RegisterProduct({
 											width: "fit-content",
 											maxWidth: "50px",
 										}}
-										key={item.params.id}
+										key={item.id}
 									>
-										{item.params.nome}
+										{item.nome}
 									</StyledButton>
 								))}
 							</Box>

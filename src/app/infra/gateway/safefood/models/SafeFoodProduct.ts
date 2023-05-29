@@ -24,7 +24,7 @@ export type SafeFoodProductModel = {
 	isRetireNoLocal: boolean;
 	isFreteGratis: boolean;
 	tempoEsperaMedio: string;
-	categoria: SafeFoodCategoryProductModel;
+	categoria: TypeProductModal;
 	restricoes: SafeFoodRestrictionModel[];
 	avaliacoes: SafeFoodAvaliationModel[];
 	tipoProduto: string;
@@ -38,8 +38,8 @@ export type SafeFoodAvaliationModel = {
 	consumidor: SafeFoodConsumerModel;
 };
 
-export type SafeFoodCategoryProductModel = {
-	id: string;
+export type TypeProductModal = {
+	id: number;
 	nome: string;
 	descricao: string;
 };
@@ -125,18 +125,25 @@ export type SafeFoodProductFilterResponse = SafeFoodProductsResponse;
 //     restricoes: Restriction[]
 // }
 
-export type SafeFoodCreateProductRequest = {
-	id: number;
-	titulo: string;
-	descricao: string;
-	preco: number;
-	imagem?: string;
-	ingredientes: string[];
-	unidadeDeVenda: string;
-	categoria: number;
-	restricoes: number[];
-};
+	export type SafeFoodCreateProductWithNoImageRequest = {
+		id: number;
+		titulo: string;
+		descricao: string;
+		preco: number;
+		ingredientes: string[];
+		unidadeDeVenda: string;
+		categoria: number;
+		restricoes: number[];
+	} 
 
+	export type SafeFoodCreateProductImageRequest = {
+		imagem?: File;
+		
+	}
+
+	export type SafeFoodCreateProductRequest = {
+
+	} & SafeFoodCreateProductWithNoImageRequest & SafeFoodCreateProductImageRequest;
 // export type SafeFoodProductFilterRequest = {
 //     IDSRestrictions?: string[];
 //     IDSCategories?: string[];
