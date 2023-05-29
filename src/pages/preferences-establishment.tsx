@@ -1,11 +1,11 @@
 import { Cache } from "@/app/domain/protocols/Cache";
-import { Preferences } from "@/components/templates/preferences-template";
+import { Preferences } from "@/components/templates/preferences/preferences-template";
 import { useState } from "react";
 
 export type PreferencesProps = {
 	cache: Cache;
 };
-const onClickSave = async () => {};
+const onClickSave = async () => { };
 function PreferencesPage({ cache }: PreferencesProps) {
 	const [isActiveButton, setIsActiveButton] = useState<boolean>(false);
 	const [isLoading, setIsLoading] = useState<boolean>(false);

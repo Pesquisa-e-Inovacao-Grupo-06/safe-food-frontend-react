@@ -5,3 +5,4 @@ export function formatReal(value: string | number | undefined) {
     }
     return number.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 }
+

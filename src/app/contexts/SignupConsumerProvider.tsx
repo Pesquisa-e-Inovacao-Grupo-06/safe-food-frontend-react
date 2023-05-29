@@ -6,9 +6,9 @@ import {
 	createContext,
 	useContext,
 	useState,
-} from "react";
-import { SafeFoodCreateConsumerRequest } from "../infra/gateway/safefood/models/SafeFoodConsumer";
-import { SafeFoodUserGateway } from "../infra/gateway/safefood/SafeFoodUserGateway";
+} from 'react';
+import { SafeFoodCreateConsumerRequest } from '../infra/gateway/safefood/models/SafeFoodConsumer';
+import { SafeFoodUserGateway } from '../infra/gateway/safefood/SafeFoodUserGateway';
 
 export type SignupConsumerContextParams = {
 	consumer: SafeFoodCreateConsumerRequest;
@@ -31,20 +31,21 @@ export const SignupConsumerProvider: FC<
 > = props => {
 	const [errors, setErrors] = useState<string[]>([]);
 	const [consumer, setConsumer] = useState<SafeFoodCreateConsumerRequest>({
-		dataNascimento: "",
-		email: "",
-		nome: "",
-		senha: "",
-		telefone: "",
+		dataNascimento: '',
+		email: '',
+		nome: '',
+		senha: '',
+		telefone: '',
 		restricoes: [],
-		apelido: "",
-		bairro: "",
-		cep: "",
-		cidade: "",
-		complemento: "",
-		numero: "",
-		estado: "",
-		logradouro: "",
+		apelido: '',
+		bairro: '',
+		cep: '',
+		cidade: '',
+		complemento: '',
+		numero: '',
+		estado: '',
+		logradouro: '',
+		file: undefined,
 	} as SafeFoodCreateConsumerRequest);
 
 	return (

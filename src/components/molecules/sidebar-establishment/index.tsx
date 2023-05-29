@@ -33,20 +33,20 @@ type SidebarEstabProps = {
 	cache: Cache;
 };
 
-export function clearCache(cache: Cache) {
-	const navigator = useNavigate();
+// export function clearCache(cache: Cache) {
+// 	const navigator = useNavigate();
 
-	cache.removeItem("token");
-	cache.removeItem("consumer");
-	cache.removeItem("establishment");
-	cache.removeItem("user");
+// 	cache.removeItem("token");
+// 	cache.removeItem("consumer");
+// 	cache.removeItem("establishment");
+// 	cache.removeItem("user");
 
-	// if (window.location.pathname === "/") {
-	window.location.reload();
-	// } else {
-	// navigator("/");
-	// }
-}
+// 	// if (window.location.pathname === "/") {
+// 	window.location.reload();
+// 	// } else {
+// 	// navigator("/");
+// 	// }
+// }
 
 const SidebarEstab: React.FC<SidebarEstabProps> = ({ cache }) => {
 	const [sidebarOpen, setSidebarOpen] = useState(false);

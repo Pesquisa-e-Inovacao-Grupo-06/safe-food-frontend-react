@@ -5,12 +5,13 @@ import { Text } from "@/components/atoms/text";
 import { Divider } from "@/components/atoms/divider";
 import { Slider } from "@mui/material";
 import { Button } from "@/components/atoms/button";
-import { ImageAtom } from "../../components/atoms/img/index";
-import preferencesLight from "../../assets/preferences-light.svg";
-import preferencesDark from "../../assets/preferences-dark.svg";
+import { ImageAtom } from "../../atoms/img/index";
+import preferencesLight from "../../../assets/preferences-light.svg";
+import preferencesDark from "../../../assets/preferences-dark.svg";
 import { RadioButton } from "@/components/atoms/radio-button";
 import { useSafeFoodTheme } from "@/app/contexts/SafeFoodThemeProvider";
 import { Cache } from "@/app/domain/protocols/Cache";
+import { SafeFoodLoginResponse } from "@/app/infra/gateway/safefood/models/SafeFoodUser";
 
 type PreferencesProps = {
 	cache: Cache;
@@ -30,6 +31,8 @@ export const Preferences: React.FC<PreferencesProps> = ({
 	isEditable,
 	onClickSave,
 }) => {
+	const user: SafeFoodLoginResponse =
+		cache.getItem("user") !== null ? JSON.parse(cache.getItem("user")!) : {};
 	const { setZoom, setFont, font, zoom, toggleTheme } = useSafeFoodTheme();
 	function fontChange(fontChange: number) {
 		if (fontChange == 90) {
@@ -84,11 +87,10 @@ export const Preferences: React.FC<PreferencesProps> = ({
 		},
 	];
 	return (
-		<>
+		<>{ }
 			<Layout
 				paddingMain={true}
-				cache={cache}
-			>
+				cache={cache} typeUser={user.usuario.tipoUsuario}		>
 				<Box
 					display="flex"
 					flexDirection="column"
@@ -136,7 +138,7 @@ export const Preferences: React.FC<PreferencesProps> = ({
 							>
 								<ImageAtom
 									src={preferencesLight}
-									cursor={false}
+									cursor={"false"}
 								/>
 								<Text>Claro</Text>
 								<RadioButton
@@ -153,7 +155,7 @@ export const Preferences: React.FC<PreferencesProps> = ({
 							>
 								<ImageAtom
 									src={preferencesDark}
-									cursor={false}
+									cursor={"false"}
 									onClick={() => toggleTheme()}
 								/>
 								<Text>Escuro</Text>

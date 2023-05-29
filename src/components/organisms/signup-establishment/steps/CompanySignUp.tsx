@@ -40,7 +40,7 @@ export const CompanySignUp: FC = () => {
 					width="120px"
 					name="additional-profile-photo-consumer"
 					id="additional-profile-photo-consumer"
-					onChangeFile={file =>
+					fileChange={file =>
 						setEstablishment({
 							...establishment,
 							file,

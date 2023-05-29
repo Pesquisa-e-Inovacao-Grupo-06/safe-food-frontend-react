@@ -24,3 +24,19 @@ export const StyledLabelForImage = styled.label<{
 		opacity: 1;
 	}
 `;
+
+export const StyledLabelForImage2 = styled.label<{
+	preview?: boolean;
+	width: string;
+}>`
+max-height: 100%;
+object-fit: cover;
+width: 100%;
+border-radius: 8px;
+
+	cursor: pointer;
+	&:is(:focus, :hover) {
+		opacity: 1;
+	}
+`;
+

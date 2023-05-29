@@ -14,7 +14,7 @@ import { AlertType } from "@/components/atoms/alert";
 import { AvaliationProgressBarProps } from "@/components/molecules/avaliation-progress-bar";
 import {
 	SafeFoodAvaliationModel,
-	SafeFoodCategoryProductModel,
+	TypeProductModal,
 } from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
 import { SafeFoodEstablishmentModel } from "@/app/infra/gateway/safefood/models/SafeFoodEstablishment";
 
@@ -97,7 +97,7 @@ function ProductConsumer({ cache, productGateway }: ProductProps) {
 			isFreteGratis: false,
 			isRetireNoLocal: false,
 			tempoEsperaMedio: "",
-			categoria: {} as SafeFoodCategoryProductModel,
+			categoria: {} as TypeProductModal,
 			estabelecimento: {} as SafeFoodEstablishmentModel,
 		})
 	);

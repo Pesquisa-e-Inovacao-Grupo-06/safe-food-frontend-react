@@ -26,7 +26,7 @@ function NotFound() {
 						<ul style={{ padding: "20px" }}>
 							<Li>
 								<Subtitle
-									cursor
+									cursor={true}
 									color="orange"
 								>
 									Home
@@ -34,7 +34,7 @@ function NotFound() {
 							</Li>
 							<Li>
 								<Subtitle
-									cursor
+									cursor={true}
 									color="orange"
 								>
 									FAQ
@@ -42,7 +42,7 @@ function NotFound() {
 							</Li>
 							<Li>
 								<Subtitle
-									cursor
+									cursor={true}
 									color="orange"
 								>
 									Cadastro
@@ -53,7 +53,7 @@ function NotFound() {
 					<Box>
 						<ImageAtom
 							src={notFoundImage}
-							cursor={false}
+							cursor={"false"}
 						/>
 					</Box>
 				</Box>

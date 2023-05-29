@@ -11,7 +11,7 @@ export class CepValidator implements InputValidator{
     };
     public validate(str: string){
         let errors = [] as string[];
-        if(!this.isRegexValid(str)){
+        if(!this.isRegexValid(str) && str.length > 0){
             errors.push(`CEP invalido`)
         }
         return errors;  
