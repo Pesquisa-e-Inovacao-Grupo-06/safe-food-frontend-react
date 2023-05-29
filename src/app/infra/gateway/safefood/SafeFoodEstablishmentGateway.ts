@@ -1,15 +1,15 @@
 import { HttpClient } from "@/app/domain/protocols/HttpClient";
 import { SafeFoodCreateEstablishmentRequest, SafeFoodEstablishmentResponse, SafeFoodUpdateEstablishmentRequest } from "./models/SafeFoodEstablishment";
 import { Cache } from "@/app/domain/protocols/Cache";
-import {SafeFoodGenericDataResponse} from "./models/SafeFoodResponse";
+import {SafeFoodGenericDataResponse, SafeFoodResponse} from "./models/SafeFoodResponse";
 
 export class SafeFoodEstablishmentGateway {
+	
+	
     private token: string = '';
     constructor(private readonly http: HttpClient, private readonly cache: Cache) {
         this.token = cache.getItem('token') || '';
     }
-
-
 
     async findById(id: number): Promise<SafeFoodEstablishmentResponse> {
         const res = await this.http.execute<SafeFoodEstablishmentResponse>({
@@ -103,6 +103,21 @@ export class SafeFoodEstablishmentGateway {
             throw new Error("Erro ao tentar encontrar localização de estabelecimento")
         }
         return res.data;
+    }
+
+    async importProducts(id: number, file: File): Promise<SafeFoodResponse> {
+        let requestImage = new FormData();
+        requestImage.append("arquivo", file);
+        const response = await this.http.execute<SafeFoodResponse>({
+            url: `/produtos/estabelecimento/${id}/arquivo/upload`,
+            method: 'POST',
+            contentType: "multipart/form-data",
+            body: requestImage
+        });
+        if(!response.data){
+            throw new Error("Impossivel realizar requisicao de importacao")
+        }
+        return response.data;
     }
 
 }

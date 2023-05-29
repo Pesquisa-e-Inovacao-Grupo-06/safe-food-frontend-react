@@ -13,9 +13,10 @@ import { InputPropsComponent } from '../atoms/input';
 import { Button } from '../atoms/button';
 import { Alert, AlertType } from '../atoms/alert';
 import { SafeFoodAddressModel } from '@/app/infra/gateway/safefood/models/SafeFoodAddress';
-import { useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { Cache } from '@/app/domain/protocols/Cache';
 import { SafeFoodLoginResponse } from '@/app/infra/gateway/safefood/models/SafeFoodUser';
+import { SafeFoodResponse } from '@/app/infra/gateway/safefood/models/SafeFoodResponse';
 
 export type ProfileEstablishmentTemplateProps = {
 	urlDefault: string | null | undefined;
@@ -26,6 +27,7 @@ export type ProfileEstablishmentTemplateProps = {
 	isLoading: boolean;
 	typeAlert?: AlertType;
 	textAlert?: string;
+	importArchiveTxt(file: File): Promise<SafeFoodResponse>;
 	isAlertVisible: boolean;
 	address: SafeFoodAddressModel;
 	onClickChangePassword(): void;
@@ -45,6 +47,7 @@ export const ProfileEstablishmentTemplate: React.FC<
 	isAlertVisible,
 	textAlert,
 	typeAlert,
+	importArchiveTxt,
 	address,
 	onClickChangePassword: onClickChangePassword,
 	cache,
@@ -55,6 +58,30 @@ export const ProfileEstablishmentTemplate: React.FC<
 		cache.getItem('user') !== null ? JSON.parse(cache.getItem('user')!) : {};
 
 	const [isEditable, setIsEditable] = useState<boolean>(false);
+	const [arquivoImportacao, setArquivoImportacao] = useState<File>();
+	const [btnImportarArquivo, setBtnImportarArquivo] = useState({
+		text: 'Importar TXT preenchido',
+		loading: false,
+	});
+
+	useEffect(() => {
+		if (arquivoImportacao) {
+			importArchiveTxt(arquivoImportacao).then(res => {
+				if ([200, 201].includes(res.status)) {
+					setBtnImportarArquivo({
+						text: 'Produtos agendados para importar!',
+						loading: false,
+					});
+				} else {
+					setBtnImportarArquivo({
+						text: 'Houve algum produto para importar!',
+						loading: false,
+					});
+				}
+			});
+		}
+	}, [arquivoImportacao]);
+
 	return (
 		<>
 			<Layout
@@ -172,20 +199,59 @@ export const ProfileEstablishmentTemplate: React.FC<
 									style={{
 										height: 45,
 									}}
+									onClick={() => {
+										window.location.href =
+											import.meta.env.VITE_BACKEND_URL + '/restricoes/download';
+									}}
+								>
+									<span>Baixar restrições em Excel</span>
+								</PBtnBaixar>
+								<PBtnBaixar
+									icon={<MdOutlineFileDownload />}
+									alignIcon="right"
+									buttonStyle="filled"
+									onClick={() => {
+										window.location.href =
+											import.meta.env.VITE_BACKEND_URL +
+											'/estabelecimentos/modeloExportacaoTxt/download';
+									}}
+									style={{
+										height: 45,
+									}}
 								>
 									<span>Baixar template de produtos</span>
 								</PBtnBaixar>
 							</Box>
+							
 							<PBtnImportar
 								icon={<MdOutlineCloudDownload />}
 								alignIcon="right"
 								buttonStyle="filled"
+								loading={btnImportarArquivo.loading}
 								style={{
 									height: 45,
+									maxWidth: 500,
 								}}
 							>
-								<span>Importar Excel preenchido</span>
+								<input
+									type="file"
+									id="importacaoProdutoInput"
+									onChange={({ target }) => {
+										console.log(target);
+										if (target.files) {
+											const [file] = target.files;
+											setArquivoImportacao(file);
+										}
+									}}
+									accept=".txt"
+									style={{ display: 'none' }}
+									name="arquivo"
+								/>
+								<label htmlFor="importacaoProdutoInput">
+									{btnImportarArquivo.text}
+								</label>
 							</PBtnImportar>
+
 							<Box style={{ marginTop: '16px' }}>
 								Baixe o nosso template para excel e o preencha com infomações de
 								seus produtos, assim o cadastro fica mais fácil quando em
@@ -430,7 +496,8 @@ const PBtnImportar = styled(ButtonIcon)`
 	color: ${p => p.theme.colors.dark_gray[400]};
 	border-color: ${p => p.theme.colors.light_gray[800]};
 
-	& span {
+	& span,
+	& label {
 		font-size: 16px;
 	}
 
