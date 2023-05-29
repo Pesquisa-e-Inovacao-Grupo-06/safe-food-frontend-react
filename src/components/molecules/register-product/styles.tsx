@@ -115,6 +115,19 @@ export const ContainerRegisterProduct = styled.div<{
 					}
 				}
 			}
+
+			> div:nth-child(2) {
+				> h2 {
+					display: -webkit-box;
+					overflow: hidden;
+					-webkit-box-orient: vertical;
+					-webkit-line-clamp: 2;
+					max-width: 200px;
+					line-height: normal;
+					font-size: 16px;
+					font-weight: 600;
+				}
+			}
 			> div:nth-last-child(1) {
 				display: none;
 			}
