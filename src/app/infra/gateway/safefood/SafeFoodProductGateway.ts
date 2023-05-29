@@ -86,7 +86,6 @@ export class SafeFoodProductGateway {
 		if (!res.data) {
 			throw new Error("Erro ao tentar buscar todos os produtos");
 		}
-		debugger
 		if (product.imagem && res.data.data.estabelecimento.id) {
 			let requestImage = new FormData();
 			requestImage.append("image", product.imagem);
