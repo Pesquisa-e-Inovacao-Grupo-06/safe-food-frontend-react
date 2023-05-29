@@ -53,7 +53,7 @@ function NotFound() {
 					<Box>
 						<ImageAtom
 							src={notFoundImage}
-							cursor={false}
+							cursor={"false"}
 						/>
 					</Box>
 				</Box>

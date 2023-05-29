@@ -138,7 +138,7 @@ export const Preferences: React.FC<PreferencesProps> = ({
 							>
 								<ImageAtom
 									src={preferencesLight}
-									cursor={false}
+									cursor={"false"}
 								/>
 								<Text>Claro</Text>
 								<RadioButton
@@ -155,7 +155,7 @@ export const Preferences: React.FC<PreferencesProps> = ({
 							>
 								<ImageAtom
 									src={preferencesDark}
-									cursor={false}
+									cursor={"false"}
 									onClick={() => toggleTheme()}
 								/>
 								<Text>Escuro</Text>
