@@ -115,6 +115,7 @@ export const CardEstablishmentFoodOrganism: React.FC<InfoProductProps>=({
 	activeEdit=false,
 	getInfoProduct,
 }) => {
+	const navigate=useNavigate();
 	return (
 		<Box
 			display="flex"
@@ -122,6 +123,8 @@ export const CardEstablishmentFoodOrganism: React.FC<InfoProductProps>=({
 			borderRadius="md"
 			shadow="md"
 			background="#FCFCFC"
+		// style={{ cursor: "pointer" }}
+		// onClick={() => navigate(`establishment/${product.params.estabelecimento.id}/products/${product.params.id}`)}
 		>
 			<div
 				style={{
@@ -148,7 +151,10 @@ export const CardEstablishmentFoodOrganism: React.FC<InfoProductProps>=({
 					}}
 				/> */}
 			</div>
-			<StyledColumn style={{margin: '14px', alignItems: 'start'}}>
+			<StyledColumn style={{margin: '14px', alignItems: 'start', cursor: "pointer"}}
+				// style={{ cursor: "pointer" }}
+				onClick={() => navigate(`${product.params.estabelecimento.id}/products/${product.params.id}`)}
+			>
 				<Subtitle
 					style={{
 						height: '40px',

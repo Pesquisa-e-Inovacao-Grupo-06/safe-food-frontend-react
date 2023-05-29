@@ -5,12 +5,14 @@ export type CarouselProps = {
 	itemSize: number;
 	itemHeight: number;
 	margin?: number;
+	isOverflowYHidden?: boolean;
 };
 export const Carousel: React.FC<CarouselProps> = ({
 	items,
 	itemSize,
 	itemHeight,
 	margin,
+	isOverflowYHidden = false
 }) => {
 	const carouselRef = useRef<HTMLDivElement>(null);
 	const [carouselSize, setCarouselSize] = useState<number>(0);
@@ -42,6 +44,7 @@ export const Carousel: React.FC<CarouselProps> = ({
 				{items.map((item, index) => {
 					return (
 						<CarouselItem
+							isOverflowYHidden={isOverflowYHidden}
 							marginHorizontal={margin}
 							key={index + "item"}
 							width={itemSize}

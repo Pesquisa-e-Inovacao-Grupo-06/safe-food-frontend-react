@@ -11,11 +11,8 @@ import {SafeFoodConsumerGateway} from "./app/infra/gateway/safefood/SafeFoodCons
 import {SafeFoodEstablishmentGateway} from "./app/infra/gateway/safefood/SafeFoodEstablishmentGateway";
 import {SafeFoodProductGateway} from "./app/infra/gateway/safefood/SafeFoodProductGateway";
 import {SafeFoodTypeProductGateway} from "./app/infra/gateway/safefood/SafeFoodTypeProductGateway";
-const BACKEND_URL=import.meta.env.VITE_BACKEND_URL;
-import {TypeProduct} from "./app/domain/entities/TypeProduct";
 import {GetLatLongFromAddressGoogleGeocode} from "./app/infra/gateway/google/geocode/GetLatLongFromAddressGoogleGeocode";
-import {SafeFoodEstablishmentMapper} from "./app/infra/gateway/safefood/mappers/SafeFoodEstablishmentMapper";
-import {SafeFoodEstablishmentModel} from "./app/infra/gateway/safefood/models/SafeFoodEstablishment";
+const BACKEND_URL=import.meta.env.VITE_BACKEND_URL;
 
 const cache=new LocalStorageCache();
 const safeFoodClient=new AxiosHttpClient(BACKEND_URL);

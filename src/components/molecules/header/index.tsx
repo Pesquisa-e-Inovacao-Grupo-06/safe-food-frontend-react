@@ -107,9 +107,9 @@ const itemLinkArraySide = [
 		text: "Cadastrar",
 		to: "/signup",
 	},
-	{
-		icon: FaSignOutAlt,
-		text: "Sair",
-		to: "#",
-	},
+	// {
+	// 	icon: FaSignOutAlt,
+	// 	text: "Sair",
+	// 	to: "/",
+	// },
 ];

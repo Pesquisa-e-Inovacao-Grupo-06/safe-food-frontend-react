@@ -152,8 +152,8 @@ export default function App({
 							/>
 
 							<Route
-								path="/products"
-								element={<ProductsEstablishment cache={cache} />}
+								path="home-establishment/:idEstablishment/products/:idProduct"
+								element={<ProductsEstablishment cache={cache} productGateway={productGateway} />}
 							/>
 							<Route
 								path="/*"

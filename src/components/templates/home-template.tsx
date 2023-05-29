@@ -1,28 +1,28 @@
-import Header from "../molecules/header";
-import { BodyTemplate } from "./body-template";
-import { Product } from "@/app/domain/entities/Product";
-import { SafeFoodLoginResponse } from "@/app/infra/gateway/safefood/models/SafeFoodUser";
-import HeaderConsumer from "../molecules/header-consumer";
-import { Cache } from "@/app/domain/protocols/Cache";
-import styled from "styled-components";
-import banner from "../../assets/new-Banner.png";
-import { Title } from "@/styles/components/text/Title";
-import { ButtonIcon } from "@/components/molecules/button/button-icon";
-import { MdOutlineArrowForwardIos } from "react-icons/md";
-import { Text } from "@/components/atoms/text";
-import { Subtitle } from "@/styles/components/text/Subtitle";
-import ZeroLactose from "../../assets/Zero Lactose.png";
-import ZeroGruten from "../../assets/Zero Grúten.png";
-import Vegano from "../../assets/Vegano.png";
-import Vegetariano from "../../assets/Vegetariano.png";
-import ZeroAcucar from "../../assets/Zero açucar.png";
-import Pizza from "../../assets/Mask group.png";
-import Tigela from "../../assets/Mask group (1).png";
-import Bolo from "../../assets/Mask group (2).png";
-import Doghnut from "../../assets/Mask group (3).png";
-import Restaurante from "../../assets/pexels-kaboompics-com-5697 1.png";
-import BannerFinal from "../../assets/Banner-meio.png";
-import { useModalHome } from "@/app/contexts/ModalProvider";
+import Header from '../molecules/header';
+import { BodyTemplate } from './body-template';
+import { Product } from '@/app/domain/entities/Product';
+import { SafeFoodLoginResponse } from '@/app/infra/gateway/safefood/models/SafeFoodUser';
+import HeaderConsumer from '../molecules/header-consumer';
+import { Cache } from '@/app/domain/protocols/Cache';
+import styled from 'styled-components';
+import banner from '../../assets/new-Banner.png';
+import { Title } from '@/styles/components/text/Title';
+import { ButtonIcon } from '@/components/molecules/button/button-icon';
+import { MdOutlineArrowForwardIos } from 'react-icons/md';
+import { Text } from '@/components/atoms/text';
+import { Subtitle } from '@/styles/components/text/Subtitle';
+import ZeroLactose from '../../assets/Zero Lactose.png';
+import ZeroGruten from '../../assets/Zero Grúten.png';
+import Vegano from '../../assets/Vegano.png';
+import Vegetariano from '../../assets/Vegetariano.png';
+import ZeroAcucar from '../../assets/Zero açucar.png';
+import Pizza from '../../assets/Mask group.png';
+import Tigela from '../../assets/Mask group (1).png';
+import Bolo from '../../assets/Mask group (2).png';
+import Doghnut from '../../assets/Mask group (3).png';
+import Restaurante from '../../assets/pexels-kaboompics-com-5697 1.png';
+import BannerFinal from '../../assets/Banner-meio.png';
+import { useModalHome } from '@/app/contexts/ModalProvider';
 
 export type HomeTemplateParams = {
 	nearbyFoodsCardItems: Product[];
@@ -50,17 +50,20 @@ export const HomeTemplate: React.FC<HomeTemplateParams> = ({
 	const { setModal } = useModalHome();
 	return (
 		<>
-			{user.token ? <HeaderConsumer cache={cache} /> : <Header />}
+			{/* {user.token ? <HeaderConsumer cache={cache} /> : <Header />} */}
+			<Header />
 			<ContainerNewHome>
 				<div className="container-banner-new-home">
 					<div className="container-banner-info-new-home">
 						<TitleLanding color="orange">
-							O <span style={{ color: "green" }}> Alimento</span> restritivo
+							O <span style={{ color: 'green' }}> Alimento</span> restritivo
 							<br />
 							que você pode
-							<br /> <span style={{ color: "green" }}> confiar</span>
+							<br /> <span style={{ color: 'green' }}> confiar</span>
 						</TitleLanding>
-						<ButtonIcon icon={<MdOutlineArrowForwardIos />}>Conheça já</ButtonIcon>
+						<ButtonIcon icon={<MdOutlineArrowForwardIos />}>
+							Conheça já
+						</ButtonIcon>
 					</div>
 				</div>
 				<div className="container-info-new-home">
@@ -96,9 +99,10 @@ export const HomeTemplate: React.FC<HomeTemplateParams> = ({
 								Aqui você come com <br /> segurança!
 							</Subtitle>
 							<Text>
-								Nosso principal objetivo é promover facilidades e segurança no dia a dia
-								das pessoas com qualquer restrição alimentar, seja ela uma intolerância,
-								alergia, estivo de vida, religiosa ou problemas de saúde.
+								Nosso principal objetivo é promover facilidades e segurança no
+								dia a dia das pessoas com qualquer restrição alimentar, seja ela
+								uma intolerância, alergia, estivo de vida, religiosa ou
+								problemas de saúde.
 							</Text>
 							<ButtonIcon icon>Saiba mais</ButtonIcon>
 						</div>
@@ -126,15 +130,15 @@ export const HomeTemplate: React.FC<HomeTemplateParams> = ({
 						</div>
 						<div className="container-text-new-home">
 							<Subtitle>
-								<span style={{ color: "green" }}>Junte-se ao</span> Safe Food
+								<span style={{ color: 'green' }}>Junte-se ao</span> Safe Food
 							</Subtitle>
 							<Subtitle>Registre seu estabelecimento!</Subtitle>
 							<Text>
-								Faça parte de um mercado em constante crescimento. Saiba como alcançar
-								um novo público e visibilidade para o seu negócio.
+								Faça parte de um mercado em constante crescimento. Saiba como
+								alcançar um novo público e visibilidade para o seu negócio.
 							</Text>
 							<ButtonIcon
-								onClick={() => setModal("consumer")}
+								onClick={() => setModal('consumer')}
 								icon
 							>
 								Cadastre-se
@@ -145,8 +149,8 @@ export const HomeTemplate: React.FC<HomeTemplateParams> = ({
 				<div className="container-banner-final-new-home">
 					<div className="container-img-banner-final-new-home">
 						<Text>
-							Reinventando o conceito das restrições e escolhas, para que você possa
-							apreciar a vida com segurança e sem medo!
+							Reinventando o conceito das restrições e escolhas, para que você
+							possa apreciar a vida com segurança e sem medo!
 						</Text>
 					</div>
 				</div>
@@ -277,7 +281,7 @@ const ContainerNewHome = styled.div`
 				font-weight: normal;
 				line-height: 30px;
 				color: ${p =>
-					p.theme.name == "light" ? "#474747" : p.theme.colors.light_gray[800]};
+					p.theme.name == 'light' ? '#474747' : p.theme.colors.light_gray[800]};
 			}
 			> button {
 				width: fit-content;
@@ -502,7 +506,7 @@ const DividerNewHome = styled.div`
 	margin-left: auto;
 	margin-right: auto;
 	background: ${p =>
-		p.theme.name == "light" ? "#fddbbc" : p.theme.colors.dark_gray[400]};
+		p.theme.name == 'light' ? '#fddbbc' : p.theme.colors.dark_gray[400]};
 	height: 5px;
 	width: 50%;
 `;

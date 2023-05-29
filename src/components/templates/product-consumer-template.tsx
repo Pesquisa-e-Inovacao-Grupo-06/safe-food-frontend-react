@@ -134,6 +134,9 @@ export const ProductConsumerTemplate: React.FC<ProductParams>=({
 								<Text style={{height: "fit-content"}}>
 									{product.params.descricao? product.params.descricao:""}
 								</Text>
+								<Text typeText={"text-md"} style={{fontWeight: "bold"}}>
+									ingredientes: {product.params.ingredientes?.join(", ")??"Não informado"}
+								</Text>
 								<StyledRow>
 									<AvaliationStars
 										fixed
@@ -197,7 +200,7 @@ export const ProductConsumerTemplate: React.FC<ProductParams>=({
 							<div className="info-local">
 								<MdPhoneEnabled className="icon-four-info-local" />
 								<Text>
-									Telefone:{" "}
+									Telefone:
 									{establishment.params.contatoCliente
 										? establishment.params.contatoCliente
 										:""}
@@ -220,11 +223,10 @@ export const ProductConsumerTemplate: React.FC<ProductParams>=({
 							</ButtonIcon>
 							<Subtitle className="subtitulo-avaliacao-info-product">
 								Avaliações
-							</Subtitle>
+							</Subtitle>;
 							{/* TODO: FAZER IFS PARA COR DE CIRCLE */}
 							<AvaliationProgressBar
 								average={rateCalc}
-								label={avaliationBar.label}
 								reviews={avaliationBar.reviews}
 								values={avaliationBar.values}
 							/>
@@ -238,7 +240,7 @@ export const ProductConsumerTemplate: React.FC<ProductParams>=({
 									<AvaliationStars
 										fixed={false}
 										color="orange"
-										avegareRate={0}
+										avegareRate={rateCalc??0}
 										onClickStar={onClickStar}
 									/>
 									<ul>

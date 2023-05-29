@@ -149,6 +149,12 @@ function ProductConsumer({cache, productGateway, getLatLongFromAddress}: Product
 				setProduct(SafeFoodProductMapper.of(res.data));
 				setCategorias(SafeFoodTypeProductMapper.of(res.data.categoria));
 				setAvaliationsParams(res.data.avaliacoes);
+				setAvaliationBar({
+					average: res.data.average,
+					reviews: res.data.avaliacoes.length.toString(),
+					values: [0, 1, 2, 3, 4].map((_, i) => res.data.avaliacoes.filter(item => item.rate===i+1).length),
+
+				});
 			} catch(error) {
 				// faça algo com o erro
 			}

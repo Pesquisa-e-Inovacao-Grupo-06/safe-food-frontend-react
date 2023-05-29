@@ -1,23 +1,23 @@
-import styled from "styled-components";
-import { SSidebarButton } from "../sidebar-establishment/styles";
-import { CardExpansiveEstablishmentFoodOrganism } from "@/components/organisms/card-establishment-food/card-establishment-food-organism";
-import { InputNameSignUp } from "@/components/organisms/signup-consumer/inputs/InputNameSignUpConsumer";
+import styled from 'styled-components';
+import { SSidebarButton } from '../sidebar-establishment/styles';
+import { CardExpansiveEstablishmentFoodOrganism } from '@/components/organisms/card-establishment-food/card-establishment-food-organism';
+import { InputNameSignUp } from '@/components/organisms/signup-consumer/inputs/InputNameSignUpConsumer';
 
 export const ContainerRegisterProduct = styled.div<{
 	activeRegisterProduct?: boolean;
 	isOpen?: boolean;
 }>`
 	height: 100dvh;
-	display: ${p => (p.activeRegisterProduct ? "block" : "none")};
-	left: ${p => (!p.isOpen ? "100%" : "0")};
-	width: ${p => (!p.isOpen ? "0" : "400px")};
+	display: ${p => (p.activeRegisterProduct ? 'block' : 'none')};
+	left: ${p => (!p.isOpen ? '100%' : '0')};
+	width: ${p => (!p.isOpen ? '0' : '400px')};
 	background: ${p =>
-		p.theme.name == "light"
+		p.theme.name == 'light'
 			? p.theme.colors.light_gray[200]
 			: p.theme.colors.dark_gray[1000]};
 	border-left: 1px solid
 		${p =>
-			p.theme.name == "light"
+			p.theme.name == 'light'
 				? p.theme.colors.light_gray[800]
 				: p.theme.colors.dark_gray[1000]};
 
@@ -28,7 +28,7 @@ export const ContainerRegisterProduct = styled.div<{
 		grid-template-columns: 1fr;
 		grid-template-rows: 0fr 0fr 0fr;
 
-		grid-template-areas: "header" "main" "footer";
+		grid-template-areas: 'header' 'main' 'footer';
 
 		overflow-y: scroll;
 		overflow-x: hidden;
@@ -38,14 +38,14 @@ export const ContainerRegisterProduct = styled.div<{
 		/* Scrollbar modification */
 
 		::-webkit-scrollbar {
-			width: ${p => (!p.isOpen ? "0" : "8px")};
+			width: ${p => (!p.isOpen ? '0' : '8px')};
 		}
 
 		/* Track */
 
 		::-webkit-scrollbar-track {
 			background-color: ${p =>
-				p.theme.name == "light"
+				p.theme.name == 'light'
 					? p.theme.colors.light_gray[200]
 					: p.theme.colors.dark_gray[1000]};
 		}
@@ -54,13 +54,13 @@ export const ContainerRegisterProduct = styled.div<{
 
 		::-webkit-scrollbar-thumb {
 			background-color: ${p =>
-				p.theme.name == "light"
+				p.theme.name == 'light'
 					? p.theme.colors.light_gray[600]
 					: p.theme.colors.dark_gray[800]};
 			border-radius: 50px;
 			border: 3px solid
 				${p =>
-					p.theme.name == "light"
+					p.theme.name == 'light'
 						? p.theme.colors.light_gray[200]
 						: p.theme.colors.dark_gray[1000]};
 		}
@@ -69,7 +69,7 @@ export const ContainerRegisterProduct = styled.div<{
 
 		::-webkit-scrollbar-thumb:hover {
 			background-color: ${p =>
-				p.theme.name == "light"
+				p.theme.name == 'light'
 					? p.theme.colors.light_gray[800]
 					: p.theme.colors.dark_gray[600]};
 		}
@@ -77,11 +77,57 @@ export const ContainerRegisterProduct = styled.div<{
 
 	//header
 	.header-register-product {
-		display: ${p => (!p.isOpen ? "none" : "")};
+		display: ${p => (!p.isOpen ? 'none' : '')};
 		padding: 24px 24px 0 24px;
 		grid-area: header;
 
 		> div:nth-last-child(1) {
+			> div:nth-child(1) {
+				//campo de inserir imagem na aba de cadstrar
+				> div:nth-child(1) {
+					height: 100%;
+					border-radius: 6px;
+
+					> label {
+						border: none;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						padding: 0;
+						background: ${p =>
+							p.theme.name == 'light'
+								? p.theme.colors.light_gray[600]
+								: p.theme.colors.dark_gray[600]};
+						height: 100%;
+						width: 100%;
+						border-radius: 6px;
+
+						> img {
+							width: 100%;
+							height: 100%;
+							border-radius: 6px;
+						}
+					}
+
+					> p {
+						display: none;
+						border: 2px solid blue;
+					}
+				}
+			}
+
+			> div:nth-child(2) {
+				> h2 {
+					display: -webkit-box;
+					overflow: hidden;
+					-webkit-box-orient: vertical;
+					-webkit-line-clamp: 2;
+					max-width: 200px;
+					line-height: normal;
+					font-size: 16px;
+					font-weight: 600;
+				}
+			}
 			> div:nth-last-child(1) {
 				display: none;
 			}
@@ -89,7 +135,7 @@ export const ContainerRegisterProduct = styled.div<{
 
 		> div {
 			background: ${p =>
-				p.theme.name == "light"
+				p.theme.name == 'light'
 					? p.theme.colors.light_gray[400]
 					: p.theme.colors.black};
 			border-radius: 10px;
@@ -124,7 +170,7 @@ export const ContainerRegisterProduct = styled.div<{
 
 				h2 {
 					color: ${p =>
-						p.theme.name == "light"
+						p.theme.name == 'light'
 							? p.theme.colors.dark_gray[800]
 							: p.theme.colors.light_gray[400]};
 					font-size: 18px;
@@ -156,7 +202,7 @@ export const ContainerRegisterProduct = styled.div<{
 
 	//main
 	.main-register-product {
-		display: ${p => (!p.isOpen ? "none" : "")};
+		display: ${p => (!p.isOpen ? 'none' : '')};
 		padding: 0 24px;
 		grid-area: main;
 
@@ -176,7 +222,7 @@ export const ContainerRegisterProduct = styled.div<{
 
 			::-webkit-scrollbar-track {
 				background-color: ${p =>
-					p.theme.name == "light"
+					p.theme.name == 'light'
 						? p.theme.colors.light_gray[200]
 						: p.theme.colors.dark_gray[1000]};
 			}
@@ -185,13 +231,13 @@ export const ContainerRegisterProduct = styled.div<{
 
 			::-webkit-scrollbar-thumb {
 				background-color: ${p =>
-					p.theme.name == "light"
+					p.theme.name == 'light'
 						? p.theme.colors.light_gray[600]
 						: p.theme.colors.dark_gray[800]};
 				border-radius: 50px;
 				border: 3px solid
 					${p =>
-						p.theme.name == "light"
+						p.theme.name == 'light'
 							? p.theme.colors.light_gray[200]
 							: p.theme.colors.dark_gray[1000]};
 			}
@@ -200,7 +246,7 @@ export const ContainerRegisterProduct = styled.div<{
 
 			::-webkit-scrollbar-thumb:hover {
 				background-color: ${p =>
-					p.theme.name == "light"
+					p.theme.name == 'light'
 						? p.theme.colors.light_gray[800]
 						: p.theme.colors.dark_gray[800]};
 			}
@@ -208,9 +254,9 @@ export const ContainerRegisterProduct = styled.div<{
 			> button {
 				margin-bottom: 3px;
 				opacity: inherit;
-				min-width: 80px;
+				min-width: max-content;
 				min-height: 25px;
-				padding: 0;
+				padding: 0 10px;
 			}
 		}
 
@@ -243,7 +289,7 @@ export const ContainerRegisterProduct = styled.div<{
 
 					span {
 						color: ${p =>
-							p.theme.name == "light"
+							p.theme.name == 'light'
 								? p.theme.colors.dark_gray[1000]
 								: p.theme.colors.light_gray[400]};
 
@@ -264,7 +310,7 @@ export const ContainerRegisterProduct = styled.div<{
 				label {
 					font-size: 16px;
 					color: ${p =>
-						p.theme.name == "light"
+						p.theme.name == 'light'
 							? p.theme.colors.dark_gray[800]
 							: p.theme.colors.light_gray[400]};
 				}
@@ -277,12 +323,12 @@ export const ContainerRegisterProduct = styled.div<{
 					max-height: 135px;
 					padding: 10px;
 					background: ${p =>
-						p.theme.name == "light"
+						p.theme.name == 'light'
 							? p.theme.colors.light_gray[400]
 							: p.theme.colors.dark_gray[600]};
 					border-radius: 0.25rem;
 					border: ${p =>
-						p.theme.name == "light" ? "none" : "1px solid rgb(71, 71, 71)"};
+						p.theme.name == 'light' ? 'none' : '1px solid rgb(71, 71, 71)'};
 					overflow-y: scroll;
 
 					/* Scrollbar modification */
@@ -293,27 +339,31 @@ export const ContainerRegisterProduct = styled.div<{
 
 					/ Track / ::-webkit-scrollbar-track {
 						background-color: ${p =>
-							p.theme.name == "light" ? "#f5f5f5" : p.theme.colors.dark_gray[600]};
+							p.theme.name == 'light'
+								? '#f5f5f5'
+								: p.theme.colors.dark_gray[600]};
 					}
 
 					/* Handle */
 
 					::-webkit-scrollbar-thumb {
 						background-color: ${p =>
-							p.theme.name == "light"
+							p.theme.name == 'light'
 								? p.theme.colors.light_gray[600]
 								: p.theme.colors.dark_gray[800]};
 						border-radius: 50px;
 						border: 3px solid
 							${p =>
-								p.theme.name == "light" ? "#f5f5f5" : p.theme.colors.dark_gray[600]};
+								p.theme.name == 'light'
+									? '#f5f5f5'
+									: p.theme.colors.dark_gray[600]};
 					}
 
 					/* Handle on Hover */
 
 					::-webkit-scrollbar-thumb:hover {
 						background-color: ${p =>
-							p.theme.name == "light"
+							p.theme.name == 'light'
 								? p.theme.colors.light_gray[800]
 								: p.theme.colors.dark_gray[400]};
 					}
@@ -324,7 +374,7 @@ export const ContainerRegisterProduct = styled.div<{
 
 	//footer
 	.footer-register-product {
-		display: ${p => (!p.isOpen ? "none" : "")};
+		display: ${p => (!p.isOpen ? 'none' : '')};
 		padding: 24px 24px 24px 24px;
 		grid-area: footer;
 
@@ -364,7 +414,7 @@ export const ContainerRegisterProduct = styled.div<{
 		width: fit-content;
 
 		.container-info-register-product {
-			width: ${p => (!p.isOpen ? "0" : "100dvw")};
+			width: ${p => (!p.isOpen ? '0' : '100dvw')};
 		}
 
 		.container-footer-register-product {
