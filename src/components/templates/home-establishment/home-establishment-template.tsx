@@ -1,18 +1,18 @@
-import Layout from "@/components/molecules/sidebar-establishment/layout";
-import { CardEstablishmentFoodOrganism } from "@/components/organisms/card-establishment-food/card-establishment-food-organism";
-import { useState, useEffect } from "react";
-import styled from "styled-components";
-import { Box } from "@/components/atoms/box";
-import { Text } from "@/components/atoms/text";
-import { StyledButton } from "@/components/atoms/button/styles";
-import { Cache } from "@/app/domain/protocols/Cache";
-import { Restriction } from "@/app/domain/entities/Restriction";
-import { Product } from "@/app/domain/entities/Product";
-import { TypeProduct } from "@/app/domain/entities/TypeProduct";
-import { SafeFoodCreateProductRequest } from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
-import { SafeFoodProductGateway } from "@/app/infra/gateway/safefood/SafeFoodProductGateway";
-import { SafeFoodUsuarioModel } from "@/app/infra/gateway/safefood/models/SafeFoodUser";
-import { ImageAtom } from "@/components/atoms/img";
+import Layout from '@/components/molecules/sidebar-establishment/layout';
+import { CardEstablishmentFoodOrganism } from '@/components/organisms/card-establishment-food/card-establishment-food-organism';
+import { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import { Box } from '@/components/atoms/box';
+import { Text } from '@/components/atoms/text';
+import { StyledButton } from '@/components/atoms/button/styles';
+import { Cache } from '@/app/domain/protocols/Cache';
+import { Restriction } from '@/app/domain/entities/Restriction';
+import { Product } from '@/app/domain/entities/Product';
+import { TypeProduct } from '@/app/domain/entities/TypeProduct';
+import { SafeFoodCreateProductRequest } from '@/app/infra/gateway/safefood/models/SafeFoodProduct';
+import { SafeFoodProductGateway } from '@/app/infra/gateway/safefood/SafeFoodProductGateway';
+import { SafeFoodUsuarioModel } from '@/app/infra/gateway/safefood/models/SafeFoodUser';
+import { ImageAtom } from '@/components/atoms/img';
 
 type HomeEstablishmentProps = {
 	products: Product[];
@@ -39,7 +39,7 @@ function HomeEstablishmentTemplate({
 	renderListProduct,
 }: HomeEstablishmentProps) {
 	const [modalRegister, setModalRegister] = useState(false);
-	const [type, setType] = useState("");
+	const [type, setType] = useState('');
 	const [filterData, setFilterData] = useState<Product[]>([]);
 	const [objEdit, setObjEdit] = useState<Product>();
 	const [auxObjEdit, setAuxObjEdit] = useState<boolean>(false);
@@ -67,7 +67,7 @@ function HomeEstablishmentTemplate({
 				.includes(type.toLowerCase());
 		});
 
-		if (type == "") {
+		if (type == '') {
 			setFilterData(products);
 		} else {
 			setFilterData(newFilter);
@@ -77,7 +77,6 @@ function HomeEstablishmentTemplate({
 	function toggleModalResgiter() {
 		setModalRegister(!modalRegister);
 	}
-
 
 	return (
 		<Layout
@@ -95,7 +94,9 @@ function HomeEstablishmentTemplate({
 			auxObjEdit={auxObjEdit}
 			user={user}
 			btnAdd={auxBtnAdd}
-			renderListProduct={renderListProduct} typeUser={user.tipoUsuario}		>
+			renderListProduct={renderListProduct}
+			typeUser={user.tipoUsuario}
+		>
 			<ContainerHomeEstablishment>
 				<div className="header-home-establishment">
 					<Box className="container-home-establishment">
@@ -125,15 +126,15 @@ function HomeEstablishmentTemplate({
 						</Text>
 						<Box className="container-categoria-home-establishment">
 							<StyledButton
-								onClick={() => handleFilter("")}
+								onClick={() => handleFilter('')}
 								height="fit-content"
 								width="fit-content"
 								buttonStyle="filled"
 								style={{
-									fontSize: "16px",
-									maxHeight: "32px",
-									width: "fit-content",
-									maxWidth: "50px",
+									fontSize: '16px',
+									maxHeight: '32px',
+									width: 'fit-content',
+									maxWidth: '50px',
 								}}
 							>
 								Todos
@@ -142,17 +143,17 @@ function HomeEstablishmentTemplate({
 								<StyledButton
 									onClick={() =>
 										item.nome == undefined
-											? handleFilter("")
+											? handleFilter('')
 											: handleFilter(item.nome)
 									}
 									height="fit-content"
 									width="fit-content"
 									buttonStyle="filled"
 									style={{
-										fontSize: "16px",
-										maxHeight: "32px",
-										// width: "fit-content",
-										minWidth: "max-content",
+										fontSize: '16px',
+										maxHeight: '32px',
+										padding: '3px 10px',
+										minWidth: 'max-content',
 									}}
 									key={item.id}
 								>
@@ -191,7 +192,7 @@ const ContainerHomeEstablishment = styled.div`
 	grid-template-columns: 1fr;
 	grid-template-rows: 0fr 0fr 10dvh;
 
-	grid-template-areas: "header" "main" "footer";
+	grid-template-areas: 'header' 'main' 'footer';
 
 	//header
 	.header-home-establishment {
@@ -203,17 +204,17 @@ const ContainerHomeEstablishment = styled.div`
 			h1 {
 				font-size: 15px;
 				color: ${p =>
-		p.theme.name == "light"
-			? p.theme.colors.dark_gray[600]
-			: p.theme.colors.light_gray[400]};
+					p.theme.name == 'light'
+						? p.theme.colors.dark_gray[600]
+						: p.theme.colors.light_gray[400]};
 			}
 
 			label {
 				font-size: 12px;
 				color: ${p =>
-		p.theme.name == "light"
-			? p.theme.colors.dark_gray[200]
-			: p.theme.colors.light_gray[600]};
+					p.theme.name == 'light'
+						? p.theme.colors.dark_gray[200]
+						: p.theme.colors.light_gray[600]};
 			}
 		}
 
@@ -225,9 +226,9 @@ const ContainerHomeEstablishment = styled.div`
 			justify-content: space-between;
 			border-radius: 8px;
 			background: ${p =>
-		p.theme.name == "light"
-			? p.theme.colors.light_gray[400]
-			: p.theme.colors.black};
+				p.theme.name == 'light'
+					? p.theme.colors.light_gray[400]
+					: p.theme.colors.black};
 			box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px 0px;
 
 			gap: 15px;
@@ -248,17 +249,17 @@ const ContainerHomeEstablishment = styled.div`
 				h1 {
 					font-size: 15px;
 					color: ${p =>
-		p.theme.name == "light"
-			? p.theme.colors.dark_gray[600]
-			: p.theme.colors.light_gray[400]};
+						p.theme.name == 'light'
+							? p.theme.colors.dark_gray[600]
+							: p.theme.colors.light_gray[400]};
 				}
 
 				label {
 					font-size: 13px;
 					color: ${p =>
-		p.theme.name == "light"
-			? p.theme.colors.dark_gray[400]
-			: p.theme.colors.light_gray[600]};
+						p.theme.name == 'light'
+							? p.theme.colors.dark_gray[400]
+							: p.theme.colors.light_gray[600]};
 				}
 			}
 
@@ -305,33 +306,33 @@ const ContainerHomeEstablishment = styled.div`
 
 			::-webkit-scrollbar-track {
 				background-color: ${p =>
-		p.theme.name == "light"
-			? p.theme.colors.light_gray[200]
-			: p.theme.colors.dark_gray[600]};
+					p.theme.name == 'light'
+						? p.theme.colors.light_gray[200]
+						: p.theme.colors.dark_gray[600]};
 			}
 
 			/* Handle */
 
 			::-webkit-scrollbar-thumb {
 				background-color: ${p =>
-		p.theme.name == "light"
-			? p.theme.colors.light_gray[600]
-			: p.theme.colors.dark_gray[800]};
+					p.theme.name == 'light'
+						? p.theme.colors.light_gray[600]
+						: p.theme.colors.dark_gray[800]};
 				border-radius: 50px;
 				border: 3px solid
 					${p =>
-		p.theme.name == "light"
-			? p.theme.colors.light_gray[200]
-			: p.theme.colors.dark_gray[600]};
+						p.theme.name == 'light'
+							? p.theme.colors.light_gray[200]
+							: p.theme.colors.dark_gray[600]};
 			}
 
 			/* Handle on Hover */
 
 			::-webkit-scrollbar-thumb:hover {
 				background-color: ${p =>
-		p.theme.name == "light"
-			? p.theme.colors.light_gray[800]
-			: p.theme.colors.black};
+					p.theme.name == 'light'
+						? p.theme.colors.light_gray[800]
+						: p.theme.colors.black};
 			}
 
 			> button {
@@ -359,15 +360,15 @@ const ContainerHomeEstablishment = styled.div`
 				min-width: 225px;
 				margin: 10px;
 				background: ${p =>
-		p.theme.name == "light"
-			? p.theme.colors.light_gray[400]
-			: p.theme.colors.black};
+					p.theme.name == 'light'
+						? p.theme.colors.light_gray[400]
+						: p.theme.colors.black};
 				box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px 0px;
 
 				color: ${p =>
-		p.theme.name == "light"
-			? p.theme.colors.dark_gray[800]
-			: p.theme.colors.light_gray[600]};
+					p.theme.name == 'light'
+						? p.theme.colors.dark_gray[800]
+						: p.theme.colors.light_gray[600]};
 				> div {
 					gap: 0px;
 				}
@@ -398,9 +399,9 @@ const ContainerHomeEstablishment = styled.div`
 					> div:nth-last-child(2) {
 						height: 1px;
 						background: ${p =>
-		p.theme.name == "light"
-			? p.theme.colors.light_gray[600]
-			: p.theme.colors.dark_gray[600]};
+							p.theme.name == 'light'
+								? p.theme.colors.light_gray[600]
+								: p.theme.colors.dark_gray[600]};
 					}
 				}
 
@@ -452,30 +453,30 @@ const ContainerHomeEstablishment = styled.div`
 const CardHomeEstablishment = styled.div<{
 	isActive?: boolean;
 }>`
-	height: ${p => (p.isActive ? "11.5625rem" : "")};
+	height: ${p => (p.isActive ? '11.5625rem' : '')};
 	border-radius: 5px;
 	> div {
 		background: ${p =>
-		p.theme.name == "light"
-			? p.theme.colors.light_gray[200]
-			: p.theme.colors.dark_gray[1000]};
+			p.theme.name == 'light'
+				? p.theme.colors.light_gray[200]
+				: p.theme.colors.dark_gray[1000]};
 		width: auto;
-		display: ${p => (p.isActive ? "grid" : "")};
-		grid-template-columns: ${p => (p.isActive ? "0.3fr 1fr" : "")};
+		display: ${p => (p.isActive ? 'grid' : '')};
+		grid-template-columns: ${p => (p.isActive ? '0.3fr 1fr' : '')};
 		border-radius: 4px;
 
 		> div {
-			height: ${p => (p.isActive ? "11.5625rem" : "")};
+			height: ${p => (p.isActive ? '11.5625rem' : '')};
 
 			> img {
-				max-height: ${p => (p.isActive ? "max-content" : "150px")} !important;
+				max-height: ${p => (p.isActive ? 'max-content' : '150px')} !important;
 			}
 		}
 
 		> div:nth-child(2) {
 			padding: 15px;
 			margin: 0px !important;
-			gap: ${p => (p.isActive ? "0px" : "10px")};
+			gap: ${p => (p.isActive ? '0px' : '10px')};
 
 			> h2 {
 				font-size: 14px;
@@ -495,8 +496,8 @@ const CardHomeEstablishment = styled.div<{
 			}
 
 			> p:nth-child(3) {
-				height: ${p => (p.isActive ? "auto" : "")};
-				padding: ${p => (p.isActive ? "0" : "0 3%")};
+				height: ${p => (p.isActive ? 'auto' : '')};
+				padding: ${p => (p.isActive ? '0' : '0 3%')};
 				line-height: normal;
 				font-weight: 600;
 				font-size: 14px;
@@ -506,15 +507,15 @@ const CardHomeEstablishment = styled.div<{
 
 			> div:nth-child(4) {
 				background: ${p =>
-		p.theme.name == "light"
-			? p.theme.colors.light_gray[600]
-			: p.theme.colors.dark_gray[800]};
+					p.theme.name == 'light'
+						? p.theme.colors.light_gray[600]
+						: p.theme.colors.dark_gray[800]};
 
-				/* border: ${p => (p.isActive ? "0.1px" : "0px")} solid
+				/* border: ${p => (p.isActive ? '0.1px' : '0px')} solid
 					${p =>
-		p.theme.name == "light"
-			? p.theme.colors.light_gray[600]
-			: p.theme.colors.dark_gray[800]}; */
+					p.theme.name == 'light'
+						? p.theme.colors.light_gray[600]
+						: p.theme.colors.dark_gray[800]}; */
 			}
 
 			> div:nth-child(5) {
@@ -534,11 +535,11 @@ const CardHomeEstablishment = styled.div<{
 		}
 
 		@media (max-width: 1000px) {
-			grid-template-columns: ${p => (p.isActive ? "0.8fr 1fr" : "")};
+			grid-template-columns: ${p => (p.isActive ? '0.8fr 1fr' : '')};
 		}
 
 		@media (max-width: 300px) {
-			grid-template-columns: ${p => (p.isActive ? "1fr 1fr" : "")};
+			grid-template-columns: ${p => (p.isActive ? '1fr 1fr' : '')};
 		}
 	}
 `;
