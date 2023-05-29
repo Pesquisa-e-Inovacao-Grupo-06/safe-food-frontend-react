@@ -3,21 +3,20 @@ import {
 	Content,
 	ContainerBack,
 	HeaderSidebar,
-} from "./styles";
+} from './styles';
 import {
 	FaHome,
-	FaInfoCircle,
 	FaQuestionCircle,
 	FaSignInAlt,
 	FaSignOutAlt,
-} from "react-icons/fa";
-import SidebarItem from "../../atoms/sidebarItem";
-import { LogoAtom } from "@/components/atoms/logo";
-import { MdPersonAddAlt1 } from "react-icons/md";
-
-import { useLocation } from "react-router-dom";
-import { IoCloseSharp } from "react-icons/io5";
-import { IconType } from "react-icons/lib";
+} from 'react-icons/fa';
+import SidebarItem from '../../atoms/sidebarItem';
+import { LogoAtom } from '@/components/atoms/logo';
+import { MdPersonAddAlt1 } from 'react-icons/md';
+import { Cache } from '@/app/domain/protocols/Cache';
+import { useLocation } from 'react-router-dom';
+import { IoCloseSharp } from 'react-icons/io5';
+import { IconType } from 'react-icons/lib';
 
 export type itemLinkArray = {
 	icon: IconType;
@@ -29,15 +28,16 @@ type Props = {
 	active: boolean;
 	toggle: () => void;
 	itemLinkArray: itemLinkArray;
+	cache?: Cache;
 };
 
-function Sidebar({ active, toggle, itemLinkArray }: Props) {
+function Sidebar({ active, toggle, itemLinkArray, cache }: Props) {
 	const { pathname } = useLocation();
 
 	return (
 		<ContainerBack
 			sidebar={active}
-			className={active ? "active" : ""}
+			className={active ? 'active' : ''}
 			onClick={toggle}
 		>
 			<ContainerSidebar sidebar={active}>
@@ -52,7 +52,15 @@ function Sidebar({ active, toggle, itemLinkArray }: Props) {
 							text={text}
 							to={to}
 							isActive={pathname === to}
-							onClick={toggle}
+							onClick={() => {
+								if (text == 'Sair') {
+									cache != undefined ? cache.removeItem('token') : '';
+									cache != undefined ? cache.removeItem('consumer') : '';
+									cache != undefined ? cache.removeItem('establishment') : '';
+									cache != undefined ? cache.removeItem('user') : '';
+								}
+								toggle();
+							}}
 							// TODO: VERIFICAR key
 							key={text + icon}
 						/>
@@ -68,28 +76,28 @@ export default Sidebar;
 const itemLinkArray = [
 	{
 		icon: FaHome,
-		text: "Início",
-		to: "/",
+		text: 'Início',
+		to: '/',
 	},
 
 	{
 		icon: FaQuestionCircle,
-		text: "FAQ",
-		to: "/faq",
+		text: 'FAQ',
+		to: '/faq',
 	},
 	{
 		icon: FaSignInAlt,
-		text: "Entrar",
-		to: "/signin",
+		text: 'Entrar',
+		to: '/signin',
 	},
 	{
 		icon: MdPersonAddAlt1,
-		text: "Cadastrar",
-		to: "/signup",
+		text: 'Cadastrar',
+		to: '/signup',
 	},
 	{
 		icon: FaSignOutAlt,
-		text: "Sair",
-		to: "#",
+		text: 'Sair',
+		to: '/',
 	},
 ];

@@ -17,7 +17,7 @@ export const ContainerProgressBar = styled.div<{
 			position: relative;
 			display: block;
 			height: 100%;
-			width: ${p => p.value}%;
+			width: ${p => p.value + "%"} ;
 			border-radius: 6px;
 			background: ${p => p.color};
 			animation: progress 0.4s ease-in-out forwards;

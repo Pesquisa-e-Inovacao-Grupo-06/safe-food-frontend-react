@@ -81,6 +81,7 @@ export const ProfileEstablishmentTemplate: React.FC<
 			});
 		}
 	}, [arquivoImportacao]);
+
 	return (
 		<>
 			<Layout
@@ -186,6 +187,20 @@ export const ProfileEstablishmentTemplate: React.FC<
 									}}
 									onClick={() => {
 										window.location.href =
+											import.meta.env.BACKEND_URL + '/restricoes/download';
+									}}
+								>
+									<span>Baixar restrições em Excel</span>
+								</PBtnBaixar>
+								<PBtnBaixar
+									icon={<MdOutlineFileDownload />}
+									alignIcon="right"
+									buttonStyle="filled"
+									style={{
+										height: 45,
+									}}
+									onClick={() => {
+										window.location.href =
 											import.meta.env.VITE_BACKEND_URL + '/restricoes/download';
 									}}
 								>
@@ -207,6 +222,7 @@ export const ProfileEstablishmentTemplate: React.FC<
 									<span>Baixar template de produtos</span>
 								</PBtnBaixar>
 							</Box>
+							
 							<PBtnImportar
 								icon={<MdOutlineCloudDownload />}
 								alignIcon="right"
@@ -235,6 +251,7 @@ export const ProfileEstablishmentTemplate: React.FC<
 									{btnImportarArquivo.text}
 								</label>
 							</PBtnImportar>
+
 							<Box style={{ marginTop: '16px' }}>
 								Baixe o nosso template para excel e o preencha com infomações de
 								seus produtos, assim o cadastro fica mais fácil quando em
@@ -326,7 +343,7 @@ const PContainer = styled.div`
 `;
 
 const PContainerProfilePhoto = styled.div`
-	position: relative;
+	/* position: relative; */
 	margin-top: -45px;
 	margin-left: -80px;
 
@@ -405,7 +422,7 @@ const PContainerInfo = styled.div`
 	input {
 		background: ${p =>
 			p.theme.name == 'light' ? '' : p.theme.colors.dark_gray[400]};
-		opacity: 100%;
+		opacity: 100% !important;
 	}
 
 	.last-input {
@@ -424,8 +441,9 @@ const PContainerInfo = styled.div`
 
 	.form-inputs-adm {
 		button {
-			opacity: 100%;
+			opacity: 100% !important;
 			width: fit-content;
+			filter: none !important;
 		}
 		@media (max-width: 600px) {
 			button {

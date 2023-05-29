@@ -1,12 +1,12 @@
-import { Text } from "@/components/atoms/text";
-import { useState } from "react";
-import { FaHome, FaSignOutAlt, FaUserAlt } from "react-icons/fa";
-import { Link } from "react-router-dom";
-import { ContainerDropDownSubMenu } from "./styles";
-import { Cache } from "@/app/domain/protocols/Cache";
-import { BsFillGearFill } from "react-icons/bs";
-import { SafeFoodLoginResponse } from "@/app/infra/gateway/safefood/models/SafeFoodUser";
-import { SafeFoodConsumerModel } from "@/app/infra/gateway/safefood/models/SafeFoodConsumer";
+import { Text } from '@/components/atoms/text';
+import { useState } from 'react';
+import { FaHome, FaSignOutAlt, FaUserAlt } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import { ContainerDropDownSubMenu } from './styles';
+import { Cache } from '@/app/domain/protocols/Cache';
+import { BsFillGearFill } from 'react-icons/bs';
+import { SafeFoodLoginResponse } from '@/app/infra/gateway/safefood/models/SafeFoodUser';
+import { SafeFoodConsumerModel } from '@/app/infra/gateway/safefood/models/SafeFoodConsumer';
 
 type Props = {
 	children?: any;
@@ -18,7 +18,7 @@ const DropDownSubMenu: React.FC<Props> = ({ userName, cache, children }) => {
 	const [active, setActive] = useState(false);
 
 	const user: SafeFoodLoginResponse =
-		cache.getItem("user") !== null ? JSON.parse(cache.getItem("user")!) : {};
+		cache.getItem('user') !== null ? JSON.parse(cache.getItem('user')!) : {};
 
 	return (
 		<>
@@ -28,7 +28,7 @@ const DropDownSubMenu: React.FC<Props> = ({ userName, cache, children }) => {
 			>
 				<div
 					className="container-children-dropdown-submenu"
-					style={{ width: "max-content", gap: "10px" }}
+					style={{ width: 'max-content', gap: '10px' }}
 				>
 					{children}
 				</div>
@@ -43,17 +43,15 @@ const DropDownSubMenu: React.FC<Props> = ({ userName, cache, children }) => {
 									<Link
 										to={to}
 										onClick={() => {
-											if (text === "Sair") {
-												if (window.location.pathname === "/") {
+											if (text === 'Sair') {
+												if (window.location.pathname === '/') {
 													window.location.reload();
 												} else {
-													cache.removeItem("token");
-													cache.removeItem("consumer");
-													cache.removeItem("establishment");
-													cache.removeItem("user");
+													cache.removeItem('token');
+													cache.removeItem('consumer');
+													cache.removeItem('establishment');
+													cache.removeItem('user');
 												}
-
-
 											}
 										}}
 									>
@@ -75,22 +73,22 @@ export default DropDownSubMenu;
 const itemLinkArray = [
 	{
 		icon: <FaHome />,
-		text: "Home",
-		to: "/home-consumer",
+		text: 'Home',
+		to: '/home-consumer',
 	},
 	{
 		icon: <FaUserAlt />,
-		text: "Meu Perfil",
-		to: "/profile",
+		text: 'Meu Perfil',
+		to: '/profile',
 	},
 	{
 		icon: <BsFillGearFill />,
-		text: "Preferências",
-		to: "/preferences-establishment",
+		text: 'Preferências',
+		to: '/preferences-establishment',
 	},
 	{
 		icon: <FaSignOutAlt />,
-		text: "Sair",
-		to: "/",
+		text: 'Sair',
+		to: '/',
 	},
 ];

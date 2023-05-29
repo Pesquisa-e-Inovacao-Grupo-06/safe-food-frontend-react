@@ -13,7 +13,7 @@ export type CommentProps = {
 	date?: string;
 	qtdComentario?: number;
 	idComment: number;
-
+	haveIconTrash?: boolean;
 	// key?: React.Key;
 	onClickDeleteComment: (idComment: number) => void;
 };
@@ -26,6 +26,7 @@ const BoxComment: React.FC<CommentProps> = ({
 	qtdComentario = "18",
 	onClickDeleteComment,
 	idComment,
+	haveIconTrash = true,
 	...props
 }) => {
 	const handleClickDeleteComment = () => {
@@ -35,7 +36,7 @@ const BoxComment: React.FC<CommentProps> = ({
 		<>
 			<ContainerBoxComent
 				{...props}
-				// key={key}
+			// key={key}
 			>
 				<Box className="header-comentario-product-text">
 					<ImageAtom src={img} />
@@ -46,10 +47,10 @@ const BoxComment: React.FC<CommentProps> = ({
 							justify="space-between"
 						>
 							<h3>{name}</h3>
-							<FaTrash
+							{haveIconTrash ? <FaTrash
 								cursor={"pointer"}
 								onClick={handleClickDeleteComment}
-							></FaTrash>
+							></FaTrash> : <></>}
 						</Box>
 						<span>
 							{date} - {qtdComentario} comentários

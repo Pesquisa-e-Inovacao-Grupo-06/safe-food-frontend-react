@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
 	SDivider,
 	SHeader,
@@ -12,22 +12,23 @@ import {
 	SSidebarButton,
 	STheme,
 	SThemeLabel,
-} from "./styles";
+} from './styles';
 
-import { AiOutlineHome, AiOutlineLeft } from "react-icons/ai";
-import { MdLogout, MdOutlineFastfood } from "react-icons/md";
-import { HiOutlineUser } from "react-icons/hi";
-import { BsGear } from "react-icons/bs";
+import { AiOutlineHome, AiOutlineLeft } from 'react-icons/ai';
+import { MdLogout, MdOutlineFastfood } from 'react-icons/md';
+import { HiOutlineUser } from 'react-icons/hi';
+import { BsGear } from 'react-icons/bs';
 
-import { useLocation, useNavigate } from "react-router-dom";
-import PingLogo from "../../../assets/Ping-Logo.png";
+import { useLocation, useNavigate } from 'react-router-dom';
+import PingLogo from '../../../assets/Ping-Logo.png';
 
-import Toggle from "../../atoms/toggle-switch";
-import Header from "../header";
+import Toggle from '../../atoms/toggle-switch';
+import Header from '../header';
 
-import { useSafeFoodTheme } from "../../../app/contexts/SafeFoodThemeProvider";
-import { Cache } from "@/app/domain/protocols/Cache";
-import { SafeFoodLoginResponse } from "@/app/infra/gateway/safefood/models/SafeFoodUser";
+import { useSafeFoodTheme } from '../../../app/contexts/SafeFoodThemeProvider';
+import { Cache } from '@/app/domain/protocols/Cache';
+import { SafeFoodLoginResponse } from '@/app/infra/gateway/safefood/models/SafeFoodUser';
+import HeaderEstablishment from '../header-establishment';
 
 type SidebarEstabProps = {
 	cache: Cache;
@@ -54,12 +55,12 @@ const SidebarEstab: React.FC<SidebarEstabProps> = ({ cache }) => {
 	const { toggleTheme, getTheme } = useSafeFoodTheme();
 
 	const user: SafeFoodLoginResponse =
-		cache.getItem("user") !== null ? JSON.parse(cache.getItem("user")!) : {};
+		cache.getItem('user') !== null ? JSON.parse(cache.getItem('user')!) : {};
 
 	return (
 		<>
 			<SHeader>
-				<Header />
+				<HeaderEstablishment cache={cache} />
 			</SHeader>
 			<SSidebar
 				className="transition"
@@ -127,11 +128,11 @@ const SidebarEstab: React.FC<SidebarEstabProps> = ({ cache }) => {
 							to={to}
 							style={!sidebarOpen ? { width: `fit-content` } : {}}
 							onClick={() => {
-								if (label == "Logout") {
-									cache.removeItem("token");
-									cache.removeItem("consumer");
-									cache.removeItem("establishment");
-									cache.removeItem("user");
+								if (label == 'Logout') {
+									cache.removeItem('token');
+									cache.removeItem('consumer');
+									cache.removeItem('establishment');
+									cache.removeItem('user');
 									// window.location.reload();
 								}
 							}}
@@ -153,35 +154,35 @@ const SidebarEstab: React.FC<SidebarEstabProps> = ({ cache }) => {
 
 const linksArray = [
 	{
-		label: "Início",
+		label: 'Início',
 		icon: <AiOutlineHome />,
-		to: "/home-establishment",
+		to: '/home-establishment',
 	},
 	{
-		label: "Produtos",
+		label: 'Produtos',
 		icon: <MdOutlineFastfood />,
-		to: "/products",
+		to: '/products',
 	},
 ];
 
 const secondaryLinksArray = [
 	{
-		label: "Perfil",
+		label: 'Perfil',
 		icon: <HiOutlineUser />,
-		to: "/profile-establishment",
+		to: '/profile-establishment',
 	},
 	{
-		label: "Preferências",
+		label: 'Preferências',
 		icon: <BsGear />,
-		to: "/preferences-establishment",
+		to: '/preferences-establishment',
 	},
 ];
 
 const thirdLinksArray = [
 	{
-		label: "Logout",
+		label: 'Logout',
 		icon: <MdLogout />,
-		to: "/",
+		to: '/',
 	},
 ];
 

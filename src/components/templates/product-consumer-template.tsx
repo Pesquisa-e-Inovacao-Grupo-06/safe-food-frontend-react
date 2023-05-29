@@ -133,6 +133,9 @@ export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 								<Text style={{ height: "fit-content" }}>
 									{product.params.descricao ? product.params.descricao : ""}
 								</Text>
+								<Text typeText={"text-md"} style={{ fontWeight: "bold" }}>
+									ingredientes: {product.params.ingredientes?.join(", ") ?? "Não informado"}
+								</Text>
 								<StyledRow>
 									<AvaliationStars
 										fixed
@@ -144,7 +147,7 @@ export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 								<Box className="container-ingredientes-product-info">
 									<span
 										className="ingredientes-product-info"
-										// key={item.nome}
+									// key={item.nome}
 									>
 										{product?.params?.categoria?.nome ?? "Nenhum ingrediente cadastrado"}
 									</span>
@@ -187,16 +190,16 @@ export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 								<SiHomeassistantcommunitystore className="icon-three-info-local" />
 								<Text>
 									{establishment.params.horarioFuncionamentoFimDeSemana &&
-									establishment.params.horarioFuncionamentoSemana
+										establishment.params.horarioFuncionamentoSemana
 										? establishment.params.horarioFuncionamentoFimDeSemana +
-										  establishment.params.horarioFuncionamentoSemana
+										establishment.params.horarioFuncionamentoSemana
 										: ""}
 								</Text>
 							</div>
 							<div className="info-local">
 								<MdPhoneEnabled className="icon-four-info-local" />
 								<Text>
-									Telefone:{" "}
+									Telefone:
 									{establishment.params.contatoCliente
 										? establishment.params.contatoCliente
 										: ""}
@@ -208,7 +211,7 @@ export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 								/>
 								<Text>
 									<h3>{establishment.params.nome ? establishment.params.nome : ""}</h3>
-									<span>{} Produtos</span>
+									<span>{ } Produtos</span>
 								</Text>
 							</Box>
 							<ButtonIcon
@@ -223,7 +226,6 @@ export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 							{/* TODO: FAZER IFS PARA COR DE CIRCLE */}
 							<AvaliationProgressBar
 								average={rateCalc}
-								label={avaliationBar.label}
 								reviews={avaliationBar.reviews}
 								values={avaliationBar.values}
 							/>
@@ -237,7 +239,7 @@ export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 									<AvaliationStars
 										fixed={false}
 										color="orange"
-										avegareRate={0}
+										avegareRate={rateCalc ?? 0}
 										onClickStar={onClickStar}
 									/>
 									<ul>
@@ -384,33 +386,33 @@ const ContainerProductConsumer = styled.div`
 
 			::-webkit-scrollbar-track {
 				background-color: ${p =>
-					p.theme.name == "light"
-						? p.theme.colors.light_gray[200]
-						: p.theme.colors.dark_gray[1000]};
+		p.theme.name == "light"
+			? p.theme.colors.light_gray[200]
+			: p.theme.colors.dark_gray[1000]};
 			}
 
 			/* Handle */
 
 			::-webkit-scrollbar-thumb {
 				background-color: ${p =>
-					p.theme.name == "light"
-						? p.theme.colors.light_gray[600]
-						: p.theme.colors.dark_gray[800]};
+		p.theme.name == "light"
+			? p.theme.colors.light_gray[600]
+			: p.theme.colors.dark_gray[800]};
 				border-radius: 50px;
 				border: 3px solid
 					${p =>
-						p.theme.name == "light"
-							? p.theme.colors.light_gray[200]
-							: p.theme.colors.dark_gray[1000]};
+		p.theme.name == "light"
+			? p.theme.colors.light_gray[200]
+			: p.theme.colors.dark_gray[1000]};
 			}
 
 			/* Handle on Hover */
 
 			::-webkit-scrollbar-thumb:hover {
 				background-color: ${p =>
-					p.theme.name == "light"
-						? p.theme.colors.light_gray[800]
-						: p.theme.colors.dark_gray[800]};
+		p.theme.name == "light"
+			? p.theme.colors.light_gray[800]
+			: p.theme.colors.dark_gray[800]};
 			}
 			.ingredientes-product-info {
 				margin-bottom: 3px;
@@ -468,9 +470,9 @@ const ContainerProductConsumer = styled.div`
 				flex-direction: column;
 				justify-content: center;
 				color: ${p =>
-					p.theme.name == "light"
-						? p.theme.colors.dark_gray[400]
-						: p.theme.colors.light_gray[200]};
+		p.theme.name == "light"
+			? p.theme.colors.dark_gray[400]
+			: p.theme.colors.light_gray[200]};
 
 				> h3 {
 					font-size: 16px;
@@ -565,9 +567,9 @@ const ContainerProductConsumer = styled.div`
 						line-height: 14px;
 						font-weight: 500;
 						color: ${p =>
-							p.theme.name == "light"
-								? p.theme.colors.dark_gray[200]
-								: p.theme.colors.light_gray[800]};
+		p.theme.name == "light"
+			? p.theme.colors.dark_gray[200]
+			: p.theme.colors.light_gray[800]};
 					}
 				}
 			}
@@ -635,33 +637,33 @@ const ContainerProductConsumer = styled.div`
 
 				::-webkit-scrollbar-track {
 					background-color: ${p =>
-						p.theme.name == "light"
-							? p.theme.colors.light_gray[200]
-							: p.theme.colors.dark_gray[600]};
+		p.theme.name == "light"
+			? p.theme.colors.light_gray[200]
+			: p.theme.colors.dark_gray[600]};
 				}
 
 				/* Handle */
 
 				::-webkit-scrollbar-thumb {
 					background-color: ${p =>
-						p.theme.name == "light"
-							? p.theme.colors.light_gray[600]
-							: p.theme.colors.dark_gray[800]};
+		p.theme.name == "light"
+			? p.theme.colors.light_gray[600]
+			: p.theme.colors.dark_gray[800]};
 					border-radius: 50px;
 					border: 3px solid
 						${p =>
-							p.theme.name == "light"
-								? p.theme.colors.light_gray[200]
-								: p.theme.colors.dark_gray[600]};
+		p.theme.name == "light"
+			? p.theme.colors.light_gray[200]
+			: p.theme.colors.dark_gray[600]};
 				}
 
 				/* Handle on Hover */
 
 				::-webkit-scrollbar-thumb:hover {
 					background-color: ${p =>
-						p.theme.name == "light"
-							? p.theme.colors.light_gray[800]
-							: p.theme.colors.black};
+		p.theme.name == "light"
+			? p.theme.colors.light_gray[800]
+			: p.theme.colors.black};
 				}
 
 				.box-coment {
@@ -671,18 +673,18 @@ const ContainerProductConsumer = styled.div`
 					padding: 8px;
 					border-radius: ${p => p.theme.border.radius.md};
 					background: ${p =>
-						p.theme.name == "light"
-							? p.theme.colors.light_gray[400]
-							: p.theme.colors.dark_gray[600]};
+		p.theme.name == "light"
+			? p.theme.colors.light_gray[400]
+			: p.theme.colors.dark_gray[600]};
 
 					border: 1px solid
 						${p =>
-							p.theme.name == "light" ? "transparent" : p.theme.colors.dark_gray[400]};
+		p.theme.name == "light" ? "transparent" : p.theme.colors.dark_gray[400]};
 					box-shadow: ${p => p.theme.colors.shadow[200]};
 					color: ${p =>
-						p.theme.name == "light"
-							? p.theme.colors.dark_gray[600]
-							: p.theme.colors.light_gray[600]};
+		p.theme.name == "light"
+			? p.theme.colors.dark_gray[600]
+			: p.theme.colors.light_gray[600]};
 					gap: 10px;
 
 					.header-comentario-product-text {
@@ -702,9 +704,9 @@ const ContainerProductConsumer = styled.div`
 							flex-direction: column;
 							justify-content: center;
 							color: ${p =>
-								p.theme.name == "light"
-									? p.theme.colors.dark_gray[400]
-									: p.theme.colors.light_gray[200]};
+		p.theme.name == "light"
+			? p.theme.colors.dark_gray[400]
+			: p.theme.colors.light_gray[200]};
 
 							> h3 {
 								font-size: 16px;

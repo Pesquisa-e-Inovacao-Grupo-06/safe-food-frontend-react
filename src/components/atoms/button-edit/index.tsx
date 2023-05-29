@@ -19,6 +19,7 @@ export const ButtonEdit: React.FC<Props> = ({ onClick }) => {
 
 const ContainerButtonEdit = styled.div`
 	> .container-btn-edit {
+		z-index: -100;
 		cursor: pointer;
 		display: flex;
 		align-items: center;

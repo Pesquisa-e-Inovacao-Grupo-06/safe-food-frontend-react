@@ -3,14 +3,12 @@ import styled from "styled-components";
 import { AvaliationStars } from "@/components/molecules/avaliation-stars";
 import { Subtitle } from "@/styles/components/text/Subtitle";
 import { Text } from "../../atoms/text";
-import { FaCommentAlt, IoLocationSharp, MdEdit } from "react-icons/all";
+import { FaCommentAlt, IoLocationSharp } from "react-icons/all";
 import { Star } from "@/components/atoms/star";
 import { TextIcon } from "@/components/molecules/text-icon/text-icon-molecule";
 import { Divider } from "@/components/atoms/divider";
 import { formatReal } from "@/app/util/convertions/price-br";
 import { Product } from "@/app/domain/entities/Product";
-import { ImageAtom } from "@/components/atoms/img";
-import SearchBar from "@/components/molecules/search-bar";
 import { ButtonEdit } from "@/components/atoms/button-edit";
 import { useNavigate } from "react-router-dom";
 import { ProfilePhotoUploadWithPreview } from "@/components/molecules/upload-profile-photo";
@@ -115,6 +113,7 @@ export const CardEstablishmentFoodOrganism: React.FC<InfoProductProps> = ({
 	activeEdit = false,
 	getInfoProduct,
 }) => {
+	const navigate = useNavigate();
 	return (
 		<Box
 			display="flex"
@@ -122,11 +121,13 @@ export const CardEstablishmentFoodOrganism: React.FC<InfoProductProps> = ({
 			borderRadius="md"
 			shadow="md"
 			background="#FCFCFC"
+		// style={{ cursor: "pointer" }}
+		// onClick={() => navigate(`establishment/${product.params.estabelecimento.id}/products/${product.params.id}`)}
 		>
 			<div
 				style={{
 					width: '100%',
-					backgroundImage: "url('https://via.placeholder.com/400')",
+					backgroundImage: `url(${product.params.imagem ? product.params.imagem : 'https://via.placeholder.com/400'})`,
 					backgroundPosition: 'center',
 					backgroundSize: 'cover',
 					borderRadius: '4px',
@@ -148,7 +149,10 @@ export const CardEstablishmentFoodOrganism: React.FC<InfoProductProps> = ({
 					}}
 				/> */}
 			</div>
-			<StyledColumn style={{ margin: '14px', alignItems: 'start' }}>
+			<StyledColumn style={{ margin: '14px', alignItems: 'start', cursor: "pointer" }}
+				// style={{ cursor: "pointer" }}
+				onClick={() => navigate(`${product.params.estabelecimento.id}/products/${product.params.id}`)}
+			>
 				<Subtitle
 					style={{
 						height: '40px',
