@@ -1,17 +1,17 @@
-import { useState, useEffect } from "react";
-import { Cache } from "@/app/domain/protocols/Cache";
-import { SafeFoodProductGateway } from "@/app/infra/gateway/safefood/SafeFoodProductGateway";
-import { SafeFoodTypeProductGateway } from "@/app/infra/gateway/safefood/SafeFoodTypeProductGateway";
-import { SafeFoodRestrictionModel } from "@/app/infra/gateway/safefood/models/SafeFoodRestriction";
-import { SafeFoodLoginResponse } from "@/app/infra/gateway/safefood/models/SafeFoodUser";
-import { SafeFoodRestrictionMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodRestrictionMapper";
-import HomeEstablishmentTemplate from "@/components/templates/home-establishment/home-establishment-template";
-import { SafeFoodCreateProductRequest } from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
-import { TypeProduct } from "@/app/domain/entities/TypeProduct";
-import { Product } from "@/app/domain/entities/Product";
-import { SafeFoodProductMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodProductMapper";
-import { SafeFoodTypeProductMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodTypeProductMapper";
-import { AlertType } from "@/components/atoms/alert";
+import { useState, useEffect } from 'react';
+import { Cache } from '@/app/domain/protocols/Cache';
+import { SafeFoodProductGateway } from '@/app/infra/gateway/safefood/SafeFoodProductGateway';
+import { SafeFoodTypeProductGateway } from '@/app/infra/gateway/safefood/SafeFoodTypeProductGateway';
+import { SafeFoodRestrictionModel } from '@/app/infra/gateway/safefood/models/SafeFoodRestriction';
+import { SafeFoodLoginResponse } from '@/app/infra/gateway/safefood/models/SafeFoodUser';
+import { SafeFoodRestrictionMapper } from '@/app/infra/gateway/safefood/mappers/SafeFoodRestrictionMapper';
+import HomeEstablishmentTemplate from '@/components/templates/home-establishment/home-establishment-template';
+import { SafeFoodCreateProductRequest } from '@/app/infra/gateway/safefood/models/SafeFoodProduct';
+import { TypeProduct } from '@/app/domain/entities/TypeProduct';
+import { Product } from '@/app/domain/entities/Product';
+import { SafeFoodProductMapper } from '@/app/infra/gateway/safefood/mappers/SafeFoodProductMapper';
+import { SafeFoodTypeProductMapper } from '@/app/infra/gateway/safefood/mappers/SafeFoodTypeProductMapper';
+import { AlertType } from '@/components/atoms/alert';
 
 type HomeEstablishmentProps = {
 	cache: Cache;
@@ -26,14 +26,11 @@ function HomeEstablishment({
 	typeProductGateway,
 	gateway,
 }: HomeEstablishmentProps) {
-
-
 	const [products, setProducts] = useState<Product[]>([]);
 	const [typeProducts, setTypeProducts] = useState<TypeProduct[]>([]);
 	const [renderListProduct, setRenderListProduct] = useState<boolean>(false);
 	const [typeAlert, setTypeAlert] = useState<AlertType>();
 	const [textAlert, setTextAlert] = useState<string>();
-
 
 	const clickToUpdateProduct = async (
 		id: string,
@@ -47,20 +44,19 @@ function HomeEstablishment({
 	};
 
 	const restrictions: SafeFoodRestrictionModel[] =
-		cache.getItem("restrictions") !== null
-			? JSON.parse(cache.getItem("restrictions")!)
+		cache.getItem('restrictions') !== null
+			? JSON.parse(cache.getItem('restrictions')!)
 			: {};
 
 	const user: SafeFoodLoginResponse =
-		cache.getItem("user") !== null ? JSON.parse(cache.getItem("user")!) : {};
+		cache.getItem('user') !== null ? JSON.parse(cache.getItem('user')!) : {};
 
 	const renderList = () => {
 		setRenderListProduct(!renderListProduct);
 	};
 	const clickToCreateProduct = async (data: SafeFoodCreateProductRequest) => {
-		debugger
 		// try {
-		console.log("asiod´fjafjsdiodsfoaíj", { id: user.usuario.id, data })
+		console.log('asiod´fjafjsdiodsfoaíj', { id: user.usuario.id, data });
 		const res = await gateway.create(user.usuario.id, data);
 		// 	const validStatus = [200, 201];
 		// 	if (!validStatus.includes(res.status)) {
@@ -86,7 +82,7 @@ function HomeEstablishment({
 
 				setProducts(fetchedProductsById.data.map(SafeFoodProductMapper.of));
 				setTypeProducts(fetchedTypeProducts.map(SafeFoodTypeProductMapper.of));
-			} catch (error) { }
+			} catch (error) {}
 		}
 		fetchProducts();
 	}, [renderListProduct]);

@@ -1,9 +1,10 @@
-import { ProfileEstablishmentTemplate } from "@/components/templates/profile-establishment-template";
-import { Cache } from "@/app/domain/protocols/Cache";
-import { SafeFoodEstablishmentModel } from "@/app/infra/gateway/safefood/models/SafeFoodEstablishment";
-import { useState } from "react";
-import { SafeFoodEstablishmentGateway } from "../app/infra/gateway/safefood/SafeFoodEstablishmentGateway";
-import { AlertType } from "@/components/atoms/alert";
+import { ProfileEstablishmentTemplate } from '@/components/templates/profile-establishment-template';
+import { Cache } from '@/app/domain/protocols/Cache';
+import { SafeFoodEstablishmentModel } from '@/app/infra/gateway/safefood/models/SafeFoodEstablishment';
+import { useState } from 'react';
+import { SafeFoodEstablishmentGateway } from '../app/infra/gateway/safefood/SafeFoodEstablishmentGateway';
+import { AlertType } from '@/components/atoms/alert';
+import { SafeFoodResponse } from '@/app/infra/gateway/safefood/models/SafeFoodResponse';
 
 type ProfileEstablishment = {
 	cache: Cache;
@@ -15,8 +16,8 @@ function ProfileEstablishment({
 	establishmentGateway,
 }: ProfileEstablishment) {
 	const establishment: SafeFoodEstablishmentModel =
-		cache.getItem("establishment") !== null
-			? JSON.parse(cache.getItem("establishment")!)
+		cache.getItem('establishment') !== null
+			? JSON.parse(cache.getItem('establishment')!)
 			: {};
 
 	//CAMPOS
@@ -55,68 +56,83 @@ function ProfileEstablishment({
 
 			if (res?.status !== 200) {
 				setIsVisibleAlert(true);
-				setTypeAlert("warning");
-				setTextAlert("Alguns dados podem estar com formato incorreto!");
+				setTypeAlert('warning');
+				setTextAlert('Alguns dados podem estar com formato incorreto!');
 				return;
 			}
 
 			setIsLoading(false);
-			setTypeAlert("success");
-			setTextAlert("Cadastro alterado com sucesso!");
+			setTypeAlert('success');
+			setTextAlert('Cadastro alterado com sucesso!');
 		} catch (e) {
 		} finally {
 			setIsLoading(false);
 		}
 	};
 
-	const onClickDeleteAddress = async (idAddress: number) => {
+	const onClickDeleteAddress = async (idAddress: number) => {};
 
-	};
-
-	const handleAddressCardClick = (apelidoEnderecoSelecionado: string) => {
-
+	const handleAddressCardClick = (apelidoEnderecoSelecionado: string) => {};
+	const importArchiveTxt = async (file: File): Promise<SafeFoodResponse> => {
+		return establishmentGateway.importProducts(establishment.id, file);
 	};
 	return establishment ? (
 		<ProfileEstablishmentTemplate
+			importArchiveTxt={importArchiveTxt}
 			listOfComponentAdministration={[
 				{
-					name: "Nome: ",
+					name: 'Nome: ',
 					value: name,
 					setUseState: setName,
 					onFocus: e => {
-						e.target.value = "a";
-						setName("a");
+						e.target.value = 'a';
+						setName('a');
 					},
-					disabled: !isEditable
+					disabled: !isEditable,
 				},
-				{ name: "Email: ", value: email, setUseState: setEmail, disabled: !isEditable },
 				{
-					name: "Número telefone: ",
+					name: 'Email: ',
+					value: email,
+					setUseState: setEmail,
+					disabled: !isEditable,
+				},
+				{
+					name: 'Número telefone: ',
 					value: numberphone ?? '',
-					setUseState: setNumberPhone, disabled: !isEditable
+					setUseState: setNumberPhone,
+					disabled: !isEditable,
 				},
 			]}
 			listOfComponentEstablishment={[
 				{
-					name: "Nome da empresa: ",
+					name: 'Nome da empresa: ',
 					value: nameEstablishment,
-					setUseState: setNameEstablishment, disabled: !isEditable
-				},
-				{ name: "Cnpj: ", value: cnpj, setUseState: setCNPJ, disabled: !isEditable },
-				{
-					name: "Celular (responsável): ",
-					value: cellphone || "",
-					setUseState: setCellphone, disabled: !isEditable
+					setUseState: setNameEstablishment,
+					disabled: !isEditable,
 				},
 				{
-					name: "Contato (Whatsaap para clientes): ",
+					name: 'Cnpj: ',
+					value: cnpj,
+					setUseState: setCNPJ,
+					disabled: !isEditable,
+				},
+				{
+					name: 'Celular (responsável): ',
+					value: cellphone || '',
+					setUseState: setCellphone,
+					disabled: !isEditable,
+				},
+				{
+					name: 'Contato (Whatsaap para clientes): ',
 					value: contact,
-					setUseState: setContact, disabled: !isEditable
+					setUseState: setContact,
+					disabled: !isEditable,
 				},
 				{
-					name: "Descrição: ",
+					name: 'Descrição: ',
 					value: description,
-					setUseState: setDescription, disabled: !isEditable
+					setUseState: setDescription,
+					disabled: !isEditable,
 				},
 			]}
 			address={establishment.endereco!}
@@ -128,11 +144,12 @@ function ProfileEstablishment({
 			textAlert={textAlert}
 			typeAlert={typeAlert}
 			onClickChangePassword={function (): void {
-				throw new Error("Function not implemented.");
+				throw new Error('Function not implemented.');
 			}}
 			cache={cache}
 			onClickCard={handleAddressCardClick}
-			onClickDeleteAddress={onClickDeleteAddress} />
+			onClickDeleteAddress={onClickDeleteAddress}
+		/>
 	) : (
 		<h1>Carregando...</h1>
 	);

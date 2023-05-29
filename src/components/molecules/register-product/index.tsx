@@ -77,8 +77,6 @@ function RegisterProduct({
 
 	//create product e limpa as inputs
 	useEffect(() => {
-		debugger
-
 		objProduct != undefined && onClickCreate != undefined
 			? onClickCreate(objProduct)
 			: "";
