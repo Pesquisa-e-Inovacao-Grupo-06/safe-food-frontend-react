@@ -296,6 +296,22 @@ function ProfileConsumer({
 		}
 	};
 
+	const deleteUser = async (id: number) => {
+		console.log("teste")
+		if (!id) {
+			return;
+		}
+		try {
+			const res = await consumerGateway.remove(id);
+			const validStatus = [200, 204];
+			if (!validStatus.includes(res.status)) {
+				window.location.href = "/";
+			}
+		} catch (e) {
+			console.log(e)
+		}
+	}
+
 	useEffect(() => {
 		if (consumerState.enderecos && consumerState.enderecos.length > 0) {
 			setListOfAddress(consumerState.enderecos.map(SafeFoodAddressMapper.of));
@@ -362,7 +378,7 @@ function ProfileConsumer({
 			isEditable={isEditable}
 			onClickSaveNewAddress={onClickSaveNewAddress}
 			address={editableAddress}
-			onChange={async ev => {
+			onChange={async (ev) => {
 				const str = ev.currentTarget.value;
 				const value = cepValidator.format(str);
 				setModalCep(value);
@@ -391,7 +407,7 @@ function ProfileConsumer({
 			onClickCard={handleAddressCardClick}
 			cache={cache}
 			onClickDeleteAddress={onClickDeleteAddress}
-		/>
+			deleteUser={deleteUser} />
 	);
 }
 

@@ -39,6 +39,8 @@ import {
 } from "./style";
 import { SafeFoodAddressMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodAddressMapper";
 import { AddressModal } from "../address-modal/address-modal";
+import { Text } from "@/components/atoms/text";
+import { BiTrash } from "react-icons/bi";
 
 export type ProfileProps = {
 	restrictionsUser: Restriction[];
@@ -76,6 +78,7 @@ export type ProfileProps = {
 	cache: Cache;
 	onClickCard: (address: SafeFoodAddressModel) => void;
 	onClickDeleteAddress: (id: number) => void;
+	deleteUser: (id: number) => void;
 };
 
 export const ProfileTemplate: React.FC<ProfileProps> = ({
@@ -111,6 +114,7 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 	cache,
 	onClickDeleteAddress,
 	onClickUpdateAddress,
+	deleteUser
 }) => {
 	return (
 		<>
@@ -261,7 +265,36 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 									))}
 							</PContainerRestricao>
 						</PContainerInfo3>
+						<PDivider />
+						<PContainerInfo3 >
+							<PTitle>Ações para conta</PTitle>
+							<Box display="flex" width="300px">
+								<ButtonIcon
+									alignIcon="left"
+									icon={<BiTrash />}
+									color="red"
+									height="fit-content"
+									width="fit-content"
+									buttonStyle="filled"
+									style={{
+										fontSize: "16px",
+										maxHeight: "32px",
+										width: "fit-content",
+										background: "red",
+										borderColor: "red"
+									}}
+									onClick={() => deleteUser(consumer.id)}
+								>
+									<Text typeText="text-md" color="white">
+										Deletar conta
+									</Text>
+								</ButtonIcon>
+
+							</Box>
+						</PContainerInfo3>
+
 					</PContainerInfo>
+
 					<PContainerBtn>
 						{isEditable ? (
 							<>
