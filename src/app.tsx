@@ -144,10 +144,6 @@ export default function App({
 								path="/change-password"
 								element={<ForgetPassWord />}
 							/>
-							<Route
-								path="/new-home"
-								element={<NewHome />}
-							/>
 						</Routes>
 					</Router>
 				</AuthProvider>

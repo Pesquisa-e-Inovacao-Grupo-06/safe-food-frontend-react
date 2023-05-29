@@ -1,7 +1,7 @@
 import Header from "@/components/molecules/header";
 import { BodyTemplate } from "@/components/templates/body-template";
 import styled from "styled-components";
-import banner from "../assets/Banner.svg";
+import banner from "../assets/new-Banner.png";
 import { Title } from "@/styles/components/text/Title";
 import { ButtonIcon } from "@/components/molecules/button/button-icon";
 import { MdOutlineArrowForwardIos } from "react-icons/md";
@@ -202,6 +202,10 @@ const ContainerNewHome = styled.div`
 				> img {
 					height: auto;
 					width: 100%;
+
+					@media (max-width: 500px) {
+						width: auto;
+					}
 				}
 				> p {
 					font-weight: 600;
@@ -464,7 +468,8 @@ const DividerNewHome = styled.div`
 	margin: 100px 0;
 	margin-left: auto;
 	margin-right: auto;
-	background: #fddbbc;
+	background: ${p =>
+		p.theme.name == "light" ? "#fddbbc" : p.theme.colors.dark_gray[400]};
 	height: 5px;
 	width: 50%;
 `;
