@@ -247,7 +247,6 @@ const PBanner = styled(Box)`
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center;
-	filter: brightness(46%);
 
 	@media (max-width: 800px) {
 		justify-content: flex-end;
