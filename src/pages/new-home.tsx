@@ -1,56 +1,28 @@
-import Header from "../molecules/header";
-import { BodyTemplate } from "./body-template";
-import { Product } from "@/app/domain/entities/Product";
-import { SafeFoodLoginResponse } from "@/app/infra/gateway/safefood/models/SafeFoodUser";
-import HeaderConsumer from "../molecules/header-consumer";
-import { Cache } from "@/app/domain/protocols/Cache";
+import Header from "@/components/molecules/header";
+import { BodyTemplate } from "@/components/templates/body-template";
 import styled from "styled-components";
-import banner from "../../assets/new-Banner.png";
+import banner from "../assets/new-Banner.png";
 import { Title } from "@/styles/components/text/Title";
 import { ButtonIcon } from "@/components/molecules/button/button-icon";
 import { MdOutlineArrowForwardIos } from "react-icons/md";
 import { Text } from "@/components/atoms/text";
 import { Subtitle } from "@/styles/components/text/Subtitle";
-import ZeroLactose from "../../assets/Zero Lactose.png";
-import ZeroGruten from "../../assets/Zero Grúten.png";
-import Vegano from "../../assets/Vegano.png";
-import Vegetariano from "../../assets/Vegetariano.png";
-import ZeroAcucar from "../../assets/Zero açucar.png";
-import Pizza from "../../assets/Mask group.png";
-import Tigela from "../../assets/Mask group (1).png";
-import Bolo from "../../assets/Mask group (2).png";
-import Doghnut from "../../assets/Mask group (3).png";
-import Restaurante from "../../assets/pexels-kaboompics-com-5697 1.png";
-import BannerFinal from "../../assets/Banner-meio.png";
-import { useModalHome } from "@/app/contexts/ModalProvider";
+import ZeroLactose from "../assets/Zero Lactose.png";
+import ZeroGruten from "../assets/Zero Grúten.png";
+import Vegano from "../assets/Vegano.png";
+import Vegetariano from "../assets/Vegetariano.png";
+import ZeroAcucar from "../assets/Zero açucar.png";
+import Pizza from "../assets/Mask group.png";
+import Tigela from "../assets/Mask group (1).png";
+import Bolo from "../assets/Mask group (2).png";
+import Doghnut from "../assets/Mask group (3).png";
+import Restaurante from "../assets/pexels-kaboompics-com-5697 1.png";
+import BannerFinal from "../assets/Banner-meio.png";
 
-export type HomeTemplateParams = {
-	nearbyFoodsCardItems: Product[];
-	listOfFavoriteProducts: Product[];
-	textFieldFood: string;
-	textFieldLocation: string;
-	handleChangeFood: (value: any) => void;
-	handleChangeLocation: (value: any) => void;
-	onClickSearchLanding: () => void;
-	user: SafeFoodLoginResponse;
-	cache: Cache;
-};
-
-export const HomeTemplate: React.FC<HomeTemplateParams> = ({
-	nearbyFoodsCardItems,
-	listOfFavoriteProducts,
-	handleChangeFood,
-	handleChangeLocation,
-	textFieldFood,
-	textFieldLocation,
-	onClickSearchLanding,
-	user,
-	cache,
-}) => {
-	const { setModal } = useModalHome();
+export const NewHome: React.FC = () => {
 	return (
 		<>
-			{user.token ? <HeaderConsumer cache={cache} /> : <Header />}
+			<Header />
 			<ContainerNewHome>
 				<div className="container-banner-new-home">
 					<div className="container-banner-info-new-home">
@@ -133,12 +105,7 @@ export const HomeTemplate: React.FC<HomeTemplateParams> = ({
 								Faça parte de um mercado em constante crescimento. Saiba como alcançar
 								um novo público e visibilidade para o seu negócio.
 							</Text>
-							<ButtonIcon
-								onClick={() => setModal("consumer")}
-								icon
-							>
-								Cadastre-se
-							</ButtonIcon>
+							<ButtonIcon icon>Cadastre-se</ButtonIcon>
 						</div>
 					</div>
 				</div>
@@ -506,57 +473,3 @@ const DividerNewHome = styled.div`
 	height: 5px;
 	width: 50%;
 `;
-
-// import Header from "../molecules/header";
-// import { BannerMobilePlatform } from "../organisms/banner-mobile-platform/banner-mobile-platform";
-
-// import { MoreFavoritesTemplate } from "./more-favorites-template";
-// import { BodyTemplate } from "./body-template";
-// import { Landing } from "../organisms/landing/landing";
-// import { Product } from "@/app/domain/entities/Product";
-// import { CardEstablishmentFoodOTemplate } from "./card-establishment-food-template";
-// import { SafeFoodLoginResponse } from "@/app/infra/gateway/safefood/models/SafeFoodUser";
-// import HeaderConsumer from "../molecules/header-consumer";
-// import { Cache } from "@/app/domain/protocols/Cache";
-
-// export type HomeTemplateParams = {
-// 	nearbyFoodsCardItems: Product[];
-// 	listOfFavoriteProducts: Product[];
-// 	textFieldFood: string;
-// 	textFieldLocation: string;
-// 	handleChangeFood: (value: any) => void;
-// 	handleChangeLocation: (value: any) => void;
-// 	onClickSearchLanding: () => void;
-// 	user: SafeFoodLoginResponse;
-// 	cache: Cache;
-// };
-
-// export const HomeTemplate: React.FC<HomeTemplateParams> = ({
-// 	nearbyFoodsCardItems,
-// 	listOfFavoriteProducts,
-// 	handleChangeFood,
-// 	handleChangeLocation,
-// 	textFieldFood,
-// 	textFieldLocation,
-// 	onClickSearchLanding,
-// 	user,
-// 	cache,
-// }) => {
-// 	return (
-// 		<>
-// 			{user.token ? <HeaderConsumer cache={cache} /> : <Header />}
-// 			<Landing
-// 				textFieldFood={textFieldFood}
-// 				textFieldLocation={textFieldLocation}
-// 				handleChangeFood={handleChangeFood}
-// 				handleChangeLocation={handleChangeLocation}
-// 				onClickSearchLanding={onClickSearchLanding}
-// 				></Landing>
-// 			<BodyTemplate footer>
-// 				<CardEstablishmentFoodOTemplate nearbyFoodsItems={nearbyFoodsCardItems} />
-// 				<MoreFavoritesTemplate listOfFavorite={listOfFavoriteProducts} />
-// 				<BannerMobilePlatform />
-// 			</BodyTemplate>
-// 		</>
-// 	);
-// };
