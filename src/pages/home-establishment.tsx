@@ -26,28 +26,14 @@ function HomeEstablishment({
 	typeProductGateway,
 	gateway,
 }: HomeEstablishmentProps) {
+
+
 	const [products, setProducts] = useState<Product[]>([]);
 	const [typeProducts, setTypeProducts] = useState<TypeProduct[]>([]);
 	const [renderListProduct, setRenderListProduct] = useState<boolean>(false);
 	const [typeAlert, setTypeAlert] = useState<AlertType>();
 	const [textAlert, setTextAlert] = useState<string>();
 
-	const clickToCreateProduct = async (data: SafeFoodCreateProductRequest) => {
-		// try {
-		const res = await gateway.create(user.usuario.id, data);
-		// 	const validStatus = [200, 201];
-		// 	if (!validStatus.includes(res.status)) {
-		// 		setTypeAlert("warning");
-		// 		setTextAlert("Erro ao cadastrar o produto");
-		// 	} else {
-		// 		setTypeAlert("success");
-		// 		setTextAlert("Produto cadastrado com sucesso");
-		// 	}
-		// } catch (e) {
-		// 	setTypeAlert("warning");
-		// 	setTextAlert("Erro ao cadastrar o endereço");
-		// }
-	};
 
 	const clickToUpdateProduct = async (
 		id: string,
@@ -70,6 +56,24 @@ function HomeEstablishment({
 
 	const renderList = () => {
 		setRenderListProduct(!renderListProduct);
+	};
+	const clickToCreateProduct = async (data: SafeFoodCreateProductRequest) => {
+		debugger
+		// try {
+		console.log("asiod´fjafjsdiodsfoaíj", { id: user.usuario.id, data })
+		const res = await gateway.create(user.usuario.id, data);
+		// 	const validStatus = [200, 201];
+		// 	if (!validStatus.includes(res.status)) {
+		// 		setTypeAlert("warning");
+		// 		setTextAlert("Erro ao cadastrar o produto");
+		// 	} else {
+		// 		setTypeAlert("success");
+		// 		setTextAlert("Produto cadastrado com sucesso");
+		// 	}
+		// } catch (e) {
+		// 	setTypeAlert("warning");
+		// 	setTextAlert("Erro ao cadastrar o endereço");
+		// }
 	};
 
 	useEffect(() => {

@@ -13,6 +13,7 @@ import { ImageAtom } from "@/components/atoms/img";
 import SearchBar from "@/components/molecules/search-bar";
 import { ButtonEdit } from "@/components/atoms/button-edit";
 import { useNavigate } from "react-router-dom";
+import { ProfilePhotoUploadWithPreview } from "@/components/molecules/upload-profile-photo";
 
 export type EstablishmentFoodProps = {
 	NearbyFoodsItem: Product;
@@ -164,11 +165,14 @@ export const CardEstablishmentFoodOrganism: React.FC<InfoProductProps> = ({
 type CardExpansiveEstablishmentFoodOrganismProps = {
 	titulo?: string;
 	categoria?: string;
+	qtdComentario: number,
+	average: number,
+	fileChange?(file: File): void;
 };
 
 export const CardExpansiveEstablishmentFoodOrganism: React.FC<
 	CardExpansiveEstablishmentFoodOrganismProps
-> = ({ titulo = "Hamburger Vegan 2.0", categoria = "" }) => {
+> = ({ titulo = "Hamburger Vegan 2.0", categoria = "", fileChange, average, qtdComentario }) => {
 	return (
 		<Box
 			display="flex"
@@ -179,16 +183,10 @@ export const CardExpansiveEstablishmentFoodOrganism: React.FC<
 			background="#FCFCFC"
 		>
 			<div style={{ height: "125px", padding: "10px", flexBasis: "20%" }}>
-				<img
-					src="https://via.placeholder.com/400"
-					alt=""
-					style={{
-						maxHeight: "100%",
-						objectFit: "cover",
-						width: "100%",
-						borderRadius: "8px",
-					}}
-				/>
+				<ProfilePhotoUploadWithPreview
+
+					shape="rectangle"
+					name={""} id={"imageProductEdit"} width={""} fileChange={fileChange} />
 			</div>
 			<StyledColumn style={{ flexBasis: "20%", alignItems: "start" }}>
 				<Subtitle>{titulo}</Subtitle>
@@ -203,13 +201,13 @@ export const CardExpansiveEstablishmentFoodOrganism: React.FC<
 						}
 						iconAlign="left"
 					>
-						3.5
+						{average}
 					</TextIcon>
 					<TextIcon
 						icon={<FaCommentAlt />}
 						iconAlign="left"
 					>
-						53
+						{qtdComentario}
 					</TextIcon>
 					{categoria}
 				</StyledRow>
@@ -268,7 +266,7 @@ export const StyledColumn = styled.div<{
 	gap: 20px;
 `;
 
-export const StyledCost = styled(Text)<{
+export const StyledCost = styled(Text) <{
 	backgroundColor?: string;
 }>`
 	background-color: ${p => p.backgroundColor ?? "green"};

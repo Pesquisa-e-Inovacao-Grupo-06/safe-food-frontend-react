@@ -11,11 +11,12 @@ export type ProfilePhotoUploadWithPreviewProps = {
 	justify?: BoxJustify;
 	urlDefault?: string | undefined | null;
 	isEditable?: boolean;
+	shape?: "circle" | "rectangle";
 	fileChange?(file: File): void;
 } & HTMLAttributes<HTMLLabelElement>;
 export const ProfilePhotoUploadWithPreview: React.FC<
 	ProfilePhotoUploadWithPreviewProps
-> = ({ justify, isEditable = true, ...props }) => {
+> = ({ justify, isEditable = true, shape = "circle", ...props }) => {
 	const [preview, setPreview] = useState(props.urlDefault || Camera);
 	const [fileName, setFilename] = useState("Nenhum arquivo selecionado");
 	return (
@@ -28,21 +29,40 @@ export const ProfilePhotoUploadWithPreview: React.FC<
 					flexWrap: "wrap",
 				}}
 			>
-				<StyledLabelForImage
-					className="transition"
-					htmlFor={props.id}
-					title="Clique sob para selecionar uma imagem"
-					preview={preview !== Camera}
-					{...props}
-					id={props.id + "-label"}
-					style={{ cursor: isEditable ? "pointer" : "not-allowed" }}
-				>
-					<ImageAtom
-						cursor={isEditable ? "true" : "false"}
-						src={preview}
-						alt="Camera para editar a foto de perfil"
-					/>
-				</StyledLabelForImage>
+				{shape === "circle" ? (
+					<StyledLabelForImage
+						className="transition"
+						htmlFor={props.id}
+						title="Clique sob para selecionar uma imagem"
+						preview={preview !== Camera}
+						{...props}
+						id={props.id + "-label"}
+						style={{ cursor: isEditable ? "pointer" : "not-allowed" }}
+					>
+						<ImageAtom
+							cursor={isEditable ? "true" : "false"}
+							src={preview}
+							alt="Camera para editar a foto de perfil"
+						/>
+					</StyledLabelForImage>
+				) :
+					<StyledLabelForImage
+						className="transition"
+						htmlFor={props.id}
+						title="Clique sob para selecionar uma imagem"
+						preview={preview !== Camera}
+						{...props}
+						id={props.id + "-label"}
+						style={{ cursor: isEditable ? "pointer" : "not-allowed" }}
+					>
+						<ImageAtom
+							cursor={isEditable ? "true" : "false"}
+							src={preview}
+							alt="Camera para editar a foto de perfil"
+						/>
+					</StyledLabelForImage>
+				}
+
 				<Text>{fileName}</Text>
 			</Box>
 

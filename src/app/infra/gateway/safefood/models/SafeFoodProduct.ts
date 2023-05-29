@@ -125,18 +125,25 @@ export type SafeFoodProductFilterResponse = SafeFoodProductsResponse;
 //     restricoes: Restriction[]
 // }
 
-export type SafeFoodCreateProductRequest = {
-	id: number;
-	titulo: string;
-	descricao: string;
-	preco: number;
-	imagem?: string;
-	ingredientes: string[];
-	unidadeDeVenda: string;
-	categoria: number;
-	restricoes: number[];
-};
+	export type SafeFoodCreateProductWithNoImageRequest = {
+		id: number;
+		titulo: string;
+		descricao: string;
+		preco: number;
+		ingredientes: string[];
+		unidadeDeVenda: string;
+		categoria: number;
+		restricoes: number[];
+	} 
 
+	export type SafeFoodCreateProductImageRequest = {
+		imagem?: File;
+		
+	}
+
+	export type SafeFoodCreateProductRequest = {
+
+	} & SafeFoodCreateProductWithNoImageRequest & SafeFoodCreateProductImageRequest;
 // export type SafeFoodProductFilterRequest = {
 //     IDSRestrictions?: string[];
 //     IDSCategories?: string[];
