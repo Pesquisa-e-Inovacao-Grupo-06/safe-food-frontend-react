@@ -12,13 +12,13 @@ import {
 	OrderSelect,
 	SafeFoodProductFilterRequest,
 	SafeFoodProductsResponse,
-} from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
-import { SafeFoodRestrictionModel } from "@/app/infra/gateway/safefood/models/SafeFoodRestriction";
-import { CheckBoxEntity } from "@/components/molecules/checkbox-chain";
-import HomeConsumerTemplate from "@/components/templates/home-consumer/home-consumer-template";
-import { useEffect, useState } from "react";
-import { Option } from "@/components/atoms/select";
-import { removeDescSuffix } from "@/app/util/convertions/remove-desc-suffix";
+} from '@/app/infra/gateway/safefood/models/SafeFoodProduct';
+import { SafeFoodRestrictionModel } from '@/app/infra/gateway/safefood/models/SafeFoodRestriction';
+import { CheckBoxEntity } from '@/components/molecules/checkbox-chain';
+import HomeConsumerTemplate from '@/components/templates/home-consumer/home-consumer-template';
+import { useEffect, useState } from 'react';
+import { Option } from '@/components/atoms/select';
+import { removeDescSuffix } from '@/app/util/convertions/remove-desc-suffix';
 
 type HomeConsumerProps = {
 	cache: Cache;
@@ -32,13 +32,13 @@ function HomeConsumer({
 	typeProductGateway,
 }: HomeConsumerProps) {
 	const consumer: SafeFoodConsumerModel =
-		cache.getItem("consumer") !== null
-			? JSON.parse(cache.getItem("consumer")!)
+		cache.getItem('consumer') !== null
+			? JSON.parse(cache.getItem('consumer')!)
 			: {};
 
 	const restrictions: SafeFoodRestrictionModel[] =
-		cache.getItem("restrictions") !== null
-			? JSON.parse(cache.getItem("restrictions")!)
+		cache.getItem('restrictions') !== null
+			? JSON.parse(cache.getItem('restrictions')!)
 			: {};
 
 	const typeProductCache: TypeProduct[] =
@@ -66,6 +66,7 @@ function HomeConsumer({
 	const [products, setProducts] = useState<Product[]>([]);
 	const [productsFilter, setProductsFilter] = useState<any>();
 	const [pageNumber, setPageNumber] = useState<number>(1);
+	const [totalItens, setTotalItens] = useState<number>(0);
 	//	todo: verifica esse useState e seu componente de paginação, não consigo atualizaar ele lá em baixo no campo de totalPage, mesmo que eu de um set aqui no total, a paginação não atualiza o seu < 1 2 3>
 	const [totalPage, setTotalPage] = useState<number>(0);
 	const [initialize, setInitializa] = useState<boolean>(false);
@@ -75,7 +76,6 @@ function HomeConsumer({
 	const [typeProducts, setTypeProducts] = useState<TypeProduct[]>([]);
 
 	const handlePageChange = async (pageNumberHandle: number) => {
-
 		if (initialize == false) {
 			return;
 		}
@@ -88,7 +88,7 @@ function HomeConsumer({
 				ids_categorias: [],
 				ids_restricoes: [],
 				ids_tipos_restricao: [],
-				cep: "09572660",
+				cep: '09572660',
 				direction: direction,
 				distanceRadio: 10,
 				itensPorPagina: selectItems,
@@ -103,10 +103,6 @@ function HomeConsumer({
 	};
 
 	const onClickApplication = async () => {
-		// console.log("selectItems", selectItems)
-		// console.log("direction", direction)
-		// console.log("selectOrder", selectOrder)
-
 		try {
 			const filterProducts: SafeFoodProductFilterRequest = {
 				ids_restricoes: checkedRestrictions,
@@ -128,6 +124,7 @@ function HomeConsumer({
 			setProductsFilter(fetchedProductsFilter);
 			setProducts(fetchedProductsFilter.content.map(SafeFoodProductMapper.of));
 			setTotalPage(fetchedProductsFilter.totalPages);
+			setTotalItens(fetchedProductsFilter.numberOfElements);
 			setInitializa(true);
 		} catch (error) {
 			setProducts([]);
@@ -138,7 +135,6 @@ function HomeConsumer({
 	useEffect(() => {
 		if (initialize == false) {
 			setTypeProducts(typeProductCache);
-
 			onClickApplication();
 		}
 	}, [pageNumber]);
@@ -151,8 +147,6 @@ function HomeConsumer({
 	const [checkedTypeRestrictions, setCheckedTypeRestrictions] = useState<
 		string[]
 	>([]);
-
-
 
 	const handleCheckboxChainChangeRestrictions = (
 		checkedCheckboxes: string[]
@@ -177,8 +171,10 @@ function HomeConsumer({
 		.filter(item => item.name !== undefined)
 		.map(item => ({ name: item.name as string, id: item.id }));
 
-	const dropdownTypeProducts = typeProducts
-		.map(item => ({ name: item.nome, id: item.id }))
+	const dropdownTypeProducts = typeProducts.map(item => ({
+		name: item.nome,
+		id: item.id,
+	}));
 
 	const dropdownTypeRestrictions = restrictions
 		.map(item => ({
@@ -203,12 +199,15 @@ function HomeConsumer({
 
 	const checkboxListRestrictions: CheckBoxEntity[] = dropdownRestrictions.map(
 		item => {
-			return createCheckBoxEntity(item.name, item.id)
-		});
+			return createCheckBoxEntity(item.name, item.id);
+		}
+	);
 
-	const checkboxListTypeProducts: CheckBoxEntity[] = dropdownTypeProducts.map(item => {
-		return createCheckBoxEntity(item.name, item.id!);
-	});
+	const checkboxListTypeProducts: CheckBoxEntity[] = dropdownTypeProducts.map(
+		item => {
+			return createCheckBoxEntity(item.name, item.id!);
+		}
+	);
 
 	const checkboxListTypeRestrictions: CheckBoxEntity[] =
 		dropdownTypeRestrictions.map(item =>
@@ -238,37 +237,35 @@ function HomeConsumer({
 				products={products}
 				dropDownList={[
 					{
-						titleDropDown: "Restrições:",
-						textSubMenuWithCheckBox: totalRestrictions
-							.map(item => item.params.restricao)
-							.filter(text => text !== undefined)
-							.map(text => text as string),
+						titleDropDown: 'Restrições:',
+						textSubMenuWithCheckBox: restrictions.map(item => item.restricao),
 						activeCheckBox: true,
-						alignSubText: "start",
+						alignSubText: 'start',
 						alignTitleText: false,
 						checkList: checkboxListRestrictions,
 						onCheckboxChainChange: handleCheckboxChainChangeRestrictions,
 					},
 					{
-						titleDropDown: "Categoria do produto:",
+						titleDropDown: 'Categoria do produto:',
 						textSubMenuWithCheckBox: typeProducts
 							.map(item => item.nome)
 							.filter(text => text !== undefined)
 							.map(text => text as string),
 						activeCheckBox: true,
-						alignSubText: "start",
+						alignSubText: 'start',
 						alignTitleText: false,
 						checkList: checkboxListTypeProducts,
 						onCheckboxChainChange: handleCheckboxChainChangeTypeProducts,
 					},
 					{
-						titleDropDown: "Tipo de restrição:",
-						textSubMenuWithCheckBox: restrictions
-							.map(item => item.tipoRestricao.tipoRestricao)
-							.filter(text => text !== undefined)
-							.map(text => text as string),
+						titleDropDown: 'Tipo de restrição:',
+						textSubMenuWithCheckBox: Array.from(
+							new Set(
+								restrictions.map(item => item.tipoRestricao.tipoRestricao)
+							)
+						).filter(text => text != undefined),
 						activeCheckBox: true,
-						alignSubText: "start",
+						alignSubText: 'start',
 						alignTitleText: false,
 						checkList: checkboxListTypeRestrictions,
 						onCheckboxChainChange: handleCheckboxChainChangeTypeRestrictions,
@@ -276,6 +273,7 @@ function HomeConsumer({
 				]}
 				onClickApplication={onClickApplication}
 				cache={cache}
+				totalElements={totalItens}
 				onPageChange={handlePageChange}
 				totalPagesProductFilter={totalPage}
 				changeOrder={handleOrderChange}

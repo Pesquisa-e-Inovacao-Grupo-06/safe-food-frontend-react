@@ -1,31 +1,30 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const CardProductHomeConsumer = styled.div<{
 	isActive?: boolean;
 }>`
-	height: ${p => (p.isActive ? "11.5625rem" : "")};
+	height: ${p => (p.isActive ? '11.5625rem' : '')};
 	> div {
 		cursor: pointer;
 		background: ${p =>
-			p.theme.name == "light"
+			p.theme.name == 'light'
 				? p.theme.colors.light_gray[200]
 				: p.theme.colors.dark_gray[1000]};
-		width: auto;
-		display: ${p => (p.isActive ? "grid" : "")};
-		grid-template-columns: ${p => (p.isActive ? "0.3fr 1fr" : "")};
+		display: ${p => (p.isActive ? 'grid' : '')};
+		grid-template-columns: ${p => (p.isActive ? '0.3fr 1fr' : '')};
 
 		> div {
-			height: ${p => (p.isActive ? "11.5625rem" : "")};
+			height: ${p => (p.isActive ? '11.5625rem' : '')};
 
 			> img {
-				max-height: ${p => (p.isActive ? "max-content" : "150px")} !important;
+				max-height: ${p => (p.isActive ? 'max-content' : '150px')} !important;
 			}
 		}
 
 		> div:nth-child(2) {
 			padding: 15px;
 			margin: 0px !important;
-			gap: ${p => (p.isActive ? "0px" : "10px")};
+			gap: ${p => (p.isActive ? '0px' : '10px')};
 
 			> h2 {
 				font-size: 14px;
@@ -45,8 +44,8 @@ export const CardProductHomeConsumer = styled.div<{
 			}
 
 			> p:nth-child(3) {
-				height: ${p => (p.isActive ? "auto" : "")};
-				padding: ${p => (p.isActive ? "0" : "0 3%")};
+				height: ${p => (p.isActive ? 'auto' : '')};
+				padding: ${p => (p.isActive ? '0' : '0 3%')};
 				line-height: normal;
 				font-weight: 600;
 				font-size: 14px;
@@ -56,13 +55,13 @@ export const CardProductHomeConsumer = styled.div<{
 
 			> div:nth-child(4) {
 				background: ${p =>
-					p.theme.name == "light"
+					p.theme.name == 'light'
 						? p.theme.colors.light_gray[600]
 						: p.theme.colors.dark_gray[800]};
 
-				/* border: ${p => (p.isActive ? "0.1px" : "0px")} solid
+				/* border: ${p => (p.isActive ? '0.1px' : '0px')} solid
 					${p =>
-					p.theme.name == "light"
+					p.theme.name == 'light'
 						? p.theme.colors.light_gray[600]
 						: p.theme.colors.dark_gray[800]}; */
 			}
@@ -84,11 +83,11 @@ export const CardProductHomeConsumer = styled.div<{
 		}
 
 		@media (max-width: 1000px) {
-			grid-template-columns: ${p => (p.isActive ? "0.8fr 1fr" : "")};
+			grid-template-columns: ${p => (p.isActive ? '0.8fr 1fr' : '')};
 		}
 
 		@media (max-width: 300px) {
-			grid-template-columns: ${p => (p.isActive ? "1fr 1fr" : "")};
+			grid-template-columns: ${p => (p.isActive ? '1fr 1fr' : '')};
 		}
 	}
 `;
@@ -102,8 +101,8 @@ export const ContainerHomeConsumer = styled.div<{
 	margin-top: 120px;
 
 	grid-template-areas:
-		"asideHeader header"
-		"aside main";
+		'asideHeader header'
+		'aside main';
 
 	grid-column-gap: 30px;
 
@@ -118,7 +117,7 @@ export const ContainerHomeConsumer = styled.div<{
 			gap: 15px;
 			border-bottom: 1px solid
 				${p =>
-					p.theme.name == "light"
+					p.theme.name == 'light'
 						? p.theme.colors.light_gray[800]
 						: p.theme.colors.dark_gray[400]};
 
@@ -165,11 +164,13 @@ export const ContainerHomeConsumer = styled.div<{
 					}
 
 					> svg:nth-child(2) {
-						fill: ${p => (!p.isFormCardActive ? p.theme.colors.primary[600] : "")};
+						fill: ${p =>
+							!p.isFormCardActive ? p.theme.colors.primary[600] : ''};
 					}
 
 					> svg:nth-child(1) {
-						fill: ${p => (p.isFormCardActive ? p.theme.colors.primary[600] : "")};
+						fill: ${p =>
+							p.isFormCardActive ? p.theme.colors.primary[600] : ''};
 					}
 				}
 			}
@@ -196,7 +197,7 @@ export const ContainerHomeConsumer = styled.div<{
 			border-radius: 8px;
 			padding: 1px 15px 15px 15px;
 			background: ${p =>
-				p.theme.name == "light"
+				p.theme.name == 'light'
 					? p.theme.colors.light_gray[200]
 					: p.theme.colors.dark_gray[1000]};
 			box-shadow: rgba(0, 0, 0, 0.133) 0px 4px 12px 2px;
@@ -232,10 +233,17 @@ export const ContainerHomeConsumer = styled.div<{
 
 		.container-main-home-consumer {
 			padding: 10px 0;
-			display: grid;
-			grid-template-columns: ${p =>
-				p.isFormCardActive ? "1fr" : "repeat(auto-fit , minmax(225px, 1fr))"};
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-around;
 			gap: 20px;
+			flex-direction: ${p => (p.isFormCardActive ? 'column' : 'row')};
+			& > * {
+				flex-grow: 1;
+				width: 100%;
+				margin-bottom: ${p => (p.isFormCardActive ? '10px' : '')};
+				max-width: ${p => (p.isFormCardActive ? '100%' : '300px')};
+			}
 		}
 	}
 
@@ -251,11 +259,11 @@ export const ContainerHomeConsumer = styled.div<{
 		grid-template-columns: 1fr;
 		grid-template-rows: 0fr 0fr 0fr 0fr 0fr;
 		grid-template-areas:
-			"asideHeader"
-			"aside"
-			"header"
-			"main"
-			"footer";
+			'asideHeader'
+			'aside'
+			'header'
+			'main'
+			'footer';
 
 		.footer-home-consumer {
 			grid-column: 1;
@@ -272,7 +280,7 @@ export const ContainerHomeConsumer = styled.div<{
 
 				border-top: 1px solid
 					${p =>
-						p.theme.name == "light"
+						p.theme.name == 'light'
 							? p.theme.colors.light_gray[800]
 							: p.theme.colors.dark_gray[400]};
 
