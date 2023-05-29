@@ -47,7 +47,7 @@ export const MapsPage: React.FC<MapsProps>=({establishment, getLatLongFromAddres
                 zoom={18}
                 id="map-establishment"
             >
-                {/*<MarkerF position={center} label={establishment.params.nome} title={establishment.params.endereco?.formatado} />*/}
+
                 <OverlayViewF
                     key={"item"}
                     position={center}
@@ -64,6 +64,7 @@ export const MapsPage: React.FC<MapsProps>=({establishment, getLatLongFromAddres
                             textAlign: 'center'
                         }}>{establishment.params.endereco?.formatado}</Text>
                     </Box>
+                    <MarkerF position={center} label={establishment.params.nome} title={establishment.params.endereco?.formatado} />
                 </OverlayViewF>
 
             </GoogleMap>
