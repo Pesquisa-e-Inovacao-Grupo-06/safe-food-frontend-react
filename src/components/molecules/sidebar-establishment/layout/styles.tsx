@@ -6,7 +6,6 @@ export const SLayout = styled.div`
 	/* position: fixed; */
 	width: 100dvw;
 	overflow: hidden;
-
 	@media screen and (max-width: 800px) {
 		grid-template-columns: none;
 		grid-template-columns: 1fr 0fr 0fr;
@@ -48,24 +47,24 @@ export const SMain = styled.main<{
 
 	::-webkit-scrollbar-thumb {
 		background-color: ${p =>
-			p.theme.name == "light"
-				? p.theme.colors.light_gray[600]
-				: p.theme.colors.dark_gray[800]};
+		p.theme.name == "light"
+			? p.theme.colors.light_gray[600]
+			: p.theme.colors.dark_gray[800]};
 		border-radius: 50px;
 		border: 3px solid
 			${p =>
-				p.theme.name == "light"
-					? p.theme.colors.light_gray[200]
-					: p.theme.colors.dark_gray[600]};
+		p.theme.name == "light"
+			? p.theme.colors.light_gray[200]
+			: p.theme.colors.dark_gray[600]};
 	}
 
 	/* Handle on Hover */
 
 	::-webkit-scrollbar-thumb:hover {
 		background-color: ${p =>
-			p.theme.name == "light"
-				? p.theme.colors.light_gray[800]
-				: p.theme.colors.black};
+		p.theme.name == "light"
+			? p.theme.colors.light_gray[800]
+			: p.theme.colors.black};
 	}
 
 	h1 {

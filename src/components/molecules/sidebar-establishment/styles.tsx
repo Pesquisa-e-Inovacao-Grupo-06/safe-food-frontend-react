@@ -4,6 +4,7 @@ import styled from "styled-components";
 export const SSidebar = styled.div<{
 	isOpen: boolean;
 }>`
+	z-index: 1;
 	height: 100dvh;
 	width: ${p => (!p.isOpen ? "100px" : "300px")};
 	background: ${p =>
@@ -12,9 +13,9 @@ export const SSidebar = styled.div<{
 			: p.theme.colors.dark_gray[1000]};
 	border-right: 1px solid
 		${p =>
-			p.theme.name == "light"
-				? p.theme.colors.light_gray[800]
-				: p.theme.colors.dark_gray[1000]};
+		p.theme.name == "light"
+			? p.theme.colors.light_gray[800]
+			: p.theme.colors.dark_gray[1000]};
 	padding: 24px;
 
 	position: relative;
@@ -66,14 +67,14 @@ export const SSidebarButton = styled.button<{
 	/* background: ${p => p.theme.colors.primary[600]}; */
 	box-shadow: 0 0 4px
 			${p =>
-				p.theme.name == "light"
-					? p.theme.colors.light_gray[600]
-					: p.theme.colors.dark_gray[600]},
+		p.theme.name == "light"
+			? p.theme.colors.light_gray[600]
+			: p.theme.colors.dark_gray[600]},
 		0 0 7px
 			${p =>
-				p.theme.name == "light"
-					? p.theme.colors.light_gray[200]
-					: p.theme.colors.dark_gray[1000]};
+		p.theme.name == "light"
+			? p.theme.colors.light_gray[200]
+			: p.theme.colors.dark_gray[1000]};
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -117,20 +118,19 @@ export const SLinkContainer = styled.div<{
 	background: ${({ theme, isActive }) =>
 		!isActive
 			? `transparent`
-			: `${
-					theme.name == "light"
-						? theme.colors.light_gray[600]
-						: theme.colors.dark_gray[600]
-			  }`};
+			: `${theme.name == "light"
+				? theme.colors.light_gray[600]
+				: theme.colors.dark_gray[600]
+			}`};
 	border-radius: 6px;
 	margin: 8px 0;
 
 	:hover {
 		box-shadow: inset 0 0 0 1px
 			${p =>
-				p.theme.name == "light"
-					? p.theme.colors.light_gray[600]
-					: p.theme.colors.dark_gray[600]};
+		p.theme.name == "light"
+			? p.theme.colors.light_gray[600]
+			: p.theme.colors.dark_gray[600]};
 	}
 `;
 

@@ -1,5 +1,5 @@
 import { SafeFoodEstablishmentModel } from "@/app/infra/gateway/safefood/models/SafeFoodEstablishment";
-import { SafeFoodAvaliationModel, SafeFoodCategoryProductModel } from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
+import { SafeFoodAvaliationModel, TypeProductModal } from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
 import { SafeFoodRestrictionModel } from "@/app/infra/gateway/safefood/models/SafeFoodRestriction";
 
 export type SafeFoodProductParams = {
@@ -18,7 +18,7 @@ export type SafeFoodProductParams = {
     isRetireNoLocal?: boolean,
     isFreteGratis?: boolean,
     tempoEsperaMedio?: string,
-    categoria: SafeFoodCategoryProductModel,
+    categoria: TypeProductModal,
     restricoes?: SafeFoodRestrictionModel[],
     avaliacoes?: SafeFoodAvaliationModel[],
     tipoProduto?: string,

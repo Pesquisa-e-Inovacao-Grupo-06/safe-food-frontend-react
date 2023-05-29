@@ -1,33 +1,40 @@
-import { Box } from "@/components/atoms/box";
-import { Column } from "@/components/atoms/column";
-import { Row } from "@/components/molecules/row/styles";
-import React, { FC, FormEvent, useCallback, useState } from "react";
-import { HeadingSignUpConsumer } from "../complements/HeadingSignUpConsumer";
-import { ProfilePhotoUploadWithPreview } from "@/components/molecules/upload-profile-photo";
-import { Text } from "@/components/atoms/text";
-import { TextField } from "@/components/molecules/textfield";
-import moment from "moment";
-import { useInputsValidator } from "@/app/contexts/InputValidatorsProvider";
-import { FindAddress } from "@/app/domain/usecases/FindAddress";
-import { useSignupConsumer } from "@/app/contexts/SignupConsumerProvider";
-import { FaSearch } from "react-icons/fa";
+import { Box } from '@/components/atoms/box';
+import { Column } from '@/components/atoms/column';
+import { Row } from '@/components/molecules/row/styles';
+import React, { FC, FormEvent, useCallback, useEffect, useState } from 'react';
+import { HeadingSignUpConsumer } from '../complements/HeadingSignUpConsumer';
+import { ProfilePhotoUploadWithPreview } from '@/components/molecules/upload-profile-photo';
+import { Text } from '@/components/atoms/text';
+import { TextField } from '@/components/molecules/textfield';
+import moment from 'moment';
+import { useInputsValidator } from '@/app/contexts/InputValidatorsProvider';
+import { FindAddress } from '@/app/domain/usecases/FindAddress';
+import { useSignupConsumer } from '@/app/contexts/SignupConsumerProvider';
+import { FaSearch } from 'react-icons/fa';
+import { DateValidator } from '@/app/util/validations/date-validator';
 
 export const AdditionalSignUpConsumer: FC<{
 	useCase: FindAddress;
 }> = ({ useCase }) => {
 	const { consumer, setConsumer } = useSignupConsumer();
 
-	const { getPhoneValidator, getCepValidator } = useInputsValidator();
+	const { getPhoneValidator, getCepValidator, getDateValidator } =
+		useInputsValidator();
 
 	const phoneValidator = getPhoneValidator();
 	const cepValidator = getCepValidator();
+	const dateValidator = getDateValidator();
 
-	const [phoneError, setPhoneError] = useState("");
-	const [errorDate, setDateError] = useState("");
+	const [phoneError, setPhoneError] = useState('');
+	const [errorDate, setDateError] = useState('');
 
-	const [errorCep, setCepError] = useState("");
+	const [errorCep, setCepError] = useState('');
 
-	const changePhoneInput = useCallback((ev: FormEvent<HTMLInputElement>) => {
+	useEffect(() => {
+		console.log(consumer);
+	}, [consumer]);
+
+	const changePhoneInput = (ev: FormEvent<HTMLInputElement>) => {
 		let str = ev.currentTarget.value;
 		let value = phoneValidator.format(str);
 		setConsumer({
@@ -37,40 +44,41 @@ export const AdditionalSignUpConsumer: FC<{
 		if (value.length > 0) {
 			const errors = phoneValidator.validate(value);
 			if (errors.length > 0) {
-				setPhoneError(errors.join(";"));
+				setPhoneError(errors.join(';'));
 			} else {
-				setPhoneError("");
+				setPhoneError('');
 			}
 		} else {
-			setPhoneError("");
+			setPhoneError('');
 		}
-	}, []);
+	};
 
-	const changeBirthDateInput = useCallback((ev: FormEvent<HTMLInputElement>) => {
+	const changeBirthDateInput = (ev: FormEvent<HTMLInputElement>) => {
 		let str = ev.currentTarget.value;
 		let mdate = moment(str);
 		// TODO AFTER
-		//let value = validator.format(str);
+		let value = dateValidator.format(str);
 		setConsumer({
 			...consumer,
-			dataNascimento: str,
+			dataNascimento: value,
 		});
-		//const errors = validator.validate(value);
-		//if (errors.length > 0) {
-		//	setError(errors.join(";"));
-		//} else {
-		//	setError("");
-		//}
-	}, []);
+		const errors = dateValidator.validate(value);
+		if (errors.length > 0) {
+			setDateError(errors.join(';'));
+		} else {
+			setDateError('');
+		}
+	};
 	const clearAddress = () => {
 		setConsumer({
 			...consumer,
-			bairro: "",
-			cidade: "",
-			complemento: "",
-			numero: "",
-			estado: "",
-			logradouro: "",
+			bairro: '',
+			cidade: '',
+			complemento: '',
+			cep: '',
+			numero: '',
+			estado: '',
+			logradouro: '',
 		});
 	};
 
@@ -81,17 +89,17 @@ export const AdditionalSignUpConsumer: FC<{
 				const { cep, complemento, logradouro, estado, bairro, cidade } = params;
 				setConsumer({
 					...consumer,
-					cep: cep || "",
-					estado: estado || "",
-					logradouro: logradouro || "",
-					complemento: complemento || "",
-					bairro: bairro || "",
-					cidade: cidade || "",
+					cep: cep || '',
+					estado: estado || '',
+					logradouro: logradouro || '',
+					complemento: complemento || '',
+					bairro: bairro || '',
+					cidade: cidade || '',
 				});
 			})
 			.catch(err => {
 				clearAddress();
-				setCepError("CEP invalido");
+				setCepError('CEP invalido');
 			});
 	};
 	return (
@@ -111,7 +119,7 @@ export const AdditionalSignUpConsumer: FC<{
 					width="120px"
 					name="additional-profile-photo-consumer"
 					id="additional-profile-photo-consumer"
-					onChangeFile={file =>
+					fileChange={file =>
 						setConsumer({
 							...consumer,
 							file,
@@ -143,7 +151,9 @@ export const AdditionalSignUpConsumer: FC<{
 							id="additional-birthday"
 							name="additional-birthday"
 							title="Selecione a data de seu nascimento"
-							type="date"
+							type="string"
+							min={8}
+							max={8}
 							inputMode="numeric"
 							value={consumer.dataNascimento}
 							onChange={changeBirthDateInput}
@@ -158,7 +168,7 @@ export const AdditionalSignUpConsumer: FC<{
 							label="CEP: "
 							required={false}
 							id="address-cep"
-							value={consumer.cep}
+							value={consumer.cep || ''}
 							renderEndIcon={() => <FaSearch />}
 							onChange={ev => {
 								const str = ev.currentTarget.value;
@@ -170,14 +180,14 @@ export const AdditionalSignUpConsumer: FC<{
 								if (str.length > 0) {
 									const errors = cepValidator.validate(value);
 									if (errors.length == 0) {
-										setCepError("");
+										setCepError('');
 										findAddress(value);
 									} else {
-										setCepError(errors.join(";"));
+										setCepError(errors.join(';'));
 									}
 								} else {
 									clearAddress();
-									setCepError("");
+									setCepError('');
 								}
 							}}
 							placeholder="00000-000"
@@ -197,7 +207,7 @@ export const AdditionalSignUpConsumer: FC<{
 							required={!!consumer.cep}
 							value={consumer.estado}
 							placeholder="SP"
-							onChange={() => {}}
+							onChange={() => { }}
 							title="Estado/UF de seu endereço"
 							type="string"
 							inputMode="text"
@@ -211,7 +221,7 @@ export const AdditionalSignUpConsumer: FC<{
 							required={!!consumer.cep}
 							id="address-bairro"
 							value={consumer.bairro}
-							onChange={() => {}}
+							onChange={() => { }}
 							title="Digite seu bairro"
 							type="string"
 							disabled
@@ -225,7 +235,7 @@ export const AdditionalSignUpConsumer: FC<{
 							disabled
 							required={!!consumer.cep}
 							value={consumer.cidade}
-							onChange={() => {}}
+							onChange={() => { }}
 							title="Digite sua cidade"
 							type="string"
 							inputMode="text"
@@ -240,7 +250,7 @@ export const AdditionalSignUpConsumer: FC<{
 							disabled
 							required={!!consumer.cep}
 							value={consumer.logradouro}
-							onChange={() => {}}
+							onChange={() => { }}
 							title="Logradouro do endereço"
 						/>
 					</Column>
@@ -252,8 +262,8 @@ export const AdditionalSignUpConsumer: FC<{
 					>
 						<TextField
 							label="Número: "
-							required={!!consumer.cep} // TODO Depende
-							disabled={!consumer.cep} // depende
+							required={!!consumer.cep}
+							disabled={!consumer.cep}
 							id="address-number"
 							value={consumer.numero}
 							onChange={ev => {
@@ -271,11 +281,10 @@ export const AdditionalSignUpConsumer: FC<{
 						<TextField
 							label="Complemento: "
 							required={false}
-							disabled={!consumer.cep} // depende
+							disabled={!consumer.cep}
 							id="address-complement"
 							value={consumer.complemento}
 							onChange={ev => {
-								const enderecoAntigo = consumer;
 								setConsumer({
 									...consumer,
 									complemento: ev.currentTarget.value,

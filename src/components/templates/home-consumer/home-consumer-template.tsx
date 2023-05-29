@@ -25,6 +25,7 @@ export type HomeConsumerProps = {
 	totalPagesProductFilter: number;
 	changeOrder: (e: any) => void;
 	changeItens: (e: any) => void;
+	totalElements?: number;
 };
 const HomeConsumerTemplate: React.FC<HomeConsumerProps> = ({
 	products,
@@ -35,12 +36,9 @@ const HomeConsumerTemplate: React.FC<HomeConsumerProps> = ({
 	totalPagesProductFilter,
 	changeItens,
 	changeOrder,
+	totalElements,
 }) => {
 	const [formCard, setFormcard] = useState<boolean>(false);
-	var count = 0;
-	products.forEach(() => {
-		count++;
-	});
 
 	const [isDropDown, setDropDown] = useState(false);
 
@@ -110,20 +108,20 @@ const HomeConsumerTemplate: React.FC<HomeConsumerProps> = ({
 									<SelectAtom
 										// TODO: TIRAR VALUE ERRADO PARA TESTE
 										options={[
-											{ value: '2', label: '5 itens' },
-											{ value: '10', label: '10 itens' },
+											{ value: '6', label: '6 itens' },
+											{ value: '9', label: '9 itens' },
+											{ value: '12', label: '12 itens' },
 											{ value: '15', label: '15 itens' },
-											{ value: '20', label: '20 itens' },
 										]}
 										onChange={changeItens}
 									/>
 								</li>
 								<li>
-									<Text>{count} produtos</Text>
+									<Text>{totalElements || 0} produtos</Text>
 								</li>
 							</ul>
 							<div className="container-icon-header-home-consumer">
-								<Text>{count} produtos</Text>
+								<Text>{totalElements || 0} produtos</Text>
 								<div className="box-icon-header-home-consumer">
 									<FaBars onClick={() => setFormcard(true)} />
 									<RxDashboard onClick={() => setFormcard(false)} />
@@ -140,7 +138,7 @@ const HomeConsumerTemplate: React.FC<HomeConsumerProps> = ({
 							{dropDownList.map((dropDownItem, i) => {
 								return (
 									<DropDown
-										key={i}
+										key={i + '' + dropDownItem.textSubMenuWithCheckBox}
 										titleDropDown={dropDownItem.titleDropDown}
 										activeCheckBox={dropDownItem.activeCheckBox}
 										alignTitleText={dropDownItem.alignTitleText}
@@ -158,7 +156,12 @@ const HomeConsumerTemplate: React.FC<HomeConsumerProps> = ({
 						<Button onClick={onClickApplication}>Aplicar</Button>
 					</div>
 					<div className="main-home-consumer">
-						<div className="container-main-home-consumer">
+						<Box
+							display="flex"
+							justify="center"
+							alignItems="center"
+							className="container-main-home-consumer"
+						>
 							{products.length == 0 ? (
 								<Text>Não há resultados</Text>
 							) : (
@@ -173,12 +176,13 @@ const HomeConsumerTemplate: React.FC<HomeConsumerProps> = ({
 									</Link>
 								))
 							)}
-						</div>
+						</Box>
 						<Box
 							display="flex"
 							flexDirection="row"
 							justify="center"
 							alignItems="center"
+							margin="40px 0 0 0"
 						>
 							<Pagination
 								totalPages={totalPagesProductFilter}
