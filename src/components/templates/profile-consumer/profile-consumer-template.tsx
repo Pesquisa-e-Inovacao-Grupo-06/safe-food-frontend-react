@@ -114,7 +114,7 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 	cache,
 	onClickDeleteAddress,
 	onClickUpdateAddress,
-	deleteUser
+	deleteUser,
 }) => {
 	return (
 		<>
@@ -204,6 +204,7 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 								>
 									<span>adicionar endereço</span>
 								</ButtonIcon>
+
 							</div>
 							{listOfAddress && listOfAddress.length > 0 ? (
 								<PContainerAddressCard>

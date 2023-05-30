@@ -65,9 +65,9 @@ const HeaderConsumer: React.FC<HeaderConsumerProps> = ({ cache, products }) => {
 					<Box className="container-user-info-header-consumer">
 						<DropDownSubMenu
 							cache={cache}
-							userName={user.usuario.nome ?? ''}
+							userName={consumer.nome ?? ''}
 						>
-							<Text cursor={true}>{user.usuario.nome ?? ''}</Text>
+							<Text cursor={true}>{consumer.nome ?? ''}</Text>
 							<ImageAtom src={consumer.imagem} />
 							<AiFillCaretDown
 								fill="orange"

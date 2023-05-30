@@ -63,7 +63,7 @@ export const ProfilePhotoUploadWithPreview: React.FC<
 					</StyledLabelForImage>
 				}
 
-				<Text>{fileName}</Text>
+				<Text>{isEditable ? fileName : <></>}</Text>
 			</Box>
 
 			<input
