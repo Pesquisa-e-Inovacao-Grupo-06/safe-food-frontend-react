@@ -99,13 +99,12 @@ export const ContainerRegisterProduct = styled.div<{
 								? p.theme.colors.light_gray[600]
 								: p.theme.colors.dark_gray[600]};
 						height: 100%;
-						width: 100%;
+						width: 94%;
 						border-radius: 6px;
 
 						> img {
-							width: 100%;
-							height: 100%;
 							border-radius: 6px;
+							max-width: 100%;
 						}
 					}
 
@@ -212,6 +211,7 @@ export const ContainerRegisterProduct = styled.div<{
 			gap: 10px;
 			overflow-x: auto;
 			contain: inline-size;
+			padding-bottom: 12px;
 
 			::-webkit-scrollbar {
 				width: 8px;

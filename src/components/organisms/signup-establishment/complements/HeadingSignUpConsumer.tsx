@@ -37,7 +37,7 @@ export const HeadingSignUpConsumer: React.FC<{
 			>
 				{text}
 			</Text>
-			{errors.length > 0 ? (
+			{errors && errors.length > 0 ? (
 				<Alert
 					type="warning"
 					title="Ops... Encontramos alguns problemas"

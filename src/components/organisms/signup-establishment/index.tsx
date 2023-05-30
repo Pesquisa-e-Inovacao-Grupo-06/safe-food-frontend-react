@@ -16,7 +16,6 @@ export type StepsEstablishmentTemplate =
 	| "company"
 	| "security"
 	| "location"
-	| "importation"
 	| "finished";
 export const SignUpEstablishmentTemplate: React.FC<{
 	findAddress: FindAddress;
@@ -32,8 +31,7 @@ export const SignUpEstablishmentTemplate: React.FC<{
 		if (step === "finished") return <FinishedSignUpConsumer />;
 		if (step === "location")
 			return <LocationSignUpEstablishment useCase={findAddress} />;
-		if (step === "security") return <SecuritySignUp />;
-		return <ImportationSignUp />;
+		return <SecuritySignUp />;
 	};
 	useEffect(() => {
 		setVisible(isModalVisible);

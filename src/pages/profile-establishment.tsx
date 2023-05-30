@@ -15,7 +15,6 @@ type ProfileEstablishment = {
 function ProfileEstablishment({
 	cache,
 	establishmentGateway,
-
 }: ProfileEstablishment) {
 	const navigate = useNavigate();
 
@@ -75,7 +74,7 @@ function ProfileEstablishment({
 	};
 
 	const deleteUser = async (id: number) => {
-		console.log("teste")
+		console.log('teste');
 		if (!id) {
 			return;
 		}
@@ -83,22 +82,20 @@ function ProfileEstablishment({
 			const res = await establishmentGateway.remove(id);
 			const validStatus = [200, 204];
 			if (!validStatus.includes(res.status)) {
-				window.location.href = "/";
+				window.location.href = '/';
 			}
 		} catch (e) {
-			console.log(e)
+			console.log(e);
 		}
-	}
+	};
 
 	const onClickChangePassword = () => {
-		navigate("/change-password");
-	}
+		navigate('/change-password');
+	};
 
+	const onClickDeleteAddress = async (idAddress: number) => {};
 
-
-	const onClickDeleteAddress = async (idAddress: number) => { };
-
-	const handleAddressCardClick = (apelidoEnderecoSelecionado: string) => { };
+	const handleAddressCardClick = (apelidoEnderecoSelecionado: string) => {};
 	const importArchiveTxt = async (file: File): Promise<SafeFoodResponse> => {
 		return establishmentGateway.importProducts(establishment.id, file);
 	};
@@ -110,10 +107,7 @@ function ProfileEstablishment({
 					name: 'Nome: ',
 					value: name,
 					setUseState: setName,
-					onFocus: e => {
-						e.target.value = 'a';
-						setName('a');
-					},
+
 					disabled: !isEditable,
 				},
 				{
@@ -173,7 +167,14 @@ function ProfileEstablishment({
 			cache={cache}
 			onClickCard={handleAddressCardClick}
 			onClickDeleteAddress={onClickDeleteAddress}
-			deleteUser={deleteUser} />
+			deleteUser={deleteUser}
+			isEditable={isEditable}
+			onClickEditable={() => setIsEditable(true)}
+			onClickSaveButton={() => {
+				setIsEditable(false);
+				// onClickUpdate()
+			}}
+		/>
 	) : (
 		<h1>Carregando...</h1>
 	);

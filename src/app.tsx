@@ -62,7 +62,14 @@ export default function App({
 							<Route
 								path="/"
 								element={
-									<ModalHomeProvider>
+									<ModalHomeProvider
+										viaCepGateway={viaCepGateway}
+										cache={cache}
+										gateway={userGateway}
+										consumerGateway={consumerGateway}
+										establishmentGateway={establishmentGateway}
+										productGateway={productGateway}
+									>
 										<Home
 											viaCepGateway={viaCepGateway}
 											cache={cache}
@@ -77,7 +84,18 @@ export default function App({
 
 							<Route
 								path="/faq"
-								element={<FAQ />}
+								element={
+									<ModalHomeProvider
+										viaCepGateway={viaCepGateway}
+										cache={cache}
+										gateway={userGateway}
+										consumerGateway={consumerGateway}
+										establishmentGateway={establishmentGateway}
+										productGateway={productGateway}
+									>
+										<FAQ />
+									</ModalHomeProvider>
+								}
 							/>
 							<Route
 								path="/profile"
@@ -105,7 +123,18 @@ export default function App({
 							/>
 							<Route
 								path="/term-of-service"
-								element={<TermOfService />}
+								element={
+									<ModalHomeProvider
+										viaCepGateway={viaCepGateway}
+										cache={cache}
+										gateway={userGateway}
+										consumerGateway={consumerGateway}
+										establishmentGateway={establishmentGateway}
+										productGateway={productGateway}
+									>
+										<TermOfService />
+									</ModalHomeProvider>
+								}
 							/>
 							<Route
 								path="/home-establishment"
@@ -133,6 +162,26 @@ export default function App({
 								element={<PreferencesEstablishment cache={cache} />}
 							/>
 							<Route
+								path="/home-consumer/estabelecimento/:idEstablishment/:idProduct?"
+								element={
+									<HomeConsumer
+										cache={cache}
+										productGateway={productGateway}
+										typeProductGateway={typeProductGateway}
+									/>
+								}
+							/>
+							<Route
+								path="/home-consumer/:cep/:numero?"
+								element={
+									<HomeConsumer
+										cache={cache}
+										productGateway={productGateway}
+										typeProductGateway={typeProductGateway}
+									/>
+								}
+							/>
+							<Route
 								path="/home-consumer"
 								element={
 									<HomeConsumer
@@ -144,7 +193,18 @@ export default function App({
 							/>
 							<Route
 								path="/change-password"
-								element={<ForgetPassWord userGateway={userGateway} />}
+								element={
+									<ModalHomeProvider
+										viaCepGateway={viaCepGateway}
+										cache={cache}
+										gateway={userGateway}
+										consumerGateway={consumerGateway}
+										establishmentGateway={establishmentGateway}
+										productGateway={productGateway}
+									>
+										<ForgetPassWord userGateway={userGateway}/>
+									</ModalHomeProvider>
+								}
 							/>
 
 							<Route
@@ -153,16 +213,39 @@ export default function App({
 									<ProductsEstablishment
 										cache={cache}
 										productGateway={productGateway}
+										getLatLongFromAddress={getLatLongFromAddress}
 									/>
 								}
 							/>
 							<Route
 								path="/*"
-								element={<NotFound />}
+								element={
+									<ModalHomeProvider
+										viaCepGateway={viaCepGateway}
+										cache={cache}
+										gateway={userGateway}
+										consumerGateway={consumerGateway}
+										establishmentGateway={establishmentGateway}
+										productGateway={productGateway}
+									>
+										<NotFound />
+									</ModalHomeProvider>
+								}
 							/>
 							<Route
 								path="/about"
-								element={<About />}
+								element={
+									<ModalHomeProvider
+										viaCepGateway={viaCepGateway}
+										cache={cache}
+										gateway={userGateway}
+										consumerGateway={consumerGateway}
+										establishmentGateway={establishmentGateway}
+										productGateway={productGateway}
+									>
+										<About />
+									</ModalHomeProvider>
+								}
 							/>
 						</Routes>
 					</Router>
