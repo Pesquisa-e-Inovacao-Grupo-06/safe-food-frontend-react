@@ -31,6 +31,7 @@ import {useEffect, useState} from "react";
 import {Establishment} from "./app/domain/entities/Establishment";
 import {SafeFoodEstablishmentMapper} from "./app/infra/gateway/safefood/mappers/SafeFoodEstablishmentMapper";
 import {SafeFoodEstablishmentModel} from "./app/infra/gateway/safefood/models/SafeFoodEstablishment";
+import { About } from './pages/about';
 
 type AppProps={
 	cache: Cache;
@@ -158,6 +159,10 @@ export default function App({
 							<Route
 								path="/*"
 								element={<NotFound />}
+							/>
+							<Route
+								path="/about"
+								element={<About />}
 							/>
 						</Routes>
 					</Router>
