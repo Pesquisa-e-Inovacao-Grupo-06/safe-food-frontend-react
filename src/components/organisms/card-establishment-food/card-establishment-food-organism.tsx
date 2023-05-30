@@ -206,9 +206,9 @@ export const CardExpansiveEstablishmentFoodOrganism: React.FC<
 		>
 			<div style={{height: "125px", padding: "10px", flexBasis: "20%"}}>
 				<ProfilePhotoUploadWithPreview
-
 					shape="rectangle"
-					name={""} id={"imageProductEdit"} width={""} fileChange={fileChange} />
+					name={""} id={"imageProductEdit"} width={""}
+					 fileChange={fileChange} />
 			</div>
 			<StyledColumn style={{flexBasis: '20%', alignItems: 'start'}}>
 				<Subtitle>{titulo}</Subtitle>

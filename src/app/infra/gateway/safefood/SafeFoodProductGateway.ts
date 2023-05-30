@@ -75,7 +75,6 @@ export class SafeFoodProductGateway {
 	): Promise<SafeFoodProductResponse> {
 		const body = { 
 			...product,
-			
 		};
 		delete body.imagem
 		const res = await this.http.execute<SafeFoodProductResponse>({
@@ -90,7 +89,7 @@ export class SafeFoodProductGateway {
 			let requestImage = new FormData();
 			requestImage.append("image", product.imagem);
 			const responseImage = await this.http.execute<SafeFoodGenericDataResponse<string>>({
-				url: `/produtos/${id}/imagem`,
+				url: `/produtos/${res.data.data.id}/imagem`,
 				method: 'POST',
 				contentType: "multipart/form-data",
 				body: requestImage
@@ -109,14 +108,34 @@ export class SafeFoodProductGateway {
 		id: string,
 		product: SafeFoodCreateProductRequest
 	): Promise<SafeFoodProductResponse> {
+		const body = { 
+			...product,
+		};
+		delete body.imagem
 		const res = await this.http.execute<SafeFoodProductResponse>({
 			url: `/produtos/${id}`,
 			method: "PUT",
-			body: product,
+			body: body,
 		});
 
 		if (!res.data) {
 			throw new Error("Erro ao tentar buscar todos os produtos");
+		}
+
+		if (product.imagem && res.data.data.estabelecimento.id) {
+			let requestImage = new FormData();
+			requestImage.append("image", product.imagem);
+			const responseImage = await this.http.execute<SafeFoodGenericDataResponse<string>>({
+				url: `/produtos/${res.data.data.id}/imagem`,
+				method: 'POST',
+				contentType: "multipart/form-data",
+				body: requestImage
+			})
+			if (responseImage.data) {
+				res.data.data.imagem = responseImage.data.data;
+			} else {
+				throw new Error("Erro ao realizar requisicao de adicionar foto do consumidor")
+			}
 		}
 
 		return res.data;
