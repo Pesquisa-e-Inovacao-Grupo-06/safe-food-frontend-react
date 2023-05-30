@@ -14,6 +14,7 @@ import { SafeFoodCreateProductRequest } from "@/app/infra/gateway/safefood/model
 import { useState, useEffect } from "react";
 import { Product } from "@/app/domain/entities/Product";
 import { SafeFoodUsuarioModel } from "@/app/infra/gateway/safefood/models/SafeFoodUser";
+import { Alert, AlertType } from "@/components/atoms/alert";
 
 type Props = {
 	active?: boolean;
@@ -29,6 +30,7 @@ type Props = {
 	btnAdd?: boolean;
 	renderListProduct?: () => void;
 	auxObjEdit?: boolean;
+
 };
 
 function RegisterProduct({
@@ -45,6 +47,7 @@ function RegisterProduct({
 	btnAdd,
 	renderListProduct,
 	auxObjEdit,
+
 }: Props) {
 	const [objProduct, setObjProduct] = useState<SafeFoodCreateProductRequest>();
 	const [editObjProduct, setEditObjProduct] =
@@ -67,6 +70,10 @@ function RegisterProduct({
 	const [average, setAverage] = useState<number>()
 	const [qtdComments, setQtdComments] = useState<number>()
 	const [imageProfile, setImageProfile] = useState<File>();
+	const [isVisibleAlert, setIsVisibleAlert] = useState(false);
+	const [typeAlert, setTypeAlert] = useState<AlertType>("success");
+	const [textAlert, setTextAlert] = useState("Agradecemos por seu feedback!");
+
 	//limpa os valores ao renderizar ao apertar o botão de adicionar e abrea a aba de regitro
 	useEffect(() => {
 		clear();
@@ -258,27 +265,51 @@ function RegisterProduct({
 	//verificar os valores e mandar para o objeto que será criado
 	const setProduct = (method: string) => {
 		if (imageProfile) {
-			console.log("saidfjhoijasdo", imageProfile);
+			setTypeAlert("warning");
+			setTextAlert("Selecione uma imagem de perfil");
+			setIsVisibleAlert(true);
+			return;
 		}
-		if (user?.id == undefined || user.id == 0) {
+		if (user?.id === undefined || user.id === 0) {
+			setTypeAlert("warning");
+			setTextAlert("ID do usuário não definido");
+			setIsVisibleAlert(true);
 			return;
 		}
 		if (nome.length <= 0) {
+			setTypeAlert("warning");
+			setTextAlert("Nome não preenchido");
+			setIsVisibleAlert(true);
 			return;
 		}
 		if (preco <= 0) {
+			setTypeAlert("warning");
+			setTextAlert("Preço inválido");
+			setIsVisibleAlert(true);
 			return;
 		}
 		if (descricao.length <= 0) {
+			setTypeAlert("warning");
+			setTextAlert("Descrição não preenchida");
+			setIsVisibleAlert(true);
 			return;
 		}
 		if (ingredientes.length <= 0) {
+			setTypeAlert("warning");
+			setTextAlert("Ingredientes não preenchidos");
+			setIsVisibleAlert(true);
 			return;
 		}
 		if (restrictions.length <= 0) {
+			setTypeAlert("warning");
+			setTextAlert("Restrições não preenchidas");
+			setIsVisibleAlert(true);
 			return;
 		}
 		if (categoria <= 0) {
+			setTypeAlert("warning");
+			setTextAlert("Categoria não selecionada");
+			setIsVisibleAlert(true);
 			return;
 		}
 
@@ -369,6 +400,7 @@ function RegisterProduct({
 							}} average={average ?? 0} qtdComentario={qtdComments ?? 0} />
 					</div>
 					<div className="main-register-product">
+						{isVisibleAlert ? <Alert type={typeAlert} >{textAlert}</Alert> : <></>}
 						<div className="container-main-register-product">
 							<SDivider className="divider-register-product" />
 							<Text className="text-categoria-register-product">
@@ -404,30 +436,32 @@ function RegisterProduct({
 								label="Nome do Produto"
 								value={nome}
 								updateValue={setNome}
-								placeholder="Nome"
+								placeholder="Ex: Camiseta básica"
 							/>
 							<InputRegisterProduct
 								label="Preço"
 								value={preco}
 								updateValue={setPreco}
-								placeholder="valor"
+								placeholder="Ex: 29.99"
 							/>
 							<InputRegisterProduct
 								label="Ingredientes"
 								value={auxIngredientes}
 								updateValue={setAuxIngredientes}
-								placeholder="sal, açucar"
+								placeholder="Ex: Tomate, alface, queijo"
 							/>
 							<InputRegisterProduct
 								label="Descrição"
 								value={descricao}
 								updateValue={setDescricao}
-								placeholder="Descrição"
+								placeholder="Ex: Produto de alta qualidade, feito com materiais duráveis"
 							/>
+
 							<div className="container-restricao-register-product">
+								Restrições:
 								<CLabelAttention
 									required={true}
-									alert={false}
+									alert={true}
 									htmlFor=""
 								>
 									Restrições:

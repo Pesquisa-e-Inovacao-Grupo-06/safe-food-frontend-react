@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { SLayout, SMain } from "./styles";
 import SidebarEstab from "..";
 import RegisterProduct from "../../register-product";
@@ -11,6 +11,7 @@ import { SafeFoodUsuarioModel } from "@/app/infra/gateway/safefood/models/SafeFo
 import HeaderConsumer from "../../header-consumer";
 import { Box } from "@/components/atoms/box";
 import { Divider } from "@/components/atoms/divider";
+import { AlertType } from "@/components/atoms/alert";
 
 type Props = {
 	children?: any;
@@ -49,7 +50,6 @@ const Layout: React.FC<Props> = ({
 	auxObjEdit,
 	...props
 }) => {
-
 
 	return (
 		typeUser == "ESTABELECIMENTO" ?
