@@ -8,10 +8,13 @@ import { Address } from "@/app/domain/entities/Address";
 import { Button } from "@/components/atoms/button";
 import { useNavigate } from "react-router-dom";
 import { Divider } from "@/components/atoms/divider";
+import { ButtonIcon } from "../button/button-icon";
+import { IoMdAddCircleOutline } from "react-icons/io";
 
 type Props = {
 	children?: any;
 	address: Address[];
+
 };
 
 const DropDownLocalInfo: React.FC<Props> = ({ children, address }) => {
@@ -92,6 +95,18 @@ const DropDownLocalInfo: React.FC<Props> = ({ children, address }) => {
 						<Button onClick={() => { navigate('/profile'); }}>
 							<Text color="white">novo endereço</Text>
 						</Button>
+						<ButtonIcon
+							icon={<IoMdAddCircleOutline color="#087704" />}
+							alignIcon="right"
+							buttonStyle="outline"
+							style={{
+								height: 45,
+							}}
+							width={"fit-content"}
+							onClick={() => { console.log("NÃO IMPLEMENTADO ESPERANDO DELFINO") }}
+						>
+							<span>Pegar localização</span>
+						</ButtonIcon>
 					</div>
 				</div>
 			</ContainerDropDownLocalInfo>

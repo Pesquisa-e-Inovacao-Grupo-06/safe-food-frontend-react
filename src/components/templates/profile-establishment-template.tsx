@@ -1,7 +1,6 @@
 import { MdOutlineFileDownload, MdOutlineCloudDownload } from 'react-icons/md';
 import AddresCard from '../molecules/address-card';
 import Layout from '../molecules/sidebar-establishment/layout';
-import { Subtitle } from '@/styles/components/text/Subtitle';
 import styled from 'styled-components';
 import { StyledButton } from '../atoms/button/styles';
 import { ButtonIcon } from '../molecules/button/button-icon';
@@ -19,6 +18,7 @@ import { SafeFoodLoginResponse } from '@/app/infra/gateway/safefood/models/SafeF
 import { SafeFoodResponse } from '@/app/infra/gateway/safefood/models/SafeFoodResponse';
 import { BiTrash } from 'react-icons/bi';
 import { Text } from '../atoms/text';
+import { Subtitle } from '@/styles/components/text/Subtitle';
 
 export type ProfileEstablishmentTemplateProps = {
 	urlDefault: string | null | undefined;
@@ -126,7 +126,7 @@ export const ProfileEstablishmentTemplate: React.FC<
 									) : null}
 								</Box>
 								<PDivider />
-								<PTitle>Administrador</PTitle>
+								<Subtitle2>Administrador</Subtitle2>
 								<div className="form-inputs-adm">
 									<Form listOfComponent={listOfComponentAdministration} />
 									<ul>
@@ -150,13 +150,13 @@ export const ProfileEstablishmentTemplate: React.FC<
 									</ul>
 								</div>
 								<PDivider />
-								<PTitle>Empresa</PTitle>
+								<Subtitle2>Empresa</Subtitle2>
 								<div className="form-inputs-empresa">
 									<Form listOfComponent={listOfComponentEstablishment} />
 								</div>
 								<PDivider />
 								<PContainerInfo3>
-									<PTitle>Endereço do estabelecimento</PTitle>
+									<Subtitle2>Endereço do estabelecimento</Subtitle2>
 									<PContainerAddressCard>
 										<AddresCard
 											bodyText={`
@@ -176,7 +176,7 @@ export const ProfileEstablishmentTemplate: React.FC<
 									</PContainerAddressCard>
 								</PContainerInfo3>
 								<PDivider />
-								<PTitle>Importações</PTitle>
+								<Subtitle2>Importações</Subtitle2>
 								<Box
 									display="flex"
 									justify="left"
@@ -265,7 +265,7 @@ export const ProfileEstablishmentTemplate: React.FC<
 								</Box>
 							</PContainerInfo>
 							<PContainerInfo3 >
-								<PTitle>Ações para conta</PTitle>
+								<Subtitle2>Ações para conta</Subtitle2>
 								<Box display="flex" width="300px">
 									<ButtonIcon
 										alignIcon="left"
@@ -283,7 +283,7 @@ export const ProfileEstablishmentTemplate: React.FC<
 										}}
 										onClick={() => deleteUser(user.usuario.id)}
 									>
-										<Text typeText="text-md" color="white">
+										<Text typeText="text-mdb" color="white">
 											Deletar conta
 										</Text>
 									</ButtonIcon>
@@ -493,7 +493,7 @@ const PDivider = styled.div`
 	margin: 24px 0;
 `;
 
-const PTitle = styled(Subtitle)`
+const Subtitle2 = styled(Subtitle)`
 	font-size: 24px;
 	line-height: 36px;
 	font-weight: 600;

@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { SafeFoodEstablishmentGateway } from '../app/infra/gateway/safefood/SafeFoodEstablishmentGateway';
 import { AlertType } from '@/components/atoms/alert';
 import { SafeFoodResponse } from '@/app/infra/gateway/safefood/models/SafeFoodResponse';
+import { useNavigate } from 'react-router';
 
 type ProfileEstablishment = {
 	cache: Cache;
@@ -14,7 +15,10 @@ type ProfileEstablishment = {
 function ProfileEstablishment({
 	cache,
 	establishmentGateway,
+
 }: ProfileEstablishment) {
+	const navigate = useNavigate();
+
 	const establishment: SafeFoodEstablishmentModel =
 		cache.getItem('establishment') !== null
 			? JSON.parse(cache.getItem('establishment')!)
@@ -85,6 +89,12 @@ function ProfileEstablishment({
 			console.log(e)
 		}
 	}
+
+	const onClickChangePassword = () => {
+		navigate("/change-password");
+	}
+
+
 
 	const onClickDeleteAddress = async (idAddress: number) => { };
 
@@ -159,9 +169,7 @@ function ProfileEstablishment({
 			isAlertVisible={isAlertVisible}
 			textAlert={textAlert}
 			typeAlert={typeAlert}
-			onClickChangePassword={function (): void {
-				throw new Error('Function not implemented.');
-			}}
+			onClickChangePassword={onClickChangePassword}
 			cache={cache}
 			onClickCard={handleAddressCardClick}
 			onClickDeleteAddress={onClickDeleteAddress}

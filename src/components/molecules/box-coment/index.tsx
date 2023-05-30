@@ -1,10 +1,18 @@
 import { Box } from "@/components/atoms/box";
 import { Text } from "@/components/atoms/text";
-import imgTeste from "../../../assets/food-favorite.png";
 import { ContainerBoxComent } from "./styles";
 import { ImageAtom } from "@/components/atoms/img";
-import { ButtonIcon } from "../button/button-icon";
 import { FaTrash } from "react-icons/fa";
+import styled from "styled-components";
+
+const StyledFaTrash = styled(FaTrash)`
+  fill: red  ;
+  transition: fill 0.3s ease;
+
+  &:hover {
+    fill: #ff0000 ;
+  }
+`;
 
 export type CommentProps = {
 	name?: string;
@@ -14,7 +22,6 @@ export type CommentProps = {
 	qtdComentario?: number;
 	idComment: number;
 	haveIconTrash?: boolean;
-	// key?: React.Key;
 	onClickDeleteComment: (idComment: number) => void;
 };
 
@@ -32,25 +39,25 @@ const BoxComment: React.FC<CommentProps> = ({
 	const handleClickDeleteComment = () => {
 		onClickDeleteComment(idComment);
 	};
+
+
+
 	return (
 		<>
-			<ContainerBoxComent
-				{...props}
-			// key={key}
-			>
+			<ContainerBoxComent {...props}>
 				<Box className="header-comentario-product-text">
 					<ImageAtom src={img} />
 					<Text>
-						<Box
-							display="flex"
-							flexDirection="row"
-							justify="space-between"
-						>
+						<Box display="flex" flexDirection="row" justify="space-between">
 							<h3>{name}</h3>
-							{haveIconTrash ? <FaTrash
-								cursor={"pointer"}
-								onClick={handleClickDeleteComment}
-							></FaTrash> : <></>}
+							{haveIconTrash ? (
+								<StyledFaTrash
+									cursor="pointer"
+									onClick={handleClickDeleteComment}
+								/>
+							) : (
+								<></>
+							)}
 						</Box>
 						<span>
 							{date} - {qtdComentario} comentários
