@@ -162,6 +162,16 @@ export default function App({
 								element={<PreferencesEstablishment cache={cache} />}
 							/>
 							<Route
+								path="/home-consumer/estabelecimento/:idEstablishment/:idProduct?"
+								element={
+									<HomeConsumer
+										cache={cache}
+										productGateway={productGateway}
+										typeProductGateway={typeProductGateway}
+									/>
+								}
+							/>
+							<Route
 								path="/home-consumer"
 								element={
 									<HomeConsumer
@@ -193,6 +203,7 @@ export default function App({
 									<ProductsEstablishment
 										cache={cache}
 										productGateway={productGateway}
+										getLatLongFromAddress={getLatLongFromAddress}
 									/>
 								}
 							/>

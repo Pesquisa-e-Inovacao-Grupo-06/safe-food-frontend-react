@@ -90,26 +90,28 @@ export type SafeFoodPage<T> = {
 export type OrderSelect = "TODOS" | "QTD_AVALIACOES" | "LANCAMENTOS" | "PRECO"
 export type directionSelect = "asc" | "desc";
 export type SafeFoodProductFilterRequest = {
-    ids_restricoes?: string[];
-    ids_categorias?: string[];
-    ids_tipos_restricao?: string[];
-    pesquisa?: string;
-    page?: number;
-    itensPorPagina?: number;
-    sort?: SafeFoodSort;
-    direction?: directionSelect;
-    cep?: string;
-    numero?: string;
-    distanceRadio?: number;
-    select: OrderSelect;
-    // totalPages: number;
-    // totalElements: number;
-    // last: boolean;
-    // size: number;
-    // numberOfElements: number;
-    // first: boolean;
-    // empty: boolean;
-    // content: T[];
+	ids_restricoes?: string[];
+	ids_categorias?: string[];
+	ids_tipos_restricao?: string[];
+	id_estabelecimento?: number;
+	pesquisa?: string;
+	page?: number;
+	itensPorPagina?: number;
+	sort?: SafeFoodSort;
+	direction?: directionSelect;
+	cep?: string;
+	numero?: string;
+	distanceRadio?: number;
+	select: OrderSelect;
+
+	// totalPages: number;
+	// totalElements: number;
+	// last: boolean;
+	// size: number;
+	// numberOfElements: number;
+	// first: boolean;
+	// empty: boolean;
+	// content: T[];
 }
 
 export type SafeFoodProductFilterResponse = SafeFoodProductsResponse;
@@ -126,25 +128,25 @@ export type SafeFoodProductFilterResponse = SafeFoodProductsResponse;
 //     restricoes: Restriction[]
 // }
 
-	export type SafeFoodCreateProductWithNoImageRequest = {
-		id: number;
-		titulo: string;
-		descricao: string;
-		preco: number;
-		ingredientes: string[];
-		unidadeDeVenda: string;
-		categoria: number;
-		restricoes: number[];
-	} 
+export type SafeFoodCreateProductWithNoImageRequest = {
+	id: number;
+	titulo: string;
+	descricao: string;
+	preco: number;
+	ingredientes: string[];
+	unidadeDeVenda: string;
+	categoria: number;
+	restricoes: number[];
+}
 
-	export type SafeFoodCreateProductImageRequest = {
-		imagem?: File;
-		
-	}
+export type SafeFoodCreateProductImageRequest = {
+	imagem?: File;
 
-	export type SafeFoodCreateProductRequest = {
+}
 
-	} & SafeFoodCreateProductWithNoImageRequest & SafeFoodCreateProductImageRequest;
+export type SafeFoodCreateProductRequest = {
+
+} & SafeFoodCreateProductWithNoImageRequest & SafeFoodCreateProductImageRequest;
 // export type SafeFoodProductFilterRequest = {
 //     IDSRestrictions?: string[];
 //     IDSCategories?: string[];

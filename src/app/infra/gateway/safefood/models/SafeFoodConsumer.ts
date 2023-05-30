@@ -24,5 +24,6 @@ export type SafeFoodConsumerResponse = SafeFoodGenericDataResponse<
 export type SafeFoodConsumerModel = {
   "telefone": string,
   "restricoes": SafeFoodRestrictionModel[],
-  "enderecos": SafeFoodAddressModel[]
+  "enderecos": SafeFoodAddressModel[],
+  "totalDeAvaliacoes": number,
 } & SafeFoodUsuarioModel
