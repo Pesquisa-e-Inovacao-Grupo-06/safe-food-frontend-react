@@ -5,7 +5,7 @@ import { Text } from '@/components/atoms/text';
 import DropDownSubMenu from '../drop-down-sub-menu';
 import Switch from '@/components/atoms/toggle-switch';
 import { useSafeFoodTheme } from '@/app/contexts/SafeFoodThemeProvider';
-import { PropsWithChildren, useState } from 'react';
+import { PropsWithChildren, useEffect, useState } from 'react';
 import DropDownLocalInfo from '../drop-down-local-info';
 import SearchBar from '../search-bar';
 import { ContainerHeaderConsumer } from './styles';
@@ -27,6 +27,7 @@ export type HeaderConsumerProps = {
 const HeaderConsumer: React.FC<HeaderConsumerProps> = ({ cache, products }) => {
 	const { toggleTheme, getTheme } = useSafeFoodTheme();
 	const [sidebar, setSidebar] = useState(false);
+	const [name, setName] = useState<string>('');
 
 	const consumer: SafeFoodConsumerModel =
 		cache.getItem('consumer') !== null
@@ -35,6 +36,11 @@ const HeaderConsumer: React.FC<HeaderConsumerProps> = ({ cache, products }) => {
 
 	const user: SafeFoodLoginResponse =
 		cache.getItem('user') !== null ? JSON.parse(cache.getItem('user')!) : {};
+
+	useEffect(() => {
+		const nameSplit = consumer.nome.split(' ');
+		setName(nameSplit[0]);
+	}, []);
 
 	function toggleSidebar() {
 		setSidebar(!sidebar);
@@ -67,7 +73,7 @@ const HeaderConsumer: React.FC<HeaderConsumerProps> = ({ cache, products }) => {
 							cache={cache}
 							userName={consumer.nome ?? ''}
 						>
-							<Text cursor={true}>{consumer.nome ?? ''}</Text>
+							<Text cursor={true}>{name ?? ''}</Text>
 							<ImageAtom src={consumer.imagem} />
 							<AiFillCaretDown
 								fill="orange"
