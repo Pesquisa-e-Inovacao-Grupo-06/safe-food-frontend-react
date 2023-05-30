@@ -6,14 +6,15 @@ import {
 	SafeFoodProductFilterResponse,
 	SafeFoodAvaliationRequest,
 	SafeFoodCreateProductRequest,
-    SafeFoodProductEstablishmentResponse,
-	SafeFoodCreateProductWithNoImageRequest
+	SafeFoodProductEstablishmentResponse,
+	SafeFoodCreateProductWithNoImageRequest,
+	SafeFoodProductLocationRequest
 } from "./models/SafeFoodProduct";
 import queryString from "../../../../../node_modules/query-string/index.d";
 import { SafeFoodGenericDataResponse } from "./models/SafeFoodResponse";
 
 export class SafeFoodProductGateway {
-	constructor(private readonly http: HttpClient) {}
+	constructor(private readonly http: HttpClient) { }
 
 	// GET /produtos/{id}
 	async findById(id: string): Promise<SafeFoodProductResponse> {
@@ -73,9 +74,9 @@ export class SafeFoodProductGateway {
 		id: number,
 		product: SafeFoodCreateProductRequest
 	): Promise<SafeFoodProductResponse> {
-		const body = { 
+		const body = {
 			...product,
-			
+
 		};
 		delete body.imagem
 		const res = await this.http.execute<SafeFoodProductResponse>({
@@ -184,66 +185,82 @@ export class SafeFoodProductGateway {
 	// 	return res.data;
 	// }
 	// GET /produtos/filtro
-    async productFilter(safeFoodProductFilterRequest?: SafeFoodProductFilterRequest): Promise<SafeFoodProductFilterResponse> {
-        const queryStringParams = queryString.stringify(safeFoodProductFilterRequest ?? {} as SafeFoodProductFilterRequest);
+	async productFilter(safeFoodProductFilterRequest?: SafeFoodProductFilterRequest): Promise<SafeFoodProductFilterResponse> {
+		const queryStringParams = queryString.stringify(safeFoodProductFilterRequest ?? {} as SafeFoodProductFilterRequest);
 
 
-        const res = await this.http.execute<SafeFoodProductFilterResponse>({
-            url: `/produtos/filtrar?${queryStringParams}`,
-            method: 'GET',
-        });
-        if (!res.data) {
-            throw new Error("Erro ao tentar filtrar os produtos");
-        }
-        if (res.statusCode == 204) {
-            return {...res.data, size:0}
-        }
+		const res = await this.http.execute<SafeFoodProductFilterResponse>({
+			url: `/produtos/filtrar?${queryStringParams}`,
+			method: 'GET',
+		});
+		if (!res.data) {
+			throw new Error("Erro ao tentar filtrar os produtos");
+		}
+		if (res.statusCode == 204) {
+			return { ...res.data, size: 0 }
+		}
 
-        return res.data;
-    }
+		return res.data;
+	}
+	async productsCloser(safeFoodProductFilterRequest?: SafeFoodProductLocationRequest): Promise<SafeFoodProductFilterResponse> {
+		const queryStringParams = queryString.stringify(safeFoodProductFilterRequest ?? {} as SafeFoodProductLocationRequest);
 
-    // POST /produtos/{id}/avaliacoes
-    // async createProductRating(
-    //     id: string
-    // ): Promise<SafeFoodProductRequest> {
-    //     const res = await this.http.execute<SafeFoodProductResponse>({
-    //         url: `/produtos/${id}/avaliacoes`,
-    //         method: 'POST',
-    //     });
-    //     if (!res.data) {
-    //         throw new Error("Erro ao tentar buscar todos os produtos");
-    //     }
 
-    //     return res.data;
-    // }
-    // DELETE /produtos/{id}/avaliacoes
+		const res = await this.http.execute<SafeFoodProductFilterResponse>({
+			url: `/produtos/maisProximos?${queryStringParams}`,
+			method: 'GET',
+		});
 
-    async deleteProductRating(id: string): Promise<SafeFoodProductResponse> {
-        const res = await this.http.execute<SafeFoodProductResponse>({
-            url: `/produtos/${id}/avaliacoes/`,
-            method: 'DELETE',
-        });
+		if (!res.data) {
+			throw new Error("Erro ao tentar filtrar os produtos");
+		}
 
-        if (!res.data) {
-            throw new Error("Erro ao tentar buscar todos os produtos");
-        }
+		return res.data;
+	}
 
-        return res.data;
-    }
-    // GET /produtos/filtro
 
-    // async findByEstablishmentId(establishmentId: string): Promise<SafeFoodProductResponse[]> {
-    //     const res = await this.http.execute<SafeFoodProductResponse[]>({
-    //         url: `/produtos/estabelecimento/${establishmentId}`,
-    //         method: 'GET',
-    //     });
+	// POST /produtos/{id}/avaliacoes
+	// async createProductRating(
+	//     id: string
+	// ): Promise<SafeFoodProductRequest> {
+	//     const res = await this.http.execute<SafeFoodProductResponse>({
+	//         url: `/produtos/${id}/avaliacoes`,
+	//         method: 'POST',
+	//     });
+	//     if (!res.data) {
+	//         throw new Error("Erro ao tentar buscar todos os produtos");
+	//     }
 
-    //     if (!res.data) {
-    //         return [];
-    //     }
+	//     return res.data;
+	// }
+	// DELETE /produtos/{id}/avaliacoes
 
-    //     return res.data;
-    // }
+	async deleteProductRating(id: string): Promise<SafeFoodProductResponse> {
+		const res = await this.http.execute<SafeFoodProductResponse>({
+			url: `/produtos/${id}/avaliacoes/`,
+			method: 'DELETE',
+		});
+
+		if (!res.data) {
+			throw new Error("Erro ao tentar buscar todos os produtos");
+		}
+
+		return res.data;
+	}
+	// GET /produtos/filtro
+
+	// async findByEstablishmentId(establishmentId: string): Promise<SafeFoodProductResponse[]> {
+	//     const res = await this.http.execute<SafeFoodProductResponse[]>({
+	//         url: `/produtos/estabelecimento/${establishmentId}`,
+	//         method: 'GET',
+	//     });
+
+	//     if (!res.data) {
+	//         return [];
+	//     }
+
+	//     return res.data;
+	// }
 
 	async findByEstablishmentId(
 		establishmentId: string

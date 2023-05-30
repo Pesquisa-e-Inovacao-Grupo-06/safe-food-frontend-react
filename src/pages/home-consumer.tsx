@@ -11,6 +11,7 @@ import {
 	directionSelect,
 	OrderSelect,
 	SafeFoodProductFilterRequest,
+	SafeFoodProductLocationRequest,
 	SafeFoodProductsResponse,
 } from '@/app/infra/gateway/safefood/models/SafeFoodProduct';
 import { SafeFoodRestrictionModel } from '@/app/infra/gateway/safefood/models/SafeFoodRestriction';
@@ -32,7 +33,8 @@ function HomeConsumer({
 	productGateway,
 	typeProductGateway,
 }: HomeConsumerProps) {
-	const { idEstablishment, idProduct } = useParams();
+	const { idEstablishment, idProduct, cep, numero, distanceRadio } =
+		useParams();
 
 	const consumer: SafeFoodConsumerModel =
 		cache.getItem('consumer') !== null
@@ -71,7 +73,19 @@ function HomeConsumer({
 		setPageNumber(pageNumberHandle);
 
 		try {
-			if (idEstablishment) {
+			if (cep) {
+				const fetchedProducts = await productGateway.productsCloser({
+					page: pageNumberHandle ?? 1,
+					itensPorpagina: selectItems ?? 6,
+					sort: 'id',
+					direction: 'asc',
+					cep: cep,
+					numero: numero,
+					distanceRadio: 1,
+				});
+				setProducts(fetchedProducts.content.map(SafeFoodProductMapper.of));
+				setTotalPage(fetchedProducts.totalPages);
+			} else if (idEstablishment) {
 				const fetchedProducts = await productGateway.productFilter({
 					ids_categorias: [],
 					ids_restricoes: [],
@@ -110,7 +124,34 @@ function HomeConsumer({
 
 	const onClickApplication = async () => {
 		try {
-			if (idEstablishment) {
+			if (cep) {
+				const filterProductsByLocation: SafeFoodProductLocationRequest = {
+					page: 1,
+					itensPorpagina: 10,
+					sort: 'id',
+					direction: 'asc',
+					cep: cep,
+					numero: numero,
+					distanceRadio: 10,
+				};
+				console.log('locazação', filterProductsByLocation);
+				const fetchedProductsFilter: SafeFoodProductsResponse =
+					await productGateway.productsCloser(filterProductsByLocation);
+				console.log(filterProductsByLocation);
+				if (fetchedProductsFilter.size === 0) {
+					setProducts([]);
+					setInitializa(true);
+					return;
+				}
+
+				setProductsFilter(fetchedProductsFilter);
+				setProducts(
+					fetchedProductsFilter.content.map(SafeFoodProductMapper.of)
+				);
+				setTotalPage(fetchedProductsFilter.totalPages);
+				setTotalItens(fetchedProductsFilter.numberOfElements);
+				setInitializa(true);
+			} else if (idEstablishment) {
 				const filterProductsByIdEstablishment: SafeFoodProductFilterRequest = {
 					ids_restricoes: checkedRestrictions,
 					ids_categorias: checkedTypeProducts,
@@ -169,11 +210,17 @@ function HomeConsumer({
 				setInitializa(true);
 			}
 		} catch (error) {
-			console.error(error);
+			setProductsFilter([]);
 			setProducts([]);
+			setTotalPage(1);
+			setTotalItens(0);
 			setInitializa(true);
 		}
 	};
+
+	useEffect(() => {
+		onClickApplication();
+	}, [cep]);
 
 	useEffect(() => {
 		if (initialize == false) {

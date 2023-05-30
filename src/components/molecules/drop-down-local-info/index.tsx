@@ -79,11 +79,14 @@ const DropDownLocalInfo: React.FC<Props> = ({ children, address }) => {
 								filterData.map(repo => {
 									return (
 										<li
-											onClick={() =>
+											onClick={() => {
 												repo.params.apelido != undefined
 													? setLocal(repo.params.apelido)
-													: ''
-											}
+													: '';
+												navigate(
+													`/home-consumer/${repo.params.cep}/${repo.params.numero}`
+												);
+											}}
 											key={repo.params.apelido}
 										>
 											{repo.params.apelido}

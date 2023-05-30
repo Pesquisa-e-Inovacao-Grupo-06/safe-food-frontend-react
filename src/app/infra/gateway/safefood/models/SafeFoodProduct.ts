@@ -64,6 +64,8 @@ export type SafeFoodProductEstablishmentResponse = SafeFoodGenericDataResponse<
 
 export type SafeFoodProductsResponse = SafeFoodPage<SafeFoodProductModel>;
 
+
+
 export type SafeFoodPostCommentsProductEstablishmentRequest =
 	SafeFoodAvaliationRequest;
 
@@ -89,6 +91,17 @@ export type SafeFoodPage<T> = {
 
 export type OrderSelect = "TODOS" | "QTD_AVALIACOES" | "LANCAMENTOS" | "PRECO"
 export type directionSelect = "asc" | "desc";
+
+export type SafeFoodProductLocationRequest = {
+	page?: number;
+	itensPorpagina: number;
+	sort?: string;
+	direction: directionSelect;
+	cep?: string;
+	numero?: string;
+	distanceRadio?: number;
+}
+
 export type SafeFoodProductFilterRequest = {
 	ids_restricoes?: string[];
 	ids_categorias?: string[];

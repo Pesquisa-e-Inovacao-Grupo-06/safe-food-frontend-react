@@ -172,6 +172,16 @@ export default function App({
 								}
 							/>
 							<Route
+								path="/home-consumer/:cep/:numero?"
+								element={
+									<HomeConsumer
+										cache={cache}
+										productGateway={productGateway}
+										typeProductGateway={typeProductGateway}
+									/>
+								}
+							/>
+							<Route
 								path="/home-consumer"
 								element={
 									<HomeConsumer
