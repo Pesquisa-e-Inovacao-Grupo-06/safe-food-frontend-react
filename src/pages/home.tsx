@@ -76,7 +76,6 @@ function Home({
 			console.log("Geolocalização não suportada pelo navegador.");
 		}
 	}, []);
-
 	useEffect(() => {
 		async function fetchProduct() {
 			try {
