@@ -41,6 +41,8 @@ import { SafeFoodAddressMapper } from "@/app/infra/gateway/safefood/mappers/Safe
 import { AddressModal } from "../address-modal/address-modal";
 import { Text } from "@/components/atoms/text";
 import { BiTrash } from "react-icons/bi";
+import { useNavigate } from "react-router";
+import { Subtitle } from "@/styles/components/text/Subtitle";
 
 export type ProfileProps = {
 	restrictionsUser: Restriction[];
@@ -116,6 +118,8 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 	onClickUpdateAddress,
 	deleteUser,
 }) => {
+	const navigate = useNavigate();
+
 	return (
 		<>
 			<HeaderConsumer cache={cache} />
@@ -190,7 +194,8 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 						<PDivider />
 						<PContainerInfo2>
 							<div className="pcontainerinfo2-sub">
-								<PTitle>Endereços</PTitle>
+								<Subtitle>Informações de cadastro</Subtitle>
+
 								<ButtonIcon
 									icon={<IoMdAddCircleOutline color="#087704" />}
 									alignIcon="right"
@@ -239,7 +244,7 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 						</PContainerInfo2>
 						<PDivider />
 						<PContainerInfo3>
-							<PTitle>Restrições</PTitle>
+							<Subtitle>Restrições</Subtitle>
 							<PContainerRestricao
 								display="flex"
 								justify="center"
@@ -268,7 +273,7 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 						</PContainerInfo3>
 						<PDivider />
 						<PContainerInfo3 >
-							<PTitle>Ações para conta</PTitle>
+							<Subtitle>Ações para conta</Subtitle>
 							<Box display="flex" width="300px">
 								<ButtonIcon
 									alignIcon="left"
@@ -286,7 +291,7 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 									}}
 									onClick={() => deleteUser(consumer.id)}
 								>
-									<Text typeText="text-md" color="white">
+									<Text typeText="text-mdb" color="white">
 										Deletar conta
 									</Text>
 								</ButtonIcon>

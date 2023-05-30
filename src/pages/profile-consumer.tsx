@@ -17,6 +17,7 @@ import { SafeFoodLoginResponse } from "@/app/infra/gateway/safefood/models/SafeF
 import { Address } from "@/app/domain/entities/Address";
 import { SafeFoodUpdateConsumerRequest } from "../app/infra/gateway/safefood/models/SafeFoodConsumer";
 import { ProfileTemplate } from "@/components/templates/profile-consumer/profile-consumer-template";
+import { useNavigate } from "react-router";
 
 type ProfileConsumerProps = {
 	cache: Cache;
@@ -31,6 +32,8 @@ function ProfileConsumer({
 	cepValidator,
 	findAddressUsecase,
 }: ProfileConsumerProps) {
+
+	const navigate = useNavigate();
 	//Cache
 	const restrictions: SafeFoodRestrictionModel[] =
 		cache.getItem("restrictions") !== null
@@ -41,6 +44,7 @@ function ProfileConsumer({
 		cache.getItem("consumer") !== null
 			? JSON.parse(cache.getItem("consumer")!)
 			: {};
+
 
 	const user: SafeFoodLoginResponse =
 		cache.getItem("user") !== null ? JSON.parse(cache.getItem("user")!) : {};
@@ -149,6 +153,11 @@ function ProfileConsumer({
 			findAddress(modalCep);
 		}
 	}, [modalCep, modalApelido, modalNumero]);
+
+	const onClickChangePassword = () => {
+		navigate("/change-password");
+	}
+
 
 	const onClickSaveNewAddress = async (
 		address: SafeFoodCreateAddressRequest
@@ -367,9 +376,7 @@ function ProfileConsumer({
 			isAlertVisible={isAlertVisible}
 			textAlert={textAlert}
 			typeAlert={typeAlert}
-			onClickChangePassword={function (): void {
-				throw new Error("Function not implemented.");
-			}}
+			onClickChangePassword={onClickChangePassword}
 			onClickSaveButton={() => {
 				setIsEditable(false);
 				// onClickUpdate()
