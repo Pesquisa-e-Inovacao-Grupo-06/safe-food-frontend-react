@@ -9,7 +9,8 @@ export type BoxJustify =
 	| "right"
 	| "unset"
 	| "flex-start"
-	| "start";
+	| "start"
+	| "flex-end";
 
 export type BoxOverflow = "auto" | "hidden" | "visible";
 export type BoxProps = {
@@ -32,7 +33,7 @@ export type BoxProps = {
 	gap?: string;
 	alignSelf?: "center" | "flex-end" | "flex-start";
 };
-export const Box = styled(motion.div)<BoxProps>`
+export const Box = styled(motion.div) <BoxProps>`
 	height: ${p => p.height || "auto"};
 	width: ${p => p.width || "100%"};
 	max-height: ${p => p.maxHeight || "auto"};
