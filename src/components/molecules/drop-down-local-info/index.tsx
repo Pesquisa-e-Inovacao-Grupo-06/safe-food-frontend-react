@@ -1,36 +1,35 @@
-import { Text } from "@/components/atoms/text";
-import { useState } from "react";
-import { AiFillCaretDown } from "react-icons/ai";
-import { BiSearch } from "react-icons/bi";
-import { GoLocation } from "react-icons/go";
-import { ContainerDropDownLocalInfo } from "./styles";
-import { Address } from "@/app/domain/entities/Address";
-import { Button } from "@/components/atoms/button";
-import { useNavigate } from "react-router-dom";
-import { Divider } from "@/components/atoms/divider";
-import { ButtonIcon } from "../button/button-icon";
-import { IoMdAddCircleOutline } from "react-icons/io";
+import { Text } from '@/components/atoms/text';
+import { useState } from 'react';
+import { AiFillCaretDown } from 'react-icons/ai';
+import { BiSearch } from 'react-icons/bi';
+import { GoLocation } from 'react-icons/go';
+import { ContainerDropDownLocalInfo } from './styles';
+import { Address } from '@/app/domain/entities/Address';
+import { Button } from '@/components/atoms/button';
+import { useNavigate } from 'react-router-dom';
+import { ButtonIcon } from '../button/button-icon';
+import { IoMdAddCircleOutline } from 'react-icons/io';
+import { Divider } from '@/components/atoms/divider';
 
 type Props = {
 	children?: any;
 	address: Address[];
-
 };
 
 const DropDownLocalInfo: React.FC<Props> = ({ children, address }) => {
 	const navigate = useNavigate();
 	const [active, setActive] = useState(false);
 	const [repositores, setRepositories] = useState<Address[]>(address);
-	const [valueText, setValueText] = useState<any>("Selecione um local");
+	const [valueText, setValueText] = useState<any>('Selecione um local');
 	const [filterData, setFilterData] = useState<Address[]>(address);
-	const [wordEntered, setWordEntered] = useState("");
+	const [wordEntered, setWordEntered] = useState('');
 
 	function setLocal(id: string) {
 		repositores.map(repo => {
-			return repo.params.apelido == id ? setValueText(repo.params.apelido) : "";
+			return repo.params.apelido == id ? setValueText(repo.params.apelido) : '';
 		});
 		setActive(false);
-		setWordEntered("");
+		setWordEntered('');
 		setFilterData([]);
 	}
 
@@ -40,10 +39,10 @@ const DropDownLocalInfo: React.FC<Props> = ({ children, address }) => {
 		const newFilter = repositores.filter(value => {
 			return value.params.apelido != undefined
 				? value.params.apelido.toLowerCase().includes(seacrhWorld.toLowerCase())
-				: "";
+				: '';
 		});
 
-		if (seacrhWorld === "") {
+		if (seacrhWorld === '') {
 			setFilterData([]);
 		} else {
 			setFilterData(newFilter);
@@ -76,37 +75,42 @@ const DropDownLocalInfo: React.FC<Props> = ({ children, address }) => {
 						</div>
 
 						<ul className="options-dropdown-local-info">
-							{filterData.length > 0 ? filterData.map(repo => {
-								return (
-									<li
-										onClick={() =>
-											repo.params.apelido != undefined
-												? setLocal(repo.params.apelido)
-												: ""
-										}
-										key={repo.params.apelido}
-									>
-										{repo.params.apelido}
-									</li>
-								)
-							}) : <></>}
+							{filterData.length > 0 ? (
+								filterData.map(repo => {
+									return (
+										<li
+											onClick={() =>
+												repo.params.apelido != undefined
+													? setLocal(repo.params.apelido)
+													: ''
+											}
+											key={repo.params.apelido}
+										>
+											{repo.params.apelido}
+										</li>
+									);
+								})
+							) : (
+								<></>
+							)}
 						</ul>
 						<Divider marginTop="10px"></Divider>
-						<Button onClick={() => { navigate('/profile'); }}>
+						<Button
+							onClick={() => {
+								navigate('/profile');
+							}}
+						>
 							<Text color="white">novo endereço</Text>
 						</Button>
-						<ButtonIcon
-							icon={<IoMdAddCircleOutline color="#087704" />}
-							alignIcon="right"
-							buttonStyle="outline"
-							style={{
-								height: 45,
+						<Divider marginTop="10px" />
+						<Button
+							onClick={() => {
+								navigate('/profile');
 							}}
-							width={"fit-content"}
-							onClick={() => { console.log("NÃO IMPLEMENTADO ESPERANDO DELFINO") }}
+							style={{ background: 'green', borderColor: 'green' }}
 						>
-							<span>Pegar localização</span>
-						</ButtonIcon>
+							<Text color="white">pegar localização</Text>
+						</Button>
 					</div>
 				</div>
 			</ContainerDropDownLocalInfo>

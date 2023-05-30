@@ -1,13 +1,13 @@
-import React from "react";
-import { AddresCardContainer } from "./styles";
-import { Subtitle } from "@/styles/components/text/Subtitle";
-import { ButtonIcon } from "../button/button-icon";
-import { IconType } from "react-icons/lib";
-import { MdEdit } from "react-icons/md";
-import { Box } from "@/components/atoms/box";
-import { FaTrash } from "react-icons/fa";
-import { AiFillEdit } from "react-icons/ai";
-import { SafeFoodAddressModel } from "@/app/infra/gateway/safefood/models/SafeFoodAddress";
+import React from 'react';
+import { AddresCardContainer } from './styles';
+import { Subtitle } from '@/styles/components/text/Subtitle';
+import { ButtonIcon } from '../button/button-icon';
+import { IconType } from 'react-icons/lib';
+import { MdEdit } from 'react-icons/md';
+import { Box } from '@/components/atoms/box';
+import { FaTrash } from 'react-icons/fa';
+import { AiFillEdit } from 'react-icons/ai';
+import { SafeFoodAddressModel } from '@/app/infra/gateway/safefood/models/SafeFoodAddress';
 
 export type AddresCardProps = {
 	Icon?: IconType;
@@ -40,7 +40,14 @@ const AddresCard: React.FC<AddresCardProps> = ({
 		<>
 			<AddresCardContainer>
 				<div className="address-card-header">
-					<Subtitle className="address-card-subtitle">{headerText}</Subtitle>
+					<Box
+						display="flex"
+						flexDirection="row"
+						justify="left"
+						gap="20px"
+					>
+						<Subtitle className="address-card-subtitle">{headerText}</Subtitle>
+					</Box>
 					<Box
 						display="flex"
 						flexDirection="row"
