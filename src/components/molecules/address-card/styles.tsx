@@ -1,5 +1,5 @@
-import { Box } from "@/components/atoms/box";
-import styled from "styled-components";
+import { Box } from '@/components/atoms/box';
+import styled from 'styled-components';
 
 export const AddresCardContainer = styled(Box)`
 	border-radius: 8px;
@@ -12,7 +12,7 @@ export const AddresCardContainer = styled(Box)`
 		align-items: center;
 		border-radius: 8px 8px 0 0;
 		background: ${p =>
-			p.theme.name == "light"
+			p.theme.name == 'light'
 				? p.theme.colors.light_gray[800]
 				: p.theme.colors.dark_gray[400]};
 		border-bottom: 1px solid ${p => p.theme.colors.dark_gray[200]};
@@ -34,7 +34,7 @@ export const AddresCardContainer = styled(Box)`
 
 		> svg {
 			color: ${p =>
-				p.theme.name == "light"
+				p.theme.name == 'light'
 					? p.theme.colors.dark_gray[400]
 					: p.theme.colors.light_gray[600]};
 			transition: 0.2s;
@@ -51,11 +51,11 @@ export const AddresCardContainer = styled(Box)`
 		min-height: 150px;
 		max-width: 350px;
 		color: ${p =>
-			p.theme.name == "light"
+			p.theme.name == 'light'
 				? p.theme.colors.dark_gray[1000]
 				: p.theme.colors.light_gray[200]};
 		background: ${p =>
-			p.theme.name == "light"
+			p.theme.name == 'light'
 				? p.theme.colors.light_gray[200]
 				: p.theme.colors.dark_gray[400]};
 		border-radius: 0 0 8px 8px;
