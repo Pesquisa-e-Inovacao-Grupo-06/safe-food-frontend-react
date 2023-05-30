@@ -196,20 +196,6 @@ export const ProfileEstablishmentTemplate: React.FC<
 									}}
 									onClick={() => {
 										window.location.href =
-											import.meta.env.BACKEND_URL + '/restricoes/download';
-									}}
-								>
-									<span>Baixar restrições em Excel</span>
-								</PBtnBaixar>
-								<PBtnBaixar
-									icon={<MdOutlineFileDownload />}
-									alignIcon="right"
-									buttonStyle="filled"
-									style={{
-										height: 45,
-									}}
-									onClick={() => {
-										window.location.href =
 											import.meta.env.VITE_BACKEND_URL + '/restricoes/download';
 									}}
 								>

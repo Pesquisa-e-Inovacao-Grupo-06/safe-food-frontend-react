@@ -158,11 +158,11 @@ const linksArray = [
 		icon: <AiOutlineHome />,
 		to: '/home-establishment',
 	},
-	{
-		label: 'Produtos',
-		icon: <MdOutlineFastfood />,
-		to: '/products',
-	},
+	//{
+	//	label: 'Produtos',
+	//	icon: <MdOutlineFastfood />,
+	//	to: '/products',
+	//},
 ];
 
 const secondaryLinksArray = [
