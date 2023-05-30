@@ -1,22 +1,22 @@
-import { ContainerRegisterProduct, BtnRegisterProduct } from "./styles";
-import { AiOutlineRight } from "react-icons/ai";
-import { SDivider } from "../sidebar-establishment/styles";
-import { StyledButton } from "@/components/atoms/button/styles";
-import { Box } from "@/components/atoms/box";
-import { CardExpansiveEstablishmentFoodOrganism } from "@/components/organisms/card-establishment-food/card-establishment-food-organism";
-import { Text } from "@/components/atoms/text";
-import { CLabelAttention } from "@/components/atoms/checkbox/styles";
-import { Chips } from "@/components/atoms/chips/chips-atom";
-import { Input } from "@/components/atoms/input";
-import { Restriction } from "@/app/domain/entities/Restriction";
-import { TypeProduct } from "@/app/domain/entities/TypeProduct";
-import { SafeFoodCreateProductRequest } from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
-import { useState, useEffect } from "react";
-import { Product } from "@/app/domain/entities/Product";
-import { SafeFoodUsuarioModel } from "@/app/infra/gateway/safefood/models/SafeFoodUser";
-import { Alert, AlertType } from "@/components/atoms/alert";
+import {ContainerRegisterProduct, BtnRegisterProduct} from "./styles";
+import {AiOutlineRight} from "react-icons/ai";
+import {SDivider} from "../sidebar-establishment/styles";
+import {StyledButton} from "@/components/atoms/button/styles";
+import {Box} from "@/components/atoms/box";
+import {CardExpansiveEstablishmentFoodOrganism} from "@/components/organisms/card-establishment-food/card-establishment-food-organism";
+import {Text} from "@/components/atoms/text";
+import {CLabelAttention} from "@/components/atoms/checkbox/styles";
+import {Chips} from "@/components/atoms/chips/chips-atom";
+import {Input} from "@/components/atoms/input";
+import {Restriction} from "@/app/domain/entities/Restriction";
+import {TypeProduct} from "@/app/domain/entities/TypeProduct";
+import {SafeFoodCreateProductRequest} from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
+import {useState, useEffect} from "react";
+import {Product} from "@/app/domain/entities/Product";
+import {SafeFoodUsuarioModel} from "@/app/infra/gateway/safefood/models/SafeFoodUser";
+import {Alert, AlertType} from "@/components/atoms/alert";
 
-type Props = {
+type Props={
 	active?: boolean;
 	toggle?: () => void;
 	activeRegisterProduct?: boolean;
@@ -49,30 +49,30 @@ function RegisterProduct({
 	auxObjEdit,
 
 }: Props) {
-	const [objProduct, setObjProduct] = useState<SafeFoodCreateProductRequest>();
-	const [editObjProduct, setEditObjProduct] =
+	const [objProduct, setObjProduct]=useState<SafeFoodCreateProductRequest>();
+	const [editObjProduct, setEditObjProduct]=
 		useState<SafeFoodCreateProductRequest>();
-	const [editId, setEditId] = useState<string>("");
-	const [deleteProductId, setDeleteProductId] = useState<string>("");
-	const [nome, setNome] = useState<string>("");
-	const [preco, setPreco] = useState<number>(0);
-	const [img, setImg] = useState<string>("");
-	const [descricao, setDescricao] = useState<string>("");
-	const [categoria, setCategoria] = useState<number>(0);
-	const [auxCategoria, setAuxCategoria] = useState<string>("");
-	const [ingredientes, setIngredientes] = useState<string[]>([]);
-	const [auxIngredientes, setAuxIngredientes] = useState<string>("");
-	const [restrictions, setRestrictions] = useState<number[]>([]);
-	const [auxFunction, setAuxFunction] = useState<string>("");
-	const [restrictionEdit, setRestrictionEdit] = useState<Restriction[]>(
-		restrictionProduct || []
+	const [editId, setEditId]=useState<string>('');
+	const [deleteProductId, setDeleteProductId]=useState<string>('');
+	const [nome, setNome]=useState<string>('');
+	const [preco, setPreco]=useState<number>(0);
+	const [img, setImg]=useState<string>('');
+	const [descricao, setDescricao]=useState<string>('');
+	const [categoria, setCategoria]=useState<number>(0);
+	const [auxCategoria, setAuxCategoria]=useState<string>('');
+	const [ingredientes, setIngredientes]=useState<string[]>([]);
+	const [auxIngredientes, setAuxIngredientes]=useState<string>('');
+	const [restrictions, setRestrictions]=useState<number[]>([]);
+	const [auxFunction, setAuxFunction]=useState<string>('');
+	const [restrictionEdit, setRestrictionEdit]=useState<Restriction[]>(
+		restrictionProduct||[]
 	);
-	const [average, setAverage] = useState<number>()
-	const [qtdComments, setQtdComments] = useState<number>()
-	const [imageProfile, setImageProfile] = useState<File>();
-	const [isVisibleAlert, setIsVisibleAlert] = useState(false);
-	const [typeAlert, setTypeAlert] = useState<AlertType>("success");
-	const [textAlert, setTextAlert] = useState("Agradecemos por seu feedback!");
+	const [average, setAverage]=useState<number>();
+	const [qtdComments, setQtdComments]=useState<number>();
+	const [imageProfile, setImageProfile]=useState<File>();
+	const [isVisibleAlert, setIsVisibleAlert]=useState(false);
+	const [typeAlert, setTypeAlert]=useState<AlertType>("success");
+	const [textAlert, setTextAlert]=useState("Agradecemos por seu feedback!");
 
 	//limpa os valores ao renderizar ao apertar o botão de adicionar e abrea a aba de regitro
 	useEffect(() => {
@@ -84,36 +84,48 @@ function RegisterProduct({
 
 	//create product e limpa as inputs
 	useEffect(() => {
-		objProduct != undefined && onClickCreate != undefined
+		objProduct!=undefined&&onClickCreate!=undefined
 			? onClickCreate(objProduct)
-			: "";
-		console.log("OBJ IMAGE" + objProduct?.imagem);
+			:'';
+		console.log('OBJ IMAGE'+objProduct?.imagem);
 		clear();
 		clearRestriction();
+		objProduct!=undefined
+			? renderListProduct!=undefined
+				? renderListProduct()
+				:''
+			:'';
 		clearObjEdit();
-		renderListProduct != undefined ? renderListProduct() : "";
 	}, [objProduct]);
 
 	//update product e limpa as inputs
 	useEffect(() => {
-		editObjProduct != undefined && onClickUpdate != undefined
+		editObjProduct!=undefined&&onClickUpdate!=undefined
 			? onClickUpdate(editId, editObjProduct)
-			: "";
+			:'';
 		clear();
 		clearRestriction();
+		editObjProduct!=undefined
+			? renderListProduct!=undefined
+				? renderListProduct()
+				:''
+			:'';
 		clearObjEdit();
-		renderListProduct != undefined ? renderListProduct() : "";
 	}, [editObjProduct]);
 
 	//delete product e limpa as inputs
 	useEffect(() => {
-		deleteProductId != "" && onClickDelete != undefined
+		deleteProductId!=''&&onClickDelete!=undefined
 			? onClickDelete(deleteProductId)
-			: "";
+			:'';
 		clear();
 		clearRestriction();
+		deleteProductId!=undefined
+			? renderListProduct!=undefined
+				? renderListProduct()
+				:''
+			:'';
 		clearObjEdit();
-		renderListProduct != undefined ? renderListProduct() : "";
 	}, [deleteProductId]);
 
 	//limpar todos os dados ao entrar ou reiniciar a página
@@ -124,15 +136,15 @@ function RegisterProduct({
 	}, []);
 
 	//ativa as restrições do produto que será editado
-	const objEditRestrictions = () => {
-		productEdit?.params.restricoes != undefined
+	const objEditRestrictions=() => {
+		productEdit?.params.restricoes!=undefined
 			? productEdit?.params.restricoes.map(item => {
-				var aux = item.restricao;
+				var aux=item.restricao;
 				restrictionEdit?.filter(item => {
-					item.params.restricao == aux ? (item.params.isActive = true) : "";
+					item.params.restricao==aux? (item.params.isActive=true):'';
 				});
 			})
-			: [];
+			:[];
 
 		// productEdit?.params.restricoes != undefined
 		// 	? productEdit.params.restricoes.forEach(restricaoAtiva => {
@@ -150,55 +162,57 @@ function RegisterProduct({
 
 	//concatena ingredientes para auto preencher a input de ingredietes do produto a ser editado
 	useEffect(() => {
-		const joinIngredientes = ingredientes
-			.join(", ")
-			.replace("[", "")
-			.replace("]", "");
+		const joinIngredientes=ingredientes
+			.join(', ')
+			.replace('[', '')
+			.replace(']', '');
 		setAuxIngredientes(joinIngredientes);
 	}, [editId]);
 
 	//limpa os values dos useState
-	const clear = () => {
+	const clear=() => {
 		setObjProduct(undefined);
-		setEditId("");
-		setDeleteProductId("");
-		setNome("");
+		setEditId('');
+		setDeleteProductId('');
+		setNome('');
 		setPreco(0);
-		setImg("");
-		setDescricao("");
+		setImg('');
+		setDescricao('');
 		setCategoria(0);
 		setIngredientes([]);
-		setAuxIngredientes("");
+		setAuxIngredientes('');
 		setRestrictions([]);
-		setAuxCategoria("");
-		setAuxFunction("");
+		setAuxCategoria('');
+		setAuxFunction('');
+		setImageProfile(undefined);
 	};
 
 	//limpas os valores da inpur do objeto que está sendo editado, porém não apaga o id, assim possibilitando editar
-	const clearValuesObjEdit = () => {
+	const clearValuesObjEdit=() => {
 		setObjProduct(undefined);
-		setNome("");
+		setNome('');
 		setPreco(0);
-		setImg("");
-		setDescricao("");
+		setImg('');
+		setDescricao('');
 		setCategoria(0);
 		setIngredientes([]);
-		setAuxIngredientes("");
+		setAuxIngredientes('');
 		setRestrictions([]);
-		setAuxCategoria("");
-		setAuxFunction("");
+		setAuxCategoria('');
+		setAuxFunction('');
+		setImageProfile(undefined);
 	};
 
 	//colocar todas restrições como inativadas
-	const clearRestriction = () => {
+	const clearRestriction=() => {
 		restrictionEdit?.map(item => {
-			item.params.isActive = false;
+			item.params.isActive=false;
 		});
 	};
 
 	//limpar objEdit, após editar ou fechar a aba
-	const clearObjEdit = () => {
-		productEdit = undefined;
+	const clearObjEdit=() => {
+		productEdit=undefined;
 	};
 
 	//assim que clicar no botão de editar ele auto preenche as inputs de criar produtos, para assim conseguir editar o mesmo
@@ -210,110 +224,111 @@ function RegisterProduct({
 	}, [auxObjEdit]);
 
 	//passar os dados de edit para os useState
-	const setObjEdit = () => {
-		setEditId(productEdit?.params.id != undefined ? productEdit?.params.id : "");
+	const setObjEdit=() => {
+		setEditId(
+			productEdit?.params.id!=undefined? productEdit?.params.id:''
+		);
 		setNome(
-			productEdit?.params.titulo != undefined ? productEdit?.params.titulo : ""
+			productEdit?.params.titulo!=undefined? productEdit?.params.titulo:''
 		);
 		setPreco(
-			productEdit?.params.preco != undefined ? productEdit?.params.preco : 0
+			productEdit?.params.preco!=undefined? productEdit?.params.preco:0
 		);
 		setImg(
-			productEdit?.params.imagem != undefined ? productEdit?.params.imagem : ""
+			productEdit?.params.imagem!=undefined? productEdit?.params.imagem:''
 		);
 		setDescricao(
-			productEdit?.params.descricao != undefined
+			productEdit?.params.descricao!=undefined
 				? productEdit?.params.descricao
-				: ""
+				:''
 		);
 		setCategoria(
-			productEdit?.params.categoria?.id != undefined
+			productEdit?.params.categoria?.id!=undefined
 				? productEdit.params.categoria.id
-				: 0
+				:0
 		);
 		setAuxCategoria(
-			productEdit?.params.categoria.nome != undefined
+			productEdit?.params.categoria.nome!=undefined
 				? productEdit?.params.categoria.nome
-				: ""
+				:''
 		);
 		setIngredientes(
-			productEdit?.params.ingredientes != undefined
+			productEdit?.params.ingredientes!=undefined
 				? productEdit?.params.ingredientes
-				: []
+				:[]
 		);
-		setAverage(productEdit?.params.average != undefined
-			? productEdit.params.average
-			: 0);
+		setAverage(
+			productEdit?.params.average!=undefined? productEdit.params.average:0
+		);
 		setQtdComments(
-			productEdit?.params?.avaliacoes?.map((item) => item.comentario).length !== undefined
-				? productEdit?.params.avaliacoes.map((item) => item.comentario).length
-				: undefined
+			productEdit?.params?.avaliacoes?.map(item => item.comentario).length!==
+				undefined
+				? productEdit?.params.avaliacoes.map(item => item.comentario).length
+				:undefined
 		);
-
-
 	};
 
 	//manipulação dos ingredientes, para inserir cada um
 	useEffect(() => {
-		var ingredientesSplit = auxIngredientes.split(",");
-		var ingredientesAdapter = ingredientesSplit.map(item => {
+		var ingredientesSplit=auxIngredientes.split(',');
+		var ingredientesAdapter=ingredientesSplit.map(item => {
 			return item.trim();
 		});
 		setIngredientes(ingredientesAdapter);
 	}, [auxIngredientes]);
 
 	//verificar os valores e mandar para o objeto que será criado
-	const setProduct = (method: string) => {
-		if (imageProfile) {
+	const setProduct=(method: string) => {
+		if(imageProfile) {
 			setTypeAlert("warning");
 			setTextAlert("Selecione uma imagem de perfil");
 			setIsVisibleAlert(true);
 			return;
 		}
-		if (user?.id === undefined || user.id === 0) {
+		if(user?.id===undefined||user.id===0) {
 			setTypeAlert("warning");
 			setTextAlert("ID do usuário não definido");
 			setIsVisibleAlert(true);
 			return;
 		}
-		if (nome.length <= 0) {
+		if(nome.length<=0) {
 			setTypeAlert("warning");
 			setTextAlert("Nome não preenchido");
 			setIsVisibleAlert(true);
 			return;
 		}
-		if (preco <= 0) {
+		if(preco<=0) {
 			setTypeAlert("warning");
 			setTextAlert("Preço inválido");
 			setIsVisibleAlert(true);
 			return;
 		}
-		if (descricao.length <= 0) {
+		if(descricao.length<=0) {
 			setTypeAlert("warning");
 			setTextAlert("Descrição não preenchida");
 			setIsVisibleAlert(true);
 			return;
 		}
-		if (ingredientes.length <= 0) {
+		if(ingredientes.length<=0) {
 			setTypeAlert("warning");
 			setTextAlert("Ingredientes não preenchidos");
 			setIsVisibleAlert(true);
 			return;
 		}
-		if (restrictions.length <= 0) {
+		if(restrictions.length<=0) {
 			setTypeAlert("warning");
 			setTextAlert("Restrições não preenchidas");
 			setIsVisibleAlert(true);
 			return;
 		}
-		if (categoria <= 0) {
+		if(categoria<=0) {
 			setTypeAlert("warning");
 			setTextAlert("Categoria não selecionada");
 			setIsVisibleAlert(true);
 			return;
 		}
 
-		if (method == "create") {
+		if(method=='create') {
 			setObjProduct({
 				id: user?.id,
 				titulo: nome,
@@ -321,14 +336,14 @@ function RegisterProduct({
 				descricao: descricao,
 				imagem: imageProfile,
 				ingredientes: ingredientes,
-				unidadeDeVenda: "unidade",
+				unidadeDeVenda: 'unidade',
 				categoria: categoria,
 				restricoes: restrictions,
 			});
 		}
 
-		if (method == "update") {
-			if (editId.length <= 0) {
+		if(method=='update') {
+			if(editId.length<=0) {
 				return;
 			}
 			setEditObjProduct({
@@ -338,14 +353,14 @@ function RegisterProduct({
 				descricao: descricao,
 				imagem: imageProfile,
 				ingredientes: ingredientes,
-				unidadeDeVenda: "unidade",
+				unidadeDeVenda: 'unidade',
 				categoria: categoria,
 				restricoes: restrictions,
 			});
 		}
 
-		if (method == "delete") {
-			if (editId.length <= 0) {
+		if(method=='delete') {
+			if(editId.length<=0) {
 				return;
 			}
 			setDeleteProductId(editId);
@@ -354,18 +369,18 @@ function RegisterProduct({
 
 	//concatenar os id das restrictions conforme ir selecionando
 	useEffect(() => {
-		const newRestricitons: number[] = [];
-		restrictionEdit != undefined
+		const newRestricitons: number[]=[];
+		restrictionEdit!=undefined
 			? restrictionEdit.filter(item => {
-				item.params.isActive ? newRestricitons.push(item.params.id) : "";
+				item.params.isActive? newRestricitons.push(item.params.id):'';
 			})
-			: restrictionEdit;
+			:restrictionEdit;
 		setRestrictions(newRestricitons);
-		setAuxFunction("auxFucntion");
+		setAuxFunction('auxFucntion');
 	}, [auxFunction]);
 
 	//limpar os campos quando abrir ou fechar a aba pelo o botão de seta da aba
-	const clearOpenModal = () => {
+	const clearOpenModal=() => {
 		clear();
 		clearObjEdit();
 		clearRestriction();
@@ -382,7 +397,7 @@ function RegisterProduct({
 					<BtnRegisterProduct
 						isOpen={active}
 						onClick={() => {
-							toggle != undefined ? toggle() : "";
+							toggle!=undefined? toggle():'';
 							clearOpenModal();
 						}}
 					>
@@ -397,10 +412,13 @@ function RegisterProduct({
 							fileChange={file => {
 								console.log(file);
 								setImageProfile(file);
-							}} average={average ?? 0} qtdComentario={qtdComments ?? 0} />
+							}}
+							average={average??0}
+							qtdComentario={qtdComments??0}
+						/>
 					</div>
 					<div className="main-register-product">
-						{isVisibleAlert ? <Alert type={typeAlert} >{textAlert}</Alert> : <></>}
+						{isVisibleAlert? <Alert type={typeAlert} >{textAlert}</Alert>:<></>}
 						<div className="container-main-register-product">
 							<SDivider className="divider-register-product" />
 							<Text className="text-categoria-register-product">
@@ -410,21 +428,21 @@ function RegisterProduct({
 								{typeProduct?.map(item => (
 									<StyledButton
 										onClick={() =>
-											item.id == undefined
+											item.id==undefined
 												? setCategoria(0)
-												: (setCategoria(item.id),
+												:(setCategoria(item.id),
 													setAuxCategoria(
-														item.nome != undefined ? item.nome : ""
+														item.nome!=undefined? item.nome:''
 													))
 										}
 										height="fit-content"
 										width="fit-content"
 										buttonStyle="filled"
 										style={{
-											fontSize: "16px",
-											maxHeight: "32px",
-											width: "fit-content",
-											maxWidth: "50px",
+											fontSize: '16px',
+											maxHeight: '32px',
+											width: 'fit-content',
+											maxWidth: '50px',
 										}}
 										key={item.id}
 									>
@@ -470,11 +488,12 @@ function RegisterProduct({
 									{restrictionEdit?.map((restriction, i) => {
 										return (
 											<Chips
-												key={restriction.params.id + "item"}
+												key={restriction.params.id+'item'}
 												sizeChips="chips-md"
 												onClick={() => {
-													restriction.params.isActive = !restriction.params.isActive;
-													setAuxFunction("auxChips");
+													restriction.params.isActive=
+														!restriction.params.isActive;
+													setAuxFunction('auxChips');
 												}}
 												isActive={restriction.params.isActive}
 											>
@@ -488,7 +507,7 @@ function RegisterProduct({
 					</div>
 					<div className="footer-register-product">
 						<Box className="container-footer-register-product">
-							{editId != "" ? (
+							{editId!=''? (
 								<StyledButton
 									className="btn-cancelar-footer-register-product"
 									height="fit-content"
@@ -498,7 +517,7 @@ function RegisterProduct({
 								>
 									Limpar
 								</StyledButton>
-							) : (
+							):(
 								<StyledButton
 									className="btn-cancelar-footer-register-product"
 									height="fit-content"
@@ -509,36 +528,36 @@ function RegisterProduct({
 									Limpar
 								</StyledButton>
 							)}
-							{editId != "" ? (
+							{editId!=''? (
 								<StyledButton
 									className="btn-cancelar-footer-register-product"
 									height="fit-content"
 									width="fit-content"
 									buttonStyle="filled"
-									onClick={() => setProduct("delete")}
+									onClick={() => setProduct('delete')}
 								>
 									Remover
 								</StyledButton>
-							) : (
-								""
+							):(
+								''
 							)}
-							{editId != "" ? (
+							{editId!=''? (
 								<StyledButton
 									className="btn-salvar-footer-register-product"
 									height="fit-content"
 									width="fit-content"
 									buttonStyle="filled"
-									onClick={() => setProduct("update")}
+									onClick={() => setProduct('update')}
 								>
 									Editar
 								</StyledButton>
-							) : (
+							):(
 								<StyledButton
 									className="btn-salvar-footer-register-product"
 									height="fit-content"
 									width="fit-content"
 									buttonStyle="filled"
-									onClick={() => setProduct("create")}
+									onClick={() => setProduct('create')}
 								>
 									Salvar
 								</StyledButton>
@@ -559,7 +578,7 @@ interface InputRegisterProductProps {
 	placeholder: string;
 }
 
-const InputRegisterProduct = ({
+const InputRegisterProduct=({
 	label,
 	value,
 	updateValue,

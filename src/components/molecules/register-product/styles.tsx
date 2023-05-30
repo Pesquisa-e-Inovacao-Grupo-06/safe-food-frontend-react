@@ -99,7 +99,7 @@ export const ContainerRegisterProduct = styled.div<{
 								? p.theme.colors.light_gray[600]
 								: p.theme.colors.dark_gray[600]};
 						height: 100%;
-						width: 100%;
+						width: 94%;
 						border-radius: 6px;
 
 						> img {

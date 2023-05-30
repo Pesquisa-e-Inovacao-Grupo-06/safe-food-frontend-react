@@ -1,5 +1,5 @@
 import { Text } from '@/components/atoms/text';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaHome, FaSignOutAlt, FaUserAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { ContainerDropDownSubMenu } from './styles';
@@ -16,6 +16,12 @@ type Props = {
 
 const DropDownSubMenu: React.FC<Props> = ({ userName, cache, children }) => {
 	const [active, setActive] = useState(false);
+	const [name, setName] = useState<string>('');
+
+	useEffect(() => {
+		const nameSplit = userName.split(' ');
+		setName(nameSplit[0]);
+	}, []);
 
 	const user: SafeFoodLoginResponse =
 		cache.getItem('user') !== null ? JSON.parse(cache.getItem('user')!) : {};
@@ -34,7 +40,7 @@ const DropDownSubMenu: React.FC<Props> = ({ userName, cache, children }) => {
 				</div>
 				<div className="big-container-info-dropdown-sunmenu">
 					<div className="container-info-dropdown-submenu">
-						<Text>{userName}</Text>
+						<Text>{name}</Text>
 						<Text>Safe Food</Text>
 
 						<ul>

@@ -122,6 +122,21 @@ export const ContainerHomeConsumer = styled.div<{
 						: p.theme.colors.dark_gray[400]};
 
 			> ul {
+				> li {
+					> div {
+						> div {
+							> div {
+								background: ${p =>
+									p.theme.name == 'light'
+										? p.theme.colors.light_gray[200]
+										: p.theme.colors.dark_gray[800]};
+							}
+						}
+					}
+				}
+			}
+
+			> ul {
 				width: 100%;
 				list-style: none;
 				display: grid;

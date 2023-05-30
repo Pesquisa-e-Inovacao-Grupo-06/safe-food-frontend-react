@@ -1,21 +1,21 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 export const SSidebar = styled.div<{
 	isOpen: boolean;
 }>`
 	z-index: 1;
 	height: 100dvh;
-	width: ${p => (!p.isOpen ? "100px" : "300px")};
+	width: ${p => (!p.isOpen ? '100px' : '300px')};
 	background: ${p =>
-		p.theme.name == "light"
+		p.theme.name == 'light'
 			? p.theme.colors.light_gray[200]
 			: p.theme.colors.dark_gray[1000]};
 	border-right: 1px solid
 		${p =>
-		p.theme.name == "light"
-			? p.theme.colors.light_gray[800]
-			: p.theme.colors.dark_gray[1000]};
+			p.theme.name == 'light'
+				? p.theme.colors.light_gray[800]
+				: p.theme.colors.dark_gray[1000]};
 	padding: 24px;
 
 	position: relative;
@@ -23,7 +23,7 @@ export const SSidebar = styled.div<{
 	& h2,
 	span,
 	svg {
-		opacity: ${p => (p.theme.name == "light" ? {} : "85%")};
+		opacity: ${p => (p.theme.name == 'light' ? {} : '85%')};
 	}
 
 	@media screen and (max-width: 800px) {
@@ -61,20 +61,20 @@ export const SSidebarButton = styled.button<{
 	height: 32px;
 	border-radius: 50%;
 	background: ${p =>
-		p.theme.name == "light"
+		p.theme.name == 'light'
 			? p.theme.colors.light_gray[200]
 			: p.theme.colors.dark_gray[1000]};
 	/* background: ${p => p.theme.colors.primary[600]}; */
 	box-shadow: 0 0 4px
 			${p =>
-		p.theme.name == "light"
-			? p.theme.colors.light_gray[600]
-			: p.theme.colors.dark_gray[600]},
+				p.theme.name == 'light'
+					? p.theme.colors.light_gray[600]
+					: p.theme.colors.dark_gray[600]},
 		0 0 7px
 			${p =>
-		p.theme.name == "light"
-			? p.theme.colors.light_gray[200]
-			: p.theme.colors.dark_gray[1000]};
+				p.theme.name == 'light'
+					? p.theme.colors.light_gray[200]
+					: p.theme.colors.dark_gray[1000]};
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -88,10 +88,11 @@ export const SLogo = styled.div<{
 }>`
 	width: auto;
 	display: grid;
-	grid-template-columns: ${({ sidebarOpen }) => (!sidebarOpen ? {} : "1fr 3fr")};
+	grid-template-columns: ${({ sidebarOpen }) =>
+		!sidebarOpen ? {} : '1fr 3fr'};
 	align-items: center;
 
-	text-align: ${({ sidebarOpen }) => (!sidebarOpen ? "center" : {})};
+	text-align: ${({ sidebarOpen }) => (!sidebarOpen ? 'center' : {})};
 
 	img {
 		height: 50px;
@@ -105,7 +106,7 @@ export const SDivider = styled.div`
 	height: 1px;
 	width: 100%;
 	background: ${p =>
-		p.theme.name == "light"
+		p.theme.name == 'light'
 			? p.theme.colors.light_gray[600]
 			: p.theme.colors.dark_gray[600]};
 	margin: 24px 0;
@@ -118,19 +119,20 @@ export const SLinkContainer = styled.div<{
 	background: ${({ theme, isActive }) =>
 		!isActive
 			? `transparent`
-			: `${theme.name == "light"
-				? theme.colors.light_gray[600]
-				: theme.colors.dark_gray[600]
-			}`};
+			: `${
+					theme.name == 'light'
+						? theme.colors.light_gray[600]
+						: theme.colors.dark_gray[600]
+			  }`};
 	border-radius: 6px;
 	margin: 8px 0;
 
 	:hover {
 		box-shadow: inset 0 0 0 1px
 			${p =>
-		p.theme.name == "light"
-			? p.theme.colors.light_gray[600]
-			: p.theme.colors.dark_gray[600]};
+				p.theme.name == 'light'
+					? p.theme.colors.light_gray[600]
+					: p.theme.colors.dark_gray[600]};
 	}
 `;
 
@@ -139,12 +141,23 @@ export const SInfo = styled.div<{
 }>`
 	max-width: 205px;
 	overflow: hidden;
-	display: ${({ sidebarOpen }) => (!sidebarOpen ? "none" : "inline")};
-	width: ${({ sidebarOpen }) => (!sidebarOpen ? "fit-content" : {})};
+	display: ${({ sidebarOpen }) => (!sidebarOpen ? 'none' : 'inline')};
+	width: ${({ sidebarOpen }) => (!sidebarOpen ? 'fit-content' : {})};
 	color: inherit;
+
+	> h3 {
+		display: -webkit-box;
+		overflow: hidden;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 1;
+	}
 
 	> span {
 		font-size: 12px;
+		display: -webkit-box;
+		overflow: hidden;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 1;
 	}
 `;
 
