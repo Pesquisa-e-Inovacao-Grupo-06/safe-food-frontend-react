@@ -1,16 +1,16 @@
-import { useSafeFoodTheme } from "@/app/contexts/SafeFoodThemeProvider";
-import { Subtitle } from "@/styles/components/text/Subtitle";
-import React, { FormEvent, useEffect, useState } from "react";
-import { Text } from "../atoms/text";
-import { Modal } from "../molecules/modal";
-import { Button } from "../atoms/button";
-import { Box } from "../atoms/box";
-import { Alert, AlertType } from "../atoms/alert";
-import { TextField } from "../molecules/textfield";
-import { UnderlineLink } from "../atoms/underline-link";
-import { ButtonLoading } from "../molecules/button/button-loading";
-import { useModalHome } from "@/app/contexts/ModalProvider";
-export type SignInTemplateProps = {
+import {useSafeFoodTheme} from "@/app/contexts/SafeFoodThemeProvider";
+import {Subtitle} from "@/styles/components/text/Subtitle";
+import React, {FormEvent, useEffect, useState} from "react";
+import {Text} from "../atoms/text";
+import {Modal} from "../molecules/modal";
+import {Button} from "../atoms/button";
+import {Box} from "../atoms/box";
+import {Alert, AlertType} from "../atoms/alert";
+import {TextField} from "../molecules/textfield";
+import {UnderlineLink} from "../atoms/underline-link";
+import {ButtonLoading} from "../molecules/button/button-loading";
+import {useModalHome} from "@/app/contexts/ModalProvider";
+export type SignInTemplateProps={
 	toggleModal(): void;
 	isModalVisible: boolean;
 	onChangeInputEmail(ev: FormEvent<HTMLInputElement>): void;
@@ -23,7 +23,7 @@ export type SignInTemplateProps = {
 	textAlert?: string;
 	loading: boolean;
 };
-export const SignInTemplate: React.FC<SignInTemplateProps> = ({
+export const SignInTemplate: React.FC<SignInTemplateProps>=({
 	isModalVisible,
 	toggleModal,
 	email,
@@ -36,9 +36,9 @@ export const SignInTemplate: React.FC<SignInTemplateProps> = ({
 	textAlert,
 	loading,
 }) => {
-	const { colors } = useSafeFoodTheme().getTheme();
-	const { setModal } = useModalHome();
-	const [visible, setVisible] = useState(false);
+	const {colors}=useSafeFoodTheme().getTheme();
+	const {setModal}=useModalHome();
+	const [visible, setVisible]=useState(false);
 	useEffect(() => {
 		setVisible(isModalVisible);
 	}, []);
@@ -86,9 +86,9 @@ export const SignInTemplate: React.FC<SignInTemplateProps> = ({
 					>
 						Bem vindo de volta! Digite seu e-mail e senha abaixo para entrar.
 					</Text>
-					{isAlertVisible ? (
-						<Alert type={typeAlert ?? "info"}>{textAlert}</Alert>
-					) : null}
+					{isAlertVisible? (
+						<Alert type={typeAlert??"info"}>{textAlert}</Alert>
+					):null}
 					<Box
 						margin="20px 0"
 						display="flex"
@@ -128,11 +128,11 @@ export const SignInTemplate: React.FC<SignInTemplateProps> = ({
 							onChange={onChangeInputPassword}
 						/>
 
-						<UnderlineLink href="forget-password">Esqueceu a senha?</UnderlineLink>
+						<UnderlineLink href="change-password">Esqueceu a senha?</UnderlineLink>
 
-						{loading ? (
+						{loading? (
 							<ButtonLoading />
-						) : (
+						):(
 							<Button
 								style={{
 									width: "100%",

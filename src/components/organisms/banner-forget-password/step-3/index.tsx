@@ -1,14 +1,15 @@
-import { EmailValidator } from "@/app/util/validations/email-validator";
-import { Dots } from "@/components/atoms/dots";
-import { Input } from "@/components/atoms/input";
-import { Text } from "@/components/atoms/text";
-import { ButtonIcon } from "@/components/molecules/button/button-icon";
-import { InputEmailSignUp } from "@/components/organisms/signup-consumer/inputs/InputEmailSignUpConsumer";
-import { Subtitle } from "@/styles/components/text/Subtitle";
-import { MdOutlineArrowForwardIos } from "react-icons/md";
-import { ContainerBannerStep3ForgetPassword } from "./styles";
+import {Dots} from "@/components/atoms/dots";
+import {Text} from "@/components/atoms/text";
+import {ButtonIcon} from "@/components/molecules/button/button-icon";
+import {Subtitle} from "@/styles/components/text/Subtitle";
+import {MdOutlineArrowForwardIos} from "react-icons/md";
+import {ContainerBannerStep3ForgetPassword} from "./styles";
+import {useNavigate} from "react-router-dom";
 
-export const Step3ForgetPassword: React.FC = () => {
+import step3Image from "../../../../assets/step-3-forget.png";
+
+export const Step3ForgetPassword: React.FC=() => {
+	const navigate=useNavigate();
 	return (
 		<>
 			<ContainerBannerStep3ForgetPassword>
@@ -26,7 +27,7 @@ export const Step3ForgetPassword: React.FC = () => {
 						</div>
 						<div className="main-step3-forget-password">
 							<div className="container-img-step3-forget-passwor">
-								<img src="https://via.placeholder.com/200" />
+								<img src={step3Image} />
 							</div>
 							<div className="text-step3-forget-password">
 								<Text>Parabéns, você atualizou sua senha!!</Text>
@@ -34,7 +35,7 @@ export const Step3ForgetPassword: React.FC = () => {
 							</div>
 						</div>
 						<div className="footer-step3-forget-password">
-							<ButtonIcon icon={<MdOutlineArrowForwardIos />}>Entrar na conta</ButtonIcon>
+							<ButtonIcon icon={<MdOutlineArrowForwardIos />} onClick={() => navigate("/#signin")}>Entrar na conta</ButtonIcon>
 						</div>
 					</div>
 				</div>

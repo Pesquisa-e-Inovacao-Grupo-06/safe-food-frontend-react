@@ -148,7 +148,7 @@ export default function App({
 							/>
 							<Route
 								path="/change-password"
-								element={<ForgetPassWord />}
+								element={<ForgetPassWord userGateway={userGateway} />}
 							/>
 
 							<Route

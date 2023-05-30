@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ContainerBannerStep1ForgetPassword = styled.div`
+export const ContainerBannerStep1ForgetPassword=styled.div`
 	padding-top: 50px;
 
 	> .container-banner-step1-forget-password {
@@ -39,8 +39,8 @@ export const ContainerBannerStep1ForgetPassword = styled.div`
 				> .container-img-step1-forget-passwor {
 					height: fit-content;
 					> img {
-						max-height: 200px;
 						object-fit: cover;
+						image-rendering: pixelated;
 						width: 100%;
 						border-radius: 4px;
 					}
@@ -55,17 +55,17 @@ export const ContainerBannerStep1ForgetPassword = styled.div`
 						font-size: 32px;
 						font-weight: 500;
 						color: ${p =>
-							p.theme.name == "light"
-								? p.theme.colors.dark_gray[400]
-								: p.theme.colors.light_gray[800]};
+		p.theme.name=="light"
+			? p.theme.colors.dark_gray[400]
+			:p.theme.colors.light_gray[800]};
 					}
 
 					> h2 {
 						text-align: center;
 						color: ${p =>
-							p.theme.name == "light"
-								? p.theme.colors.dark_gray[200]
-								: p.theme.colors.dark_gray[200]};
+		p.theme.name=="light"
+			? p.theme.colors.dark_gray[200]
+			:p.theme.colors.dark_gray[200]};
 						font-size: 12px;
 						line-height: normal;
 						font-weight: 600;
