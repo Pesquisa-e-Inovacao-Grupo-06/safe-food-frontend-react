@@ -280,12 +280,12 @@ function RegisterProduct({
 
 	//verificar os valores e mandar para o objeto que será criado
 	const setProduct = (method: string) => {
-		if (imageProfile) {
-			setTypeAlert('warning');
-			setTextAlert('Selecione uma imagem de perfil');
-			setIsVisibleAlert(true);
-			return;
-		}
+		//if (!imageProfile) {
+		//	setTypeAlert('warning');
+		//	setTextAlert('Selecione uma foto do produto');
+		//	setIsVisibleAlert(true);
+		//	return;
+		//}
 		if (user?.id === undefined || user.id === 0) {
 			setTypeAlert('warning');
 			setTextAlert('ID do usuário não definido');
@@ -411,7 +411,6 @@ function RegisterProduct({
 							titulo={nome}
 							categoria={auxCategoria}
 							fileChange={file => {
-								console.log(file);
 								setImageProfile(file);
 							}}
 							average={average ?? 0}
