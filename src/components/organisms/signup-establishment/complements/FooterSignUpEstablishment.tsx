@@ -5,22 +5,20 @@ import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 import { StepsEstablishmentTemplate } from "..";
 import { useSignupEstablishment } from "@/app/contexts/SignupEstablishmentProvider";
 import { SafeFoodCreateEstablishmentRequest } from "@/app/infra/gateway/safefood/models/SafeFoodEstablishment";
+import {useNavigate} from "react-router-dom";
+import {useModalHome} from "@/app/contexts/ModalProvider";
 
 export const FooterSignUpConsumer: React.FC<{
 	step: StepsEstablishmentTemplate;
 	changeStep: (step: StepsEstablishmentTemplate) => void;
 	onClickCreate(data: SafeFoodCreateEstablishmentRequest): void;
 }> = ({ step, changeStep, onClickCreate }) => {
+	const {setModal} = useModalHome();
+	const navigate = useNavigate();
 	const { establishment, emailExists, saveErrors, errors } =
 		useSignupEstablishment();
 
 	const getOnBackClick = () => {
-		if (step === "finished") {
-			return () => changeStep("importation");
-		}
-		if (step === "importation") {
-			return () => changeStep("security");
-		}
 		if (step === "security") {
 			return () => changeStep("location");
 		}
@@ -48,16 +46,14 @@ export const FooterSignUpConsumer: React.FC<{
 						const newErrors = errors.filter(item => item !== errorEmail);
 						saveErrors(newErrors);
 					}
-					changeStep("importation");
+					onClickCreate(establishment);
+					changeStep("finished");
 				}
 			});
 		}
-		if (step === "importation") {
-			onClickCreate(establishment);
-			return changeStep("finished");
-		}
 		if (step === "finished") {
-			return () => (window.location.href = "http://localhost:5173/");
+			setModal(null)
+			return () => navigate("/#login");
 		}
 	};
 	const getTextAhead = () => {
@@ -68,9 +64,6 @@ export const FooterSignUpConsumer: React.FC<{
 			return "Segurança";
 		}
 		if (step === "security") {
-			return "Importação";
-		}
-		if (step === "importation") {
 			return "Finalizar";
 		}
 		if (step === "finished") {
@@ -78,7 +71,7 @@ export const FooterSignUpConsumer: React.FC<{
 		}
 	};
 	const renderGoBackButton = () => {
-		if (step !== "company") {
+		if (step !== "company" && step !== "finished") {
 			const backClick = getOnBackClick();
 			return (
 				<ButtonIcon
