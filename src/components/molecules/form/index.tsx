@@ -1,6 +1,6 @@
-import { StyledButton } from "@/components/atoms/button/styles";
-import { Subtitle } from "@/styles/components/text/Subtitle";
-import { Input, InputPropsComponent } from "@/components/atoms/input";
+import { StyledButton } from '@/components/atoms/button/styles';
+import { Subtitle } from '@/styles/components/text/Subtitle';
+import { Input, InputPropsComponent } from '@/components/atoms/input';
 
 export type FormProps = {
 	listOfComponent: InputPropsComponent[];

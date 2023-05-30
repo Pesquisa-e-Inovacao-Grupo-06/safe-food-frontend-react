@@ -43,6 +43,7 @@ export type SafeFoodEstablishmentModel =
     isRetireNoLocal?: boolean,
     isFreteGratis?: boolean,
     tempoEsperaMedio?: string,
+    quantidadeDeProdutos?: number,
   } & SafeFoodUsuarioModel
 
 

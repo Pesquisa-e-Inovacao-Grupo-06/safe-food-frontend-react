@@ -24,6 +24,7 @@ export class SafeFoodEstablishmentMapper {
             isRetireNoLocal: model.isRetireNoLocal,
             isFreteGratis: model.isFreteGratis,
             tempoEsperaMedio: model.tempoEsperaMedio,
+            quantidadeDeProdutos: model.quantidadeDeProdutos,
         })
     }
 }
