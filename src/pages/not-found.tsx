@@ -1,14 +1,16 @@
-import { Box } from "@/components/atoms/box";
-import Header from "@/components/molecules/header";
-import { BodyTemplate } from "@/components/templates/body-template";
-import { Title } from "@/styles/components/text/Title";
-import { Subtitle } from "../styles/components/text/Subtitle";
-import { Text } from "@/components/atoms/text";
-import styled from "styled-components";
-import notFoundImage from "../assets/notfound.png";
-import { ImageAtom } from "@/components/atoms/img";
+import { Box } from '@/components/atoms/box';
+import Header from '@/components/molecules/header';
+import { BodyTemplate } from '@/components/templates/body-template';
+import { Title } from '@/styles/components/text/Title';
+import { Subtitle } from '../styles/components/text/Subtitle';
+import { Text } from '@/components/atoms/text';
+import styled from 'styled-components';
+import notFoundImage from '../assets/notfound.png';
+import { ImageAtom } from '@/components/atoms/img';
+import { useNavigate } from 'react-router-dom';
 
 function NotFound() {
+	const navigate = useNavigate();
 	return (
 		<>
 			<Header />
@@ -23,29 +25,32 @@ function NotFound() {
 					<Box>
 						<Title>Página não encontrada</Title>
 						<Subtitle large>Opções que podem te ajudar:</Subtitle>
-						<ul style={{ padding: "20px" }}>
-							<Li>
+						<ul style={{ padding: '20px' }}>
+							<Li style={{ cursor: 'pointer' }}>
 								<Subtitle
 									cursor={true}
 									color="orange"
+									onClick={() => navigate('/')}
 								>
 									Home
 								</Subtitle>
 							</Li>
-							<Li>
+							<Li style={{ cursor: 'pointer' }}>
 								<Subtitle
 									cursor={true}
 									color="orange"
+									onClick={() => navigate('/faq')}
 								>
 									FAQ
 								</Subtitle>
 							</Li>
-							<Li>
+							<Li style={{ cursor: 'pointer' }}>
 								<Subtitle
 									cursor={true}
 									color="orange"
+									onClick={() => navigate('/about')}
 								>
-									Cadastro
+									Sobre nós
 								</Subtitle>
 							</Li>
 						</ul>
@@ -53,7 +58,7 @@ function NotFound() {
 					<Box>
 						<ImageAtom
 							src={notFoundImage}
-							cursor={"false"}
+							cursor={'false'}
 						/>
 					</Box>
 				</Box>
@@ -72,12 +77,12 @@ const Li = styled.li`
 	width: fit-content;
 	margin-bottom: 8px;
 	& ::before {
-		content: "•";
+		content: '•';
 		padding-right: 8px;
 		/* color: "red"; */
 	}
 	& ::after {
-		content: "";
+		content: '';
 		position: absolute;
 		width: 100%;
 		transform: scaleX(0);
