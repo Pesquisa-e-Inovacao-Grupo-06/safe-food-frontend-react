@@ -1,35 +1,35 @@
-import { BodyTemplate } from "@/components/templates/body-template";
+import {BodyTemplate} from "@/components/templates/body-template";
 import styled from "styled-components";
 import {
 	StyledColumn,
 	StyledRow,
 } from "@/components/organisms/card-establishment-food/card-establishment-food-organism";
-import { Subtitle } from "@/styles/components/text/Subtitle";
-import { Text } from "@/components/atoms/text";
-import { AvaliationStars } from "@/components/molecules/avaliation-stars";
-import { Box } from "@/components/atoms/box";
-import { MdLocationOn, MdPhoneEnabled } from "react-icons/md";
-import { AiFillClockCircle } from "react-icons/ai";
-import { SiHomeassistantcommunitystore } from "react-icons/si";
-import { ButtonIcon } from "@/components/molecules/button/button-icon";
-import { FaMapMarkedAlt } from "react-icons/fa";
+import {Subtitle} from "@/styles/components/text/Subtitle";
+import {Text} from "@/components/atoms/text";
+import {AvaliationStars} from "@/components/molecules/avaliation-stars";
+import {Box} from "@/components/atoms/box";
+import {MdLocationOn, MdPhoneEnabled} from "react-icons/md";
+import {AiFillClockCircle} from "react-icons/ai";
+import {SiHomeassistantcommunitystore} from "react-icons/si";
+import {ButtonIcon} from "@/components/molecules/button/button-icon";
+import {FaMapMarkedAlt} from "react-icons/fa";
 import TextArea from "@/components/atoms/textarea";
 import BoxComment from "@/components/molecules/box-coment";
 import {
 	AvaliationProgressBar,
 	AvaliationProgressBarProps,
 } from "../molecules/avaliation-progress-bar";
-import { Product } from "@/app/domain/entities/Product";
-import { Establishment } from "@/app/domain/entities/Establishment";
-import { Cache } from "@/app/domain/protocols/Cache";
+import {Product} from "@/app/domain/entities/Product";
+import {Establishment} from "@/app/domain/entities/Establishment";
+import {Cache} from "@/app/domain/protocols/Cache";
 import HeaderConsumer from "../molecules/header-consumer";
-import { formatReal } from "@/app/util/convertions/price-br";
-import { SafeFoodAvaliationModel } from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
-import { TypeProduct } from "@/app/domain/entities/TypeProduct";
-import { Alert } from "../atoms/alert";
-import { AlertType } from "../atoms/alert/index";
-import { SafeFoodConsumerModel } from "@/app/infra/gateway/safefood/models/SafeFoodConsumer";
-import { Breadcrumbers } from "../molecules/breadcrumbers";
+import {formatReal} from "@/app/util/convertions/price-br";
+import {SafeFoodAvaliationModel} from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
+import {TypeProduct} from "@/app/domain/entities/TypeProduct";
+import {Alert} from "../atoms/alert";
+import {AlertType} from "../atoms/alert/index";
+import {SafeFoodConsumerModel} from "@/app/infra/gateway/safefood/models/SafeFoodConsumer";
+import {Breadcrumbers} from "../molecules/breadcrumbers";
 
 interface ProductParams {
 	establishment: Establishment;
@@ -49,7 +49,7 @@ interface ProductParams {
 	onClickTrashDelete: (idComment: number) => void;
 }
 
-export const ProductConsumerTemplate: React.FC<ProductParams> = ({
+export const ProductConsumerTemplate: React.FC<ProductParams>=({
 	establishment,
 	product,
 	onClickAddComments,
@@ -67,18 +67,18 @@ export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 	onClickTrashDelete,
 }) => {
 	let rateCalc;
-	const consumer: SafeFoodConsumerModel =
-		cache.getItem("consumer") !== null
+	const consumer: SafeFoodConsumerModel=
+		cache.getItem("consumer")!==null
 			? JSON.parse(cache.getItem("consumer")!)
-			: {};
-	if (avaliationsProps) {
-		const somaAvaliacoes = avaliationsProps
+			:{};
+	if(avaliationsProps) {
+		const somaAvaliacoes=avaliationsProps
 			.map(item => item.rate)
-			.filter(rate => rate !== undefined)
-			.reduce((acumulador, avaliacao) => acumulador + avaliacao, 0);
-		const mediaAvaliacoes = somaAvaliacoes / avaliationsProps.length;
+			.filter(rate => rate!==undefined)
+			.reduce((acumulador, avaliacao) => acumulador+avaliacao, 0);
+		const mediaAvaliacoes=somaAvaliacoes/avaliationsProps.length;
 
-		rateCalc = mediaAvaliacoes;
+		rateCalc=mediaAvaliacoes;
 		// Restante do código que utiliza o rateCalc
 	} else {
 		// Tratamento para quando product.params.avaliacoes é undefined
@@ -86,6 +86,7 @@ export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 
 	console.log(rateCalc);
 	console.log("CATEROIA", product.params.categoria);
+	console.log(rateCalc);
 
 	return (
 		<>
@@ -100,17 +101,17 @@ export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 							<Breadcrumbers
 								textSize="20px"
 								crumbsArr={[
-									{ text: "Comidas", url: "home-consumer" },
+									{text: "Comidas", url: "home-consumer"},
 									{
 										text: product?.params?.categoria?.nome,
 										url: `home-consumer?categoria=${product?.params?.categoria?.nome}`,
 									},
 									{
-										text: establishment.params.nome || "",
+										text: establishment.params.nome||"",
 										url: `home-consumer?estabelecimento=${establishment.params.id}`,
 									},
 									{
-										text: product.params.titulo || "",
+										text: product.params.titulo||"",
 										url: `product-consumer/${product.params.id}`,
 									},
 								]}
@@ -121,32 +122,35 @@ export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 						<div className="img-product-consumer">
 							<img
 								src={
-									establishment.params.imagem
-										? establishment.params.imagem
-										: "https://via.placeholder.com/400"
+									product.params.imagem
+										? product.params.imagem
+										:"https://via.placeholder.com/400"
 								}
 							/>
 						</div>
 						<div className="info-product-consumer">
-							<StyledColumn style={{ margin: "14px", alignItems: "start" }}>
+							<StyledColumn style={{margin: "14px", alignItems: "start"}}>
 								<Subtitle>{product.params.titulo}</Subtitle>
-								<Text style={{ height: "fit-content" }}>
-									{product.params.descricao ? product.params.descricao : ""}
+								<Text style={{height: "fit-content"}}>
+									{product.params.descricao? product.params.descricao:""}
+								</Text>
+								<Text typeText={"text-md"} style={{fontWeight: "bold"}}>
+									ingredientes: {product.params.ingredientes?.join(", ")??"Não informado"}
 								</Text>
 								<StyledRow>
 									<AvaliationStars
 										fixed
 										color="orange"
-										avegareRate={rateCalc ?? 0}
+										avegareRate={rateCalc??0}
 									/>
-									<Text>({product.params.avaliacoes?.length ?? 0} avaliações)</Text>
+									<Text>({product.params.avaliacoes?.length??0} avaliações)</Text>
 								</StyledRow>
 								<Box className="container-ingredientes-product-info">
 									<span
 										className="ingredientes-product-info"
-										// key={item.nome}
+									// key={item.nome}
 									>
-										{product?.params?.categoria?.nome ?? "Nenhum ingrediente cadastrado"}
+										{product?.params?.categoria?.nome??"Nenhum ingrediente cadastrado"}
 									</span>
 								</Box>
 								<Box
@@ -155,12 +159,12 @@ export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 									justify="start"
 								>
 									<Subtitle
-										style={{ color: "orange" }}
+										style={{color: "orange"}}
 										large
 									>
-										{product.params.preco ? formatReal(product.params.preco) : ""}
+										{product.params.preco? formatReal(product.params.preco):""}
 									</Subtitle>
-									<span style={{ color: "orange", fontWeight: "bold" }}> Unidade</span>
+									<span style={{color: "orange", fontWeight: "bold"}}> Unidade</span>
 								</Box>
 							</StyledColumn>
 							<div className="info-local">
@@ -180,35 +184,35 @@ export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 									Tempo de espera:
 									{establishment.params.tempoEsperaMedio
 										? establishment.params.tempoEsperaMedio
-										: ""}
+										:""}
 								</Text>
 							</div>
 							<div className="info-local">
 								<SiHomeassistantcommunitystore className="icon-three-info-local" />
 								<Text>
-									{establishment.params.horarioFuncionamentoFimDeSemana &&
-									establishment.params.horarioFuncionamentoSemana
-										? establishment.params.horarioFuncionamentoFimDeSemana +
-										  establishment.params.horarioFuncionamentoSemana
-										: ""}
+									{establishment.params.horarioFuncionamentoFimDeSemana&&
+										establishment.params.horarioFuncionamentoSemana
+										? establishment.params.horarioFuncionamentoFimDeSemana+
+										establishment.params.horarioFuncionamentoSemana
+										:""}
 								</Text>
 							</div>
 							<div className="info-local">
 								<MdPhoneEnabled className="icon-four-info-local" />
 								<Text>
-									Telefone:{" "}
+									Telefone:
 									{establishment.params.contatoCliente
 										? establishment.params.contatoCliente
-										: ""}
+										:""}
 								</Text>
 							</div>
 							<Box className="container-store-info-local">
 								<img
-									src={establishment.params.imagem ?? "https://via.placeholder.com/400"}
+									src={establishment.params.imagem??"https://via.placeholder.com/400"}
 								/>
 								<Text>
-									<h3>{establishment.params.nome ? establishment.params.nome : ""}</h3>
-									<span>{} Produtos</span>
+									<h3>{establishment.params.nome? establishment.params.nome:""}</h3>
+									<span>{ } Produtos</span>
 								</Text>
 							</Box>
 							<ButtonIcon
@@ -219,11 +223,10 @@ export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 							</ButtonIcon>
 							<Subtitle className="subtitulo-avaliacao-info-product">
 								Avaliações
-							</Subtitle>
+							</Subtitle>;
 							{/* TODO: FAZER IFS PARA COR DE CIRCLE */}
 							<AvaliationProgressBar
 								average={rateCalc}
-								label={avaliationBar.label}
 								reviews={avaliationBar.reviews}
 								values={avaliationBar.values}
 							/>
@@ -231,13 +234,13 @@ export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 						<div className="comentario-product-consumer">
 							<Box className="container-comentario-product-consumer-first-row">
 								<Subtitle>Contribua</Subtitle>
-								{isVisibleAlert ? <Alert type={typeAlert}>{textAlert}</Alert> : <></>}
+								{isVisibleAlert? <Alert type={typeAlert}>{textAlert}</Alert>:<></>}
 								<Text>Dê uma nota para sua experiência</Text>
 								<div className="comentario-product-avaliation-start">
 									<AvaliationStars
 										fixed={false}
 										color="orange"
-										avegareRate={0}
+										avegareRate={rateCalc??0}
 										onClickStar={onClickStar}
 									/>
 									<ul>
@@ -261,7 +264,7 @@ export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 							<Box className="container-comentario-product-consumer-second-row">
 								<Subtitle>Comentários</Subtitle>
 								<div className="container-comentario-product-text">
-									{avaliationsProps ? (
+									{avaliationsProps? (
 										avaliationsProps!.map(item => (
 											<BoxComment
 												key={item.id}
@@ -273,7 +276,7 @@ export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 												idComment={parseInt(item.id)}
 											/>
 										))
-									) : (
+									):(
 										<Text>Sem comentários</Text>
 									)}
 								</div>
@@ -286,9 +289,9 @@ export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 	);
 };
 
-const categoriaResgisterProduct = ["Ingrediente", "Ingrediente", "Ingrediente"];
+const categoriaResgisterProduct=["Ingrediente", "Ingrediente", "Ingrediente"];
 
-const ContainerProductConsumer = styled.div`
+const ContainerProductConsumer=styled.div`
 	display: grid;
 	grid-template-columns: 1fr;
 	grid-template-rows: 0fr 0fr;
@@ -313,8 +316,9 @@ const ContainerProductConsumer = styled.div`
 
 	.img-product-consumer {
 		grid-area: img;
-
+		
 		> img {
+			box-shadow: ${p => p.theme.colors.shadow[600]};
 			max-height: 100%;
 			object-fit: cover;
 			width: 100%;
@@ -384,33 +388,33 @@ const ContainerProductConsumer = styled.div`
 
 			::-webkit-scrollbar-track {
 				background-color: ${p =>
-					p.theme.name == "light"
-						? p.theme.colors.light_gray[200]
-						: p.theme.colors.dark_gray[1000]};
+		p.theme.name=="light"
+			? p.theme.colors.light_gray[200]
+			:p.theme.colors.dark_gray[1000]};
 			}
 
 			/* Handle */
 
 			::-webkit-scrollbar-thumb {
 				background-color: ${p =>
-					p.theme.name == "light"
-						? p.theme.colors.light_gray[600]
-						: p.theme.colors.dark_gray[800]};
+		p.theme.name=="light"
+			? p.theme.colors.light_gray[600]
+			:p.theme.colors.dark_gray[800]};
 				border-radius: 50px;
 				border: 3px solid
 					${p =>
-						p.theme.name == "light"
-							? p.theme.colors.light_gray[200]
-							: p.theme.colors.dark_gray[1000]};
+		p.theme.name=="light"
+			? p.theme.colors.light_gray[200]
+			:p.theme.colors.dark_gray[1000]};
 			}
 
 			/* Handle on Hover */
 
 			::-webkit-scrollbar-thumb:hover {
 				background-color: ${p =>
-					p.theme.name == "light"
-						? p.theme.colors.light_gray[800]
-						: p.theme.colors.dark_gray[800]};
+		p.theme.name=="light"
+			? p.theme.colors.light_gray[800]
+			:p.theme.colors.dark_gray[800]};
 			}
 			.ingredientes-product-info {
 				margin-bottom: 3px;
@@ -468,9 +472,9 @@ const ContainerProductConsumer = styled.div`
 				flex-direction: column;
 				justify-content: center;
 				color: ${p =>
-					p.theme.name == "light"
-						? p.theme.colors.dark_gray[400]
-						: p.theme.colors.light_gray[200]};
+		p.theme.name=="light"
+			? p.theme.colors.dark_gray[400]
+			:p.theme.colors.light_gray[200]};
 
 				> h3 {
 					font-size: 16px;
@@ -565,9 +569,9 @@ const ContainerProductConsumer = styled.div`
 						line-height: 14px;
 						font-weight: 500;
 						color: ${p =>
-							p.theme.name == "light"
-								? p.theme.colors.dark_gray[200]
-								: p.theme.colors.light_gray[800]};
+		p.theme.name=="light"
+			? p.theme.colors.dark_gray[200]
+			:p.theme.colors.light_gray[800]};
 					}
 				}
 			}
@@ -635,33 +639,33 @@ const ContainerProductConsumer = styled.div`
 
 				::-webkit-scrollbar-track {
 					background-color: ${p =>
-						p.theme.name == "light"
-							? p.theme.colors.light_gray[200]
-							: p.theme.colors.dark_gray[600]};
+		p.theme.name=="light"
+			? p.theme.colors.light_gray[200]
+			:p.theme.colors.dark_gray[600]};
 				}
 
 				/* Handle */
 
 				::-webkit-scrollbar-thumb {
 					background-color: ${p =>
-						p.theme.name == "light"
-							? p.theme.colors.light_gray[600]
-							: p.theme.colors.dark_gray[800]};
+		p.theme.name=="light"
+			? p.theme.colors.light_gray[600]
+			:p.theme.colors.dark_gray[800]};
 					border-radius: 50px;
 					border: 3px solid
 						${p =>
-							p.theme.name == "light"
-								? p.theme.colors.light_gray[200]
-								: p.theme.colors.dark_gray[600]};
+		p.theme.name=="light"
+			? p.theme.colors.light_gray[200]
+			:p.theme.colors.dark_gray[600]};
 				}
 
 				/* Handle on Hover */
 
 				::-webkit-scrollbar-thumb:hover {
 					background-color: ${p =>
-						p.theme.name == "light"
-							? p.theme.colors.light_gray[800]
-							: p.theme.colors.black};
+		p.theme.name=="light"
+			? p.theme.colors.light_gray[800]
+			:p.theme.colors.black};
 				}
 
 				.box-coment {
@@ -671,18 +675,18 @@ const ContainerProductConsumer = styled.div`
 					padding: 8px;
 					border-radius: ${p => p.theme.border.radius.md};
 					background: ${p =>
-						p.theme.name == "light"
-							? p.theme.colors.light_gray[400]
-							: p.theme.colors.dark_gray[600]};
+		p.theme.name=="light"
+			? p.theme.colors.light_gray[400]
+			:p.theme.colors.dark_gray[600]};
 
 					border: 1px solid
 						${p =>
-							p.theme.name == "light" ? "transparent" : p.theme.colors.dark_gray[400]};
+		p.theme.name=="light"? "transparent":p.theme.colors.dark_gray[400]};
 					box-shadow: ${p => p.theme.colors.shadow[200]};
 					color: ${p =>
-						p.theme.name == "light"
-							? p.theme.colors.dark_gray[600]
-							: p.theme.colors.light_gray[600]};
+		p.theme.name=="light"
+			? p.theme.colors.dark_gray[600]
+			:p.theme.colors.light_gray[600]};
 					gap: 10px;
 
 					.header-comentario-product-text {
@@ -702,9 +706,9 @@ const ContainerProductConsumer = styled.div`
 							flex-direction: column;
 							justify-content: center;
 							color: ${p =>
-								p.theme.name == "light"
-									? p.theme.colors.dark_gray[400]
-									: p.theme.colors.light_gray[200]};
+		p.theme.name=="light"
+			? p.theme.colors.dark_gray[400]
+			:p.theme.colors.light_gray[200]};
 
 							> h3 {
 								font-size: 16px;

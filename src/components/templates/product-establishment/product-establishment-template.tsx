@@ -1,18 +1,14 @@
 import { Establishment } from "@/app/domain/entities/Establishment";
 import { Product } from "@/app/domain/entities/Product";
 import { TypeProduct } from "@/app/domain/entities/TypeProduct";
-import { SafeFoodConsumerModel } from "@/app/infra/gateway/safefood/models/SafeFoodConsumer";
 import { SafeFoodAvaliationModel } from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
 import { formatReal } from "@/app/util/convertions/price-br";
 import { Alert, AlertType } from "@/components/atoms/alert";
-import TextArea from "@/components/atoms/textarea";
 import { AvaliationProgressBarProps, AvaliationProgressBar } from "@/components/molecules/avaliation-progress-bar";
 import { AvaliationStars } from "@/components/molecules/avaliation-stars";
 import BoxComment from "@/components/molecules/box-coment";
-import { Breadcrumbers } from "@/components/molecules/breadcrumbers";
 import { ButtonIcon } from "@/components/molecules/button/button-icon";
-import HeaderConsumer from "@/components/molecules/header-consumer";
-import { NearbyFoodsCard, StyledColumn, StyledRow } from "@/components/organisms/card-establishment-food/card-establishment-food-organism";
+import { StyledColumn, StyledRow } from "@/components/organisms/card-establishment-food/card-establishment-food-organism";
 import { Subtitle } from "@/styles/components/text/Subtitle";
 import { AiFillClockCircle } from "react-icons/ai";
 import { FaMapMarkedAlt } from "react-icons/fa";
@@ -23,262 +19,266 @@ import { Cache } from "@/app/domain/protocols/Cache";
 import { Box } from "@/components/atoms/box";
 import styled from "styled-components";
 import { Text } from "@/components/atoms/text";
-import { SafeFoodEstablishmentModel } from "@/app/infra/gateway/safefood/models/SafeFoodEstablishment";
 import Layout from "@/components/molecules/sidebar-establishment/layout";
 import { Carousel } from "@/components/molecules/carousel";
+import { ImageAtom } from "@/components/atoms/img";
+import { useNavigate } from "react-router";
 
 
 export type ProductEstablishmentTemplateParams = {
-    establishment: Establishment;
-    product: Product;
-    products: Product[];
-    category?: TypeProduct;
-    isLoadingOnClickAddComments: boolean;
-    isVisibleAlert: boolean;
-    typeAlert: AlertType;
-    textAlert: string;
-    avaliationBar: AvaliationProgressBarProps;
-    avaliationsProps: SafeFoodAvaliationModel[];
-    cache: Cache;
-    onClickAddComments(): void;
-    onTextChange?: (comment: string) => void;
-    onClickStar?: (val: number) => void;
-    onClickShowMap?: () => void;
-    onClickTrashDelete: (idComment: number) => void;
+	establishment: Establishment;
+	product: Product;
+	products: Product[];
+	category?: TypeProduct;
+	isLoadingOnClickAddComments: boolean;
+	isVisibleAlert: boolean;
+	typeAlert: AlertType;
+	textAlert: string;
+	avaliationBar: AvaliationProgressBarProps;
+	avaliationsProps: SafeFoodAvaliationModel[];
+	cache: Cache;
+	onClickAddComments(): void;
+	onTextChange?: (comment: string) => void;
+	onClickStar?: (val: number) => void;
+	onClickShowMap?: () => void;
+	onClickTrashDelete: (idComment: number) => void;
 }
 
 export const ProductEstablishmentTemplate: React.FC<ProductEstablishmentTemplateParams> = ({
-    establishment,
-    product,
-    onClickAddComments,
-    category,
-    onTextChange,
-    onClickShowMap,
-    onClickStar,
-    isLoadingOnClickAddComments,
-    isVisibleAlert,
-    textAlert,
-    typeAlert,
-    avaliationBar,
-    avaliationsProps,
-    cache,
-    products,
-    onClickTrashDelete,
+	establishment,
+	product,
+	onClickShowMap,
+	onClickStar,
+	isVisibleAlert,
+	textAlert,
+	typeAlert,
+	avaliationBar,
+	avaliationsProps,
+	cache,
+	products,
+	onClickTrashDelete,
 }) => {
-    let rateCalc;
+	let rateCalc;
+	console.log()
+	if (avaliationsProps) {
+		const somaAvaliacoes = avaliationsProps
+			.map(item => item.rate)
+			.filter(rate => rate !== undefined)
+			.reduce((acumulador, avaliacao) => acumulador + avaliacao, 0);
+		const mediaAvaliacoes = somaAvaliacoes / avaliationsProps.length;
 
-    if (avaliationsProps) {
-        const somaAvaliacoes = avaliationsProps
-            .map(item => item.rate)
-            .filter(rate => rate !== undefined)
-            .reduce((acumulador, avaliacao) => acumulador + avaliacao, 0);
-        const mediaAvaliacoes = somaAvaliacoes / avaliationsProps.length;
+		rateCalc = mediaAvaliacoes;
+		// Restante do código que utiliza o rateCalc
+	} else {
+		// Tratamento para quando product.params.avaliacoes é undefined
+	}
+	const navigate = useNavigate();
+	return (
+		<>
 
-        rateCalc = mediaAvaliacoes;
-        // Restante do código que utiliza o rateCalc
-    } else {
-        // Tratamento para quando product.params.avaliacoes é undefined
-    }
-
-    console.log(rateCalc);
-
-    return (
-        <>
-            <Carousel
-                items={products.map((nearbyFoodsItem, index) => (
-                    <NearbyFoodsCard
-                        NearbyFoodsItem={nearbyFoodsItem}
-                        key={nearbyFoodsItem.params.titulo}
-                    />
-                ))}
-                itemSize={products.length}
-                itemHeight={258}
-            ></Carousel>
-            <Layout
-                paddingMain={true}
-                cache={cache} typeUser={"ESTABELECIMENTO"}		>
-                <BodyTemplate>
-                    <ContainerProductConsumer>
-                        <Box
-                            className="header-product-consumer"
-                            margin="32px 0 0 0"
-                        >
-
-                        </Box>
-                        <div className="main-product-consumer">
-                            <div className="img-product-consumer">
-                                <img
-                                    src={
-                                        establishment.params.imagem
-                                            ? establishment.params.imagem
-                                            : "https://via.placeholder.com/400"
-                                    }
-                                />
-                            </div>
-                            <div className="info-product-consumer">
-                                <StyledColumn style={{ margin: "14px", alignItems: "start" }}>
-                                    <Subtitle>{product.params.titulo}</Subtitle>
-                                    <Text style={{ height: "fit-content" }}>
-                                        {product.params.descricao ? product.params.descricao : ""}
-                                    </Text>
-                                    <StyledRow>
-                                        <AvaliationStars
-                                            fixed
-                                            color="orange"
-                                            avegareRate={rateCalc ?? 0}
-                                        />
-                                        <Text>({product.params.avaliacoes?.length ?? 0} avaliações)</Text>
-                                    </StyledRow>
-                                    <Box className="container-ingredientes-product-info">
-                                        <span
-                                            className="ingredientes-product-info"
-                                        // key={item.nome}
-                                        >
-                                            {product?.params?.categoria?.nome ?? "Nenhum ingrediente cadastrado"}
-                                        </span>
-                                    </Box>
-                                    <Box
-                                        display="flex"
-                                        flexDirection="row"
-                                        justify="start"
-                                    >
-                                        <Subtitle
-                                            style={{ color: "orange" }}
-                                            large
-                                        >
-                                            {product.params.preco ? formatReal(product.params.preco) : ""}
-                                        </Subtitle>
-                                        <span style={{ color: "orange", fontWeight: "bold" }}> Unidade</span>
-                                    </Box>
-                                </StyledColumn>
-                                <div className="info-local">
-                                    <MdLocationOn className="icon-one-info-local" />
-                                    <Text>
-                                        {`${establishment?.params?.endereco?.bairro},
+			<Layout
+				paddingMain={true}
+				cache={cache} typeUser={"ESTABELECIMENTO"}>
+				<BodyTemplate>
+					<Carousel isOverflowYHidden={true}
+						items={products.slice(0, 5).map((nearbyFoodsItem, index) => (
+							<Box height="196px" width="196px" style={{ cursor: "pointer" }} onClick={() => {
+								console.log("aciona navigate")
+								console.log(nearbyFoodsItem.params.estabelecimento.id, nearbyFoodsItem.params.id)
+								navigate(`../home-establishment/${nearbyFoodsItem.params.estabelecimento.id}/products/${nearbyFoodsItem.params.id}`)
+								window.location.reload();
+							}}>
+								<ImageAtom src={nearbyFoodsItem.params.imagem} height={"196px"} width={"196px"} cursor="true" ></ImageAtom>
+							</Box>
+						))}
+						itemSize={products.length}
+						itemHeight={200}
+					/>
+					<ContainerProductConsumer>
+						<Box
+							className="header-product-consumer"
+							margin="0px 0 0 0"
+						>
+						</Box>
+						<div className="main-product-consumer">
+							<div className="img-product-consumer">
+								<img
+									src={
+										product.params.imagem
+											? product.params.imagem
+											: "https://via.placeholder.com/400"
+									}
+								/>
+							</div>
+							<div className="info-product-consumer">
+								<StyledColumn style={{ margin: "14px", alignItems: "start" }}>
+									<Subtitle>{product.params.titulo}</Subtitle>
+									<Text style={{ height: "fit-content" }}>
+										{product.params.descricao ? product.params.descricao : ""}
+									</Text>
+									<Text typeText={"text-md"} style={{ fontWeight: "bold" }}>
+										ingredientes: {product.params.ingredientes?.join(", ") ?? "Não informado"}
+									</Text>
+									<StyledRow>
+										<AvaliationStars
+											fixed
+											color="orange"
+											avegareRate={rateCalc ?? 0}
+										/>
+										<Text>({product.params.avaliacoes?.length ?? 0} avaliações)</Text>
+									</StyledRow>
+									<Box className="container-ingredientes-product-info">
+										<span
+											className="ingredientes-product-info"
+										// key={item.nome}
+										>
+											{product?.params?.categoria?.nome ?? "Nenhum ingrediente cadastrado"}
+										</span>
+									</Box>
+									<Box
+										display="flex"
+										flexDirection="row"
+										justify="start"
+									>
+										<Subtitle
+											style={{ color: "orange" }}
+											large
+										>
+											{product.params.preco ? formatReal(product.params.preco) : ""}
+										</Subtitle>
+										<span style={{ color: "orange", fontWeight: "bold" }}> Unidade</span>
+									</Box>
+								</StyledColumn>
+								<div className="info-local">
+									<MdLocationOn className="icon-one-info-local" />
+									<Text>
+										{`${establishment?.params?.endereco?.bairro},
 										${establishment?.params?.endereco?.numero},
 										${establishment?.params?.endereco?.cidade} -
 										${establishment?.params?.endereco?.estado},
 										${establishment?.params?.endereco?.cep}
 										`}
-                                    </Text>
-                                </div>
-                                <div className="info-local">
-                                    <AiFillClockCircle className="icon-two-info-local" />
-                                    <Text>
-                                        Tempo de espera:
-                                        {establishment.params.tempoEsperaMedio
-                                            ? establishment.params.tempoEsperaMedio
-                                            : ""}
-                                    </Text>
-                                </div>
-                                <div className="info-local">
-                                    <SiHomeassistantcommunitystore className="icon-three-info-local" />
-                                    <Text>
-                                        {establishment.params.horarioFuncionamentoFimDeSemana &&
-                                            establishment.params.horarioFuncionamentoSemana
-                                            ? establishment.params.horarioFuncionamentoFimDeSemana +
-                                            establishment.params.horarioFuncionamentoSemana
-                                            : ""}
-                                    </Text>
-                                </div>
-                                <div className="info-local">
-                                    <MdPhoneEnabled className="icon-four-info-local" />
-                                    <Text>
-                                        Telefone:{" "}
-                                        {establishment.params.contatoCliente
-                                            ? establishment.params.contatoCliente
-                                            : ""}
-                                    </Text>
-                                </div>
-                                <Box className="container-store-info-local">
-                                    <img
-                                        src={establishment.params.imagem ?? "https://via.placeholder.com/400"}
-                                    />
-                                    <Text>
-                                        <h3>{establishment.params.nome ? establishment.params.nome : ""}</h3>
-                                        <span>{ } Produtos</span>
-                                    </Text>
-                                </Box>
-                                <ButtonIcon
-                                    icon={<FaMapMarkedAlt />}
-                                    onClick={onClickShowMap}
-                                >
-                                    VISUALIZAR
-                                </ButtonIcon>
-                                <Subtitle className="subtitulo-avaliacao-info-product">
-                                    Avaliações
-                                </Subtitle>
-                                {/* TODO: FAZER IFS PARA COR DE CIRCLE */}
-                                <AvaliationProgressBar
-                                    average={rateCalc}
-                                    label={avaliationBar.label}
-                                    reviews={avaliationBar.reviews}
-                                    values={avaliationBar.values}
-                                />
-                            </div>
-                            <div className="comentario-product-consumer">
-                                <Box className="container-comentario-product-consumer-first-row">
-                                    <Subtitle>Contribua</Subtitle>
-                                    {isVisibleAlert ? <Alert type={typeAlert}>{textAlert}</Alert> : <></>}
-                                    <Text>Dê uma nota para sua experiência</Text>
-                                    <div className="comentario-product-avaliation-start">
-                                        <AvaliationStars
-                                            fixed={false}
-                                            color="orange"
-                                            avegareRate={0}
-                                            onClickStar={onClickStar}
-                                        />
-                                        <ul>
-                                            <li>MUITO BOM</li>
-                                        </ul>
-                                    </div>
-                                    <Text>Faça um comentário</Text>
-                                    <TextArea
-                                        height="42px"
-                                        onTextChange={onTextChange}
-                                    />
-                                    <ButtonIcon
-                                        buttonStyle="filled"
-                                        icon={undefined}
-                                        onClick={onClickAddComments}
-                                        loading={isLoadingOnClickAddComments}
-                                    >
-                                        CONTRIBUIR
-                                    </ButtonIcon>
-                                </Box>
-                                <Box className="container-comentario-product-consumer-second-row">
-                                    <Subtitle>Comentários</Subtitle>
-                                    <div className="container-comentario-product-text">
-                                        {avaliationsProps ? (
-                                            avaliationsProps!.map(item => (
-                                                <BoxComment
-                                                    key={item.id}
-                                                    comentario={item.comentario}
-                                                    img={item.consumidor.imagem}
-                                                    name={item.consumidor.nome}
-                                                    date={item.dataCadastro}
-                                                    onClickDeleteComment={onClickTrashDelete}
-                                                    idComment={parseInt(item.id)}
-                                                />
-                                            ))
-                                        ) : (
-                                            <Text>Sem comentários</Text>
-                                        )}
-                                    </div>
-                                </Box>
-                            </div>
-                        </div>
-                    </ContainerProductConsumer>
-                </BodyTemplate>
-            </Layout>
-        </>
-    );
+									</Text>
+								</div>
+								<div className="info-local">
+									<AiFillClockCircle className="icon-two-info-local" />
+									<Text>
+										Tempo de espera:
+										{establishment.params.tempoEsperaMedio
+											? establishment.params.tempoEsperaMedio
+											: ""}
+									</Text>
+								</div>
+								<div className="info-local">
+									<SiHomeassistantcommunitystore className="icon-three-info-local" />
+									<Text>
+										{establishment.params.horarioFuncionamentoFimDeSemana &&
+											establishment.params.horarioFuncionamentoSemana
+											? establishment.params.horarioFuncionamentoFimDeSemana +
+											establishment.params.horarioFuncionamentoSemana
+											: ""}
+									</Text>
+								</div>
+								<div className="info-local">
+									<MdPhoneEnabled className="icon-four-info-local" />
+									<Text>
+										Telefone:
+										{establishment.params.contatoCliente
+											? establishment.params.contatoCliente
+											: ""}
+									</Text>
+								</div>
+								<Box className="container-store-info-local">
+									<img
+										src={establishment.params.imagem ?? "https://via.placeholder.com/400"}
+									/>
+									<Text>
+										<h3>{establishment.params.nome ? establishment.params.nome : ""}</h3>
+										<span>{ } Produtos</span>
+									</Text>
+								</Box>
+								<ButtonIcon
+									icon={<FaMapMarkedAlt />}
+									onClick={onClickShowMap}
+								>
+									VISUALIZAR
+								</ButtonIcon>
+								<Subtitle className="subtitulo-avaliacao-info-product">
+									Avaliações
+								</Subtitle>
+								{/* TODO: FAZER IFS PARA COR DE CIRCLE */}
+								<AvaliationProgressBar
+									average={rateCalc}
+									reviews={avaliationBar.reviews}
+									values={avaliationBar.values}
+								/>
+							</div>
+							<div className="comentario-product-consumer">
+								<Box className="container-comentario-product-consumer-first-row">
+									{/* <Subtitle>Contribua</Subtitle> */}
+									{isVisibleAlert ? <Alert type={typeAlert}>{textAlert}</Alert> : <></>}
+									<Text>Veja o que seus clientes dizem sobre seu estabelecimento e produtos</Text>
+									<div className="comentario-product-avaliation-start">
+										<AvaliationStars
+											fixed={true}
+											color="orange"
+											avegareRate={rateCalc ?? 0}
+											onClickStar={onClickStar}
+										/>
+										<ul>
+											<li>MUITO BOM</li>
+										</ul>
+									</div>
+									{/* <Text>Faça um comentário</Text> */}
+									{/* <TextArea
+										height="42px"
+										onTextChange={onTextChange}
+									/> */}
+									{/* <ButtonIcon
+										buttonStyle="filled"
+										icon={undefined}
+										onClick={onClickAddComments}
+										loading={isLoadingOnClickAddComments}
+									>
+										CONTRIBUIR
+									</ButtonIcon> */}
+								</Box>
+								<Box className="container-comentario-product-consumer-second-row">
+									<Subtitle>Comentários</Subtitle>
+									<div className="container-comentario-product-text">
+										{avaliationsProps ? (
+											avaliationsProps!.map(item => (
+												<BoxComment
+													key={item.id}
+													comentario={item.comentario}
+													img={item.consumidor.imagem}
+													name={item.consumidor.nome}
+													date={item.dataCadastro}
+													onClickDeleteComment={onClickTrashDelete}
+													idComment={parseInt(item.id)}
+													haveIconTrash={false}
+												/>
+											))
+										) : (
+											<Text>Sem comentários</Text>
+										)}
+									</div>
+								</Box>
+							</div>
+						</div>
+					</ContainerProductConsumer>
+				</BodyTemplate>
+			</Layout >
+		</>
+	);
 };
 
 
 
 
-const ContainerProductConsumer = styled.div`
+const ContainerProductConsumer = styled.div<{
+	colorAvaliationCircle?: string;
+}>`
 	display: grid;
 	grid-template-columns: 1fr;
 	grid-template-rows: 0fr 0fr;
@@ -286,7 +286,7 @@ const ContainerProductConsumer = styled.div`
 	grid-template-areas: "header" "main";
 
 	.header-product-consumer {
-		height: 10dvh;
+		height: 5dvh;
 		grid-area: header;
 	}
 
@@ -374,33 +374,33 @@ const ContainerProductConsumer = styled.div`
 
 			::-webkit-scrollbar-track {
 				background-color: ${p =>
-        p.theme.name == "light"
-            ? p.theme.colors.light_gray[200]
-            : p.theme.colors.dark_gray[1000]};
+		p.theme.name == "light"
+			? p.theme.colors.light_gray[200]
+			: p.theme.colors.dark_gray[1000]};
 			}
 
 			/* Handle */
 
 			::-webkit-scrollbar-thumb {
 				background-color: ${p =>
-        p.theme.name == "light"
-            ? p.theme.colors.light_gray[600]
-            : p.theme.colors.dark_gray[800]};
+		p.theme.name == "light"
+			? p.theme.colors.light_gray[600]
+			: p.theme.colors.dark_gray[800]};
 				border-radius: 50px;
 				border: 3px solid
 					${p =>
-        p.theme.name == "light"
-            ? p.theme.colors.light_gray[200]
-            : p.theme.colors.dark_gray[1000]};
+		p.theme.name == "light"
+			? p.theme.colors.light_gray[200]
+			: p.theme.colors.dark_gray[1000]};
 			}
 
 			/* Handle on Hover */
 
 			::-webkit-scrollbar-thumb:hover {
 				background-color: ${p =>
-        p.theme.name == "light"
-            ? p.theme.colors.light_gray[800]
-            : p.theme.colors.dark_gray[800]};
+		p.theme.name == "light"
+			? p.theme.colors.light_gray[800]
+			: p.theme.colors.dark_gray[800]};
 			}
 			.ingredientes-product-info {
 				margin-bottom: 3px;
@@ -458,9 +458,9 @@ const ContainerProductConsumer = styled.div`
 				flex-direction: column;
 				justify-content: center;
 				color: ${p =>
-        p.theme.name == "light"
-            ? p.theme.colors.dark_gray[400]
-            : p.theme.colors.light_gray[200]};
+		p.theme.name == "light"
+			? p.theme.colors.dark_gray[400]
+			: p.theme.colors.light_gray[200]};
 
 				> h3 {
 					font-size: 16px;
@@ -533,7 +533,7 @@ const ContainerProductConsumer = styled.div`
 					height: 60px;
 					width: 60px;
 					border-radius: 100%;
-					border: 3.5px solid #087704;
+					border: 3.5px solid ${p => p.colorAvaliationCircle};
 
 					> span {
 						font-size: 24px;
@@ -541,6 +541,24 @@ const ContainerProductConsumer = styled.div`
 						color: #087704;
 						padding-bottom: 4px;
 					}
+			&.gray{
+				border: 3.5px solid gray;
+			}
+			&.red{
+				border: 3.5px solid #d63211;
+			}
+			&.orange{
+				border: 3.5px solid #e09a0d;
+			}
+			&.yellow{
+				border: 3.5px solid #a9a90c;
+			}
+			&.light-green{
+				border: 3.5px solid #4ba90c;
+			}
+			&.green{
+				border: 3.5px solid #087704;
+			}
 				}
 
 				> h2 {
@@ -555,12 +573,14 @@ const ContainerProductConsumer = styled.div`
 						line-height: 14px;
 						font-weight: 500;
 						color: ${p =>
-        p.theme.name == "light"
-            ? p.theme.colors.dark_gray[200]
-            : p.theme.colors.light_gray[800]};
+		p.theme.name == "light"
+			? p.theme.colors.dark_gray[200]
+			: p.theme.colors.light_gray[800]};
 					}
 				}
 			}
+			
+
 		}
 	}
 
@@ -625,33 +645,33 @@ const ContainerProductConsumer = styled.div`
 
 				::-webkit-scrollbar-track {
 					background-color: ${p =>
-        p.theme.name == "light"
-            ? p.theme.colors.light_gray[200]
-            : p.theme.colors.dark_gray[600]};
+		p.theme.name == "light"
+			? p.theme.colors.light_gray[200]
+			: p.theme.colors.dark_gray[600]};
 				}
 
 				/* Handle */
 
 				::-webkit-scrollbar-thumb {
 					background-color: ${p =>
-        p.theme.name == "light"
-            ? p.theme.colors.light_gray[600]
-            : p.theme.colors.dark_gray[800]};
+		p.theme.name == "light"
+			? p.theme.colors.light_gray[600]
+			: p.theme.colors.dark_gray[800]};
 					border-radius: 50px;
 					border: 3px solid
 						${p =>
-        p.theme.name == "light"
-            ? p.theme.colors.light_gray[200]
-            : p.theme.colors.dark_gray[600]};
+		p.theme.name == "light"
+			? p.theme.colors.light_gray[200]
+			: p.theme.colors.dark_gray[600]};
 				}
 
 				/* Handle on Hover */
 
 				::-webkit-scrollbar-thumb:hover {
 					background-color: ${p =>
-        p.theme.name == "light"
-            ? p.theme.colors.light_gray[800]
-            : p.theme.colors.black};
+		p.theme.name == "light"
+			? p.theme.colors.light_gray[800]
+			: p.theme.colors.black};
 				}
 
 				.box-coment {
@@ -661,18 +681,18 @@ const ContainerProductConsumer = styled.div`
 					padding: 8px;
 					border-radius: ${p => p.theme.border.radius.md};
 					background: ${p =>
-        p.theme.name == "light"
-            ? p.theme.colors.light_gray[400]
-            : p.theme.colors.dark_gray[600]};
+		p.theme.name == "light"
+			? p.theme.colors.light_gray[400]
+			: p.theme.colors.dark_gray[600]};
 
 					border: 1px solid
 						${p =>
-        p.theme.name == "light" ? "transparent" : p.theme.colors.dark_gray[400]};
+		p.theme.name == "light" ? "transparent" : p.theme.colors.dark_gray[400]};
 					box-shadow: ${p => p.theme.colors.shadow[200]};
 					color: ${p =>
-        p.theme.name == "light"
-            ? p.theme.colors.dark_gray[600]
-            : p.theme.colors.light_gray[600]};
+		p.theme.name == "light"
+			? p.theme.colors.dark_gray[600]
+			: p.theme.colors.light_gray[600]};
 					gap: 10px;
 
 					.header-comentario-product-text {
@@ -692,9 +712,9 @@ const ContainerProductConsumer = styled.div`
 							flex-direction: column;
 							justify-content: center;
 							color: ${p =>
-        p.theme.name == "light"
-            ? p.theme.colors.dark_gray[400]
-            : p.theme.colors.light_gray[200]};
+		p.theme.name == "light"
+			? p.theme.colors.dark_gray[400]
+			: p.theme.colors.light_gray[200]};
 
 							> h3 {
 								font-size: 16px;
@@ -733,4 +753,5 @@ const ContainerProductConsumer = styled.div`
 			grid-area: coment;
 		}
 	}
+
 `;

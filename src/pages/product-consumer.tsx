@@ -1,49 +1,54 @@
-import { Cache } from "@/app/domain/protocols/Cache";
-import { SafeFoodProductGateway } from "@/app/infra/gateway/safefood/SafeFoodProductGateway";
-import { ProductConsumerTemplate } from "@/components/templates/product-consumer-template";
-import { useEffect, useState } from "react";
-import { SafeFoodEstablishmentMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodEstablishmentMapper";
-import { Establishment } from "@/app/domain/entities/Establishment";
-import { SafeFoodProductMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodProductMapper";
-import { Product } from "@/app/domain/entities/Product";
-import { useParams } from "react-router-dom";
-import { SafeFoodConsumerModel } from "@/app/infra/gateway/safefood/models/SafeFoodConsumer";
-import { SafeFoodTypeProductMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodTypeProductMapper";
-import { TypeProduct } from "@/app/domain/entities/TypeProduct";
-import { AlertType } from "@/components/atoms/alert";
-import { AvaliationProgressBarProps } from "@/components/molecules/avaliation-progress-bar";
+import {Cache} from "@/app/domain/protocols/Cache";
+import {SafeFoodProductGateway} from "@/app/infra/gateway/safefood/SafeFoodProductGateway";
+import {ProductConsumerTemplate} from "@/components/templates/product-consumer-template";
+import {useEffect, useState} from "react";
+import {SafeFoodEstablishmentMapper} from "@/app/infra/gateway/safefood/mappers/SafeFoodEstablishmentMapper";
+import {Establishment} from "@/app/domain/entities/Establishment";
+import {SafeFoodProductMapper} from "@/app/infra/gateway/safefood/mappers/SafeFoodProductMapper";
+import {Product} from "@/app/domain/entities/Product";
+import {useParams} from "react-router-dom";
+import {SafeFoodConsumerModel} from "@/app/infra/gateway/safefood/models/SafeFoodConsumer";
+import {SafeFoodTypeProductMapper} from "@/app/infra/gateway/safefood/mappers/SafeFoodTypeProductMapper";
+import {TypeProduct} from "@/app/domain/entities/TypeProduct";
+import {AlertType} from "@/components/atoms/alert";
+import {AvaliationProgressBarProps} from "@/components/molecules/avaliation-progress-bar";
 import {
 	SafeFoodAvaliationModel,
 	TypeProductModal,
 } from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
-import { SafeFoodEstablishmentModel } from "@/app/infra/gateway/safefood/models/SafeFoodEstablishment";
+import {SafeFoodEstablishmentModel} from "@/app/infra/gateway/safefood/models/SafeFoodEstablishment";
+import {Modal} from "@/components/molecules/modal";
+import MapsPage from "./maps";
+import {GetLatLongFromAddress} from "@/app/domain/usecases/GetLatLongFromAddress";
 
-type ProductProps = {
+type ProductProps={
 	cache: Cache;
 	productGateway: SafeFoodProductGateway;
+	getLatLongFromAddress: GetLatLongFromAddress;
 };
 
-function ProductConsumer({ cache, productGateway }: ProductProps) {
-	const { id } = useParams();
-	const consumer: SafeFoodConsumerModel =
-		cache.getItem("consumer") !== null
+function ProductConsumer({cache, productGateway, getLatLongFromAddress}: ProductProps) {
+	const {id}=useParams();
+	const consumer: SafeFoodConsumerModel=
+		cache.getItem("consumer")!==null
 			? JSON.parse(cache.getItem("consumer")!)
-			: {};
-	const [valueStar, setValueStar] = useState<number>(0);
-	const [commentText, setCommentText] = useState<string>("");
-	const [isLoadingOnClickAddComments, setIsLoadingOnClickAddComments] =
+			:{};
+	const [valueStar, setValueStar]=useState<number>(0);
+	const [commentText, setCommentText]=useState<string>("");
+	const [isLoadingOnClickAddComments, setIsLoadingOnClickAddComments]=
 		useState<boolean>(false);
-	const [isVisibleAlert, setIsVisibleAlert] = useState(false);
-	const [typeAlert, setTypeAlert] = useState<AlertType>("success");
-	const [textAlert, setTextAlert] = useState("Agradecemos por seu feedback!");
-	const [avaliationBar, setAvaliationBar] = useState<AvaliationProgressBarProps>(
+	const [isVisibleAlert, setIsVisibleAlert]=useState(false);
+	const [typeAlert, setTypeAlert]=useState<AlertType>("success");
+	const [isMapVisible, setMapVisible]=useState<boolean>(false);
+	const [textAlert, setTextAlert]=useState("Agradecemos por seu feedback!");
+	const [avaliationBar, setAvaliationBar]=useState<AvaliationProgressBarProps>(
 		{}
 	);
-	const [avaliationsParams, setAvaliationsParams] = useState<
+	const [avaliationsParams, setAvaliationsParams]=useState<
 		SafeFoodAvaliationModel[]
 	>([]);
 
-	const [establishment, setEstablishment] = useState<Establishment>(
+	const [establishment, setEstablishment]=useState<Establishment>(
 		new Establishment({
 			id: 0,
 			imagem: undefined,
@@ -76,8 +81,8 @@ function ProductConsumer({ cache, productGateway }: ProductProps) {
 			tempoEsperaMedio: "",
 		})
 	);
-	const [categorias, setCategorias] = useState<TypeProduct>();
-	const [product, setProduct] = useState<Product>(
+	const [categorias, setCategorias]=useState<TypeProduct>();
+	const [product, setProduct]=useState<Product>(
 		new Product({
 			descricao: "",
 			id: "",
@@ -101,7 +106,7 @@ function ProductConsumer({ cache, productGateway }: ProductProps) {
 			estabelecimento: {} as SafeFoodEstablishmentModel,
 		})
 	);
-	const onClickAddComments = async () => {
+	const onClickAddComments=async () => {
 		console.log("comentário dados: ", commentText, valueStar);
 		setAvaliationsParams([
 			...avaliationsParams,
@@ -116,14 +121,14 @@ function ProductConsumer({ cache, productGateway }: ProductProps) {
 		setIsLoadingOnClickAddComments(true);
 		setIsVisibleAlert(true);
 		try {
-			if (id) {
-				const res = await productGateway.createComments(id.toString(), {
+			if(id) {
+				const res=await productGateway.createComments(id.toString(), {
 					comentario: commentText,
 					rate: valueStar,
 					idConsumidor: consumer.id,
 				});
 			}
-		} catch (error) {
+		} catch(error) {
 			setIsVisibleAlert(true);
 			setTextAlert("Aconteceu algum erro, tente mais tarde!");
 			setTypeAlert("danger");
@@ -133,63 +138,84 @@ function ProductConsumer({ cache, productGateway }: ProductProps) {
 	useEffect(() => {
 		async function fetchProduct() {
 			try {
-				const res = await productGateway.findById(id ?? "1");
-				if (!res.data.estabelecimento) {
+				const res=await productGateway.findById(id??"1");
+				if(!res.data.estabelecimento) {
 					return;
 				}
-				if (!res.data) {
+				if(!res.data) {
 					return;
 				}
 				setEstablishment(SafeFoodEstablishmentMapper.of(res.data.estabelecimento));
 				setProduct(SafeFoodProductMapper.of(res.data));
 				setCategorias(SafeFoodTypeProductMapper.of(res.data.categoria));
 				setAvaliationsParams(res.data.avaliacoes);
-			} catch (error) {
+				setAvaliationBar({
+					average: res.data.average,
+					reviews: res.data.avaliacoes.length.toString(),
+					values: [0, 1, 2, 3, 4].map((_, i) => res.data.avaliacoes.filter(item => item.rate===i+1).length),
+
+				});
+			} catch(error) {
 				// faça algo com o erro
 			}
 		}
 		fetchProduct();
 	}, [id]);
 
-	const onClickDeleteComment = async (idComment: number) => {
+	const onClickDeleteComment=async (idComment: number) => {
 		console.log("comentário dados de remoção: ", id, idComment);
 		try {
-			if (id) {
-				const res = await productGateway.deleteComments(parseInt(id), idComment);
-				if (res.status == 200 || res.status == 201 || res.status == 204) {
+			if(id) {
+				const res=await productGateway.deleteComments(parseInt(id), idComment);
+				if(res.status==200||res.status==201||res.status==204) {
 					setTypeAlert("success");
 					setTextAlert("Endereço excluído com sucesso!");
 					setIsVisibleAlert(true);
 				}
 			}
-		} catch (e) {
+		} catch(e) {
 			setTypeAlert("danger");
 			setTextAlert("Endereço não excluído!");
 			setIsVisibleAlert(true);
 		}
 	};
+	const toggleModal=() => {
+		setMapVisible(!isMapVisible);
+	};
 	return (
-		<ProductConsumerTemplate
-			establishment={establishment}
-			product={product}
-			category={categorias}
-			onClickAddComments={onClickAddComments}
-			isLoadingOnClickAddComments={isLoadingOnClickAddComments}
-			isVisibleAlert={isVisibleAlert}
-			typeAlert={typeAlert}
-			textAlert={textAlert}
-			avaliationBar={avaliationBar}
-			avaliationsProps={avaliationsParams}
-			// onClickShowMap={}
-			cache={cache}
-			onClickStar={e => {
-				setValueStar(e);
-			}}
-			onTextChange={e => {
-				setCommentText(e);
-			}}
-			onClickTrashDelete={onClickDeleteComment}
-		/>
+		<>
+			{establishment.params.endereco&&establishment.params.endereco.cep&&<Modal
+				size="md"
+				height="md"
+				padding="20px 20px 40px 20px"
+				responsive
+				isOpen={isMapVisible}
+				onClickForeground={toggleModal}
+			>
+				<MapsPage getLatLongFromAddress={getLatLongFromAddress} establishment={establishment} />
+			</Modal>}
+			<ProductConsumerTemplate
+				establishment={establishment}
+				product={product}
+				category={categorias}
+				onClickAddComments={onClickAddComments}
+				isLoadingOnClickAddComments={isLoadingOnClickAddComments}
+				isVisibleAlert={isVisibleAlert}
+				typeAlert={typeAlert}
+				textAlert={textAlert}
+				avaliationBar={avaliationBar}
+				avaliationsProps={avaliationsParams}
+				onClickShowMap={toggleModal}
+				cache={cache}
+				onClickStar={e => {
+					setValueStar(e);
+				}}
+				onTextChange={e => {
+					setCommentText(e);
+				}}
+				onClickTrashDelete={onClickDeleteComment}
+			/>
+		</>
 	);
 }
 

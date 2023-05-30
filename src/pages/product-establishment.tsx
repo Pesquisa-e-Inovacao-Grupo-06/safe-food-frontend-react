@@ -3,7 +3,6 @@ import { Cache } from "@/app/domain/protocols/Cache";
 import { SafeFoodProductGateway } from "@/app/infra/gateway/safefood/SafeFoodProductGateway";
 import { SafeFoodEstablishmentMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodEstablishmentMapper";
 import { SafeFoodProductMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodProductMapper";
-import { SafeFoodTypeProductMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodTypeProductMapper";
 import { SafeFoodEstablishmentModel } from "@/app/infra/gateway/safefood/models/SafeFoodEstablishment";
 import { SafeFoodAvaliationModel } from "@/app/infra/gateway/safefood/models/SafeFoodProduct";
 import { AvaliationProgressBarProps } from "@/components/molecules/avaliation-progress-bar";
@@ -16,7 +15,7 @@ export type ProductEstablishmentProps = {
     productGateway: SafeFoodProductGateway;
 }
 function ProductsEstablishment({ cache, productGateway }: ProductEstablishmentProps) {
-    const { id } = useParams();
+    const { idEstablishment, idProduct } = useParams();
     const [product, setProduct] = useState<Product>();
     const [products, setProducts] = useState<Product[]>();
     const [avaliationBar, setAvaliationBar] = useState<AvaliationProgressBarProps>(
@@ -27,9 +26,15 @@ function ProductsEstablishment({ cache, productGateway }: ProductEstablishmentPr
     >([]);
 
     async function fetchProduct() {
+        if (!idProduct) {
+            return;
+        }
+        if (!idEstablishment) {
+            return;
+        }
         try {
-            const res = await productGateway.findById(id ?? "1");
-            const resAll = await productGateway.findAll();
+            const res = await productGateway.findById(idProduct);
+            const resAll = await productGateway.findByEstablishmentId(idEstablishment);
             if (!res.data.estabelecimento) {
                 return;
             }
@@ -38,19 +43,28 @@ function ProductsEstablishment({ cache, productGateway }: ProductEstablishmentPr
             }
             setProduct(SafeFoodProductMapper.of(res.data));
             setAvaliationsParams(res.data.avaliacoes);
-            setProducts(resAll.content.map(SafeFoodProductMapper.of));
+            const shuffledProducts = resAll.data.map(SafeFoodProductMapper.of).sort(() => Math.random() - 0.5);
+            const selectedProducts = shuffledProducts.slice(0, 5);
+            console.log("select", { selectedProducts });
+            setProducts(selectedProducts);
+            setAvaliationBar({
+                average: res.data.average,
+                reviews: res.data.avaliacoes.length.toString(),
+                values: [0, 1, 2, 3, 4].map((_, i) => res.data.avaliacoes.filter(item => item.rate === i + 1).length),
+
+            })
+
         } catch (error) {
             console.log(error);
         }
     }
-    fetchProduct();
 
     useEffect(() => {
-        if (!id) {
-            return;
-        }
+        fetchProduct(); // Chama a função fetchProduct imediatamente
 
-    }, [id]);
+    }, []);
+
+
 
     const establishment: SafeFoodEstablishmentModel =
         cache.getItem("establishment") !== null
@@ -72,7 +86,8 @@ function ProductsEstablishment({ cache, productGateway }: ProductEstablishmentPr
             cache={cache}
             onClickAddComments={() => { }}
             onClickTrashDelete={() => { }}
-            products={products ? products : []} />
+            products={products ? products : []}
+        />
     ) : <div>ERRO</div>;
 }
 

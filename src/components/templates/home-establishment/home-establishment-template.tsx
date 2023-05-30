@@ -165,8 +165,9 @@ function HomeEstablishmentTemplate({
 				</div>
 				<div className="main-home-establishment">
 					<div className="container-main-home-establishment">
-						{filterData.map(item => (
-							<CardHomeEstablishment
+						{filterData.map(item => {
+							{ console.log(item.params.average) }
+							return <CardHomeEstablishment
 								isActive={false}
 								key={item.params.id}
 							>
@@ -176,7 +177,7 @@ function HomeEstablishmentTemplate({
 									getInfoProduct={() => setObj(item)}
 								/>
 							</CardHomeEstablishment>
-						))}
+						})}
 					</div>
 				</div>
 				<div className="footer-home-establishment"></div>
@@ -204,17 +205,17 @@ const ContainerHomeEstablishment = styled.div`
 			h1 {
 				font-size: 15px;
 				color: ${p =>
-					p.theme.name == 'light'
-						? p.theme.colors.dark_gray[600]
-						: p.theme.colors.light_gray[400]};
+		p.theme.name == 'light'
+			? p.theme.colors.dark_gray[600]
+			: p.theme.colors.light_gray[400]};
 			}
 
 			label {
 				font-size: 12px;
 				color: ${p =>
-					p.theme.name == 'light'
-						? p.theme.colors.dark_gray[200]
-						: p.theme.colors.light_gray[600]};
+		p.theme.name == 'light'
+			? p.theme.colors.dark_gray[200]
+			: p.theme.colors.light_gray[600]};
 			}
 		}
 
@@ -226,9 +227,9 @@ const ContainerHomeEstablishment = styled.div`
 			justify-content: space-between;
 			border-radius: 8px;
 			background: ${p =>
-				p.theme.name == 'light'
-					? p.theme.colors.light_gray[400]
-					: p.theme.colors.black};
+		p.theme.name == 'light'
+			? p.theme.colors.light_gray[400]
+			: p.theme.colors.black};
 			box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px 0px;
 
 			gap: 15px;
@@ -249,17 +250,17 @@ const ContainerHomeEstablishment = styled.div`
 				h1 {
 					font-size: 15px;
 					color: ${p =>
-						p.theme.name == 'light'
-							? p.theme.colors.dark_gray[600]
-							: p.theme.colors.light_gray[400]};
+		p.theme.name == 'light'
+			? p.theme.colors.dark_gray[600]
+			: p.theme.colors.light_gray[400]};
 				}
 
 				label {
 					font-size: 13px;
 					color: ${p =>
-						p.theme.name == 'light'
-							? p.theme.colors.dark_gray[400]
-							: p.theme.colors.light_gray[600]};
+		p.theme.name == 'light'
+			? p.theme.colors.dark_gray[400]
+			: p.theme.colors.light_gray[600]};
 				}
 			}
 
@@ -306,33 +307,33 @@ const ContainerHomeEstablishment = styled.div`
 
 			::-webkit-scrollbar-track {
 				background-color: ${p =>
-					p.theme.name == 'light'
-						? p.theme.colors.light_gray[200]
-						: p.theme.colors.dark_gray[600]};
+		p.theme.name == 'light'
+			? p.theme.colors.light_gray[200]
+			: p.theme.colors.dark_gray[600]};
 			}
 
 			/* Handle */
 
 			::-webkit-scrollbar-thumb {
 				background-color: ${p =>
-					p.theme.name == 'light'
-						? p.theme.colors.light_gray[600]
-						: p.theme.colors.dark_gray[800]};
+		p.theme.name == 'light'
+			? p.theme.colors.light_gray[600]
+			: p.theme.colors.dark_gray[800]};
 				border-radius: 50px;
 				border: 3px solid
 					${p =>
-						p.theme.name == 'light'
-							? p.theme.colors.light_gray[200]
-							: p.theme.colors.dark_gray[600]};
+		p.theme.name == 'light'
+			? p.theme.colors.light_gray[200]
+			: p.theme.colors.dark_gray[600]};
 			}
 
 			/* Handle on Hover */
 
 			::-webkit-scrollbar-thumb:hover {
 				background-color: ${p =>
-					p.theme.name == 'light'
-						? p.theme.colors.light_gray[800]
-						: p.theme.colors.black};
+		p.theme.name == 'light'
+			? p.theme.colors.light_gray[800]
+			: p.theme.colors.black};
 			}
 
 			> button {
@@ -360,15 +361,15 @@ const ContainerHomeEstablishment = styled.div`
 				min-width: 225px;
 				margin: 10px;
 				background: ${p =>
-					p.theme.name == 'light'
-						? p.theme.colors.light_gray[400]
-						: p.theme.colors.black};
+		p.theme.name == 'light'
+			? p.theme.colors.light_gray[400]
+			: p.theme.colors.black};
 				box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px 0px;
 
 				color: ${p =>
-					p.theme.name == 'light'
-						? p.theme.colors.dark_gray[800]
-						: p.theme.colors.light_gray[600]};
+		p.theme.name == 'light'
+			? p.theme.colors.dark_gray[800]
+			: p.theme.colors.light_gray[600]};
 				> div {
 					gap: 0px;
 				}
@@ -399,9 +400,9 @@ const ContainerHomeEstablishment = styled.div`
 					> div:nth-last-child(2) {
 						height: 1px;
 						background: ${p =>
-							p.theme.name == 'light'
-								? p.theme.colors.light_gray[600]
-								: p.theme.colors.dark_gray[600]};
+		p.theme.name == 'light'
+			? p.theme.colors.light_gray[600]
+			: p.theme.colors.dark_gray[600]};
 					}
 				}
 
@@ -457,9 +458,9 @@ const CardHomeEstablishment = styled.div<{
 	border-radius: 5px;
 	> div {
 		background: ${p =>
-			p.theme.name == 'light'
-				? p.theme.colors.light_gray[200]
-				: p.theme.colors.dark_gray[1000]};
+		p.theme.name == 'light'
+			? p.theme.colors.light_gray[200]
+			: p.theme.colors.dark_gray[1000]};
 		width: auto;
 		display: ${p => (p.isActive ? 'grid' : '')};
 		grid-template-columns: ${p => (p.isActive ? '0.3fr 1fr' : '')};
@@ -507,15 +508,15 @@ const CardHomeEstablishment = styled.div<{
 
 			> div:nth-child(4) {
 				background: ${p =>
-					p.theme.name == 'light'
-						? p.theme.colors.light_gray[600]
-						: p.theme.colors.dark_gray[800]};
+		p.theme.name == 'light'
+			? p.theme.colors.light_gray[600]
+			: p.theme.colors.dark_gray[800]};
 
 				/* border: ${p => (p.isActive ? '0.1px' : '0px')} solid
 					${p =>
-					p.theme.name == 'light'
-						? p.theme.colors.light_gray[600]
-						: p.theme.colors.dark_gray[800]}; */
+		p.theme.name == 'light'
+			? p.theme.colors.light_gray[600]
+			: p.theme.colors.dark_gray[800]}; */
 			}
 
 			> div:nth-child(5) {
