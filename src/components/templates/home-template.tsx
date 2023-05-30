@@ -23,6 +23,7 @@ import Doghnut from '../../assets/Mask group (3).png';
 import Restaurante from '../../assets/pexels-kaboompics-com-5697 1.png';
 import BannerFinal from '../../assets/Banner-meio.png';
 import { useModalHome } from '@/app/contexts/ModalProvider';
+import { Link } from 'react-router-dom';
 
 export type HomeTemplateParams = {
 	nearbyFoodsCardItems: Product[];
@@ -61,7 +62,10 @@ export const HomeTemplate: React.FC<HomeTemplateParams> = ({
 							que você pode
 							<br /> <span style={{ color: 'green' }}> confiar</span>
 						</TitleLanding>
-						<ButtonIcon icon={<MdOutlineArrowForwardIos />}>
+						<ButtonIcon
+							onClick={() => setModal('consumer')}
+							icon={<MdOutlineArrowForwardIos />}
+						>
 							Conheça já
 						</ButtonIcon>
 					</div>
@@ -104,7 +108,9 @@ export const HomeTemplate: React.FC<HomeTemplateParams> = ({
 								uma intolerância, alergia, estivo de vida, religiosa ou
 								problemas de saúde.
 							</Text>
-							<ButtonIcon icon>Saiba mais</ButtonIcon>
+							<Link to="/about">
+								<ButtonIcon icon>Saiba mais</ButtonIcon>
+							</Link>
 						</div>
 						<div className="container-img-saiba-mais-new-home">
 							<div>
@@ -283,15 +289,17 @@ const ContainerNewHome = styled.div`
 				color: ${p =>
 					p.theme.name == 'light' ? '#474747' : p.theme.colors.light_gray[800]};
 			}
-			> button {
-				width: fit-content;
-				place-self: end;
-				margin-right: auto;
-				border: 2px solid #fe8e27;
-				background-color: #fe8e27;
+			> a {
+				> button {
+					width: fit-content;
+					place-self: end;
+					margin-right: auto;
+					border: 2px solid #fe8e27;
+					background-color: #fe8e27;
 
-				@media (max-width: 500px) {
-					width: 100%;
+					@media (max-width: 500px) {
+						width: 100%;
+					}
 				}
 			}
 

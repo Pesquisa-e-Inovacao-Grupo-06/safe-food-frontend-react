@@ -1,38 +1,35 @@
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
-import Home from "./pages/home";
-import FAQ from "./pages/faq";
-import Profile from "./pages/profile-consumer";
-import TermOfService from "./pages/term-of-service";
-import ProfileEstablishment from "./pages/profile-establishment";
-import HomeEstablishment from "./pages/home-establishment";
-import HomeConsumer from "./pages/home-consumer";
-import {SafeFoodUserGateway} from "./app/infra/gateway/safefood/SafeFoodUserGateway";
-import {SafeFoodRestrictionGateway} from "./app/infra/gateway/safefood/SafeFoodRestrictionGateway";
-import {Cache} from "./app/domain/protocols/Cache";
-import {InputsValidatorProvider} from "./app/contexts/InputValidatorsProvider";
-import {ViaCepGateway} from "./app/infra/gateway/viacep/ViaCepGateway";
-import {AuthRoute} from "./pages/auth/AuthRoute";
-import {AuthProvider} from "./app/contexts/AuthProvider";
-import {SafeFoodConsumerGateway} from "./app/infra/gateway/safefood/SafeFoodConsumerGateway";
-import {SafeFoodEstablishmentGateway} from "./app/infra/gateway/safefood/SafeFoodEstablishmentGateway";
-import NotFound from "./pages/not-found";
-import PreferencesEstablishment from "./pages/preferences-establishment";
-import {ModalHomeProvider} from "./app/contexts/ModalProvider";
-import {SafeFoodProductGateway} from "./app/infra/gateway/safefood/SafeFoodProductGateway";
-import ProductConsumer from "./pages/product-consumer";
-import ForgetPassWord from "./pages/forget-password";
-import {FindAddress} from "./app/domain/usecases/FindAddress";
-import {CepValidator} from "./app/util/validations/cep-validator";
-import {SafeFoodTypeProductGateway} from "./app/infra/gateway/safefood/SafeFoodTypeProductGateway";
-import MapsPage from "./pages/maps";
-import ProductsEstablishment from "./pages/product-establishment";
-import {GetLatLongFromAddress} from "./app/domain/usecases/GetLatLongFromAddress";
-import {useEffect, useState} from "react";
-import {Establishment} from "./app/domain/entities/Establishment";
-import {SafeFoodEstablishmentMapper} from "./app/infra/gateway/safefood/mappers/SafeFoodEstablishmentMapper";
-import {SafeFoodEstablishmentModel} from "./app/infra/gateway/safefood/models/SafeFoodEstablishment";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages/home';
+import FAQ from './pages/faq';
+import Profile from './pages/profile-consumer';
+import TermOfService from './pages/term-of-service';
+import ProfileEstablishment from './pages/profile-establishment';
+import HomeEstablishment from './pages/home-establishment';
+import HomeConsumer from './pages/home-consumer';
+import { SafeFoodUserGateway } from './app/infra/gateway/safefood/SafeFoodUserGateway';
+import { SafeFoodRestrictionGateway } from './app/infra/gateway/safefood/SafeFoodRestrictionGateway';
+import { Cache } from './app/domain/protocols/Cache';
+import { InputsValidatorProvider } from './app/contexts/InputValidatorsProvider';
+import { ViaCepGateway } from './app/infra/gateway/viacep/ViaCepGateway';
+import { AuthRoute } from './pages/auth/AuthRoute';
+import { AuthProvider } from './app/contexts/AuthProvider';
+import { SafeFoodConsumerGateway } from './app/infra/gateway/safefood/SafeFoodConsumerGateway';
+import { SafeFoodEstablishmentGateway } from './app/infra/gateway/safefood/SafeFoodEstablishmentGateway';
+import NotFound from './pages/not-found';
+import PreferencesEstablishment from './pages/preferences-establishment';
+import { ModalHomeProvider } from './app/contexts/ModalProvider';
+import { SafeFoodProductGateway } from './app/infra/gateway/safefood/SafeFoodProductGateway';
+import ProductConsumer from './pages/product-consumer';
+import ForgetPassWord from './pages/forget-password';
+import { FindAddress } from './app/domain/usecases/FindAddress';
+import { CepValidator } from './app/util/validations/cep-validator';
+import { SafeFoodTypeProductGateway } from './app/infra/gateway/safefood/SafeFoodTypeProductGateway';
+import MapsPage from './pages/maps';
+import ProductsEstablishment from './pages/product-establishment';
+import { About } from './pages/about';
+import { GetLatLongFromAddress } from './app/domain/usecases/GetLatLongFromAddress';
 
-type AppProps={
+type AppProps = {
 	cache: Cache;
 	userGateway: SafeFoodUserGateway;
 	consumerGateway: SafeFoodConsumerGateway;
@@ -56,7 +53,6 @@ export default function App({
 	typeProductGateway,
 	getLatLongFromAddress,
 }: AppProps) {
-
 	return (
 		<>
 			<InputsValidatorProvider>
@@ -153,11 +149,20 @@ export default function App({
 
 							<Route
 								path="home-establishment/:idEstablishment/products/:idProduct"
-								element={<ProductsEstablishment cache={cache} productGateway={productGateway} />}
+								element={
+									<ProductsEstablishment
+										cache={cache}
+										productGateway={productGateway}
+									/>
+								}
 							/>
 							<Route
 								path="/*"
 								element={<NotFound />}
+							/>
+							<Route
+								path="/about"
+								element={<About />}
 							/>
 						</Routes>
 					</Router>

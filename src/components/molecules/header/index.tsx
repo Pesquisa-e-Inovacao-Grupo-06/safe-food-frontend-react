@@ -1,5 +1,5 @@
-import { Dispatch, useState } from "react";
-import { Container, ContainerLogo, ContainerBtn } from "./styles";
+import { Dispatch, useState } from 'react';
+import { Container, ContainerLogo, ContainerBtn } from './styles';
 import {
 	FaBars,
 	FaHome,
@@ -7,16 +7,16 @@ import {
 	FaQuestionCircle,
 	FaSignInAlt,
 	FaSignOutAlt,
-} from "react-icons/fa";
-import { useSafeFoodTheme } from "../../../app/contexts/SafeFoodThemeProvider";
-import { LogoAtom } from "@/components/atoms/logo";
-import NavbarItem from "@/components/atoms/navbarItem";
-import SignUpButton from "@/components/atoms/navbarItem/btnsignup";
-import Switch from "@/components/atoms/toggle-switch";
-import Sidebar from "../sidebar";
-import { useLocation } from "react-router-dom";
-import { useModalHome } from "@/app/contexts/ModalProvider";
-import { MdPersonAddAlt1 } from "react-icons/md";
+} from 'react-icons/fa';
+import { useSafeFoodTheme } from '../../../app/contexts/SafeFoodThemeProvider';
+import { LogoAtom } from '@/components/atoms/logo';
+import NavbarItem from '@/components/atoms/navbarItem';
+import SignUpButton from '@/components/atoms/navbarItem/btnsignup';
+import Switch from '@/components/atoms/toggle-switch';
+import Sidebar from '../sidebar';
+import { useLocation } from 'react-router-dom';
+import { useModalHome } from '@/app/contexts/ModalProvider';
+import { MdPersonAddAlt1 } from 'react-icons/md';
 
 interface Props {
 	toggleTheme(): void;
@@ -27,14 +27,17 @@ const Header: React.FC = () => {
 
 	const itemLinkArray = [
 		{
-			text: "Início",
-			to: "/",
+			text: 'Início',
+			to: '/',
 			onclick: () => setModal(null),
 		},
-
 		{
-			text: "FAQ",
-			to: "/faq",
+			text: 'Safe Food',
+			to: '/about',
+		},
+		{
+			text: 'FAQ',
+			to: '/faq',
 		},
 	];
 	const { pathname } = useLocation();
@@ -70,11 +73,11 @@ const Header: React.FC = () => {
 			</ul>
 			<ContainerBtn>
 				<NavbarItem
-					onclick={() => setModal("login")}
+					onclick={() => setModal('login')}
 					text="Entrar"
 				/>
 				<SignUpButton
-					onclick={() => setModal("consumer")}
+					onclick={() => setModal('consumer')}
 					text="Cadastre-se"
 				/>
 			</ContainerBtn>
@@ -88,24 +91,28 @@ export default Header;
 const itemLinkArraySide = [
 	{
 		icon: FaHome,
-		text: "Início",
-		to: "/",
+		text: 'Início',
+		to: '/',
 	},
-
+	{
+		icon: FaInfoCircle,
+		text: 'Safe Food',
+		to: '/about',
+	},
 	{
 		icon: FaQuestionCircle,
-		text: "FAQ",
-		to: "/faq",
+		text: 'FAQ',
+		to: '/faq',
 	},
 	{
 		icon: FaSignInAlt,
-		text: "Entrar",
-		to: "/signin",
+		text: 'Entrar',
+		to: '/signin',
 	},
 	{
 		icon: MdPersonAddAlt1,
-		text: "Cadastrar",
-		to: "/signup",
+		text: 'Cadastrar',
+		to: '/signup',
 	},
 	// {
 	// 	icon: FaSignOutAlt,
