@@ -291,7 +291,7 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 									}}
 									onClick={() => deleteUser(consumer.id)}
 								>
-									<Text typeText="text-mdb" color="white">
+									<Text typeText="text-x-md" color="white">
 										Deletar conta
 									</Text>
 								</ButtonIcon>

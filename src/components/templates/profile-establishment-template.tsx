@@ -263,33 +263,35 @@ export const ProfileEstablishmentTemplate: React.FC<
 									excel preenchido novamente.
 									<b> OBS: apenas aceitamos no nosso formato de Excel.</b>
 								</Box>
-							</PContainerInfo>
-							<PContainerInfo3 >
-								<Subtitle2>Ações para conta</Subtitle2>
-								<Box display="flex" width="300px">
-									<ButtonIcon
-										alignIcon="left"
-										icon={<BiTrash />}
-										color="red"
-										height="fit-content"
-										width="fit-content"
-										buttonStyle="filled"
-										style={{
-											fontSize: "16px",
-											maxHeight: "32px",
-											width: "fit-content",
-											background: "red",
-											borderColor: "red"
-										}}
-										onClick={() => deleteUser(user.usuario.id)}
-									>
-										<Text typeText="text-mdb" color="white">
-											Deletar conta
-										</Text>
-									</ButtonIcon>
+								<PDivider />
 
-								</Box>
-							</PContainerInfo3>
+								<PContainerInfo3 >
+									<Subtitle2>Ações para conta</Subtitle2>
+									<Box display="flex" width="100%" justify='flex-end'>
+										<ButtonIcon
+											alignIcon="left"
+											icon={<BiTrash />}
+											color="red"
+											height="fit-content"
+											width="fit-content"
+											buttonStyle="filled"
+											style={{
+												fontSize: "16px",
+												maxHeight: "32px",
+												width: "fit-content",
+												background: "red",
+												borderColor: "red"
+											}}
+											onClick={() => deleteUser(user.usuario.id)}
+										>
+											<Text typeText="text-x-md" color="white">
+												Deletar conta
+											</Text>
+										</ButtonIcon>
+
+									</Box>
+								</PContainerInfo3>
+							</PContainerInfo>
 							{/* TODO: CHANGE BUTTON TO COMPONENT ATOM AND EXPORT FUNCTION ONCLICK */}
 							<PContainerBtn>
 								{isEditable ? (
