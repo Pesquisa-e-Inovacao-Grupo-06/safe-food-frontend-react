@@ -6,6 +6,7 @@ export const StyledButton = styled.button<{
 	width?: string | number;
 	height?: string | number;
 	color?: string;
+	focus?: boolean | null;
 }>`
 	width: ${p => (typeof p.width === "number" ? p.width + "px" : p.width)};
 	height: ${p => (typeof p.height === "number" ? p.height + "px" : p.height)};
@@ -31,6 +32,12 @@ export const StyledButton = styled.button<{
 	gap: 4px;
 	padding: 12px 24px;
 	opacity: 0.85;
+	${p=>p.focus == true ? css`
+		filter:  brightness(1) saturate(3);
+		opacity: 1;
+	` : p=>p.focus == false && css`
+			opacity: 0.8 !important;
+		`}
 	&:hover,
 	&:focus,
 	&:focus-within {
@@ -82,4 +89,6 @@ export const StyledButton = styled.button<{
 		min-height: 32px;
 		font-size: ${p => p.theme.font.size.md};
 	}
+
+	
 `;

@@ -15,8 +15,8 @@ export const StyledLabelForImage = styled.label<{
 	opacity: 0.9;
 	& > img,
 	& > svg {
-		image-rendering: optimizeSpeed;
-		width: 100%;
+		image-rendering: pixelated;
+		max-width: 100%;
 	}
 
 	cursor: pointer;
@@ -31,7 +31,7 @@ export const StyledLabelForImage2 = styled.label<{
 }>`
 max-height: 100%;
 object-fit: cover;
-width: 100%;
+/*width: 100%;*/
 border-radius: 8px;
 
 	cursor: pointer;

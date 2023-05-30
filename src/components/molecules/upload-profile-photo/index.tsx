@@ -39,8 +39,10 @@ export const ProfilePhotoUploadWithPreview: React.FC<
 						id={props.id + "-label"}
 						style={{ cursor: isEditable ? "pointer" : "not-allowed" }}
 					>
-						<ImageAtom
-							cursor={isEditable ? "true" : "false"}
+						<img
+							style={{
+								cursor: isEditable ? "pointer" : 'not-allowed'
+							}}
 							src={preview}
 							alt="Camera para editar a foto de perfil"
 						/>

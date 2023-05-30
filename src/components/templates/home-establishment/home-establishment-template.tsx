@@ -129,6 +129,7 @@ function HomeEstablishmentTemplate({
 								onClick={() => handleFilter('')}
 								height="fit-content"
 								width="fit-content"
+								focus={type == ''}
 								buttonStyle="filled"
 								style={{
 									fontSize: '16px',
@@ -149,6 +150,7 @@ function HomeEstablishmentTemplate({
 									height="fit-content"
 									width="fit-content"
 									buttonStyle="filled"
+									focus={type == item.nome}
 									style={{
 										fontSize: '16px',
 										maxHeight: '32px',
