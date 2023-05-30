@@ -19,6 +19,7 @@ export type EstablishmentParams = {
     isRetireNoLocal: boolean;
     isFreteGratis: boolean;
     tempoEsperaMedio: string;
+    quantidadeDeProdutos: number
 }
 
 export class Establishment {
