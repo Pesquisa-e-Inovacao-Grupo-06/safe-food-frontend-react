@@ -92,47 +92,21 @@ function Home({
 	}, []);
 
 	return (
-		<div>
-			{modal === "login" && (
-				<SignIn
-					cache={cache}
-					consumerGateway={consumerGateway}
-					establishmentGateway={establishmentGateway}
-					gateway={gateway}
-				/>
+		<HomeTemplate
+			nearbyFoodsCardItems={nearbyProducts.map(SafeFoodProductMapper.of)}
+			listOfFavoriteProducts={listOfFavoriteProducts.map(
+				SafeFoodProductMapper.of
 			)}
-			{modal === "consumer" && (
-				<SignUpConsumer
-					userGateway={gateway}
-					cache={cache}
-					viaCepGateway={viaCepGateway}
-					gateway={consumerGateway}
-				/>
-			)}
-			{modal === "establishment" && (
-				<SignUpEstablishment
-					userGateway={gateway}
-					cache={cache}
-					gateway={establishmentGateway}
-					viaCepGateway={viaCepGateway}
-				/>
-			)}
-			<HomeTemplate
-				nearbyFoodsCardItems={nearbyProducts.map(SafeFoodProductMapper.of)}
-				listOfFavoriteProducts={listOfFavoriteProducts.map(
-					SafeFoodProductMapper.of
-				)}
-				textFieldFood={textFieldFood}
-				textFieldLocation={textFieldLocation}
-				handleChangeFood={handleChangeFood}
-				handleChangeLocation={handleChangeLocation}
-				onClickSearchLanding={() => {
-					console.log(textFieldLocation);
-				}}
-				user={user}
-				cache={cache}
-			/>
-		</div>
+			textFieldFood={textFieldFood}
+			textFieldLocation={textFieldLocation}
+			handleChangeFood={handleChangeFood}
+			handleChangeLocation={handleChangeLocation}
+			onClickSearchLanding={() => {
+				console.log(textFieldLocation);
+			}}
+			user={user}
+			cache={cache}
+		/>
 	);
 }
 
