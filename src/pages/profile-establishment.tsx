@@ -70,9 +70,25 @@ function ProfileEstablishment({
 		}
 	};
 
-	const onClickDeleteAddress = async (idAddress: number) => {};
+	const deleteUser = async (id: number) => {
+		console.log("teste")
+		if (!id) {
+			return;
+		}
+		try {
+			const res = await establishmentGateway.remove(id);
+			const validStatus = [200, 204];
+			if (!validStatus.includes(res.status)) {
+				window.location.href = "/";
+			}
+		} catch (e) {
+			console.log(e)
+		}
+	}
 
-	const handleAddressCardClick = (apelidoEnderecoSelecionado: string) => {};
+	const onClickDeleteAddress = async (idAddress: number) => { };
+
+	const handleAddressCardClick = (apelidoEnderecoSelecionado: string) => { };
 	const importArchiveTxt = async (file: File): Promise<SafeFoodResponse> => {
 		return establishmentGateway.importProducts(establishment.id, file);
 	};
@@ -149,7 +165,7 @@ function ProfileEstablishment({
 			cache={cache}
 			onClickCard={handleAddressCardClick}
 			onClickDeleteAddress={onClickDeleteAddress}
-		/>
+			deleteUser={deleteUser} />
 	) : (
 		<h1>Carregando...</h1>
 	);
