@@ -1,22 +1,22 @@
-import { Modal } from "@/components/molecules/modal";
-import React, { useEffect, useState } from "react";
-import { Box } from "@/components/atoms/box";
-import { UnderlineLink } from "@/components/atoms/underline-link";
-import { FooterSignUpConsumer } from "./complements/FooterSignUpEstablishment";
-import { LocationSignUpEstablishment } from "./steps/LocationSignUp";
-import { SecuritySignUp } from "./steps/SecuritySignUp";
-import { ImportationSignUp } from "./steps/ImportationSignup";
-import { FinishedSignUpConsumer } from "../signup-consumer/steps";
-import { CompanySignUp } from "./steps/CompanySignUp";
-import { FindAddress } from "@/app/domain/usecases/FindAddress";
-import { SafeFoodCreateEstablishmentRequest } from "@/app/infra/gateway/safefood/models/SafeFoodEstablishment";
-import { useModalHome } from "@/app/contexts/ModalProvider";
+import { Modal } from '@/components/molecules/modal';
+import React, { useEffect, useState } from 'react';
+import { Box } from '@/components/atoms/box';
+import { UnderlineLink } from '@/components/atoms/underline-link';
+import { FooterSignUpConsumer } from './complements/FooterSignUpEstablishment';
+import { LocationSignUpEstablishment } from './steps/LocationSignUp';
+import { SecuritySignUp } from './steps/SecuritySignUp';
+import { ImportationSignUp } from './steps/ImportationSignup';
+import { FinishedSignUpConsumer } from '../signup-consumer/steps';
+import { CompanySignUp } from './steps/CompanySignUp';
+import { FindAddress } from '@/app/domain/usecases/FindAddress';
+import { SafeFoodCreateEstablishmentRequest } from '@/app/infra/gateway/safefood/models/SafeFoodEstablishment';
+import { useModalHome } from '@/app/contexts/ModalProvider';
 
 export type StepsEstablishmentTemplate =
-	| "company"
-	| "security"
-	| "location"
-	| "finished";
+	| 'company'
+	| 'security'
+	| 'location'
+	| 'finished';
 export const SignUpEstablishmentTemplate: React.FC<{
 	findAddress: FindAddress;
 	onClickCreate(data: SafeFoodCreateEstablishmentRequest): void;
@@ -24,12 +24,12 @@ export const SignUpEstablishmentTemplate: React.FC<{
 	isModalVisible: boolean;
 }> = ({ findAddress, onClickCreate, isModalVisible, toggleModal }) => {
 	const [visible, setVisible] = useState(false);
-	const [step, setStep] = useState<StepsEstablishmentTemplate>("company");
+	const [step, setStep] = useState<StepsEstablishmentTemplate>('company');
 	const { setModal, modal } = useModalHome();
 	const StepScreen = () => {
-		if (step === "company") return <CompanySignUp />;
-		if (step === "finished") return <FinishedSignUpConsumer />;
-		if (step === "location")
+		if (step === 'company') return <CompanySignUp />;
+		if (step === 'finished') return <FinishedSignUpConsumer />;
+		if (step === 'location')
 			return <LocationSignUpEstablishment useCase={findAddress} />;
 		return <SecuritySignUp />;
 	};
@@ -58,8 +58,8 @@ export const SignUpEstablishmentTemplate: React.FC<{
 					padding="20px"
 					height="90%"
 					margin="auto"
-					gap={"12px"}
-					maxWidth={"600px"}
+					gap={'12px'}
+					maxWidth={'600px'}
 					alignSelf="center"
 				>
 					<form
@@ -73,11 +73,11 @@ export const SignUpEstablishmentTemplate: React.FC<{
 						onClickCreate={onClickCreate}
 						changeStep={setStep}
 					/>
-					<Box width="100%">
-						<UnderlineLink onClick={() => setModal("consumer")}>
+					{/*<Box width="100%">
+						<UnderlineLink onClick={() => setModal("establishment")}>
 							Sou um consumidor
 						</UnderlineLink>
-					</Box>
+					</Box>*/}
 				</Box>
 			</Modal>
 		</>

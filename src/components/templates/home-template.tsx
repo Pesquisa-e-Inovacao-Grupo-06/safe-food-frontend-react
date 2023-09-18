@@ -63,7 +63,7 @@ export const HomeTemplate: React.FC<HomeTemplateParams> = ({
 							<br /> <span style={{ color: 'green' }}> confiar</span>
 						</TitleLanding>
 						<ButtonIcon
-							onClick={() => setModal('consumer')}
+							onClick={() => setModal('establishment')}
 							icon={<MdOutlineArrowForwardIos />}
 						>
 							Conheça já
@@ -144,7 +144,7 @@ export const HomeTemplate: React.FC<HomeTemplateParams> = ({
 								alcançar um novo público e visibilidade para o seu negócio.
 							</Text>
 							<ButtonIcon
-								onClick={() => setModal('consumer')}
+								onClick={() => setModal('establishment')}
 								icon
 							>
 								Cadastre-se

@@ -77,7 +77,7 @@ const Header: React.FC = () => {
 					text="Entrar"
 				/>
 				<SignUpButton
-					onclick={() => setModal('consumer')}
+					onclick={() => setModal('establishment')}
 					text="Cadastre-se"
 				/>
 			</ContainerBtn>

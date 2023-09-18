@@ -1,16 +1,16 @@
-import {useSafeFoodTheme} from "@/app/contexts/SafeFoodThemeProvider";
-import {Subtitle} from "@/styles/components/text/Subtitle";
-import React, {FormEvent, useEffect, useState} from "react";
-import {Text} from "../atoms/text";
-import {Modal} from "../molecules/modal";
-import {Button} from "../atoms/button";
-import {Box} from "../atoms/box";
-import {Alert, AlertType} from "../atoms/alert";
-import {TextField} from "../molecules/textfield";
-import {UnderlineLink} from "../atoms/underline-link";
-import {ButtonLoading} from "../molecules/button/button-loading";
-import {useModalHome} from "@/app/contexts/ModalProvider";
-export type SignInTemplateProps={
+import { useSafeFoodTheme } from '@/app/contexts/SafeFoodThemeProvider';
+import { Subtitle } from '@/styles/components/text/Subtitle';
+import React, { FormEvent, useEffect, useState } from 'react';
+import { Text } from '../atoms/text';
+import { Modal } from '../molecules/modal';
+import { Button } from '../atoms/button';
+import { Box } from '../atoms/box';
+import { Alert, AlertType } from '../atoms/alert';
+import { TextField } from '../molecules/textfield';
+import { UnderlineLink } from '../atoms/underline-link';
+import { ButtonLoading } from '../molecules/button/button-loading';
+import { useModalHome } from '@/app/contexts/ModalProvider';
+export type SignInTemplateProps = {
 	toggleModal(): void;
 	isModalVisible: boolean;
 	onChangeInputEmail(ev: FormEvent<HTMLInputElement>): void;
@@ -23,7 +23,7 @@ export type SignInTemplateProps={
 	textAlert?: string;
 	loading: boolean;
 };
-export const SignInTemplate: React.FC<SignInTemplateProps>=({
+export const SignInTemplate: React.FC<SignInTemplateProps> = ({
 	isModalVisible,
 	toggleModal,
 	email,
@@ -36,9 +36,9 @@ export const SignInTemplate: React.FC<SignInTemplateProps>=({
 	textAlert,
 	loading,
 }) => {
-	const {colors}=useSafeFoodTheme().getTheme();
-	const {setModal}=useModalHome();
-	const [visible, setVisible]=useState(false);
+	const { colors } = useSafeFoodTheme().getTheme();
+	const { setModal } = useModalHome();
+	const [visible, setVisible] = useState(false);
 	useEffect(() => {
 		setVisible(isModalVisible);
 	}, []);
@@ -66,8 +66,8 @@ export const SignInTemplate: React.FC<SignInTemplateProps>=({
 					padding="20px"
 					height="90%"
 					margin="auto"
-					gap={"12px"}
-					maxWidth={"400px"}
+					gap={'12px'}
+					maxWidth={'400px'}
 					alignSelf="center"
 				>
 					<img
@@ -86,16 +86,16 @@ export const SignInTemplate: React.FC<SignInTemplateProps>=({
 					>
 						Bem vindo de volta! Digite seu e-mail e senha abaixo para entrar.
 					</Text>
-					{isAlertVisible? (
-						<Alert type={typeAlert??"info"}>{textAlert}</Alert>
-					):null}
+					{isAlertVisible ? (
+						<Alert type={typeAlert ?? 'info'}>{textAlert}</Alert>
+					) : null}
 					<Box
 						margin="20px 0"
 						display="flex"
 						flexDirection="column"
 						gap="20px"
 						style={{
-							alignItems: "flex-end",
+							alignItems: 'flex-end',
 						}}
 					>
 						<TextField
@@ -128,14 +128,16 @@ export const SignInTemplate: React.FC<SignInTemplateProps>=({
 							onChange={onChangeInputPassword}
 						/>
 
-						<UnderlineLink href="change-password">Esqueceu a senha?</UnderlineLink>
+						<UnderlineLink href="change-password">
+							Esqueceu a senha?
+						</UnderlineLink>
 
-						{loading? (
+						{loading ? (
 							<ButtonLoading />
-						):(
+						) : (
 							<Button
 								style={{
-									width: "100%",
+									width: '100%',
 								}}
 								onClick={onClickLogin}
 							>
@@ -150,7 +152,7 @@ export const SignInTemplate: React.FC<SignInTemplateProps>=({
 							style={{
 								marginLeft: 8,
 							}}
-							onClick={() => setModal("consumer")}
+							onClick={() => setModal('establishment')}
 						>
 							Cadastre-se
 						</UnderlineLink>
