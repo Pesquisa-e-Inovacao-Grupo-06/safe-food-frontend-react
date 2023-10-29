@@ -19,6 +19,7 @@ import { SafeFoodResponse } from '@/app/infra/gateway/safefood/models/SafeFoodRe
 import { BiTrash } from 'react-icons/bi';
 import { Text } from '../atoms/text';
 import { Subtitle } from '@/styles/components/text/Subtitle';
+import { BACKEND_URL } from '@/main';
 
 export type ProfileEstablishmentTemplateProps = {
 	urlDefault: string | null | undefined;
@@ -196,7 +197,7 @@ export const ProfileEstablishmentTemplate: React.FC<
 									}}
 									onClick={() => {
 										window.location.href =
-											import.meta.env.VITE_BACKEND_URL + '/restricoes/download';
+											BACKEND_URL + '/restricoes/download';
 									}}
 								>
 									<span>Baixar restrições em Excel</span>
@@ -207,7 +208,7 @@ export const ProfileEstablishmentTemplate: React.FC<
 									buttonStyle="filled"
 									onClick={() => {
 										window.location.href =
-											import.meta.env.VITE_BACKEND_URL +
+										BACKEND_URL +
 											'/estabelecimentos/modeloExportacaoTxt/download';
 									}}
 									style={{

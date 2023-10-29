@@ -1,1 +1,9 @@
 node_modules
+.husky
+test
+jest.setup.ts
+jest.config.ts
+committlint.config.js
+.prettierrc.json
+.lintstagedrc.json
+dist

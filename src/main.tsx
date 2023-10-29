@@ -12,7 +12,7 @@ import {SafeFoodEstablishmentGateway} from "./app/infra/gateway/safefood/SafeFoo
 import {SafeFoodProductGateway} from "./app/infra/gateway/safefood/SafeFoodProductGateway";
 import {SafeFoodTypeProductGateway} from "./app/infra/gateway/safefood/SafeFoodTypeProductGateway";
 import {GetLatLongFromAddressGoogleGeocode} from "./app/infra/gateway/google/geocode/GetLatLongFromAddressGoogleGeocode";
-const BACKEND_URL=import.meta.env.VITE_BACKEND_URL;
+export const BACKEND_URL = "https://52.72.247.151/";
 
 const cache=new LocalStorageCache();
 const safeFoodClient=new AxiosHttpClient(BACKEND_URL);
