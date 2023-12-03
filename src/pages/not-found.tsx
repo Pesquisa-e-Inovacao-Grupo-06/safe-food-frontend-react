@@ -5,7 +5,6 @@ import { Title } from '@/styles/components/text/Title';
 import { Subtitle } from '../styles/components/text/Subtitle';
 import { Text } from '@/components/atoms/text';
 import styled from 'styled-components';
-import notFoundImage from '../assets/notfound.png';
 import { ImageAtom } from '@/components/atoms/img';
 import { useNavigate } from 'react-router-dom';
 
@@ -57,7 +56,7 @@ function NotFound() {
 					</Box>
 					<Box>
 						<ImageAtom
-							src={notFoundImage}
+							src={"https://safefood-nfs.hopto.org/assets/notfound.png"}
 							cursor={'false'}
 						/>
 					</Box>

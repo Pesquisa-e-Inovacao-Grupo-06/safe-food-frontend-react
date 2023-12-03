@@ -6,8 +6,6 @@ import { Divider } from "@/components/atoms/divider";
 import { Slider } from "@mui/material";
 import { Button } from "@/components/atoms/button";
 import { ImageAtom } from "../../atoms/img/index";
-import preferencesLight from "../../../assets/preferences-light.svg";
-import preferencesDark from "../../../assets/preferences-dark.svg";
 import { RadioButton } from "@/components/atoms/radio-button";
 import { useSafeFoodTheme } from "@/app/contexts/SafeFoodThemeProvider";
 import { Cache } from "@/app/domain/protocols/Cache";
@@ -137,7 +135,7 @@ export const Preferences: React.FC<PreferencesProps> = ({
 								onClick={() => toggleTheme()}
 							>
 								<ImageAtom
-									src={preferencesLight}
+									src={"https://safefood-nfs.hopto.org/assets/preferences-light.svg"}
 									cursor={"false"}
 								/>
 								<Text>Claro</Text>
@@ -154,7 +152,7 @@ export const Preferences: React.FC<PreferencesProps> = ({
 								style={{ cursor: "pointer" }}
 							>
 								<ImageAtom
-									src={preferencesDark}
+									src={"https://safefood-nfs.hopto.org/assets/preferences-dark.svg"}
 									cursor={"false"}
 									onClick={() => toggleTheme()}
 								/>

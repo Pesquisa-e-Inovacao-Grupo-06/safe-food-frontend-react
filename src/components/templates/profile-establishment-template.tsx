@@ -6,7 +6,6 @@ import { StyledButton } from '../atoms/button/styles';
 import { ButtonIcon } from '../molecules/button/button-icon';
 import { ProfilePhotoUploadWithPreview } from '../molecules/upload-profile-photo';
 import { Box } from '../atoms/box';
-import banner from '../../assets/food-favorite.png';
 import { Form } from '../molecules/form';
 import { InputPropsComponent } from '../atoms/input';
 import { Button } from '../atoms/button';
@@ -338,7 +337,7 @@ export const PBanner = styled(Box)`
 	display: flex;
 	height: 225px;
 	padding-top: 75px;
-	background: url(${banner});
+	background: url("https://safefood-nfs.hopto.org/assets/food-favorite.png");
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center;

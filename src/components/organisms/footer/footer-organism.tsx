@@ -3,8 +3,6 @@ import {
 	StyledCopyRightContainer,
 	StyledFooterContainer,
 } from "./footer-organism-styles";
-import Logo from "../../../assets/svg-logo.svg";
-import GoogleLogo from "../../../assets/google/selo-google.png";
 import { Text } from "../../atoms/text";
 import { FaFacebook, FaGoogle, FaInstagram, FaTwitter } from "react-icons/fa";
 import { TextIcon } from "@/components/molecules/text-icon/text-icon-molecule";
@@ -62,7 +60,7 @@ const FooterOrganism = () => {
 						height={"auto"}
 						maxWidth={186}
 						cursor={"true"}
-						src={GoogleLogo}
+						src={"https://safefood-nfs.hopto.org/assets/google/selo-google.png"}
 					/>
 				</FooterColumnMolecule>
 			</StyledFooterContainer>
@@ -71,7 +69,7 @@ const FooterOrganism = () => {
 					© Safe Food 2023 - Todos os Direitos Reservados.
 				</Text>
 				<ImageAtom
-					src={Logo}
+					src={"https://safefood-nfs.hopto.org/assets/svg-logo.svg"}
 					alt="Safe Food Logo"
 				/>
 			</StyledCopyRightContainer>

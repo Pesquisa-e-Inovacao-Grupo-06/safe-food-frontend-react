@@ -6,8 +6,6 @@ import {MdOutlineArrowForwardIos} from "react-icons/md";
 import {ContainerBannerStep3ForgetPassword} from "./styles";
 import {useNavigate} from "react-router-dom";
 
-import step3Image from "../../../../assets/step-3-forget.png";
-
 export const Step3ForgetPassword: React.FC=() => {
 	const navigate=useNavigate();
 	return (
@@ -27,7 +25,7 @@ export const Step3ForgetPassword: React.FC=() => {
 						</div>
 						<div className="main-step3-forget-password">
 							<div className="container-img-step3-forget-passwor">
-								<img src={step3Image} />
+								<img src={"https://safefood-nfs.hopto.org/assets/step-3-forget.png"} />
 							</div>
 							<div className="text-step3-forget-password">
 								<Text>Parabéns, você atualizou sua senha!!</Text>

@@ -11,9 +11,6 @@ import {useState} from "react";
 import {SafeFoodResponse} from "@/app/infra/gateway/safefood/models/SafeFoodResponse";
 import {Alert} from "@/components/atoms/alert";
 
-import step1Image from "../../../../assets/step-1-forget.png";
-
-
 export const Step1ForgetPassword: React.FC<{
 	enviarEmail(email: string): Promise<SafeFoodResponse>;
 }>=({
@@ -40,7 +37,7 @@ export const Step1ForgetPassword: React.FC<{
 							</div>
 							<div className="main-step1-forget-password">
 								<div className="container-img-step1-forget-passwor">
-									<img src={step1Image} />
+									<img src={"https://safefood-nfs.hopto.org/assets/step-1-forget.png"} />
 								</div>
 								<div className="text-step1-forget-password">
 									<Text>Esqueceu sua senha ?</Text>

@@ -1,16 +1,11 @@
 import Header from '@/components/molecules/header';
 import { BodyTemplate } from '@/components/templates/body-template';
 import styled from 'styled-components';
-import banner from '../assets/Rectangle.png';
 import { Subtitle } from '@/styles/components/text/Subtitle';
 import { Text } from '@/components/atoms/text';
-import fruits from '../assets/banner-img-fruit.png';
-import BoloFruits from '../assets/bolo-fruits.png';
-import BoloChocalte from '../assets/bolo-chocalate.png';
 import { FaUsers } from 'react-icons/fa';
 import { TbTargetArrow } from 'react-icons/tb';
 import { MdOutlineFactCheck } from 'react-icons/md';
-import BannerFinal from '../assets/Banner-meio.png';
 
 export const About: React.FC = () => {
 	return (
@@ -25,7 +20,7 @@ export const About: React.FC = () => {
 							possa apreciar a vida com segurança e sem medo!
 						</Text>
 						<div>
-							<img src={fruits} />
+							<img src={"https://safefood-nfs.hopto.org/assets/banner-img-fruit.png"} />
 						</div>
 					</div>
 				</div>
@@ -61,7 +56,7 @@ export const About: React.FC = () => {
 				</div>
 				<div className="container-bolo-chocolate-about">
 					<div className="container-img-bolo-chocolate-about">
-						<img src={BoloChocalte} />
+						<img src={"https://safefood-nfs.hopto.org/assets/bolo-chocalate.png"} />
 					</div>
 					<div className="container-quem-somos-about">
 						<div className="container-titulo-quem-somos-about">
@@ -99,7 +94,7 @@ export const About: React.FC = () => {
 						</Text>
 					</div>
 					<div className="container-img-bolo-chocolate-about">
-						<img src={BoloFruits} />
+						<img src={"https://safefood-nfs.hopto.org/assets/bolo-fruits.png"} />
 					</div>
 				</div>
 				<div className="container-banner-final-new-home">
@@ -129,7 +124,7 @@ const ContainerAbout = styled.div`
 	grid-template-rows: 0fr 0fr 0fr 0fr 0fr 0fr 0fr;
 
 	.container-banner-about {
-		background-image: url(${banner});
+		background-image: url("https://safefood-nfs.hopto.org/assets/Rectangle.png");
 		background-repeat: no-repeat;
 		background-size: contain;
 		height: min-content;
@@ -343,7 +338,7 @@ const ContainerAbout = styled.div`
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			background-image: url(${BannerFinal});
+			background-image: url("https://safefood-nfs.hopto.org/assets/Banner-meio.png");
 			background-position: center;
 			background-repeat: no-repeat;
 			background-size: cover;

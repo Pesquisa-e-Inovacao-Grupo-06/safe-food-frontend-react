@@ -1,22 +1,11 @@
 import Header from "@/components/molecules/header";
 import { BodyTemplate } from "@/components/templates/body-template";
 import styled from "styled-components";
-import banner from "../assets/new-Banner.png";
 import { Title } from "@/styles/components/text/Title";
 import { ButtonIcon } from "@/components/molecules/button/button-icon";
 import { MdOutlineArrowForwardIos } from "react-icons/md";
 import { Text } from "@/components/atoms/text";
 import { Subtitle } from "@/styles/components/text/Subtitle";
-import ZeroLactose from "../assets/Zero Lactose.png";
-import ZeroGruten from "../assets/Zero Grúten.png";
-import Vegano from "../assets/Vegano.png";
-import Vegetariano from "../assets/Vegetariano.png";
-import ZeroAcucar from "../assets/Zero açucar.png";
-import Pizza from "../assets/Mask group.png";
-import Tigela from "../assets/Mask group (1).png";
-import Bolo from "../assets/Mask group (2).png";
-import Doghnut from "../assets/Mask group (3).png";
-import Restaurante from "../assets/pexels-kaboompics-com-5697 1.png";
 import BannerFinal from "../assets/Banner-meio.png";
 
 export const NewHome: React.FC = () => {
@@ -40,23 +29,23 @@ export const NewHome: React.FC = () => {
 						<Subtitle>DESTAQUES</Subtitle>
 						<div className="conatiner-img-destaque-new-home">
 							<div className="card-img-destaque-new-home">
-								<img src={ZeroLactose} />
+								<img src={"https://safefood-nfs.hopto.org/assets/Zero Lactose.png"} />
 								<Text>Zero Lactose</Text>
 							</div>
 							<div className="card-img-destaque-new-home">
-								<img src={ZeroGruten} />
+								<img src={"https://safefood-nfs.hopto.org/assets/Zero Grúten.png"} />
 								<Text>Zero Glúten</Text>
 							</div>
 							<div className="card-img-destaque-new-home">
-								<img src={Vegano} />
+								<img src={"https://safefood-nfs.hopto.org/assets/Vegano.png"} />
 								<Text>Vegano</Text>
 							</div>
 							<div className="card-img-destaque-new-home">
-								<img src={Vegetariano} />
+								<img src={"https://safefood-nfs.hopto.org/assets/Vegetariano.png"} />
 								<Text>Vegetariano</Text>
 							</div>
 							<div className="card-img-destaque-new-home">
-								<img src={ZeroAcucar} />
+								<img src={"https://safefood-nfs.hopto.org/assets/Zero açucar.png"} />
 								<Text>Zero Açúcar</Text>
 							</div>
 						</div>
@@ -76,16 +65,16 @@ export const NewHome: React.FC = () => {
 						</div>
 						<div className="container-img-saiba-mais-new-home">
 							<div>
-								<img src={Pizza} />
+								<img src={"https://safefood-nfs.hopto.org/assets/Mask group.png"} />
 							</div>
 							<div>
-								<img src={Tigela} />
+								<img src={"https://safefood-nfs.hopto.org/assets/Mask group (1).png"} />
 							</div>
 							<div>
-								<img src={Bolo} />
+								<img src={"https://safefood-nfs.hopto.org/assets/Mask group (2).png"} />
 							</div>
 							<div>
-								<img src={Doghnut} />
+								<img src={"https://safefood-nfs.hopto.org/assets/Mask group (3).png"} />
 							</div>
 						</div>
 					</div>
@@ -93,7 +82,7 @@ export const NewHome: React.FC = () => {
 					<div className="container-cadastro-new-home">
 						<div className="container-img-new-home">
 							<div>
-								<img src={Restaurante} />
+								<img src={"https://safefood-nfs.hopto.org/assets/pexels-kaboompics-com-5697 1.png"} />
 							</div>
 						</div>
 						<div className="container-text-new-home">
@@ -128,7 +117,7 @@ const ContainerNewHome = styled.div`
 
 	//banner
 	.container-banner-new-home {
-		background-image: url(${banner});
+		background-image: url("https://safefood-nfs.hopto.org/assets/new-Banner.png");
 		background-position: left center;
 		background-repeat: no-repeat;
 		background-size: cover;
@@ -403,7 +392,7 @@ const ContainerNewHome = styled.div`
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			background-image: url(${BannerFinal});
+			background-image: url("https://safefood-nfs.hopto.org/assets/Banner-meio.png");
 			background-position: center;
 			background-repeat: no-repeat;
 			background-size: cover;

@@ -4,13 +4,12 @@ import { ButtonIcon } from "@/components/molecules/button/button-icon";
 import { ProfilePhotoUploadWithPreview } from "@/components/molecules/upload-profile-photo";
 import { Subtitle } from "@/styles/components/text/Subtitle";
 import styled from "styled-components";
-import banner from "../../../assets/food-favorite.png";
 
 export const PBanner = styled(Box)`
 	display: flex;
 	height: 225px;
 	padding-top: 75px;
-	background: url(${banner});
+	background: url("https://safefood-nfs.hopto.org/assets/food-favorite.png");
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center;

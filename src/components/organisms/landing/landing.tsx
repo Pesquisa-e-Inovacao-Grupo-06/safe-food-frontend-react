@@ -4,7 +4,6 @@ import {
 	StyledRow,
 	StyledColumn,
 } from "../card-establishment-food/card-establishment-food-organism";
-import bannerHome from "../../../assets/banner-home.svg";
 import { Box } from "@/components/atoms/box";
 import { ImageAtom } from "@/components/atoms/img";
 import styled from "styled-components";
@@ -60,7 +59,7 @@ export const Landing: React.FC<LandingProps> = ({
 					</StyledColumn>
 					<StyledColumn>
 						<ImageLanding
-							src={bannerHome}
+							src={"https://safefood-nfs.hopto.org/assets/banner-home.svg"}
 							cursor={"false"}
 							id="img-landing"
 						/>

@@ -13,8 +13,6 @@ import {useState} from "react";
 import {useInputsValidator} from "@/app/contexts/InputValidatorsProvider";
 import {TextField} from "@/components/molecules/textfield";
 import {Alert} from "@/components/atoms/alert";
-import step2Image from "../../../../assets/step-2-forget.png";
-
 
 type Step2ForgetPasswordProps={
 	atualizarSenha(senha: string): Promise<SafeFoodResponse>;
@@ -50,7 +48,7 @@ export const Step2ForgetPassword: React.FC<Step2ForgetPasswordProps>=({
 						</div>
 						<div className="main-step2-forget-password">
 							<div className="container-img-step2-forget-passwor">
-								<img src={step2Image} />
+								<img src={"https://safefood-nfs.hopto.org/assets/step-2-forget.png"} />
 							</div>
 							<div className="text-step2-forget-password">
 								<Text>Atualize sua senha</Text>

@@ -1,6 +1,5 @@
 import { ContainerFluid } from "../../atoms/container/index";
 import styled from "styled-components";
-import mobilePlatform from "../../../assets/mobile-platform.png";
 import { Button } from "../../atoms/button/index";
 import { Subtitle } from "@/styles/components/text/Subtitle";
 import { Text } from "../../atoms/text";
@@ -46,7 +45,7 @@ export const BannerMobilePlatform: React.FC<BannerMobilePlatformProps> = ({
 					<StyledBannerMobilePlatformImage>
 						<img
 							id="img"
-							src={mobilePlatform}
+							src={"https://safefood-nfs.hopto.org/assets/mobile-platform.png"}
 							style={{ maxHeight: "100%" }}
 						/>
 					</StyledBannerMobilePlatformImage>

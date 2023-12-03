@@ -9,9 +9,6 @@ import styled from 'styled-components';
 import { formatReal } from '@/app/util/convertions/price-br';
 import { Box } from '@/components/atoms/box';
 import { ImageAtom } from '@/components/atoms/img';
-import iconNoGluten from '../../../assets/icons8-no-gluten-50.png';
-import iconNoMeat from '../../../assets/icons8-no-meat-50.png';
-import iconNoSoy from '../../../assets/icons8-no-soy-30.png';
 import { Product } from '@/app/domain/entities/Product';
 import { useNavigate } from 'react-router-dom';
 
@@ -86,15 +83,15 @@ export const MoreFavoriteOrganism: React.FC<MoreFavoriteProps> = ({
 						}}
 					>
 						<ImageAtom
-							src={iconNoGluten}
+							src={"https://safefood-nfs.hopto.org/assets/icons8-no-gluten-50.png"}
 							cursor={'true'}
 						/>
 						<ImageAtom
-							src={iconNoMeat}
+							src={"https://safefood-nfs.hopto.org/assets/icons8-no-meat-50.png"}
 							cursor={'true'}
 						/>
 						<ImageAtom
-							src={iconNoSoy}
+							src={"https://safefood-nfs.hopto.org/assets/icons8-no-soy-30.png"}
 							cursor={'true'}
 						/>
 					</div>

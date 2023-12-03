@@ -1,6 +1,5 @@
 import React from "react";
 import { HeadingSignUpConsumer } from "../complements/HeadingSignUpConsumer";
-import FinishedSvg from "../../../../assets/form/finished.svg";
 import { Box } from "@/components/atoms/box";
 export const FinishedSignUpConsumer: React.FC = () => {
 	return (
@@ -15,7 +14,7 @@ export const FinishedSignUpConsumer: React.FC = () => {
 				width="100%"
 			>
 				<img
-					src={FinishedSvg}
+					src={"https://safefood-nfs.hopto.org/assets/form/finished.svg"}
 					alt="Imagem de um cadastro preenchido"
 				/>
 			</Box>

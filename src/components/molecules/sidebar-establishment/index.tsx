@@ -20,7 +20,6 @@ import { HiOutlineUser } from 'react-icons/hi';
 import { BsGear } from 'react-icons/bs';
 
 import { useLocation, useNavigate } from 'react-router-dom';
-import PingLogo from '../../../assets/Ping-Logo.png';
 
 import Toggle from '../../atoms/toggle-switch';
 import Header from '../header';
@@ -76,7 +75,7 @@ const SidebarEstab: React.FC<SidebarEstabProps> = ({ cache }) => {
 				</>
 				<SLogo sidebarOpen={sidebarOpen}>
 					<img
-						src={PingLogo}
+						src={"https://safefood-nfs.hopto.org/assets/Ping-Logo.png"}
 						alt="Safe Food"
 					/>
 					<SInfo sidebarOpen={sidebarOpen}>

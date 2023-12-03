@@ -74,7 +74,7 @@ export const SignInTemplate: React.FC<SignInTemplateProps> = ({
 						style={{
 							marginLeft: -12,
 						}}
-						src="/src/assets/svg-logo.svg"
+						src="https://safefood-nfs.hopto.org/assets/svg-logo.svg"
 						alt="Logo-Safe-Food"
 					/>
 					<Subtitle large>Entrar</Subtitle>

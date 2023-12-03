@@ -1,5 +1,4 @@
 import React from "react";
-import logopng from "../../../assets/Ping-Logo.png";
 import { Link } from "react-router-dom";
 import { ContainerLogo, CustomLogo } from "./styles";
 
@@ -20,7 +19,7 @@ export const LogoAtom: React.FC<Props> = ({
 				className="linkLogo"
 			>
 				<CustomLogo
-					src={logopng}
+					src={"https://safefood-nfs.hopto.org/assets/Ping-Logo.png"}
 					sizeLogo={sizeLogo}
 					alt="Safe Food"
 				/>
