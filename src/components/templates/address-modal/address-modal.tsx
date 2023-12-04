@@ -13,17 +13,17 @@ export type AddressModalProps = {
 	toggleModal(): void;
 	isModalVisible: boolean;
 	address: SafeFoodAddressModel;
-	cep: string;
-	numero: string;
-	apelido: string;
+	cep?: string;
+	numero?: string;
+	apelido?: string;
 	onChangeNumero: React.FormEventHandler<HTMLInputElement> &
-		((e: React.FormEvent<HTMLInputElement>) => void);
+	((e: React.FormEvent<HTMLInputElement>) => void);
 	onChangeApelido: React.FormEventHandler<HTMLInputElement> &
-		((e: React.FormEvent<HTMLInputElement>) => void);
-	onClickSaveNewAddress(address: SafeFoodCreateAddressRequest): void;
-	onClickUpdateAddress(address: SafeFoodAddressModel): void;
-	onChange: React.FormEventHandler<HTMLInputElement> &
-		((e: React.FormEvent<HTMLInputElement>) => void);
+	((e: React.FormEvent<HTMLInputElement>) => void);
+	onClickSaveNewAddress?(address: SafeFoodCreateAddressRequest): void;
+	onClickUpdateAddress?(address: SafeFoodAddressModel): void;
+	onChangeCep: React.FormEventHandler<HTMLInputElement> &
+	((e: React.FormEvent<HTMLInputElement>) => void);
 };
 
 export const AddressModal: React.FC<AddressModalProps> = ({
@@ -32,7 +32,7 @@ export const AddressModal: React.FC<AddressModalProps> = ({
 	onClickSaveNewAddress,
 	onClickUpdateAddress,
 	address,
-	onChange,
+	onChangeCep,
 	cep,
 	numero,
 	onChangeNumero,
@@ -74,13 +74,13 @@ export const AddressModal: React.FC<AddressModalProps> = ({
 						<TextField
 							id={'apelido'}
 							label={'Apelido:'}
-							value={apelido}
+							value={address.apelido}
 							onChange={onChangeApelido}
 							required={false}
 						/>
 						<TextField
-							value={cep}
-							onChange={onChange}
+							value={address.cep}
+							onChange={onChangeCep}
 							label="CEP: "
 							required={true}
 							min={8}
@@ -101,7 +101,7 @@ export const AddressModal: React.FC<AddressModalProps> = ({
 					>
 						<TextField
 							value={address.logradouro}
-							onChange={() => {}}
+							onChange={() => { }}
 							label="Logradouro: "
 							id="address-logradouro"
 							disabled
@@ -110,7 +110,7 @@ export const AddressModal: React.FC<AddressModalProps> = ({
 						/>
 						<TextField
 							value={address.estado}
-							onChange={() => {}}
+							onChange={() => { }}
 							label="Estado: "
 							id="address-cidade"
 							disabled
@@ -129,7 +129,7 @@ export const AddressModal: React.FC<AddressModalProps> = ({
 					>
 						<TextField
 							value={address.bairro}
-							onChange={() => {}}
+							onChange={() => { }}
 							label="Bairro: "
 							disabled
 							required={!!address.cep}
@@ -139,7 +139,7 @@ export const AddressModal: React.FC<AddressModalProps> = ({
 						/>
 						<TextField
 							value={address.cidade}
-							onChange={() => {}}
+							onChange={() => { }}
 							label="Estado: "
 							id="address-cidade"
 							disabled
@@ -157,7 +157,7 @@ export const AddressModal: React.FC<AddressModalProps> = ({
 						width="100%"
 					>
 						<TextField
-							value={numero}
+							value={address.numero}
 							onChange={onChangeNumero}
 							label="Número: "
 							required={!!address.cep} // TODO Depende
@@ -169,7 +169,7 @@ export const AddressModal: React.FC<AddressModalProps> = ({
 						/>
 						<TextField
 							value={address.complemento}
-							onChange={() => {}}
+							onChange={() => { }}
 							label="Complemento: "
 							required={false}
 							disabled={!address.cep} // depende
@@ -188,19 +188,18 @@ export const AddressModal: React.FC<AddressModalProps> = ({
 							width={'fit-content'}
 							onClick={() => {
 								if (address.id) {
-									onClickUpdateAddress({
-										...address,
-										numero,
-										apelido,
-										cep,
-									});
-								} else
-									onClickSaveNewAddress({
-										...address,
-										numero,
-										apelido,
-										cep,
-									});
+									if (onClickUpdateAddress) {
+										onClickUpdateAddress({
+											...address,
+										});
+									}
+								} else {
+									if (onClickSaveNewAddress) {
+										onClickSaveNewAddress({
+											...address,
+										});
+									}
+								}
 							}}
 						>
 							{address.id ? 'Atualizar' : 'Adicionar'}

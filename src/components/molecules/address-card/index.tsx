@@ -16,7 +16,7 @@ export type AddresCardProps = {
 	apelido: string;
 	idAddress: number;
 	onClickCard: () => void;
-	onClickDeleteAddress: (id: number) => void;
+	onClickDeleteAddress?: (id: number) => void;
 };
 
 const AddresCard: React.FC<AddresCardProps> = ({
@@ -33,7 +33,8 @@ const AddresCard: React.FC<AddresCardProps> = ({
 	};
 
 	const handleButtonClickDelete = () => {
-		onClickDeleteAddress(idAddress);
+		if (onClickDeleteAddress)
+			onClickDeleteAddress(idAddress);
 	};
 
 	return (
@@ -45,6 +46,7 @@ const AddresCard: React.FC<AddresCardProps> = ({
 						flexDirection="row"
 						justify="left"
 						gap="20px"
+						padding={headerText ? "4px" : '20px 0'}
 					>
 						<Subtitle className="address-card-subtitle">{headerText}</Subtitle>
 					</Box>
@@ -59,10 +61,13 @@ const AddresCard: React.FC<AddresCardProps> = ({
 							onClick={handleButtonClick}
 							cursor="pointer"
 						/>
-						<FaTrash
-							cursor="pointer"
-							onClick={handleButtonClickDelete}
-						/>
+						{onClickDeleteAddress &&
+							<FaTrash
+								cursor="pointer"
+								onClick={handleButtonClickDelete}
+							/>
+						}
+
 					</Box>
 				</div>
 				<Box className="address-car-container-text">

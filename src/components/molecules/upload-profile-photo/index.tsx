@@ -1,5 +1,4 @@
 import React, { HTMLAttributes, useState } from "react";
-import Camera from "../../../assets/form/camera.png";
 import { StyledLabelForImage } from "./styles";
 import { Box, BoxJustify } from "@/components/atoms/box";
 import { Text } from "@/components/atoms/text";
@@ -17,7 +16,8 @@ export type ProfilePhotoUploadWithPreviewProps = {
 export const ProfilePhotoUploadWithPreview: React.FC<
 	ProfilePhotoUploadWithPreviewProps
 > = ({ justify, isEditable = true, shape = "circle", ...props }) => {
-	const [preview, setPreview] = useState(props.urlDefault || Camera);
+	const urlCamera = "NFS/assets/form/camera.png";
+	const [preview, setPreview] = useState(props.urlDefault || urlCamera);
 	const [fileName, setFilename] = useState("Nenhum arquivo selecionado");
 	return (
 		<>
@@ -34,7 +34,7 @@ export const ProfilePhotoUploadWithPreview: React.FC<
 						className="transition"
 						htmlFor={props.id}
 						title="Clique sob para selecionar uma imagem"
-						preview={preview !== Camera}
+						preview={preview !== urlCamera}
 						{...props}
 						id={props.id + "-label"}
 						style={{ cursor: isEditable ? "pointer" : "not-allowed" }}
@@ -52,7 +52,7 @@ export const ProfilePhotoUploadWithPreview: React.FC<
 						className="transition"
 						htmlFor={props.id}
 						title="Clique sob para selecionar uma imagem"
-						preview={preview !== Camera}
+						preview={preview !== urlCamera}
 						{...props}
 						id={props.id + "-label"}
 						style={{ cursor: isEditable ? "pointer" : "not-allowed" }}
@@ -83,7 +83,7 @@ export const ProfilePhotoUploadWithPreview: React.FC<
 							if (props.fileChange) props.fileChange(file);
 						}
 					} else {
-						setPreview(Camera);
+						setPreview(urlCamera);
 					}
 				}}
 				style={{

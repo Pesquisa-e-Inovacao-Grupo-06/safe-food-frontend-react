@@ -12,6 +12,11 @@ export class AxiosHttpClient implements HttpClient<AxiosAllHeaders>{
                 ...headers,
                 "Content-Type": contentType,
             };
+        } else {
+            headers = {
+                ...headers,
+                "Content-Type": "application/json",
+            };
         }
         if (jwt) {
 
@@ -28,7 +33,6 @@ export class AxiosHttpClient implements HttpClient<AxiosAllHeaders>{
             headers: headers,
             data: body,
             url: url,
-            auth: basicAuth,
             params: paramsURL,
             validateStatus: () => true
         });

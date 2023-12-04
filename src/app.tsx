@@ -28,6 +28,8 @@ import MapsPage from './pages/maps';
 import ProductsEstablishment from './pages/product-establishment';
 import { About } from './pages/about';
 import { GetLatLongFromAddress } from './app/domain/usecases/GetLatLongFromAddress';
+import { PhoneValidator } from './app/util/validations/phone-validator';
+import { CnpjValidator } from './app/util/validations/cnpj-validator';
 
 type AppProps = {
 	cache: Cache;
@@ -115,6 +117,10 @@ export default function App({
 								element={
 									<AuthRoute userAuth="ESTABELECIMENTO">
 										<ProfileEstablishment
+											cepValidator={new CepValidator()}
+											cnpjValidator={new CnpjValidator()}
+											phoneValidator={new PhoneValidator()}
+											findAddressUsecase={findAddressUsecase}
 											cache={cache}
 											establishmentGateway={establishmentGateway}
 										/>
@@ -202,7 +208,7 @@ export default function App({
 										establishmentGateway={establishmentGateway}
 										productGateway={productGateway}
 									>
-										<ForgetPassWord userGateway={userGateway}/>
+										<ForgetPassWord userGateway={userGateway} />
 									</ModalHomeProvider>
 								}
 							/>

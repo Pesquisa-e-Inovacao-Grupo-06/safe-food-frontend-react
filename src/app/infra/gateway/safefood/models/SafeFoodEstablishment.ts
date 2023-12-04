@@ -50,14 +50,14 @@ export type SafeFoodEstablishmentModel =
 export type SafeFoodEstablishmentResponse = SafeFoodGenericDataResponse<SafeFoodEstablishmentModel>
 
 export type SafeFoodUpdateEstablishmentRequest = {
-  nome: string,
-  email: string,
-  nomeEmpresa: string,
-  cnpj: string,
-  descricao: string,
-  celular: string,
-  contatoCliente: string,
-}
+  nome?: string,
+  email?: string,
+  nomeEmpresa?: string,
+  cnpj?: string,
+  descricao?: string,
+  celular?: string,
+  contatoCliente?: string,
+} & SafeFoodSaveProfileImage
 
 export type SafeFoodGetProductEstablishmentRequest = {
 

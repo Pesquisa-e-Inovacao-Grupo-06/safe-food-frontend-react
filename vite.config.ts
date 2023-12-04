@@ -5,18 +5,18 @@ import react from '@vitejs/plugin-react-swc';
 // https://vitejs.dev/config/
 export default defineConfig({
 	plugins: [react()],
-	base: './',
+	// base: './',
 	resolve: {
 		alias: {
 			'@': path.resolve(__dirname, './src'),
 		},
 	},
-	server: {
-		host: true,
-		strictPort: true,
-		port: 5173, // This is the port which we will use in docker
-		hmr: {
-			clientPort: 80,
-		},
-	},
+	// server: {
+	// 	host: true,
+	// 	watch: {
+	// 		usePolling: true
+	// 	},
+	// 	// strictPort: true,
+	// 	port: 5173, // This is the port which we will use in docker
+	// },
 });

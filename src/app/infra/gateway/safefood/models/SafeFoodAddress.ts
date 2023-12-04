@@ -14,6 +14,6 @@ export type SafeFoodCreateAddressRequest = {
 export type SafeFoodAddressResponse = SafeFoodGenericDataResponse<SafeFoodAddressModel>
 
 export type SafeFoodAddressModel = {
-    id: number,
-    formatado: string,
+    id?: number,
+    formatado?: string,
 } & SafeFoodCreateAddressRequest;

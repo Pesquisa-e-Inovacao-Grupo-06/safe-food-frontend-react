@@ -202,7 +202,7 @@ function ProfileConsumer({
 		try {
 			const response = await consumerGateway.updateAddress(
 				user.usuario.id,
-				address.id,
+				address.id!,
 				address
 			);
 			const validStatus = [200, 201];
@@ -394,18 +394,18 @@ function ProfileConsumer({
 					findAddress(modalCep);
 				}
 			}}
-			cep={modalCep}
-			numero={modalNumero}
 			onChangeNumero={e => {
 				setModalNumero(e.currentTarget.value);
 			}}
-			apelido={modalApelido}
 			onChangeApelido={e => {
 				setModalApelido(e.currentTarget.value);
 			}}
 			toggleModal={() => {
 				setIsModalVisible(!isModalVisible);
 			}}
+			cep={modalCep}
+			numero={modalNumero}
+			apelido={modalApelido}
 			isModalVisible={isModalVisible}
 			onClickOpenModalAddress={() => setIsModalVisible(true)}
 			fileChange={file => {

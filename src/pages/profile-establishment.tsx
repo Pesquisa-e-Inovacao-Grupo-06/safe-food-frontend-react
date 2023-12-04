@@ -1,20 +1,34 @@
 import { ProfileEstablishmentTemplate } from '@/components/templates/profile-establishment-template';
 import { Cache } from '@/app/domain/protocols/Cache';
-import { SafeFoodEstablishmentModel } from '@/app/infra/gateway/safefood/models/SafeFoodEstablishment';
-import { useState } from 'react';
+import { SafeFoodEstablishmentModel, SafeFoodUpdateEstablishmentRequest } from '@/app/infra/gateway/safefood/models/SafeFoodEstablishment';
+import { useEffect, useState } from 'react';
 import { SafeFoodEstablishmentGateway } from '../app/infra/gateway/safefood/SafeFoodEstablishmentGateway';
 import { AlertType } from '@/components/atoms/alert';
 import { SafeFoodResponse } from '@/app/infra/gateway/safefood/models/SafeFoodResponse';
 import { useNavigate } from 'react-router';
+import { SafeFoodAddressModel } from '@/app/infra/gateway/safefood/models/SafeFoodAddress';
+import { SafeFoodLoginResponse } from '@/app/infra/gateway/safefood/models/SafeFoodUser';
+import { FindAddress } from '@/app/domain/usecases/FindAddress';
+import { CepValidator } from '@/app/util/validations/cep-validator';
+import { PhoneValidator } from '@/app/util/validations/phone-validator';
+import { CnpjValidator } from '@/app/util/validations/cnpj-validator';
 
 type ProfileEstablishment = {
 	cache: Cache;
 	establishmentGateway: SafeFoodEstablishmentGateway;
+	findAddressUsecase: FindAddress,
+	cepValidator: CepValidator;
+	phoneValidator: PhoneValidator;
+	cnpjValidator: CnpjValidator
 };
 
 function ProfileEstablishment({
 	cache,
 	establishmentGateway,
+	findAddressUsecase,
+	cepValidator,
+	phoneValidator,
+	cnpjValidator
 }: ProfileEstablishment) {
 	const navigate = useNavigate();
 
@@ -23,8 +37,13 @@ function ProfileEstablishment({
 			? JSON.parse(cache.getItem('establishment')!)
 			: {};
 
+	const [establishmentState, setEstablishmentState] = useState<SafeFoodEstablishmentModel>(establishment)
+
+	const user: SafeFoodLoginResponse =
+		cache.getItem("user") !== null ? JSON.parse(cache.getItem("user")!) : {};
+
 	//CAMPOS
-	const [imageProfile, setImageProfile] = useState(establishment.imagem);
+	const [imageProfile, setImageProfile] = useState<File>();
 	const [name, setName] = useState(establishment.nome);
 	const [email, setEmail] = useState(establishment.email);
 	const [numberphone, setNumberPhone] = useState(establishment.celular);
@@ -43,19 +62,36 @@ function ProfileEstablishment({
 	const [typeAlert, setTypeAlert] = useState<AlertType>();
 	const [textAlert, setTextAlert] = useState<string>();
 	const [isEditable, setIsEditable] = useState<boolean>(false);
+	const [modalAddress, setModalAddress] = useState<boolean>(false);
 
-	const onClickUpdateInfo = async () => {
+
+	const [modalCep, setModalCep] = useState<string>("");
+	const [modalNumero, setModalNumero] = useState<string>("");
+	const [modalApelido, setModalApelido] = useState<string>("");
+
+	const onClickUpdateInfo = async ({
+		celular,
+		cnpj, contatoCliente, descricao,
+		email, nome, nomeEmpresa }: SafeFoodUpdateEstablishmentRequest) => {
 		setIsLoading(true);
 		try {
-			const res = await establishmentGateway.update(establishment.id, {
-				nome: name,
-				email: email,
-				nomeEmpresa: nameEstablishment,
-				descricao: description,
-				celular: cellphone!,
-				contatoCliente: contact,
-				cnpj: cnpj,
-			});
+			const request: SafeFoodUpdateEstablishmentRequest = {
+				nome,
+				email,
+				nomeEmpresa,
+				descricao,
+				celular,
+				contatoCliente,
+				cnpj,
+			}
+			if (typeof imageProfile == "object") {
+				request.file = imageProfile;
+			}
+
+			if (!request.celular) delete request.celular
+			if (!request.contatoCliente) delete request.contatoCliente;
+
+			const res = await establishmentGateway.update(establishment.id, request);
 
 			if (res?.status !== 200) {
 				setIsVisibleAlert(true);
@@ -63,6 +99,8 @@ function ProfileEstablishment({
 				setTextAlert('Alguns dados podem estar com formato incorreto!');
 				return;
 			}
+
+			console.log(res);
 
 			setIsLoading(false);
 			setTypeAlert('success');
@@ -93,70 +131,228 @@ function ProfileEstablishment({
 		navigate('/change-password');
 	};
 
-	const onClickDeleteAddress = async (idAddress: number) => {};
+	const handleAddressCardClick = (address: SafeFoodAddressModel) => {
+		setModalAddress(true);
+	};
 
-	const handleAddressCardClick = (apelidoEnderecoSelecionado: string) => {};
 	const importArchiveTxt = async (file: File): Promise<SafeFoodResponse> => {
 		return establishmentGateway.importProducts(establishment.id, file);
 	};
+	const updateAddress = async (address: SafeFoodAddressModel) => {
+		if (!address) {
+			return;
+		}
+		try {
+			const response = await establishmentGateway.updateAddress(
+				user.usuario.id,
+				address
+			);
+			const validStatus = [200, 201];
+			if (!validStatus.includes(response.status)) {
+				setTypeAlert("warning");
+				setTextAlert("Erro ao cadastrar o endereço");
+			} else {
+				// const indexAddress = consumerState.enderecos.findIndex(
+				// 	item => item.id === response.data.id
+				// );
+				// consumerState.enderecos[indexAddress] = response.data;
+				// updateConsumer(consumerState);
+				setTypeAlert("success");
+				setTextAlert("Endereço atualizado com sucesso");
+
+				console.log(response);
+			}
+		} catch (e) {
+			setTypeAlert("warning");
+			setTextAlert("Erro ao atualizar o endereço");
+		} finally {
+			setIsVisibleAlert(true);
+			setModalAddress(false);
+		}
+	}
+
+	const findAddress = (cep: string) => {
+		findAddressUsecase
+			.execute(cep)
+			.then(({ params }) => {
+				const {
+					complemento,
+					logradouro,
+					estado,
+					bairro,
+					cidade,
+				} = params;
+
+				setEstablishmentState({
+					...establishmentState,
+					endereco: {
+						id: establishmentState.endereco?.id,
+						cep: modalCep || "",
+						complemento: complemento || "",
+						logradouro: logradouro || "",
+						estado: estado || "",
+						bairro: bairro || "",
+						cidade: cidade || "",
+						numero: modalNumero || "",
+						apelido: modalApelido || "",
+					}
+				})
+			})
+			.catch(err => {
+				// clearAddress(cep);
+				// setError("CEP invalido");
+			});
+	};
+
+	useEffect(() => {
+		if (modalCep.length > 8) {
+			findAddress(modalCep);
+		}
+	}, [modalCep, modalApelido, modalNumero]);
+
 	return establishment ? (
 		<ProfileEstablishmentTemplate
+			fileChange={file => {
+				setImageProfile(file);
+			}}
+			updateAddress={updateAddress}
+			apelido={modalApelido}
+			cep={modalCep}
+			numero={modalNumero}
 			importArchiveTxt={importArchiveTxt}
+			isModalVisible={modalAddress}
+			onChange={async (ev) => {
+				const str = ev.currentTarget.value;
+				const value = cepValidator.format(str);
+				// setModalAddress(value);
+				setModalCep(value);
+				if (value.length > 8) {
+					findAddress(modalCep);
+				}
+
+				setEstablishmentState({
+					...establishmentState,
+					endereco: {
+						...establishmentState.endereco!,
+						cep: value
+					}
+				})
+			}}
+			onChangeNumero={e => {
+				const value = e.currentTarget.value
+				setModalNumero(value);
+				const newAddress = {
+					...establishmentState.endereco!,
+					numero: value
+				}
+				setEstablishmentState({
+					...establishmentState,
+					endereco: newAddress
+				})
+			}}
+			onChangeApelido={e => {
+				setModalApelido(e.currentTarget.value);
+				setEstablishmentState({
+					...establishmentState,
+					endereco: {
+						...establishmentState.endereco!,
+						apelido: e.currentTarget.value
+					}
+				})
+			}}
+			toggleModal={() => {
+				setModalAddress(!modalAddress);
+			}}
+			establishment={establishmentState}
 			listOfComponentAdministration={[
 				{
 					name: 'Nome: ',
 					value: name,
-					setUseState: setName,
-
+					setUseState: (state) => {
+						setEstablishmentState({
+							...establishmentState,
+							nome: state
+						})
+						setName(state)
+					},
 					disabled: !isEditable,
 				},
 				{
 					name: 'Email: ',
 					value: email,
-					setUseState: setEmail,
+					setUseState: (state) => {
+						setEstablishmentState({
+							...establishmentState,
+							email: state
+						})
+						setEmail(state)
+					},
 					disabled: !isEditable,
-				},
-				{
-					name: 'Número telefone: ',
-					value: numberphone ?? '',
-					setUseState: setNumberPhone,
-					disabled: !isEditable,
-				},
+				}
 			]}
 			listOfComponentEstablishment={[
 				{
 					name: 'Nome da empresa: ',
 					value: nameEstablishment,
-					setUseState: setNameEstablishment,
+					setUseState: (state) => {
+						setEstablishmentState({
+							...establishmentState,
+							nomeEmpresa: state
+						})
+						setNameEstablishment(state)
+					},
 					disabled: !isEditable,
 				},
 				{
 					name: 'Cnpj: ',
-					value: cnpj,
-					setUseState: setCNPJ,
+					value: cnpjValidator.format(cnpj),
+					setUseState: (state) => {
+						setEstablishmentState({
+							...establishmentState,
+							cnpj: state
+						})
+						setCNPJ(state)
+					},
 					disabled: !isEditable,
 				},
 				{
 					name: 'Celular (responsável): ',
-					value: cellphone || '',
-					setUseState: setCellphone,
+					value: phoneValidator.format(cellphone || ''),
+					setUseState: (state) => {
+						setEstablishmentState({
+							...establishmentState,
+							celular: state
+						})
+						setCellphone(state)
+					},
 					disabled: !isEditable,
 				},
 				{
-					name: 'Contato (Whatsaap para clientes): ',
-					value: contact,
-					setUseState: setContact,
+					name: 'Contato (WhatsApp para clientes): ',
+					value: phoneValidator.format(contact || ""),
+					setUseState: (state) => {
+						setEstablishmentState({
+							...establishmentState,
+							contatoCliente: state
+						})
+						setContact(state)
+					},
 					disabled: !isEditable,
 				},
 				{
 					name: 'Descrição: ',
 					value: description,
-					setUseState: setDescription,
+					setUseState: (state) => {
+						setEstablishmentState({
+							...establishmentState,
+							descricao: state
+						})
+						setDescription(state)
+					},
 					disabled: !isEditable,
 				},
 			]}
-			address={establishment.endereco!}
-			urlDefault={imageProfile}
+			urlDefault={establishment.imagem}
 			onClickSave={onClickUpdateInfo}
 			isSaveButtonActive={isActiveButton}
 			isLoading={isLoading}
@@ -165,8 +361,9 @@ function ProfileEstablishment({
 			typeAlert={typeAlert}
 			onClickChangePassword={onClickChangePassword}
 			cache={cache}
-			onClickCard={handleAddressCardClick}
-			onClickDeleteAddress={onClickDeleteAddress}
+			onClickCard={(address) => {
+				handleAddressCardClick(address)
+			}}
 			deleteUser={deleteUser}
 			isEditable={isEditable}
 			onClickEditable={() => setIsEditable(true)}

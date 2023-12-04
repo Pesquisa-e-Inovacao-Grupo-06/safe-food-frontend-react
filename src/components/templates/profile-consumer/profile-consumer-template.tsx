@@ -60,13 +60,13 @@ export type ProfileProps = {
 	address: SafeFoodAddressModel;
 	onChange: React.FormEventHandler<HTMLInputElement> &
 	((e: React.FormEvent<HTMLInputElement>) => void);
-	cep: string;
-	numero: string;
 	onChangeNumero: React.FormEventHandler<HTMLInputElement> &
 	((e: React.FormEvent<HTMLInputElement>) => void);
-	apelido: string;
 	onChangeApelido: React.FormEventHandler<HTMLInputElement> &
 	((e: React.FormEvent<HTMLInputElement>) => void);
+	cep: string;
+	numero: string;
+	apelido: string;
 	isModalVisible: boolean;
 	toggleModal(): void;
 	onClickChangePassword(): void;
@@ -102,11 +102,11 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 	address,
 	onClickRestriction,
 	onChange,
+	onChangeNumero,
+	onChangeApelido,
 	cep,
 	numero,
-	onChangeNumero,
 	apelido,
-	onChangeApelido,
 	toggleModal,
 	isModalVisible,
 	onClickOpenModalAddress,
@@ -130,12 +130,12 @@ export const ProfileTemplate: React.FC<ProfileProps> = ({
 				isModalVisible={isModalVisible}
 				onClickSaveNewAddress={onClickSaveNewAddress}
 				address={address}
-				onChange={onChange}
+				onChangeCep={onChange}
+				onChangeNumero={onChangeNumero}
+				onChangeApelido={onChangeApelido}
 				cep={cep}
 				numero={numero}
-				onChangeNumero={onChangeNumero}
 				apelido={apelido}
-				onChangeApelido={onChangeApelido}
 			/>
 			<PBanner>
 				<PBtnEditar

@@ -20,7 +20,7 @@ export const Modal: React.FC<ModalProps> = ({
 		<>
 			<ForegroundModal
 				animate={{
-					left: isOpen ? 0 : "-100%",
+					left: isOpen ? 0 : "-110%",
 					opacity: isOpen ? 1 : 0,
 					zIndex: isOpen ? theme.z_index.modal_backdrop : theme.z_index.under,
 				}}
@@ -28,7 +28,7 @@ export const Modal: React.FC<ModalProps> = ({
 			></ForegroundModal>
 			<StyledModal
 				animate={{
-					left: isOpen ? "50%" : "-100%",
+					left: isOpen ? "50%" : "-110%",
 					opacity: isOpen ? 1 : 0,
 					zIndex: isOpen ? theme.z_index.modal : theme.z_index.under,
 				}}

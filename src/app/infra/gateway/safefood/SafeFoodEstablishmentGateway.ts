@@ -1,11 +1,12 @@
 import { HttpClient } from "@/app/domain/protocols/HttpClient";
 import { SafeFoodCreateEstablishmentRequest, SafeFoodEstablishmentResponse, SafeFoodUpdateEstablishmentRequest } from "./models/SafeFoodEstablishment";
 import { Cache } from "@/app/domain/protocols/Cache";
-import {SafeFoodGenericDataResponse, SafeFoodResponse} from "./models/SafeFoodResponse";
+import { SafeFoodGenericDataResponse, SafeFoodResponse } from "./models/SafeFoodResponse";
+import { SafeFoodAddressResponse, SafeFoodCreateAddressRequest } from "./models/SafeFoodAddress";
 
 export class SafeFoodEstablishmentGateway {
-	
-	
+
+
     private token: string = '';
     constructor(private readonly http: HttpClient, private readonly cache: Cache) {
         this.token = cache.getItem('token') || '';
@@ -29,12 +30,28 @@ export class SafeFoodEstablishmentGateway {
             url: `/estabelecimentos/${id}`,
             method: "PUT",
             jwt: this.token,
-
             body: data,
         })
         if (!res.data) {
             throw new Error("Erro ao realizar atualização de estabelecimento")
         }
+
+        if (data.file && res.data.data.id) {
+            let requestImage = new FormData();
+            requestImage.append("image", data.file);
+            const responseImage = await this.http.execute<SafeFoodGenericDataResponse<string>>({
+                url: `/estabelecimentos/${id}/foto-perfil`,
+                method: 'POST',
+                contentType: "multipart/form-data",
+                body: requestImage
+            })
+            if (responseImage.data) {
+                res.data.data.imagem = responseImage.data.data;
+            } else {
+                throw new Error("Erro ao realizar requisicao de adicionar foto do estabelecimento")
+            }
+        }
+
         return res.data;
     }
 
@@ -64,7 +81,7 @@ export class SafeFoodEstablishmentGateway {
         if (!res.data) {
             throw new Error("Erro ao tentar adicionar estabelecimento");
         }
-        if(data.file && res.data.data.id){
+        if (data.file && res.data.data.id) {
             let requestImage = new FormData();
             requestImage.append("image", data.file);
             const responseImage = await this.http.execute<SafeFoodGenericDataResponse<string>>({
@@ -73,9 +90,9 @@ export class SafeFoodEstablishmentGateway {
                 contentType: "multipart/form-data",
                 body: requestImage
             })
-            if(responseImage.data){
+            if (responseImage.data) {
                 res.data.data.imagem = responseImage.data.data;
-            }else{
+            } else {
                 throw new Error("Erro ao realizar requisicao de adicionar foto do consumidor")
             }
         }
@@ -114,10 +131,23 @@ export class SafeFoodEstablishmentGateway {
             contentType: "multipart/form-data",
             body: requestImage
         });
-        if(!response.data){
+        if (!response.data) {
             throw new Error("Impossivel realizar requisicao de importacao")
         }
         return response.data;
     }
+
+    async updateAddress(id: number, address: SafeFoodCreateAddressRequest): Promise<SafeFoodAddressResponse> {
+        const res = await this.http.execute<SafeFoodAddressResponse>({
+            url: `/estabelecimentos/${id}/endereco`,
+            method: 'PUT',
+            body: address
+        })
+        if (!res.data) {
+            throw new Error("Erro ao realizar requisicao de atualizar endereco do estabelecimento")
+        }
+        return res.data;
+    }
+
 
 }
