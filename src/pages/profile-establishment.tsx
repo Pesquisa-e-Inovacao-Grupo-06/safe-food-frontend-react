@@ -45,6 +45,12 @@ function ProfileEstablishment({
 	//CAMPOS
 	const [imageProfile, setImageProfile] = useState<File>();
 	const [name, setName] = useState(establishment.nome);
+	const [tempoEsperaMedio, setTempoEsperaMedio] = useState(establishment.tempoEsperaMedio || '');
+	const [horarioFuncionamento, setHorarioFuncionamento] = useState(establishment.horarioFuncionamentoSemana);
+	const [horarioFuncionamentoFds, setHorarioFuncionamentoFds] = useState(establishment.horarioFuncionamentoFimDeSemana);
+	const [isDelivery, setIsDelivery] = useState(establishment.isDelivery || false);
+	const [isFreeShipping, setIsFreeShipping] = useState(establishment.isFreteGratis || false);
+	const [isPickInPlace, setIsPickInPlace] = useState(establishment.isRetireNoLocal || false);
 	const [email, setEmail] = useState(establishment.email);
 	const [numberphone, setNumberPhone] = useState(establishment.celular);
 	const [nameEstablishment, setNameEstablishment] = useState(
@@ -72,7 +78,7 @@ function ProfileEstablishment({
 	const onClickUpdateInfo = async ({
 		celular,
 		cnpj, contatoCliente, descricao,
-		email, nome, nomeEmpresa }: SafeFoodUpdateEstablishmentRequest) => {
+		email, nome, nomeEmpresa, horarioFuncionamentoFimDeSemana, horarioFuncionamentoSemana, delivery, freteGratis, retireNoLocal, tempoEsperaMedio }: SafeFoodUpdateEstablishmentRequest) => {
 		setIsLoading(true);
 		try {
 			const request: SafeFoodUpdateEstablishmentRequest = {
@@ -83,7 +89,14 @@ function ProfileEstablishment({
 				celular,
 				contatoCliente,
 				cnpj,
+				horarioFuncionamentoFimDeSemana,
+				horarioFuncionamentoSemana,
+				delivery: delivery || false,
+				freteGratis: freteGratis || false,
+				retireNoLocal: retireNoLocal || false,
+				tempoEsperaMedio
 			}
+
 			if (typeof imageProfile == "object") {
 				request.file = imageProfile;
 			}
@@ -344,6 +357,78 @@ function ProfileEstablishment({
 							descricao: state
 						})
 						setDescription(state)
+					},
+					disabled: !isEditable,
+				},
+				{
+					name: 'Tempo de espera (médio): ',
+					value: tempoEsperaMedio,
+					setUseState: (state) => {
+						setEstablishmentState({
+							...establishmentState,
+							tempoEsperaMedio: state
+						})
+						setTempoEsperaMedio(state)
+					},
+					disabled: !isEditable,
+				},
+				{
+					name: 'Horário de funcionamento (semana): ',
+					value: horarioFuncionamento || '',
+					setUseState: (state) => {
+						setEstablishmentState({
+							...establishmentState,
+							horarioFuncionamentoSemana: state
+						})
+						setHorarioFuncionamento(state)
+					},
+					disabled: !isEditable,
+				},
+				{
+					name: 'Horário de funcionamento (fim de semana): ',
+					value: horarioFuncionamentoFds || '',
+					setUseState: (state) => {
+						setEstablishmentState({
+							...establishmentState,
+							horarioFuncionamentoFimDeSemana: state
+						})
+						setHorarioFuncionamentoFds(state)
+					},
+					disabled: !isEditable,
+				},
+				{
+					name: 'Frete Gratis: ',
+					value: isFreeShipping || false,
+					setUseState: (state) => {
+						setEstablishmentState({
+							...establishmentState,
+							isFreteGratis: !isFreeShipping
+						})
+						setIsFreeShipping(!isFreeShipping)
+					},
+					disabled: !isEditable,
+				},
+				{
+					name: 'Faz entrega (delivery): ',
+					value: isDelivery || false,
+					setUseState: (state) => {
+						setEstablishmentState({
+							...establishmentState,
+							isDelivery: !isDelivery
+						})
+						setIsDelivery(!isDelivery)
+					},
+					disabled: !isEditable,
+				},
+				{
+					name: 'Pode retirar no local: ',
+					value: isPickInPlace || false,
+					setUseState: (state) => {
+						setEstablishmentState({
+							...establishmentState,
+							isRetireNoLocal: !isPickInPlace
+						})
+						setIsPickInPlace(!isPickInPlace)
 					},
 					disabled: !isEditable,
 				},

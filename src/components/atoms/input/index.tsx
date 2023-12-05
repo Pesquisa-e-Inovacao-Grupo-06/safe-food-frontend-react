@@ -1,5 +1,7 @@
 import React, { Dispatch, FormEvent } from "react";
 import { StyledInput } from "./styles";
+import { RadioButton } from "../radio-button";
+import Checkbox from "../checkbox";
 
 export type InputPropsComponent = {
 	type?: "string" | "password" | "date" | "tel" | "email";
@@ -7,7 +9,7 @@ export type InputPropsComponent = {
 	required?: boolean;
 	max?: number;
 	name?: string;
-	value: string;
+	value: string | boolean;
 	error?: string;
 	setUseState?: (state: any) => void;
 	disabled?: boolean;
@@ -32,22 +34,35 @@ export const Input: React.FC<InputProps> = ({
 }) => {
 	return (
 		<>
-			<StyledInput
-				error={error.length > 0}
-				type={type}
-				value={value}
-				maxLength={max}
-				minLength={min}
-				onChange={e => {
-					if (setUseState) {
-						onChange(e, setUseState);
-					}
-				}}
-				onFocus={e => {
-					e.target.value = "";
-				}}
-				{...props}
-			/>
+			{typeof value == 'string' ?
+				<StyledInput
+					error={error.length > 0}
+					type={type}
+					value={value}
+					maxLength={max}
+					minLength={min}
+					onChange={e => {
+						if (setUseState) {
+							onChange(e, setUseState);
+						}
+					}}
+					onFocus={e => {
+						e.target.value = "";
+					}}
+					{...props}
+				/> : <>
+					<input
+						{...props}
+						type="radio"
+						checked={value}
+						onClick={
+							e => {
+								onChange(e, setUseState!!);
+							}
+						} onChange={() => { }}
+					/>
+				</>}
+
 		</>
 	);
 };

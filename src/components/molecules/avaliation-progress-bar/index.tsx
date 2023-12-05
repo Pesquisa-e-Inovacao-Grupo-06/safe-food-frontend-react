@@ -19,7 +19,6 @@ niveisSatisfacao.set(4, { text: 'Satisfeito', class: 'light-green' });
 niveisSatisfacao.set(5, { text: 'Muito satisfeito', class: 'green' });
 
 function obterNivelSatisfacao(numero: number): { text: string; class: string } {
-	debugger;
 	if (numero <= 1) {
 		return niveisSatisfacao.get(1)!;
 	} else if (numero <= 2) {

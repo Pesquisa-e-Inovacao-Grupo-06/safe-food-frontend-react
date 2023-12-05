@@ -347,7 +347,9 @@ export const ProfileEstablishmentTemplate: React.FC<
 											buttonStyle="filled"
 											disabled={isSaveButtonActive}
 											onClick={() => {
-												const { cnpj, contatoCliente, descricao, email, nome, nomeEmpresa, celular } = establishment;
+												const { cnpj, contatoCliente, descricao, email, nome, nomeEmpresa, celular,
+													horarioFuncionamentoFimDeSemana, horarioFuncionamentoSemana, tempoEsperaMedio,
+													isRetireNoLocal, isFreteGratis, isDelivery } = establishment;
 
 												onClickSave({
 													celular: celular || '',
@@ -356,7 +358,13 @@ export const ProfileEstablishmentTemplate: React.FC<
 													contatoCliente,
 													descricao,
 													nome,
-													nomeEmpresa
+													nomeEmpresa,
+													horarioFuncionamentoFimDeSemana,
+													horarioFuncionamentoSemana,
+													delivery: isDelivery,
+													freteGratis: isFreteGratis,
+													retireNoLocal: isRetireNoLocal,
+													tempoEsperaMedio
 												});
 											}}
 											loading={isLoading}

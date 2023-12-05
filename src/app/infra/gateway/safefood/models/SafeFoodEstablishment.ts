@@ -57,6 +57,13 @@ export type SafeFoodUpdateEstablishmentRequest = {
   descricao?: string,
   celular?: string,
   contatoCliente?: string,
+  horarioFuncionamentoSemana?: string;
+  horarioFuncionamentoFimDeSemana?: string;
+  tempoEsperaMedio?: string;
+
+  delivery?: boolean;
+  retireNoLocal?: boolean;
+  freteGratis?: boolean;
 } & SafeFoodSaveProfileImage
 
 export type SafeFoodGetProductEstablishmentRequest = {
