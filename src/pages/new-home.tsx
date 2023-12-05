@@ -7,8 +7,13 @@ import { MdOutlineArrowForwardIos } from "react-icons/md";
 import { Text } from "@/components/atoms/text";
 import { Subtitle } from "@/styles/components/text/Subtitle";
 import BannerFinal from "../assets/Banner-meio.png";
+import { useModalHome } from "@/app/contexts/ModalProvider";
+import { useNavigate } from "react-router-dom";
 
 export const NewHome: React.FC = () => {
+	const { setModal } = useModalHome();
+	const navigate = useNavigate()
+
 	return (
 		<>
 			<Header />
@@ -21,12 +26,14 @@ export const NewHome: React.FC = () => {
 							que você pode
 							<br /> <span style={{ color: "green" }}> confiar</span>
 						</TitleLanding>
-						<ButtonIcon icon={<MdOutlineArrowForwardIos />}>Conheça já</ButtonIcon>
+						<ButtonIcon icon={<MdOutlineArrowForwardIos />}
+							onClick={() => setModal('establishment')}
+						>Conheça já</ButtonIcon>
 					</div>
 				</div>
 				<div className="container-info-new-home">
 					<div className="conatiner-destaque-new-home">
-						<Subtitle>DESTAQUES</Subtitle>
+						<Subtitle>PRINCIPAIS CATEGORIAS</Subtitle>
 						<div className="conatiner-img-destaque-new-home">
 							<div className="card-img-destaque-new-home">
 								<img src={"https://safefood-nfs.hopto.org/assets/Zero Lactose.png"} />
@@ -61,7 +68,7 @@ export const NewHome: React.FC = () => {
 								das pessoas com qualquer restrição alimentar, seja ela uma intolerância,
 								alergia, estivo de vida, religiosa ou problemas de saúde.
 							</Text>
-							<ButtonIcon icon>Saiba mais</ButtonIcon>
+							<ButtonIcon icon onClick={() => navigate("/about")}>Saiba mais</ButtonIcon>
 						</div>
 						<div className="container-img-saiba-mais-new-home">
 							<div>
@@ -94,7 +101,7 @@ export const NewHome: React.FC = () => {
 								Faça parte de um mercado em constante crescimento. Saiba como alcançar
 								um novo público e visibilidade para o seu negócio.
 							</Text>
-							<ButtonIcon icon>Cadastre-se</ButtonIcon>
+							<ButtonIcon icon onClick={() => setModal('establishment')}>Cadastre-se</ButtonIcon>
 						</div>
 					</div>
 				</div>
@@ -233,7 +240,7 @@ const ContainerNewHome = styled.div`
 				font-weight: normal;
 				line-height: 30px;
 				color: ${p =>
-					p.theme.name == "light" ? "#474747" : p.theme.colors.light_gray[800]};
+		p.theme.name == "light" ? "#474747" : p.theme.colors.light_gray[800]};
 			}
 			> button {
 				width: fit-content;

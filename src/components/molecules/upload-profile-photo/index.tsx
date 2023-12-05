@@ -16,7 +16,7 @@ export type ProfilePhotoUploadWithPreviewProps = {
 export const ProfilePhotoUploadWithPreview: React.FC<
 	ProfilePhotoUploadWithPreviewProps
 > = ({ justify, isEditable = true, shape = "circle", ...props }) => {
-	const urlCamera = "NFS/assets/form/camera.png";
+	const urlCamera = "https://safefood-nfs.hopto.org/assets/form/camera.png";
 	const [preview, setPreview] = useState(props.urlDefault || urlCamera);
 	const [fileName, setFilename] = useState("Nenhum arquivo selecionado");
 	return (

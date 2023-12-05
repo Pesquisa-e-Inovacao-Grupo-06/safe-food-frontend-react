@@ -56,7 +56,6 @@ function HomeEstablishment({
 	};
 	const clickToCreateProduct = async (data: SafeFoodCreateProductRequest) => {
 		// try {
-		console.log('asiod´fjafjsdiodsfoaíj', { id: user.usuario.id, data });
 		const res = await gateway.create(user.usuario.id, data);
 		// 	const validStatus = [200, 201];
 		// 	if (!validStatus.includes(res.status)) {

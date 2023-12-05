@@ -17,9 +17,9 @@ export const ContainerRegisterProduct = styled.div<{
 			: p.theme.colors.dark_gray[1000]};
 	border-left: 1px solid
 		${p =>
-			p.theme.name == 'light'
-				? p.theme.colors.light_gray[800]
-				: p.theme.colors.dark_gray[1000]};
+		p.theme.name == 'light'
+			? p.theme.colors.light_gray[800]
+			: p.theme.colors.dark_gray[1000]};
 
 	position: relative;
 
@@ -45,33 +45,33 @@ export const ContainerRegisterProduct = styled.div<{
 
 		::-webkit-scrollbar-track {
 			background-color: ${p =>
-				p.theme.name == 'light'
-					? p.theme.colors.light_gray[200]
-					: p.theme.colors.dark_gray[1000]};
+		p.theme.name == 'light'
+			? p.theme.colors.light_gray[200]
+			: p.theme.colors.dark_gray[1000]};
 		}
 
 		/* Handle */
 
 		::-webkit-scrollbar-thumb {
 			background-color: ${p =>
-				p.theme.name == 'light'
-					? p.theme.colors.light_gray[600]
-					: p.theme.colors.dark_gray[800]};
+		p.theme.name == 'light'
+			? p.theme.colors.light_gray[600]
+			: p.theme.colors.dark_gray[800]};
 			border-radius: 50px;
 			border: 3px solid
 				${p =>
-					p.theme.name == 'light'
-						? p.theme.colors.light_gray[200]
-						: p.theme.colors.dark_gray[1000]};
+		p.theme.name == 'light'
+			? p.theme.colors.light_gray[200]
+			: p.theme.colors.dark_gray[1000]};
 		}
 
 		/* Handle on Hover */
 
 		::-webkit-scrollbar-thumb:hover {
 			background-color: ${p =>
-				p.theme.name == 'light'
-					? p.theme.colors.light_gray[800]
-					: p.theme.colors.dark_gray[600]};
+		p.theme.name == 'light'
+			? p.theme.colors.light_gray[800]
+			: p.theme.colors.dark_gray[600]};
 		}
 	}
 
@@ -95,9 +95,9 @@ export const ContainerRegisterProduct = styled.div<{
 						justify-content: center;
 						padding: 0;
 						background: ${p =>
-							p.theme.name == 'light'
-								? p.theme.colors.light_gray[600]
-								: p.theme.colors.dark_gray[600]};
+		p.theme.name == 'light'
+			? p.theme.colors.light_gray[600]
+			: p.theme.colors.dark_gray[600]};
 						height: 100%;
 						width: 94%;
 						border-radius: 6px;
@@ -134,9 +134,9 @@ export const ContainerRegisterProduct = styled.div<{
 
 		> div {
 			background: ${p =>
-				p.theme.name == 'light'
-					? p.theme.colors.light_gray[400]
-					: p.theme.colors.black};
+		p.theme.name == 'light'
+			? p.theme.colors.light_gray[400]
+			: p.theme.colors.black};
 			border-radius: 10px;
 			display: grid;
 
@@ -169,9 +169,9 @@ export const ContainerRegisterProduct = styled.div<{
 
 				h2 {
 					color: ${p =>
-						p.theme.name == 'light'
-							? p.theme.colors.dark_gray[800]
-							: p.theme.colors.light_gray[400]};
+		p.theme.name == 'light'
+			? p.theme.colors.dark_gray[800]
+			: p.theme.colors.light_gray[400]};
 					font-size: 18px;
 				}
 
@@ -222,33 +222,33 @@ export const ContainerRegisterProduct = styled.div<{
 
 			::-webkit-scrollbar-track {
 				background-color: ${p =>
-					p.theme.name == 'light'
-						? p.theme.colors.light_gray[200]
-						: p.theme.colors.dark_gray[1000]};
+		p.theme.name == 'light'
+			? p.theme.colors.light_gray[200]
+			: p.theme.colors.dark_gray[1000]};
 			}
 
 			/* Handle */
 
 			::-webkit-scrollbar-thumb {
 				background-color: ${p =>
-					p.theme.name == 'light'
-						? p.theme.colors.light_gray[600]
-						: p.theme.colors.dark_gray[800]};
+		p.theme.name == 'light'
+			? p.theme.colors.light_gray[600]
+			: p.theme.colors.dark_gray[800]};
 				border-radius: 50px;
 				border: 3px solid
 					${p =>
-						p.theme.name == 'light'
-							? p.theme.colors.light_gray[200]
-							: p.theme.colors.dark_gray[1000]};
+		p.theme.name == 'light'
+			? p.theme.colors.light_gray[200]
+			: p.theme.colors.dark_gray[1000]};
 			}
 
 			/* Handle on Hover */
 
 			::-webkit-scrollbar-thumb:hover {
 				background-color: ${p =>
-					p.theme.name == 'light'
-						? p.theme.colors.light_gray[800]
-						: p.theme.colors.dark_gray[800]};
+		p.theme.name == 'light'
+			? p.theme.colors.light_gray[800]
+			: p.theme.colors.dark_gray[800]};
 			}
 
 			> button {
@@ -266,8 +266,8 @@ export const ContainerRegisterProduct = styled.div<{
 		}
 
 		.text-categoria-register-product {
-			> h1 {
-				margin: 10px 0;
+			> strong {
+				line-height: 200%;
 				font-size: 15px;
 			}
 		}
@@ -289,9 +289,9 @@ export const ContainerRegisterProduct = styled.div<{
 
 					span {
 						color: ${p =>
-							p.theme.name == 'light'
-								? p.theme.colors.dark_gray[1000]
-								: p.theme.colors.light_gray[400]};
+		p.theme.name == 'light'
+			? p.theme.colors.dark_gray[1000]
+			: p.theme.colors.light_gray[400]};
 
 						label {
 							margin: 0 2px;
@@ -310,9 +310,9 @@ export const ContainerRegisterProduct = styled.div<{
 				label {
 					font-size: 16px;
 					color: ${p =>
-						p.theme.name == 'light'
-							? p.theme.colors.dark_gray[800]
-							: p.theme.colors.light_gray[400]};
+		p.theme.name == 'light'
+			? p.theme.colors.dark_gray[800]
+			: p.theme.colors.light_gray[400]};
 				}
 
 				.restricao-register-product {
@@ -323,12 +323,12 @@ export const ContainerRegisterProduct = styled.div<{
 					max-height: 135px;
 					padding: 10px;
 					background: ${p =>
-						p.theme.name == 'light'
-							? p.theme.colors.light_gray[400]
-							: p.theme.colors.dark_gray[600]};
+		p.theme.name == 'light'
+			? p.theme.colors.light_gray[400]
+			: p.theme.colors.dark_gray[600]};
 					border-radius: 0.25rem;
 					border: ${p =>
-						p.theme.name == 'light' ? 'none' : '1px solid rgb(71, 71, 71)'};
+		p.theme.name == 'light' ? 'none' : '1px solid rgb(71, 71, 71)'};
 					overflow-y: scroll;
 
 					/* Scrollbar modification */
@@ -339,33 +339,33 @@ export const ContainerRegisterProduct = styled.div<{
 
 					/ Track / ::-webkit-scrollbar-track {
 						background-color: ${p =>
-							p.theme.name == 'light'
-								? '#f5f5f5'
-								: p.theme.colors.dark_gray[600]};
+		p.theme.name == 'light'
+			? '#f5f5f5'
+			: p.theme.colors.dark_gray[600]};
 					}
 
 					/* Handle */
 
 					::-webkit-scrollbar-thumb {
 						background-color: ${p =>
-							p.theme.name == 'light'
-								? p.theme.colors.light_gray[600]
-								: p.theme.colors.dark_gray[800]};
+		p.theme.name == 'light'
+			? p.theme.colors.light_gray[600]
+			: p.theme.colors.dark_gray[800]};
 						border-radius: 50px;
 						border: 3px solid
 							${p =>
-								p.theme.name == 'light'
-									? '#f5f5f5'
-									: p.theme.colors.dark_gray[600]};
+		p.theme.name == 'light'
+			? '#f5f5f5'
+			: p.theme.colors.dark_gray[600]};
 					}
 
 					/* Handle on Hover */
 
 					::-webkit-scrollbar-thumb:hover {
 						background-color: ${p =>
-							p.theme.name == 'light'
-								? p.theme.colors.light_gray[800]
-								: p.theme.colors.dark_gray[400]};
+		p.theme.name == 'light'
+			? p.theme.colors.light_gray[800]
+			: p.theme.colors.dark_gray[400]};
 					}
 				}
 			}

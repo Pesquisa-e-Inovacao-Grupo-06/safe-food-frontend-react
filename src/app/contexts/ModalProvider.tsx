@@ -10,12 +10,12 @@ import {
 	useContext,
 	useState,
 } from "react";
-import {SafeFoodProductGateway} from "../infra/gateway/safefood/SafeFoodProductGateway";
-import {SafeFoodUserGateway} from "../infra/gateway/safefood/SafeFoodUserGateway";
-import {SafeFoodConsumerGateway} from "../infra/gateway/safefood/SafeFoodConsumerGateway";
-import {SafeFoodEstablishmentGateway} from "../infra/gateway/safefood/SafeFoodEstablishmentGateway";
-import {ViaCepGateway} from "../infra/gateway/viacep/ViaCepGateway";
-import {Cache} from "../domain/protocols/Cache";
+import { SafeFoodProductGateway } from "../infra/gateway/safefood/SafeFoodProductGateway";
+import { SafeFoodUserGateway } from "../infra/gateway/safefood/SafeFoodUserGateway";
+import { SafeFoodConsumerGateway } from "../infra/gateway/safefood/SafeFoodConsumerGateway";
+import { SafeFoodEstablishmentGateway } from "../infra/gateway/safefood/SafeFoodEstablishmentGateway";
+import { ViaCepGateway } from "../infra/gateway/viacep/ViaCepGateway";
+import { Cache } from "../domain/protocols/Cache";
 export type ModalActive = "login" | "consumer" | "establishment" | null;
 
 export type ModalHomeContextParams = {
@@ -36,7 +36,7 @@ type ModalHomeProviderProps = {
 	establishmentGateway: SafeFoodEstablishmentGateway;
 	viaCepGateway: ViaCepGateway;
 } & PropsWithChildren;
-export const ModalHomeProvider: FC<ModalHomeProviderProps> = ({cache, consumerGateway, establishmentGateway, gateway,productGateway, viaCepGateway ,...props}) => {
+export const ModalHomeProvider: FC<ModalHomeProviderProps> = ({ cache, consumerGateway, establishmentGateway, gateway, productGateway, viaCepGateway, ...props }) => {
 	const [modal, setModal] = useState<ModalActive>(null);
 
 	return (

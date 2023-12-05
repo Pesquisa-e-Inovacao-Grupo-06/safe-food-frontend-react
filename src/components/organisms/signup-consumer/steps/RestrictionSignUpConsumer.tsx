@@ -8,7 +8,7 @@ import { Restriction } from "@/app/domain/entities/Restriction";
 export const RestrictionSignUpConsumer: FC<{
 	restrictions: Restriction[];
 }> = ({ restrictions }) => {
-	console.log(restrictions);
+	// console.log(restrictions);
 
 	const { consumer, setConsumer } = useSignupConsumer();
 	return (

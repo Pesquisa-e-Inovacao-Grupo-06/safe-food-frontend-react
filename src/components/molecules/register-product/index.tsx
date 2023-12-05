@@ -88,7 +88,7 @@ function RegisterProduct({
 		objProduct != undefined && onClickCreate != undefined
 			? onClickCreate(objProduct)
 			: '';
-		console.log('OBJ IMAGE' + objProduct?.imagem);
+		// console.log('OBJ IMAGE' + objProduct?.imagem);
 		clear();
 		clearRestriction();
 		objProduct != undefined
@@ -140,11 +140,11 @@ function RegisterProduct({
 	const objEditRestrictions = () => {
 		productEdit?.params.restricoes != undefined
 			? productEdit?.params.restricoes.map(item => {
-					var aux = item.restricao;
-					restrictionEdit?.filter(item => {
-						item.params.restricao == aux ? (item.params.isActive = true) : '';
-					});
-			  })
+				var aux = item.restricao;
+				restrictionEdit?.filter(item => {
+					item.params.restricao == aux ? (item.params.isActive = true) : '';
+				});
+			})
 			: [];
 
 		// productEdit?.params.restricoes != undefined
@@ -373,8 +373,8 @@ function RegisterProduct({
 		const newRestricitons: number[] = [];
 		restrictionEdit != undefined
 			? restrictionEdit.filter(item => {
-					item.params.isActive ? newRestricitons.push(item.params.id) : '';
-			  })
+				item.params.isActive ? newRestricitons.push(item.params.id) : '';
+			})
 			: restrictionEdit;
 		setRestrictions(newRestricitons);
 		setAuxFunction('auxFucntion');
@@ -425,8 +425,8 @@ function RegisterProduct({
 						)}
 						<div className="container-main-register-product">
 							<SDivider className="divider-register-product" />
-							<Text className="text-categoria-register-product">
-								<h1>Categoria</h1>
+							<Text className="text-categoria-register-product" >
+								<strong>Categoria</strong>
 							</Text>
 							<Box className="container-categoria-register-product">
 								{typeProduct?.map(item => (
@@ -435,9 +435,9 @@ function RegisterProduct({
 											item.id == undefined
 												? setCategoria(0)
 												: (setCategoria(item.id),
-												  setAuxCategoria(
+													setAuxCategoria(
 														item.nome != undefined ? item.nome : ''
-												  ))
+													))
 										}
 										focus={categoria == item.id}
 										height="fit-content"

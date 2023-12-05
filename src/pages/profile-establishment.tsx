@@ -100,8 +100,6 @@ function ProfileEstablishment({
 				return;
 			}
 
-			console.log(res);
-
 			setIsLoading(false);
 			setTypeAlert('success');
 			setTextAlert('Cadastro alterado com sucesso!');
@@ -112,7 +110,6 @@ function ProfileEstablishment({
 	};
 
 	const deleteUser = async (id: number) => {
-		console.log('teste');
 		if (!id) {
 			return;
 		}
@@ -160,7 +157,6 @@ function ProfileEstablishment({
 				setTypeAlert("success");
 				setTextAlert("Endereço atualizado com sucesso");
 
-				console.log(response);
 			}
 		} catch (e) {
 			setTypeAlert("warning");

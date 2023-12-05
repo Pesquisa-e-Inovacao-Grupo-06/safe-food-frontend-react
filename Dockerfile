@@ -7,5 +7,4 @@ RUN npm run build
 
 EXPOSE 8081
 
-
 CMD ["npm", "run", "preview"]

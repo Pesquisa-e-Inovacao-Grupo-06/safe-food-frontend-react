@@ -87,9 +87,9 @@ export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 		// Tratamento para quando product.params.avaliacoes é undefined
 	}
 
-	console.log(rateCalc);
-	console.log('CATEROIA', product.params.categoria);
-	console.log(rateCalc);
+	// console.log(rateCalc);
+	// console.log('CATEROIA', product.params.categoria);
+	// console.log(rateCalc);
 
 	return (
 		<>
@@ -157,7 +157,7 @@ export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 								<Box className="container-ingredientes-product-info">
 									<span
 										className="ingredientes-product-info"
-										// key={item.nome}
+									// key={item.nome}
 									>
 										{product?.params?.categoria?.nome ??
 											'Nenhum ingrediente cadastrado'}
@@ -214,9 +214,9 @@ export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 								<SiHomeassistantcommunitystore className="icon-three-info-local" />
 								<Text>
 									{establishment.params.horarioFuncionamentoFimDeSemana &&
-									establishment.params.horarioFuncionamentoSemana
+										establishment.params.horarioFuncionamentoSemana
 										? establishment.params.horarioFuncionamentoFimDeSemana +
-										  establishment.params.horarioFuncionamentoSemana
+										establishment.params.horarioFuncionamentoSemana
 										: ''}
 								</Text>
 							</div>
@@ -432,33 +432,33 @@ const ContainerProductConsumer = styled.div`
 
 			::-webkit-scrollbar-track {
 				background-color: ${p =>
-					p.theme.name == 'light'
-						? p.theme.colors.light_gray[200]
-						: p.theme.colors.dark_gray[1000]};
+		p.theme.name == 'light'
+			? p.theme.colors.light_gray[200]
+			: p.theme.colors.dark_gray[1000]};
 			}
 
 			/* Handle */
 
 			::-webkit-scrollbar-thumb {
 				background-color: ${p =>
-					p.theme.name == 'light'
-						? p.theme.colors.light_gray[600]
-						: p.theme.colors.dark_gray[800]};
+		p.theme.name == 'light'
+			? p.theme.colors.light_gray[600]
+			: p.theme.colors.dark_gray[800]};
 				border-radius: 50px;
 				border: 3px solid
 					${p =>
-						p.theme.name == 'light'
-							? p.theme.colors.light_gray[200]
-							: p.theme.colors.dark_gray[1000]};
+		p.theme.name == 'light'
+			? p.theme.colors.light_gray[200]
+			: p.theme.colors.dark_gray[1000]};
 			}
 
 			/* Handle on Hover */
 
 			::-webkit-scrollbar-thumb:hover {
 				background-color: ${p =>
-					p.theme.name == 'light'
-						? p.theme.colors.light_gray[800]
-						: p.theme.colors.dark_gray[800]};
+		p.theme.name == 'light'
+			? p.theme.colors.light_gray[800]
+			: p.theme.colors.dark_gray[800]};
 			}
 			.ingredientes-product-info {
 				margin-bottom: 3px;
@@ -516,9 +516,9 @@ const ContainerProductConsumer = styled.div`
 				flex-direction: column;
 				justify-content: center;
 				color: ${p =>
-					p.theme.name == 'light'
-						? p.theme.colors.dark_gray[400]
-						: p.theme.colors.light_gray[200]};
+		p.theme.name == 'light'
+			? p.theme.colors.dark_gray[400]
+			: p.theme.colors.light_gray[200]};
 
 				> h3 {
 					font-size: 16px;
@@ -629,9 +629,9 @@ const ContainerProductConsumer = styled.div`
 						line-height: 14px;
 						font-weight: 500;
 						color: ${p =>
-							p.theme.name == 'light'
-								? p.theme.colors.dark_gray[200]
-								: p.theme.colors.light_gray[800]};
+		p.theme.name == 'light'
+			? p.theme.colors.dark_gray[200]
+			: p.theme.colors.light_gray[800]};
 					}
 				}
 			}
@@ -699,33 +699,33 @@ const ContainerProductConsumer = styled.div`
 
 				::-webkit-scrollbar-track {
 					background-color: ${p =>
-						p.theme.name == 'light'
-							? p.theme.colors.light_gray[200]
-							: p.theme.colors.dark_gray[600]};
+		p.theme.name == 'light'
+			? p.theme.colors.light_gray[200]
+			: p.theme.colors.dark_gray[600]};
 				}
 
 				/* Handle */
 
 				::-webkit-scrollbar-thumb {
 					background-color: ${p =>
-						p.theme.name == 'light'
-							? p.theme.colors.light_gray[600]
-							: p.theme.colors.dark_gray[800]};
+		p.theme.name == 'light'
+			? p.theme.colors.light_gray[600]
+			: p.theme.colors.dark_gray[800]};
 					border-radius: 50px;
 					border: 3px solid
 						${p =>
-							p.theme.name == 'light'
-								? p.theme.colors.light_gray[200]
-								: p.theme.colors.dark_gray[600]};
+		p.theme.name == 'light'
+			? p.theme.colors.light_gray[200]
+			: p.theme.colors.dark_gray[600]};
 				}
 
 				/* Handle on Hover */
 
 				::-webkit-scrollbar-thumb:hover {
 					background-color: ${p =>
-						p.theme.name == 'light'
-							? p.theme.colors.light_gray[800]
-							: p.theme.colors.black};
+		p.theme.name == 'light'
+			? p.theme.colors.light_gray[800]
+			: p.theme.colors.black};
 				}
 
 				.box-coment {
@@ -735,20 +735,20 @@ const ContainerProductConsumer = styled.div`
 					padding: 8px;
 					border-radius: ${p => p.theme.border.radius.md};
 					background: ${p =>
-						p.theme.name == 'light'
-							? p.theme.colors.light_gray[400]
-							: p.theme.colors.dark_gray[600]};
+		p.theme.name == 'light'
+			? p.theme.colors.light_gray[400]
+			: p.theme.colors.dark_gray[600]};
 
 					border: 1px solid
 						${p =>
-							p.theme.name == 'light'
-								? 'transparent'
-								: p.theme.colors.dark_gray[400]};
+		p.theme.name == 'light'
+			? 'transparent'
+			: p.theme.colors.dark_gray[400]};
 					box-shadow: ${p => p.theme.colors.shadow[200]};
 					color: ${p =>
-						p.theme.name == 'light'
-							? p.theme.colors.dark_gray[600]
-							: p.theme.colors.light_gray[600]};
+		p.theme.name == 'light'
+			? p.theme.colors.dark_gray[600]
+			: p.theme.colors.light_gray[600]};
 					gap: 10px;
 
 					.header-comentario-product-text {
@@ -768,9 +768,9 @@ const ContainerProductConsumer = styled.div`
 							flex-direction: column;
 							justify-content: center;
 							color: ${p =>
-								p.theme.name == 'light'
-									? p.theme.colors.dark_gray[400]
-									: p.theme.colors.light_gray[200]};
+		p.theme.name == 'light'
+			? p.theme.colors.dark_gray[400]
+			: p.theme.colors.light_gray[200]};
 
 							> h3 {
 								font-size: 16px;

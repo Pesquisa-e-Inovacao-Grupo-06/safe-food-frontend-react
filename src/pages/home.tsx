@@ -67,11 +67,11 @@ function Home({
 				}
 			);
 
-			console.log(
-				"LATITUDE LONGITUDE" + JSON.stringify(navigator.geolocation),
-				latitude,
-				longitude
-			);
+			// console.log(
+			// 	"LATITUDE LONGITUDE" + JSON.stringify(navigator.geolocation),
+			// 	latitude,
+			// 	longitude
+			// );
 		} else {
 			console.log("Geolocalização não suportada pelo navegador.");
 		}
@@ -82,7 +82,7 @@ function Home({
 				const res = await productGateway.findAll();
 				setNearbyProducts(res.content);
 				setListOfFavoriteProducts(res.content);
-				console.log(res.content);
+				// console.log(res.content);
 			} catch (error) {
 				// faça algo com o erro
 			}
@@ -101,7 +101,7 @@ function Home({
 			handleChangeFood={handleChangeFood}
 			handleChangeLocation={handleChangeLocation}
 			onClickSearchLanding={() => {
-				console.log(textFieldLocation);
+				// console.log(textFieldLocation);
 			}}
 			user={user}
 			cache={cache}

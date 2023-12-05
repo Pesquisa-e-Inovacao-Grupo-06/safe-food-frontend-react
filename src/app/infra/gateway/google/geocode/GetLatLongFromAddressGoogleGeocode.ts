@@ -60,7 +60,7 @@ export class GetLatLongFromAddressGoogleGeocode implements GetLatLongFromAddress
             method: 'GET'
         });
 
-        console.log(response);
+        // console.log(response);
 
         if (response.statusCode != 200 || response.data?.status != 'OK' || !response.data?.results[0].geometry.location) {
             throw new Error("Nao foi possivel carregar a latitude de longitude do endereco");

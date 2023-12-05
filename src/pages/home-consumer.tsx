@@ -119,7 +119,7 @@ function HomeConsumer({
 				setProducts(fetchedProducts.content.map(SafeFoodProductMapper.of));
 				setTotalPage(fetchedProducts.totalPages);
 			}
-		} catch (error) {}
+		} catch (error) { }
 	};
 
 	const onClickApplication = async () => {
@@ -134,10 +134,10 @@ function HomeConsumer({
 					numero: numero,
 					distanceRadio: 10,
 				};
-				console.log('locazação', filterProductsByLocation);
+				// console.log('locazação', filterProductsByLocation);
 				const fetchedProductsFilter: SafeFoodProductsResponse =
 					await productGateway.productsCloser(filterProductsByLocation);
-				console.log(filterProductsByLocation);
+				// console.log(filterProductsByLocation);
 				if (fetchedProductsFilter.size === 0) {
 					setProducts([]);
 					setInitializa(true);
@@ -165,7 +165,7 @@ function HomeConsumer({
 
 				const fetchedProductsFilter: SafeFoodProductsResponse =
 					await productGateway.productFilter(filterProductsByIdEstablishment);
-				console.log(fetchedProductsFilter);
+				// console.log(fetchedProductsFilter);
 
 				if (fetchedProductsFilter.size === 0) {
 					setProducts([]);
@@ -193,7 +193,7 @@ function HomeConsumer({
 
 				const fetchedProductsFilter: SafeFoodProductsResponse =
 					await productGateway.productFilter(filterProducts);
-				console.log(fetchedProductsFilter);
+				// console.log(fetchedProductsFilter);
 
 				if (fetchedProductsFilter.size === 0) {
 					setProducts([]);
@@ -229,7 +229,7 @@ function HomeConsumer({
 		}
 	}, [pageNumber]);
 
-	useEffect(() => {}, [typeProductCache]);
+	useEffect(() => { }, [typeProductCache]);
 	const [checkedRestrictions, setCheckedRestrictions] = useState<string[]>([]);
 	const [checkedTypeProducts, setCheckedTypeProducts] = useState<string[]>([]);
 	const [checkedTypeRestrictions, setCheckedTypeRestrictions] = useState<
@@ -312,9 +312,9 @@ function HomeConsumer({
 		setSelectOrder(order as OrderSelect);
 	};
 
-	useEffect(() => {}, [selectItems]);
+	useEffect(() => { }, [selectItems]);
 
-	useEffect(() => {}, [selectOrder]);
+	useEffect(() => { }, [selectOrder]);
 
 	if (totalPage > 0) {
 		return (

@@ -31,7 +31,7 @@ export const AuthRoute: React.FC<AuthRouteProps> = ({
 		} else {
 			setLoading(false);
 		}
-		console.log({ user, token, isTokenValid: isTokenValid(token) });
+		// console.log({ user, token, isTokenValid: isTokenValid(token) });
 	}, [user, token]);
 
 	return loading ? (

@@ -271,7 +271,7 @@ export const ProfileEstablishmentTemplate: React.FC<
 										type="file"
 										id="importacaoProdutoInput"
 										onChange={({ target }) => {
-											console.log(target);
+											// console.log(target);
 											if (target.files) {
 												const [file] = target.files;
 												setArquivoImportacao(file);
@@ -347,12 +347,6 @@ export const ProfileEstablishmentTemplate: React.FC<
 											buttonStyle="filled"
 											disabled={isSaveButtonActive}
 											onClick={() => {
-												listOfComponentAdministration.map(item => {
-													console.log(item)
-												})
-												listOfComponentEstablishment.map(item => {
-													console.log(item)
-												})
 												const { cnpj, contatoCliente, descricao, email, nome, nomeEmpresa, celular } = establishment;
 
 												onClickSave({

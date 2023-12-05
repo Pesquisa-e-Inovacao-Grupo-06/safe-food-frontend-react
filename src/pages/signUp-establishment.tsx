@@ -31,7 +31,7 @@ function SignUpEstablishment({
 			<SignUpEstablishmentTemplate
 				isModalVisible={modal === "establishment"}
 				toggleModal={() => {
-					setIsVisibleModal(!isVisibleModal);
+					setModal(null)
 				}}
 				findAddress={viaCepGateway}
 				onClickCreate={clickToCreateEstablishment}

@@ -11,12 +11,12 @@ export default defineConfig({
 			'@': path.resolve(__dirname, './src'),
 		},
 	},
-	// server: {
-	// 	host: true,
-	// 	watch: {
-	// 		usePolling: true
-	// 	},
-	// 	// strictPort: true,
-	// 	port: 5173, // This is the port which we will use in docker
-	// },
+	server: {
+		host: true,
+		// watch: {
+		// 	usePolling: true
+		// },
+		strictPort: true,
+		port: 5173, // This is the port which we will use in docker
+	},
 });

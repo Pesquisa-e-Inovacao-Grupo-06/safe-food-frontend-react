@@ -30,9 +30,9 @@ export const AdditionalSignUpConsumer: FC<{
 
 	const [errorCep, setCepError] = useState('');
 
-	useEffect(() => {
-		console.log(consumer);
-	}, [consumer]);
+	// useEffect(() => {
+	// 	console.log(consumer);
+	// }, [consumer]);
 
 	const changePhoneInput = (ev: FormEvent<HTMLInputElement>) => {
 		let str = ev.currentTarget.value;

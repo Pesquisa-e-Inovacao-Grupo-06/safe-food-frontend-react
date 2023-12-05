@@ -306,7 +306,6 @@ function ProfileConsumer({
 	};
 
 	const deleteUser = async (id: number) => {
-		console.log("teste")
 		if (!id) {
 			return;
 		}

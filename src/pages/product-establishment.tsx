@@ -57,7 +57,6 @@ function ProductsEstablishment({
 				.map(SafeFoodProductMapper.of)
 				.sort(() => Math.random() - 0.5);
 			const selectedProducts = shuffledProducts.slice(0, 5);
-			console.log('select', { selectedProducts });
 			setProducts(selectedProducts);
 			setAvaliationBar({
 				average: res.data.average,
@@ -111,8 +110,8 @@ function ProductsEstablishment({
 				avaliationBar={avaliationBar}
 				avaliationsProps={avaliationsParams}
 				cache={cache}
-				onClickAddComments={() => {}}
-				onClickTrashDelete={() => {}}
+				onClickAddComments={() => { }}
+				onClickTrashDelete={() => { }}
 				products={products ? products : []}
 				onClickShowMap={toggleModal}
 			/>

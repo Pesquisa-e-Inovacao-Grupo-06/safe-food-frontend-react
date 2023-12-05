@@ -22,7 +22,7 @@ export class SafeFoodConsumerGateway {
         if (!res.data) {
             throw new Error("Erro ao realizar requisicao de pegar por id");
         }
-        console.log("RESPOSTA", res.data);
+        // console.log("RESPOSTA", res.data);
         return res.data;
     }
 
@@ -149,7 +149,7 @@ export class SafeFoodConsumerGateway {
             url: `/consumidores/${id}/endereco/${idEndereco}`,
             method: 'DELETE',
         })
-        console.log("delete", res);
+        // console.log("delete", res);
         // if (!res.data) {
         //     throw new Error("Erro ao realizar requisicao de remover endereco do consumidor")
         // }

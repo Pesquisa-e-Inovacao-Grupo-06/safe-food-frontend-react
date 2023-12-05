@@ -11,7 +11,7 @@ import { MdOutlineArrowForwardIos } from 'react-icons/md';
 import { Text } from '@/components/atoms/text';
 import { Subtitle } from '@/styles/components/text/Subtitle';
 import { useModalHome } from '@/app/contexts/ModalProvider';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export type HomeTemplateParams = {
 	nearbyFoodsCardItems: Product[];
@@ -37,6 +37,7 @@ export const HomeTemplate: React.FC<HomeTemplateParams> = ({
 	cache,
 }) => {
 	const { setModal } = useModalHome();
+	const navigate = useNavigate()
 	return (
 		<>
 			{/* {user.token ? <HeaderConsumer cache={cache} /> : <Header />} */}
@@ -60,7 +61,7 @@ export const HomeTemplate: React.FC<HomeTemplateParams> = ({
 				</div>
 				<div className="container-info-new-home">
 					<div className="conatiner-destaque-new-home">
-						<Subtitle>DESTAQUES</Subtitle>
+						<Subtitle>PRINCIPAIS CATEGORIAS</Subtitle>
 						<div className="conatiner-img-destaque-new-home">
 							<div className="card-img-destaque-new-home">
 								<img src={"https://safefood-nfs.hopto.org/assets/Zero Lactose.png"} />
@@ -97,7 +98,7 @@ export const HomeTemplate: React.FC<HomeTemplateParams> = ({
 								problemas de saúde.
 							</Text>
 							<Link to="/about">
-								<ButtonIcon icon>Saiba mais</ButtonIcon>
+								<ButtonIcon icon onClick={() => navigate("/about")}>Saiba mais</ButtonIcon>
 							</Link>
 						</div>
 						<div className="container-img-saiba-mais-new-home">
@@ -132,8 +133,8 @@ export const HomeTemplate: React.FC<HomeTemplateParams> = ({
 								alcançar um novo público e visibilidade para o seu negócio.
 							</Text>
 							<ButtonIcon
-								onClick={() => setModal('establishment')}
 								icon
+								onClick={() => setModal('establishment')}
 							>
 								Cadastre-se
 							</ButtonIcon>
@@ -275,7 +276,7 @@ const ContainerNewHome = styled.div`
 				font-weight: normal;
 				line-height: 30px;
 				color: ${p =>
-					p.theme.name == 'light' ? '#474747' : p.theme.colors.light_gray[800]};
+		p.theme.name == 'light' ? '#474747' : p.theme.colors.light_gray[800]};
 			}
 			> a {
 				> button {

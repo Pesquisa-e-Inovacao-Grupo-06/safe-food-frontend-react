@@ -110,7 +110,6 @@ function ProductConsumer({
 		})
 	);
 	const onClickAddComments = async () => {
-		console.log('comentário dados: ', commentText, valueStar);
 		setAvaliationsParams([
 			...avaliationsParams,
 			{
@@ -170,7 +169,6 @@ function ProductConsumer({
 	}, [id]);
 
 	const onClickDeleteComment = async (idComment: number) => {
-		console.log('comentário dados de remoção: ', id, idComment);
 		try {
 			if (id) {
 				const res = await productGateway.deleteComments(

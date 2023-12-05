@@ -1,36 +1,36 @@
-import {EmailValidator} from "@/app/util/validations/email-validator";
-import {Dots} from "@/components/atoms/dots";
-import {Input} from "@/components/atoms/input";
-import {Text} from "@/components/atoms/text";
-import {ButtonIcon} from "@/components/molecules/button/button-icon";
-import {InputEmailSignUp} from "@/components/organisms/signup-consumer/inputs/InputEmailSignUpConsumer";
-import {Subtitle} from "@/styles/components/text/Subtitle";
-import {MdOutlineArrowForwardIos} from "react-icons/md";
-import {ContainerBannerStep2ForgetPassword} from "./styles";
-import {SafeFoodResponse} from "@/app/infra/gateway/safefood/models/SafeFoodResponse";
-import {ForgetPage} from "@/pages/forget-password";
-import {useState} from "react";
-import {useInputsValidator} from "@/app/contexts/InputValidatorsProvider";
-import {TextField} from "@/components/molecules/textfield";
-import {Alert} from "@/components/atoms/alert";
+import { EmailValidator } from "@/app/util/validations/email-validator";
+import { Dots } from "@/components/atoms/dots";
+import { Input } from "@/components/atoms/input";
+import { Text } from "@/components/atoms/text";
+import { ButtonIcon } from "@/components/molecules/button/button-icon";
+import { InputEmailSignUp } from "@/components/organisms/signup-consumer/inputs/InputEmailSignUpConsumer";
+import { Subtitle } from "@/styles/components/text/Subtitle";
+import { MdOutlineArrowForwardIos } from "react-icons/md";
+import { ContainerBannerStep2ForgetPassword } from "./styles";
+import { SafeFoodResponse } from "@/app/infra/gateway/safefood/models/SafeFoodResponse";
+import { ForgetPage } from "@/pages/forget-password";
+import { useState } from "react";
+import { useInputsValidator } from "@/app/contexts/InputValidatorsProvider";
+import { TextField } from "@/components/molecules/textfield";
+import { Alert } from "@/components/atoms/alert";
 
-type Step2ForgetPasswordProps={
+type Step2ForgetPasswordProps = {
 	atualizarSenha(senha: string): Promise<SafeFoodResponse>;
 	changePage(page: ForgetPage): void;
 };
-export const Step2ForgetPassword: React.FC<Step2ForgetPasswordProps>=({
+export const Step2ForgetPassword: React.FC<Step2ForgetPasswordProps> = ({
 	changePage,
 	atualizarSenha
 }) => {
-	const [password, setPassword]=useState("");
-	const [confPassword, setConfPassword]=useState("");
-	const [errorPassword, setErrorPassword]=useState("");
-	const [errorConfPassword, setErrorConfPassword]=useState("");
+	const [password, setPassword] = useState("");
+	const [confPassword, setConfPassword] = useState("");
+	const [errorPassword, setErrorPassword] = useState("");
+	const [errorConfPassword, setErrorConfPassword] = useState("");
 
-	const [success, setSuccess]=useState(false);
+	const [success, setSuccess] = useState(false);
 
-	const {getPasswordValidator}=useInputsValidator();
-	const validator=getPasswordValidator(8, 20);
+	const { getPasswordValidator } = useInputsValidator();
+	const validator = getPasswordValidator(8, 20);
 	return (
 		<>
 			<ContainerBannerStep2ForgetPassword>
@@ -58,7 +58,7 @@ export const Step2ForgetPassword: React.FC<Step2ForgetPasswordProps>=({
 								</Subtitle>
 							</div>
 							{
-								success&&
+								success &&
 								<Alert type="success">
 									<p>
 										Senha alterada com sucesso...!
@@ -73,11 +73,11 @@ export const Step2ForgetPassword: React.FC<Step2ForgetPasswordProps>=({
 								name="general-password"
 								placeholder={"*".repeat(8)}
 								onChange={ev => {
-									const str=ev.currentTarget.value;
-									const value=validator.format(str);
+									const str = ev.currentTarget.value;
+									const value = validator.format(str);
 									setPassword(value);
-									const errors=validator.validate(value);
-									if(errors.length>0) {
+									const errors = validator.validate(value);
+									if (errors.length > 0) {
 										setErrorPassword(errors.join(";"));
 									} else {
 										setErrorPassword("");
@@ -99,16 +99,16 @@ export const Step2ForgetPassword: React.FC<Step2ForgetPasswordProps>=({
 								name="general-conf-password"
 								value={confPassword}
 								onChange={ev => {
-									const str=ev.currentTarget.value;
-									const value=validator.format(str);
+									const str = ev.currentTarget.value;
+									const value = validator.format(str);
 									setConfPassword(value);
-									const errors=validator.validate(value);
-									if(password!=value) {
+									const errors = validator.validate(value);
+									if (password != value) {
 										errors.push("As senhas não coincidem");
 									} else {
 										errors.pop();
 									}
-									if(errors.length>0) {
+									if (errors.length > 0) {
 										setErrorConfPassword(errors.join(";"));
 									} else {
 										setErrorConfPassword("");
@@ -123,18 +123,18 @@ export const Step2ForgetPassword: React.FC<Step2ForgetPasswordProps>=({
 						</div>
 						<div className="footer-step2-forget-password">
 							<ButtonIcon icon={<MdOutlineArrowForwardIos />} disabled={success} onClick={() => {
-								const isPasswordValid=password==confPassword;
-								const hasNoError=errorPassword.length==0||confPassword.length==0;
+								const isPasswordValid = password == confPassword;
+								const hasNoError = errorPassword.length == 0 || confPassword.length == 0;
 
-								console.log({
-									isPasswordValid,
-									hasNoError
-								});
+								// console.log({
+								// 	isPasswordValid,
+								// 	hasNoError
+								// });
 
-								if(isPasswordValid&&hasNoError) {
+								if (isPasswordValid && hasNoError) {
 									atualizarSenha(password)
 										.then(res => {
-											if(res.status==200) {
+											if (res.status == 200) {
 												setSuccess(true);
 
 												setTimeout(() => {
