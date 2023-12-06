@@ -73,7 +73,8 @@ export const AvaliationProgressBar: React.FC<AvaliationProgressBarProps> = ({
 					</Text>
 				</div>
 				<Subtitle>
-					<h3>{obterNivelSatisfacao(4).text}</h3>
+					<strong>{obterNivelSatisfacao(4).text}</strong>
+					<br />
 
 					<span>{reviews ?? 0} avaliações</span>
 				</Subtitle>

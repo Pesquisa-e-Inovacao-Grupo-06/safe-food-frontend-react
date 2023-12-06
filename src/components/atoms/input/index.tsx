@@ -1,7 +1,5 @@
 import React, { Dispatch, FormEvent } from "react";
 import { StyledInput } from "./styles";
-import { RadioButton } from "../radio-button";
-import Checkbox from "../checkbox";
 
 export type InputPropsComponent = {
 	type?: "string" | "password" | "date" | "tel" | "email";
@@ -9,7 +7,8 @@ export type InputPropsComponent = {
 	required?: boolean;
 	max?: number;
 	name?: string;
-	value: string | boolean;
+	value?: string | boolean;
+	// checked?: boolean;
 	error?: string;
 	setUseState?: (state: any) => void;
 	disabled?: boolean;
@@ -30,11 +29,14 @@ export const Input: React.FC<InputProps> = ({
 	type = "string",
 	onFocus,
 	setUseState,
+	// checked,
 	...props
 }) => {
+	// console.log({ checked });
+
 	return (
 		<>
-			{typeof value == 'string' ?
+			{typeof value == 'string' &&
 				<StyledInput
 					error={error.length > 0}
 					type={type}
@@ -50,18 +52,19 @@ export const Input: React.FC<InputProps> = ({
 						e.target.value = "";
 					}}
 					{...props}
-				/> : <>
-					<input
-						{...props}
-						type="radio"
-						checked={value}
-						onClick={
-							e => {
-								onChange(e, setUseState!!);
-							}
-						} onChange={() => { }}
-					/>
-				</>}
+				/>}
+
+			{typeof value == 'boolean' &&
+				<input
+					{...props}
+					type="radio"
+					checked={value}
+					onClick={e => {
+						onChange(e, setUseState!!);
+					}}
+					onChange={() => { }}
+				/>
+			}
 
 		</>
 	);

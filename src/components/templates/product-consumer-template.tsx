@@ -245,9 +245,9 @@ export const ProductConsumerTemplate: React.FC<ProductParams> = ({
 									}
 								/>
 								<Text>
-									<h3>
+									<strong>
 										{establishment.params.nome ? establishment.params.nome : ''}
-									</h3>
+									</strong><br />
 									<span>
 										{establishment.params.quantidadeDeProdutos + ' ' ?? '0 '}
 										Produtos

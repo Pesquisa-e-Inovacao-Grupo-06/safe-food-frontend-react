@@ -23,7 +23,7 @@ export const InputIcon: React.FC<InputIconProps> = ({
 				className={classNameStyled + " transition"}
 				error={!!error}
 			>
-				<StyledInputSingle
+				{typeof value == 'string' && <StyledInputSingle
 					onFocus={() => {
 						setClassname(" focus");
 					}}
@@ -35,7 +35,8 @@ export const InputIcon: React.FC<InputIconProps> = ({
 					minLength={min}
 					disabled={disabled}
 					{...props}
-				/>
+				/>}
+
 				{renderEndIcon && renderEndIcon()}
 			</StyledDivInput>
 		</>

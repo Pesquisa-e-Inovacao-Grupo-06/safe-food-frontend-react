@@ -1,31 +1,31 @@
-import {Establishment} from "@/app/domain/entities/Establishment";
-import {Cache} from "@/app/domain/protocols/Cache";
-import {GetLatLongFromAddress, LatLong} from "@/app/domain/usecases/GetLatLongFromAddress";
-import {SafeFoodEstablishmentMapper} from "@/app/infra/gateway/safefood/mappers/SafeFoodEstablishmentMapper";
-import {SafeFoodEstablishmentModel} from "@/app/infra/gateway/safefood/models/SafeFoodEstablishment";
-import {Box} from "@/components/atoms/box";
-import {ImageAtom} from "@/components/atoms/img";
-import {Loading} from "@/components/atoms/loading";
-import {Text} from "@/components/atoms/text";
-import {Subtitle} from "@/styles/components/text/Subtitle";
-import {GoogleMap, LoadScript, Marker, MarkerF, OverlayView, OverlayViewF} from "@react-google-maps/api";
-import React, {useEffect, useState} from "react";
+import { Establishment } from "@/app/domain/entities/Establishment";
+import { Cache } from "@/app/domain/protocols/Cache";
+import { GetLatLongFromAddress, LatLong } from "@/app/domain/usecases/GetLatLongFromAddress";
+import { SafeFoodEstablishmentMapper } from "@/app/infra/gateway/safefood/mappers/SafeFoodEstablishmentMapper";
+import { SafeFoodEstablishmentModel } from "@/app/infra/gateway/safefood/models/SafeFoodEstablishment";
+import { Box } from "@/components/atoms/box";
+import { ImageAtom } from "@/components/atoms/img";
+import { Loading } from "@/components/atoms/loading";
+import { Text } from "@/components/atoms/text";
+import { Subtitle } from "@/styles/components/text/Subtitle";
+import { GoogleMap, LoadScript, Marker, MarkerF, OverlayView, OverlayViewF } from "@react-google-maps/api";
+import React, { useEffect, useState } from "react";
 
-const containerStyle={
+const containerStyle = {
     width: '80vw',
     height: '60vh'
 };
 
-export type MapsProps={
+export type MapsProps = {
     getLatLongFromAddress: GetLatLongFromAddress;
     establishment: Establishment;
 };
 
-export const MapsPage: React.FC<MapsProps>=({establishment, getLatLongFromAddress}) => {
+export const MapsPage: React.FC<MapsProps> = ({ establishment, getLatLongFromAddress }) => {
 
-    const GOOGLE_API_KEY=import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+    const GOOGLE_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
-    const [center, setCenter]=useState<LatLong>({} as LatLong);
+    const [center, setCenter] = useState<LatLong>({} as LatLong);
 
     useEffect(() => {
         getLatLongFromAddress.execute({
@@ -37,7 +37,7 @@ export const MapsPage: React.FC<MapsProps>=({establishment, getLatLongFromAddres
             }).catch();
     }, []);
 
-    return center&&establishment? (
+    return center && center.lat && establishment ? (
         <LoadScript
             googleMapsApiKey={GOOGLE_API_KEY}
         >
@@ -57,7 +57,7 @@ export const MapsPage: React.FC<MapsProps>=({establishment, getLatLongFromAddres
                         <ImageAtom style={{
                             borderRadius: "4px",
                             marginBottom: 12
-                        }} src={establishment!.params.imagem||"https://via.placeholder.com/300"} width={100} />
+                        }} src={establishment!.params.imagem || "https://via.placeholder.com/300"} width={100} />
                         <Subtitle color="white" center>{establishment!.params.nome}</Subtitle>
                         <br />
                         <Text typeText="text-md" color="white" style={{
@@ -69,6 +69,6 @@ export const MapsPage: React.FC<MapsProps>=({establishment, getLatLongFromAddres
 
             </GoogleMap>
         </LoadScript>
-    ):<Box><Loading size={40} /></Box>;
+    ) : <Box><Loading size={40} /></Box>;
 };
 export default MapsPage;
